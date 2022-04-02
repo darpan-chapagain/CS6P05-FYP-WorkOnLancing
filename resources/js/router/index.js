@@ -11,10 +11,12 @@ import middlewarePipeline from "./middlewarePipeline";
 
 Vue.use(VueRouter);
 
+import JobRequest from "../components/pages/JobRequests.vue";
+
 /* Guest Component */
 const Test2 = () =>
     import(
-        "../components/pages/tests/chat.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/tests/mypostTest.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Test = () =>
     import(
@@ -34,7 +36,11 @@ const PostJob = () =>
     );
 const Proposal = () =>
     import(
-        "../components/pages/PostJob.vue" /* webpackChunkName: "resource/js/components/register" */
+        "../components/pages/Proposal.vue" /* webpackChunkName: "resource/js/components/register" */
+    );
+    const Proposals = () =>
+    import(
+        "../components/pages/Proposals.vue" /* webpackChunkName: "resource/js/components/register" */
     );
 const Requests = () =>
     import(
@@ -139,7 +145,7 @@ const Routes = [
             {
                 name: "dashboard.admin",
                 path: "dashboard/admin",
-                component: UserDashboard,
+                component: EmployeeDashboard,
                 meta: {
                     middleware: [auth, admin],
                 },
@@ -148,7 +154,7 @@ const Routes = [
     },
     {
         name: "postJob",
-        path: "/post-job",
+        path: "/post/job",
         component: PostJob,
         
     },
@@ -156,6 +162,14 @@ const Routes = [
         name: "proposal",
         path: "/proposal",
         component: Proposal,
+        meta: {
+            middleware: [auth],
+        },
+        
+    },{
+        name: "offer",
+        path: "/job/offers",
+        component: Proposals,
         meta: {
             middleware: [auth],
         },
@@ -172,11 +186,9 @@ const Routes = [
     },
     {
         name: "profile",
-        path: "/profile",
+        path: "/profile/:id/",
         component: UserProfile,
-        meta: {
-            middleware: [auth],
-        },
+        props: true
         
     },
     {
@@ -195,8 +207,15 @@ const Routes = [
         meta: {
             middleware: [auth],
         },
+        props: true,
         
     },
+    {
+        name: "jobRequest",
+        path: "/job/requests",
+        component: JobRequest,
+        props: true,
+    }
 ];
 
 var router = new VueRouter({

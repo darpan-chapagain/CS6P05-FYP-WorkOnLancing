@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\JobCategory;
 use App\Models\Employee;
+use App\Models\Employee_Skill;
 use App\Models\User;
 use App\Models\UserRoles;
 use App\Models\Job;
@@ -27,11 +28,25 @@ class JobCategorySeeder extends Seeder
         }
         Job::factory()->times(25)->create();
         Employee::factory()->times(50)->create();
-        for($i=2;$i<=51;$i++){
+        for($i=51;$i<=102;$i++){
             UserRoles::create([
                 'user_id' => $i,
                 'role_id' => 3,
             ]); 
+        }
+        for($i=1;$i<=50;$i++){
+            Employee_Skill::create([
+                'employee_id' => $i,
+                'skill_id' => rand(1,2),
+            ]);
+            Employee_Skill::create([
+                'employee_id' => $i,
+                'skill_id' => rand(3,4),
+            ]);
+            Employee_Skill::create([
+                'employee_id' => $i,
+                'skill_id' => rand(5,6),
+            ]);
         }
     }
 }

@@ -558,7 +558,9 @@
 </template>
 
 <script>
+import axios from "axios";
 import Images from "../app_component/bannerImage.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Images,
@@ -568,9 +570,8 @@ export default {
       valid: true,
       e1: 1,
       step: 1,
-      sex: null,
       skill: null,
-      categories: ["Programming", "Design", "Vue", "Vuetify"],
+      categories: [],
       scope: null,
       experience: null,
       payment: true,
@@ -618,6 +619,9 @@ export default {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
+    ...mapGetters({
+      token: "auth/getToken",
+    }),
   },
 
   watch: {
@@ -646,8 +650,14 @@ export default {
       }
       return !!value || "Required.";
     },
-    submit() {
-      alert(this.title);
+    async submit() {
+      // console.log(this.token);
+      let res = await axios({
+        method: "post",
+        url: "job",
+        headers: { Authorization: `Bearer ${this.token}` },
+        data: this.formData(),
+      });
     },
     validate(type) {
       if (type == "info") {
@@ -690,30 +700,56 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     async sendDate(value) {
-      await axios.post(`api/job`, {
+      await axios.post(`/job`, {
         time: value,
       });
     },
     created() {
-      console.log(moment(this.date).format("YYYY-MM-DDThh:mm"));
+      console.log(moment(this.date).format("dd.mm.YYYY"));
     },
     //for skills
     async getSkill() {
-      const res = await axios.get("api/skill");
+      const res = await axios.get("/skill");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
         // console.log(res.data[i].skill);
         this.items.push(res.data[i].skill);
       }
     },
+    async getCategories() {
+      const res = await axios.get("jobs/category");
+      let skill_data = [];
+      for (let i = 0; i < res.data.length; i++) {
+        // console.log(res.data[i].skill);
+        this.categories.push(res.data[i].category_name);
+      }
+    },
     async postSkill(val) {
-      await axios.post(`api/jobs_skill`, {
+      await axios.post(`/jobs_skill`, {
         skill: val,
       });
+    },
+    formData() {
+      let jobForm = new FormData();
+
+      jobForm.append("title", this.title);
+      jobForm.append("description", this.description);
+      jobForm.append("category", this.category);
+      jobForm.append("size", this.scope);
+      jobForm.append("experience", this.experience);
+      jobForm.append("payment", this.payment);
+      jobForm.append("salary_offered", this.hourlyRate);
+      jobForm.append("salary_offered", this.projectRate);
+      jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
+      for (let sk in this.skill) {
+        jobForm.append("skill[]", this.skill[sk]);
+      }
+      return jobForm;
     },
   },
   created() {
     this.getSkill();
+    this.getCategories();
   },
   //for budget
 };

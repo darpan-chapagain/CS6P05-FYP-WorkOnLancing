@@ -40,11 +40,11 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $employee = Employee::create([
             'user_id' => $request->user_id,
             'qualification' => $request->qualification,
-            'hourly_rate' => $request->hourly_rate, 
+            'hourly_rate' => $request->hourly_rate,
             'experience' => $request->experience,
             // 'skills' => $request->skills, 
             'employee_type' => $request->employee_type,
@@ -102,7 +102,7 @@ class EmployeeController extends Controller
         //
         $employee = Employee::find($request->id)->update($request->all());
         $response = [
-            'updated_employee' => $employee, 
+            'updated_employee' => $employee,
             'message' => 'sucess',
         ];
 
@@ -129,7 +129,8 @@ class EmployeeController extends Controller
         return response()->json($response);
     }
 
-    public function requstJob($id){
+    public function requestJob($id)
+    {
         $authEmployee = auth()->user();
         $job = Job::find($id);
 
@@ -139,17 +140,18 @@ class EmployeeController extends Controller
         // dd($job->id);
         // dd($employee->employee_id);
         // dd($authUserId, $jobPostUserId);
-        
+
         $empID = $employee->employee_id;
-        $employeeJob = JobRequest::where('employee_id', 1)->first();
+        $employeeJob = JobRequest::all()->where('employee_id', $employee->employee_id)
+            ->where('job_id', $job->id)->first();
         // dd($employeeJob);
-        
-        if($authUserId != $jobPostUserId){
-            if($employeeJob){
+
+        if ($authUserId != $jobPostUserId) {
+            if ($employeeJob) {
                 $response = [
                     'message' => 'Already requested',
                 ];
-            }else{
+            } else {
                 $jobRequest = new JobRequest([
                     'employee_id' => $empID,
                     'job_id' => $job->id,
@@ -160,16 +162,44 @@ class EmployeeController extends Controller
                     'message' => 'success',
                 ];
             }
-        }else{
+        } else {
             $response = [
                 'message' => 'Error: Unauthorized',
             ];
         }
         return response()->json($response);
-
     }
 
-    public function jobOfferStatus(Request $request, $jobId){
+    public function checkRequest($id)
+    {
+        $authEmployee = auth()->user();
+        $job = Job::find($id);
+
+        $authUserId = $authEmployee->id;
+        $jobPostUserId = $job->user->id;
+        $employee = Employee::all()->where('user_id', $authUserId)->first();
+
+        $empID = $employee->employee_id;
+        $employeeJob = JobRequest::all()->where('employee_id', $employee->employee_id)
+            ->where('job_id', $job->id)->first();
+
+        if ($authUserId != $jobPostUserId) {
+            if ($employeeJob) {
+                $response = [
+                    'message' => 'Already requested',
+                ];
+            } 
+        }
+        else{
+            $response = [
+                'message' => 'Unauthorized',
+            ];
+        }
+        return response()->json($response);
+    }
+
+    public function jobOfferStatus(Request $request, $jobId)
+    {
         $authEmployee = auth()->user();
         // dd($authEmployee->first_name);
         $employee = Employee::all()->where('user_id', $authEmployee->id)->first();
@@ -179,26 +209,30 @@ class EmployeeController extends Controller
             ->where('job_id', $jobId)
             ->first();
         // dd($jobRequest);
-        if($request->status == "yes") {
+        if ($request->status == "yes") {
             $jobRequest->status = 2;
-        }else{
+        } else {
             $jobRequest->status = 4;
         }
-        
+
         $jobRequest->save();
     }
 
-    public function getOtherEmployee(){
+    public function getOtherEmployee()
+    {
         $userID = auth()->user()->id;
         $employees = Employee::all()->except($userID);
 
-        foreach ($employees as $employee){
+        foreach ($employees as $employee) {
             $employee->user;
             $employee->jobCategories;
+            $skills = $employee->employeeSkill;
+            foreach($skills as $sk){
+                $sk->allSkill;
+            }
         }
-        
-        return response()->json($employees);
 
+        return response()->json($employees);
     }
     // public function rateEmployee(Request $request, $employeeId, $jobId){
     //     $authUser = auth()->user();
@@ -209,4 +243,15 @@ class EmployeeController extends Controller
     //         'rating' => $request->rating,
     //     ]);
     // }
+    public function getEmployee($id)
+    {
+        $employee = Employee::find($id);
+        $employee->user;
+        $employee->jobCategories;
+        $skills = $employee->employeeSkill;
+            foreach($skills as $sk){
+                $sk->allSkill;
+            }
+        return response()->json($employee);
+    }
 }

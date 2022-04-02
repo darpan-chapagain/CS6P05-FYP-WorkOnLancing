@@ -12,7 +12,7 @@ import Vuetify from '../plugins/vuetify'
 import Vuex from 'vuex'
 import moment from 'moment';
 
-
+window.Vue = require("vue").default;
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
 window.moment = require('moment');

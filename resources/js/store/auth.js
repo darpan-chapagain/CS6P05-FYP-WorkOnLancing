@@ -22,6 +22,9 @@ export default {
         authenticated(state) {
             return state.authenticate;
         },
+        getToken(state) {
+            return state.token;
+        }
     },
 
     mutations: {

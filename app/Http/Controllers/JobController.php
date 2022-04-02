@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\JobCategory;
+use App\Models\Skill;
+use App\Models\PostSkill;
 use Session;
+use Carbon\Carbon;
+
 
 class JobController extends Controller
 {
@@ -41,19 +46,32 @@ class JobController extends Controller
     {
         // dd($request->user()->id);
         $userID = auth()->user()->id;
-        $job = new Job([
+        $categories = JobCategory::all()->where('category_name', $request->category)->first();
+        $job = Job::create([
             'user_id' => $userID,
             'title' =>  $request->title,
             'description' =>  $request->description,
-            'size' =>  $request->size, 
-            'time' =>  $request->time, 
+            'size' =>  $request->size,
+            'time' =>  Carbon::parse($request->time)->toDateTimeString(),
             'experience' =>  $request->experience,
-            'salary_offered' =>  $request->salary_offered,
-            'job_category_id' => $request->job_category_id,
+            // 'salary_offered' =>  $request->salary_offered,
+            'job_category_id' => $categories->job_category_id,
 
         ]);
+        // dd($request->skill);
+        // dd($job->id);
 
         $job->save();
+        // dd($request->skill);
+        // dd($job->id);
+        foreach ($request->skill as $sk) {
+            // dd($sk);
+            $skills = Skill::all()->where('skill', $sk)->first();
+            $jobSkill = PostSkill::create([
+                'skill' => $skills->id,
+                'job' => 1,
+            ]);
+        }
 
         $response = ['job' => $job];
         return response()->json($response);
@@ -88,7 +106,6 @@ class JobController extends Controller
             'job' => $job
         ];
         return response()->json($response);
-
     }
 
     /**
@@ -104,7 +121,6 @@ class JobController extends Controller
         // $job->update($request->all());
 
         return response()->json('The job successfully updated');
-
     }
 
     /**
@@ -130,17 +146,17 @@ class JobController extends Controller
             'job' => $job
         ];
         return response()->json($response);
-
     }
 
-    public function postStatusChange($id){
+    public function postStatusChange($id)
+    {
         $job = Job::find($id);
         $status = $job->status;
-        if($status == 1){
+        if ($status == 1) {
             $update = 3;
-        }elseif($status == 3){
+        } elseif ($status == 3) {
             $update = 1;
-        }elseif($status == 2){
+        } elseif ($status == 2) {
             $update = 4;
         }
         $job->update([
@@ -153,7 +169,8 @@ class JobController extends Controller
         return response()->json($response);
     }
 
-    public function getActivePost(){
+    public function getActivePost()
+    {
         $job = Job::where('status', '=', 1)->get();
         $response = [
             'active_post' => $job,
@@ -161,12 +178,13 @@ class JobController extends Controller
         return response()->json($response);
     }
 
-    public function getOtherJobs(){
+    public function getOtherJobs()
+    {
         $userID = auth()->user()->id;
         // $users = [];
         $totalJob = [];
         $jobs = Job::all()->where('status', '=', 1)->except($userID);
-        foreach ($jobs as $job){
+        foreach ($jobs as $job) {
             $job->user;
             $job->requestJob;
             // $job->requestJob;
@@ -180,7 +198,8 @@ class JobController extends Controller
         return response()->json($jobs);
     }
 
-    public function getInProgressJobs(){
+    public function getInProgressJobs()
+    {
         // dd('test');
         $authUser = auth()->user();
         // $job = Job::all()->where('user_id', $userID);
@@ -190,16 +209,16 @@ class JobController extends Controller
         // $job->user;
         $offer = [];
         $detailJob = [];
-        foreach($jobs as $job){
-            foreach($job->requestJob as $req){
+        foreach ($jobs as $job) {
+            foreach ($job->requestJob as $req) {
                 // array_push($offer, $req->job_id);
                 $stat = $req->status;
                 $emp = $req->reqEmployee;
                 $employees = $emp->user;
-                if($stat == 2){
-                    array_push($offer, $employees); 
-                    array_push($detailJob, $job->id); 
-                // array_push($offer, $employees);
+                if ($stat == 2) {
+                    array_push($offer, $employees);
+                    array_push($detailJob, $job->id);
+                    // array_push($offer, $employees);
                 }
             }
         }
@@ -210,7 +229,8 @@ class JobController extends Controller
         return response($response);
     }
 
-    public function completeJob(Request $request, $id){
+    public function completeJob(Request $request, $id)
+    {
         $userID = auth()->user()->id;
         $job = Job::select('*')
             ->where('user_id', $userID)
@@ -219,13 +239,35 @@ class JobController extends Controller
         $req = $job->requestJob[0];
         // $user = User::all()->where('id', $userID)->first();
         // dd($req->status);
-        if ($req->status == 2){
-            $req->status = 4;
+        if ($req->status == 4) {
+            $req->status = 6;
             $job->status = 4;
             // $user->points += 100;
         }
         $job->save();
         $req->save();
+        $response = [
+            'job' => $job
+        ];
+    }
+    public function deactivateJob(Request $request, $id)
+    {
+        $userID = auth()->user()->id;
+        $job = Job::select('*')
+            ->where('user_id', $userID)
+            ->where('id', $id)
+            ->first();
+        $job->status = 3;
+        // $req = $job->requestJob[0];
+        // $user = User::all()->where('id', $userID)->first();
+        // dd($req->status);
+        // if ($req->status == 4) {
+        //     $req->status = 6;
+        //     $job->status = 4;
+        //     // $user->points += 100;
+        // }
+        $job->save();
+        // $req->save();
         $response = [
             'job' => $job
         ];

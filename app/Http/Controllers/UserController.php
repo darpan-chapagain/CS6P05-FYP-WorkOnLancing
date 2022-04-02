@@ -7,6 +7,10 @@ use App\Models\User;
 use App\Models\Job;
 use App\Models\Employee;
 use App\Models\JobRequest;
+use App\Models\JobCategory;
+use App\Models\Skill;
+use App\Models\PostSkill;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Session;
 // use Illuminate\Support\Facades\Auth;
@@ -54,12 +58,24 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::all();
-
-        $response = [
-            'all users' => $user
-        ];
-        return response()->json($response);
+        $user = User::find($id);
+        $user->roles;
+        $emp = $user->employee;
+        // $emp->employeeSkill;
+        // $emp->jobCategories;
+        // $user->jobs;
+        if($emp){
+            $skill = $emp->employeeSkill;
+            $category = $emp->jobCategories;
+            foreach ($skill as $sk){
+                $sk->allSkill;
+            }
+        }else{
+            $skill = null;
+            $category = null;
+        }
+        
+        return response()->json($user);
     }
 
     /**
@@ -156,25 +172,36 @@ class UserController extends Controller
         // dd($job->id);
         // dd($employee->employee_id);
         // dd($authUserId, $employeeUserId);
+        $categories = JobCategory::all()->where('category_name', $request->category)->first();
 
         // dd($employee);
         if($authUserId != $id){
-            $job = new Job([
+            $job = Job::create([
                 'user_id' => $authUserId,
                 'title' =>  $request->title,
                 'description' =>  $request->description,
-                'size' =>  $request->size, 
-                'time' =>  $request->time, 
+                'size' =>  $request->size,
+                'time' =>  Carbon::parse($request->time)->toDateTimeString(),
                 'experience' =>  $request->experience,
-                'salary_offered' =>  $request->salary_offered,
-                'job_category_id' => $request->job_category_id,
+                // 'salary_offered' =>  $request->salary_offered,
+                'job_category_id' => $categories->job_category_id,
                 'status' => 2,
+    
             ]);
             $job->save();
+            foreach ($request->skill as $sk) {
+                // dd($sk);
+                $skills = Skill::all()->where('skill', $sk)->first();
+                $jobSkill = PostSkill::create([
+                    'skill' => $skills->id,
+                    'job' => $job->id,
+                ]);
+            }
 
             $jobRequest = new JobRequest([
                 'employee_id' => $employee->employee_id,
                 'job_id' => $job->id,
+                'status' => 2,
             ]);
 
             $jobRequest->save();
@@ -199,7 +226,7 @@ class UserController extends Controller
             ->where('employee_id', $employee->employee_id)
             ->where('job_id', $jobId)
             ->first();
-        $jobRequest->status = 2;
+        $jobRequest->status = 4;
         $jobRequest->save();
         $otherRequests = JobRequest::where('job_id', $jobId)
             ->where('job_employement_id', '!=', $jobRequest->job_employement_id);
@@ -223,7 +250,7 @@ class UserController extends Controller
         $authUser = auth()->user();
         $jobRequest = JobRequest::all()
             ->where('job_id', $jobId)
-            ->where('status', 2);
+            ->where('status', 4);
         $jobRequest->save();
         $response = [
             'pending_jobs' => $jobRequest,

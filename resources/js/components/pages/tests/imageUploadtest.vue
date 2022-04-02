@@ -1,74 +1,177 @@
 <template>
-  <v-form>
-      <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-            <!-- Here the image preview -->
-            <img :src="imageUrl" height="150" v-if="imageUrl"/>
-            <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon="mdi-file-image"></v-text-field>
-            <input
-              type="file"
-              style="display: none"
-              ref="image"
-              accept="image/jpeg, image/jpg, image/png"
-              @change="onFilePicked"
-            >
-            <v-btn @click="submitForm"></v-btn>
-</v-flex>
-  </v-form>
+  <div class="main-div">
+    <div class="login-card">
+      <div class="image-holder">
+        <img src="images/signin.png" alt="image" class="img-fluid" />
+      </div>
+      <div class="form-holder">
+        <div>
+          <h2>Sign In</h2>
+        </div>
+        <v-form>
+          <div class="form-group">
+            <v-text-field
+              v-model="auth.email"
+              class="form-input mb-2"
+              :rules="emailRules"
+              label="Email"
+              required
+            ></v-text-field>
+          </div>
+          <div class="form-group">
+            <v-text-field
+              v-model="auth.password"
+              class="form-input mb-2"
+              :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required]"
+              :type="show3 ? 'text' : 'password'"
+              name="input-10-2"
+              label="Password"
+              hint="At least 8 characters"
+              value=""
+              @click:append="show3 = !show3"
+            ></v-text-field>
+          </div>
+          <div class="form-group">
+            <v-btn class="btn btn-lg btn-block sign-in-btn mb-2" @click="login"> Login </v-btn>
+          </div>
+          <p>
+            Don't Have an Account?
+            <router-link :to="{ name: 'register' }">Register Now!</router-link>
+          </p>
+        </v-form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
- 
+import { mapActions } from "vuex";
 export default {
- 
-  data: () => ({
-    imageUrl: '',
-    imageFile: null,
-    imageName: '',
-  }),
- 
+  name: "login",
+  components: {
+    
+  },
+  data() {
+    return {
+      // loginImage: require("asset('images/signin.png')"),
+      auth: {
+        email: "",
+        password: "",
+      },
+      show3: false,
+      password: "Password",
+      rules: {
+        required: (value) => !!value || "Required.",
+        emailMatch: () => "Please enter a valid password",
+      },
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+    };
+  },
   methods: {
-    pickFile() {
-      this.$refs.image.click()
-    },
-    onFilePicked(e) {
-      const files = e.target.files
-      if(files[0] !== undefined) {
-        this.imageName = files[0].name
-        if (this.imageName.lastIndexOf('.') <= 0) {
-          return
-        }
-        const fr = new FileReader()
-        fr.readAsDataURL(files[0])
-        fr.addEventListener('load', () => {
-          this.imageUrl = fr.result
-          this.imageFile = files[0]
-        })
-      } else {
-        this.imageName = ''
-        this.imageFile = ''
-        this.imageUrl = ''
-      }
-    },
- 
-    submitForm() {
-        let formData = new FormData()
-        formData.append('image_file', this.imageFile)
- 
-        axios({
-                method: 'post',
-                url: '/register',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
+    ...mapActions({
+      signIn: "auth/login"
+    }),
 
-                }
-            })
-        console.log('test');
-      }
-    },
-  }
+    login(){
+      this.signIn(this.auth);
+    }
+  },
+};
 </script>
 
-<style>
+<style scoped>
+/* *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+} */
 
+.main-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 96vh;
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  align-items: center;
+}
+
+.image-holder {
+  padding-top: 25px;
+  width: 50%;
+}
+
+.image-holder img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.form-holder {
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.form-group .form-input {
+  max-width: 400px;
+  min-width: 300px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.btn {
+  max-width: 380px;
+  min-width: 240px;
+  width: 100%;
+  font-size: 18px;
+}
+
+.sign-in-btn {
+  background-color: #0c0b0b !important;
+  color: #ffffff !important;
+}
+
+@media only screen and (min-width: 769px) {
+  .login-card {
+    flex-direction: row;
+    max-width: 1022px;
+    min-width: 768px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+  }
+
+  .form-holder {
+    padding: 25px;
+    width: 40%;
+  }
+
+  .image-holder {
+    height: 100%;
+  }
+
+  .image-holder img {
+    height: 100%;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .login-card {
+    max-width: 1400px;
+    min-width: 1024px;
+  }
+}
 </style>

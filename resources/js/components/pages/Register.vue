@@ -691,7 +691,7 @@ export default {
     formData(){
       let userForm = new FormData();
 
-      userForm.append("profile", this.user.profile.files, this.user.profile.name);
+      userForm.append("profile", this.user.profile);
 
       userForm.append("first_name", this.user.first_name);
       userForm.append("last_name", this.user.last_name);
@@ -713,10 +713,10 @@ export default {
       userForm.append("employee_type", this.user.employee_type);
       userForm.append("qualification", this.user.qualification);
       userForm.append("about", this.user.about);
-      userForm.append("address", this.user.address);
+      userForm.append("Address", this.user.address);
       userForm.append("city", this.user.city);
       userForm.append("province", this.user.province);
-      userForm.append("phone_number", this.user.phone_number);
+      userForm.append("phone_no", this.user.phone_number);
       userForm.append("education", this.user.education);
       userForm.append("role_id", this.user.role_id);
       // let formData = new FormData()
@@ -731,9 +731,9 @@ export default {
 
     },
     async submitUser() {
-       let res = await this.signUp(this.user);
+       let res = await this.signUp(this.formData());
       console.log(res.data);
-      console.log(this.user);
+      console.log(this.formData());
 
     },
     async submitEmployee() {

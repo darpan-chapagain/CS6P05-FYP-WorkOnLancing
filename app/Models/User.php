@@ -26,7 +26,9 @@ class User extends Authenticatable
         'last_name',
         'phone_no',
         'Address',
-        'Gender',
+        'City',
+        'Province',
+        'gender',
         'birth_date',
         'email',
         'password',
@@ -56,7 +58,7 @@ class User extends Authenticatable
     ];
 
     public function roles(){
-        return $this->hasOne(Role::class);
+        return $this->hasOne(UserRoles::class, 'user_id', 'id');
     }
     public function employee(){
         return $this->hasOne(Employee::class, 'user_id', 'id');

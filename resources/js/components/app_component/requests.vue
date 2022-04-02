@@ -1,25 +1,89 @@
 <template>
   <div class="proposals p-2">
-        <v-btn text>
-            <v-avatar color="indigo" size="30" class="mr-3">
-          <span class="white--text text-h5">U</span>
-        </v-avatar>
-        Sent a request.
-        </v-btn>
-    <v-divider></v-divider>
-    <v-btn text>
-            <v-avatar color="indigo" size="30" class="mr-3">
-          <span class="white--text text-h5">U</span>
-        </v-avatar>
-        Sent a request.
-        </v-btn>
-    <v-divider></v-divider>
+    <div v-if="request">
+      <div class="dialog">
+        <v-dialog
+          v-model="dialog"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-card-actions >
+              <a style="width: 100%" v-bind="attrs" v-on="on" text>
+                <v-alert
+                  border="left"
+                  colored-border
+                  color="deep-purple accent-4"
+                  elevation="2"
+                  style="width: 100%"
+                >
+                  <div class="d-flex">
+                    <v-avatar size="40" class="mr-3">
+                      <img
+                        :src="'/images/202203281818DSC00425.jpg'"
+                        alt="image"
+                        class="img-fluid"
+                      />
+                    </v-avatar>
+                    <p>
+                      {{ request.employee_user.first_name }} applied for "{{
+                        request.title
+                      }}"
+                    </p>
+                  </div>
+                </v-alert>
+                <v-divider></v-divider>
+              </a>
+            </v-card-actions>
+          </template>
+          <v-card>
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>Request Detail</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn icon dark @click="dialog = false">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </v-toolbar-items>
+            </v-toolbar>
+            <div style="min-height:100vh">
+              <RequestDetail 
+                :request_detail="request"
+              />
+            </div>
+            <v-bottom-navigation :value="value" background-color="blue" grow>
+              <v-btn icon @click="dialog = false">
+                <v-icon color="white">mdi-close</v-icon>
+              </v-btn>
+            </v-bottom-navigation>
+          </v-card>
+        </v-dialog>
+      </div>
+    </div>
+    <div v-else>No Requests</div>
   </div>
 </template>
 
 <script>
+import RequestDetail from './requestDetail.vue';
 export default {
+  components: { RequestDetail },
   name: "Requests",
+  props: {
+    request: [Object, Array],
+  },
+  data() {
+    return {
+      dialog: false,
+      value: null,
+    };
+  },
+  methods: {
+    test() {
+      alert("yooo");
+    },
+  },
 };
 </script>
 
