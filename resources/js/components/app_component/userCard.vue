@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+  <v-card :loading="loading" class="mx-auto my-12" max-width="674">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -8,12 +8,16 @@
       ></v-progress-linear>
     </template>
 
-    <v-img
-      height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
+    <img
+      :src="'/' + this.img_path"
+      alt="image"
+      class="img-fluid"
+      style="object-fit: cover; object-position: center; width: 100%"
+    />
 
-    <v-card-title>Employee Name</v-card-title>
+    <v-card-title
+      >{{ a_user.user.first_name }} {{ a_user.user.last_name }}</v-card-title
+    >
 
     <v-card-text>
       <v-row align="center" class="">
@@ -35,13 +39,15 @@
           <div class="grey--text ms-4">
             <v-chip outlined color="green" class="m-1">
               <v-icon class="p-1">mdi-cash</v-icon>
-              $20</v-chip
+              ${{ a_user.project_rate }}</v-chip
             >
           </div>
         </v-col>
       </v-row>
 
-      <div class="my-4 text-subtitle-1">Job Category</div>
+      <div class="my-4 text-subtitle-1">
+        {{ a_user.job_categories.category_name }}
+      </div>
 
       <div>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam,
@@ -55,15 +61,13 @@
 
     <v-card-text>
       <v-chip-group v-model="selection" column>
-        <v-chip>Skill 1</v-chip>
-
-        <v-chip>Skill 2</v-chip>
-
-        <v-chip>Skill 3</v-chip>
+        <div v-for="skill in a_user.employee_skill" :key="skill.id">
+          <v-chip>{{ skill.all_skill.skill }}</v-chip>
+        </div>
       </v-chip-group>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="deep-purple lighten-2" text @click="reserve">
+      <v-btn color="deep-purple lighten-2" text @click="profile">
         Visit Profile
       </v-btn>
     </v-card-actions>
@@ -73,16 +77,32 @@
 <script>
 export default {
   name: "UserCard",
+  props: {
+    a_user: [Array, Object],
+  },
   data: () => ({
     loading: false,
+    selection: null,
+    img_path: "",
   }),
 
   methods: {
-    reserve() {
+    profile() {
       this.loading = true;
 
       setTimeout(() => (this.loading = false), 2000);
+
+      this.$router.push({
+        name: "profile",
+        params: {
+          id: this.a_user.user.id,
+          a_user: this.a_user,
+        },
+      });
     },
+  },
+  async created() {
+    this.img_path = await this.a_user.user.profile_path;
   },
 };
 </script>

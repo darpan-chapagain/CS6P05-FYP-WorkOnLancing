@@ -40,7 +40,6 @@ export default {
   watch: {
     model (val) {
       if (val.length > 5) {
-        alert("test");
         this.$nextTick(() => this.model.pop())
       }
     },

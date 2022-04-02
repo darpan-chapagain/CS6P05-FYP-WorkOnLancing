@@ -18,21 +18,28 @@
 
           <v-spacer></v-spacer>
 
-          <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-
-          <div class="navbar-nav m-3" v-if="isLoggedIn">
-            <a class="nav-item nav-link" style="cursor: pointer" @click="logout"
-              >Logout</a
-            >
+          <div class="navbar-nav m-3">
+            <a href="/">Home</a>
           </div>
 
-          <v-menu left bottom>
+          <!-- <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn> -->
+
+          <div v-if="this.authenticated" class="d-flex">
+            <div class="navbar-nav m-3" v-if="this.role == 3"><a href="/dashboard">Find Jobs</a></div>
+            <div class="navbar-nav m-3" v-if="this.role == 2"><a href="/dashboard">Find Employee</a></div>
+            <div class="navbar-nav m-3"><a href="/post/job">Post Jobs</a></div>
+            <div class="navbar-nav m-3"><a href="/requests">View Requests</a></div>
+          </div>
+
+          <div v-else class="d-flex">
+            <div class="navbar-nav m-3">
+              <a href="/login">Login</a>
+            </div>
+          </div>
+
+          <v-menu left bottom v-if="this.authenticated">
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="m-3">
                 <v-avatar>
@@ -46,7 +53,14 @@
 
             <v-list>
               <v-list-item @click="() => {}">
-                <v-list-item-title> Option 1 </v-list-item-title>
+                <v-list-item-title>
+                  <a
+                    class="nav-item nav-link"
+                    style="cursor: pointer"
+                    @click.prevent="logOut"
+                    >Logout</a
+                  >
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -125,14 +139,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {
   name: "App",
-  created() {
-    if (window.Laravel.isLoggedin) {
-      this.isLoggedIn = true;
-    }
-  },
   data() {
     return {
       isLoggedIn: false,
@@ -143,30 +153,24 @@ export default {
   },
   methods: {
     ...mapActions({
-      signOut: "auth/logout",
+      signOutAction: "auth/signOut",
     }),
-    created() {
-      if (window.Laravel.isLoggedin) {
-        this.isLoggedIn = true;
-      }
-    },
-    async logout() {
-      await axios.get("/sanctum/csrf-cookie").then((response) => {
-        axios
-          .post("/api/logout")
-          .then((response) => {
-            if (response.data.success) {
-              console.log(response.data.success);
-              window.location.href = "/login";
-            } else {
-              console.log(response);
-            }
+    logOut() {
+      this.signOutAction().then(() => {
+        this.$router
+          .push({
+            name: "login",
           })
-          .catch(function (error) {
-            console.error(error);
-          });
+          .catch(() => {});
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated",
+      user: "auth/user",
+      role: "auth/getRole",
+    }),
   },
 };
 </script>

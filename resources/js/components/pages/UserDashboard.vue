@@ -46,8 +46,13 @@
           <v-container>
             <v-row>
               <h2 style="text-align: center">Find Employees!</h2>
-              <v-col v-for="n in 9" :key="n" cols="12" md="6" lg="4">
-                <Users />
+              <v-col
+                v-for="a_user in allUsers"
+                :key="a_user.employee_id"
+                cols="12"
+                md="12"
+              >
+                <Users :a_user="a_user" />
               </v-col>
             </v-row>
           </v-container>
@@ -72,7 +77,34 @@
               <h3 class="text-center">Job Requests</h3>
             </div>
             <v-divider></v-divider>
-            <Requests />
+            <div v-if="allRequests">
+              <div v-for="index in 3" :key="index">
+                <div>
+                  <Requests
+                    v-if="allRequests[index - 1]"
+                    :request="allRequests[index - 1]"
+                  />
+                  <!-- {{ allRequests[1] }} -->
+                </div>
+
+                <!-- {{ allRequests }} -->
+              </div>
+               <v-btn width="100%" @click="seeAll">See All</v-btn>
+            </div>
+            <div v-else>
+              <v-alert
+                border="left"
+                colored-border
+                color="red accent-4"
+                elevation="2"
+                style="width: 100%"
+              >
+                <div class="d-flex ml-5">
+                  <p>No requests yet!"</p>
+                </div>
+              </v-alert>
+            </div>
+
           </v-card>
         </v-sheet>
       </v-col>
@@ -86,6 +118,8 @@ import Jobs from "../app_component/dashboardJob.vue";
 import User from "../app_component/user.vue";
 import Requests from "../app_component/requests.vue";
 import Users from "../app_component/userCard.vue";
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -98,8 +132,49 @@ export default {
   name: "dashboard",
   data() {
     return {
-      user: this.$store.state.auth.user,
+      allUsers: [],
+      // allRequests: [],
     };
+  },
+  methods: {
+    async fetchUsers() {
+      const res = await axios.get("employee/all");
+
+      const data = await res.data;
+
+      return data;
+    },
+    // async fetchRequests(){
+    //   const res = await axios.get('user/job/requests')
+
+    //   const data = await res.data;
+
+    //   return data;
+    // },
+    ...mapActions({
+      fetchRequests: "requests/fetchRequest",
+    }),
+    seeAll() {
+      this.$router
+        .push({
+          name: "jobRequest",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
+  },
+  async created() {
+    this.allUsers = await this.fetchUsers();
+    console.log(this.allUsers);
+    await this.fetchRequests();
+    // this.fetchRequests(localStorage.getItem('token'));
+  },
+  computed: {
+    ...mapGetters({
+      allRequests: "requests/job_Request",
+    }),
   },
 };
 </script>

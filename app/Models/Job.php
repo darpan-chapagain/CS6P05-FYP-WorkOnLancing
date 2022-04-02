@@ -13,7 +13,9 @@ class Job extends Model
 
     protected $fillable = ['user_id','title', 'description', 'size', 'time', 'experience', 'salary_offered', 'job_category_id', 'status'];
 
-    public function jobskill(){
+
+
+    public function jobSkill(){
         return $this->hasMany(PostSkill::class, 'job', 'id');
     }
 

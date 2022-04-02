@@ -1,16 +1,24 @@
 <template>
   <div class="pt-5 m-6 main-container">
-    <div class="p-5" style="display:flex; justify-content: center">
+    <div class="p-5" style="display: flex; justify-content: center">
       <v-text-field
         label="Search"
         hide-details
         prepend-icon="mdi-magnify"
         single-line
-        style="max-width: 600px;"
+        style="max-width: 600px"
       ></v-text-field>
     </div>
     <v-row class="dashboard-container">
-      <v-col cols="12" sm="5" md="6" lg="3" order-md="1" order-sm="1" order-lg="1">
+      <v-col
+        cols="12"
+        sm="5"
+        md="6"
+        lg="3"
+        order-md="1"
+        order-sm="1"
+        order-lg="1"
+      >
         <v-sheet rounded="lg" min-height="268">
           <!--  -->
           <v-card elevation="6" class="p-3">
@@ -22,12 +30,20 @@
             <Availability class="test" />
             <v-divider></v-divider>
             <MyServices />
-            
           </v-card>
         </v-sheet>
       </v-col>
 
-      <v-col cols="12" sm="12" md="12" lg="7" class="right-contents" order-md="3" order-sm="3" order-lg="2">
+      <v-col
+        cols="12"
+        sm="12"
+        md="12"
+        lg="7"
+        class="right-contents"
+        order-md="3"
+        order-sm="3"
+        order-lg="2"
+      >
         <v-sheet min-height="70vh" rounded="lg">
           <!--  -->
           <v-card elevation="6">
@@ -39,12 +55,21 @@
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Deserunt, rerum.
             </div>
-            <Jobs />
+            <Jobs :allJobs="allJobs" />
           </v-card>
         </v-sheet>
       </v-col>
 
-      <v-col cols="12" sm="7" md="6" lg="2" class="right-contents" order-md="2" order-sm="2" order-lg="3">
+      <v-col
+        cols="12"
+        sm="7"
+        md="6"
+        lg="2"
+        class="right-contents"
+        order-md="2"
+        order-sm="2"
+        order-lg="3"
+      >
         <v-sheet rounded="lg" min-height="268">
           <!--  -->
           <v-card elevation="6" class="p-3">
@@ -68,7 +93,7 @@
                             </v-radio-group>
                         </v-container>
                     </div> -->
-            <FilterBy class="filter"/>
+            <FilterBy class="filter" />
           </v-card>
         </v-sheet>
         <v-sheet rounded="lg" min-height="268">
@@ -78,7 +103,15 @@
               <h3 class="text-center">Proposals</h3>
             </div>
             <v-divider></v-divider>
-            <Proposals />
+            <div v-if="allProposals">
+              <div v-for="index in 3" :key="index">
+                <Proposals
+                  v-if="allProposals.job[index - 1]"
+                  :proposals="allProposals.job[index - 1]"
+                />
+              </div>
+              <v-btn width="100%" @click="seeAll">See All</v-btn>
+            </div>
           </v-card>
         </v-sheet>
       </v-col>
@@ -93,6 +126,9 @@ import User from "../app_component/user.vue";
 import Availability from "../app_component/availibility.vue";
 import MyServices from "../app_component/myservices.vue";
 import Proposals from "../app_component/proposals.vue";
+import axios from "axios";
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -106,12 +142,49 @@ export default {
   name: "dashboard",
   data() {
     return {
-      user: this.$store.state.auth.user,
+      allJobs: [],
+      // allRequests: [],
     };
+  },
+  methods: {
+    async fetchJobs() {
+      const res = await axios.get("/jobs/all");
+
+      const data = await res.data;
+
+      return data;
+    },
+    ...mapActions({
+      fetchProposals: "requests/fetchProposals",
+    }),
+    seeAll() {
+      this.$router.push({
+        name: "offer",
+        params: {
+          proposals: this.allProposals,
+        },
+      }).catch(() => {});;
+    },
+    // async fetchRequests(){
+    //   const res = await axios.get('user/job/requests')
+
+    //   const data = await res.data;
+
+    //   return data;
+    // }
+  },
+  async created() {
+    this.allJobs = await this.fetchJobs();
+    await this.fetchProposals();
+    // this.allRequests = await this.fetchRequests()
+  },
+  computed: {
+    ...mapGetters({
+      allProposals: "requests/job_Proposal",
+    }),
   },
 };
 </script>
 
 <style scoped>
-
 </style>

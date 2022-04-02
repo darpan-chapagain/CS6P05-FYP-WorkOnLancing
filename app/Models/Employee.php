@@ -20,4 +20,12 @@ class Employee extends Model
     public function jobRequests(){
         return $this->hasMany(JobRequest::class, 'employee_id', 'employee_id');
     }
+
+    public function jobCategories(){
+        return $this->hasOne(JobCategory::class, 'job_category_id', 'Job_Category_ID');
+    }
+
+    public function employeeSkill(){
+        return $this->hasMany(Employee_Skill::class, 'employee_id', 'employee_id');
+    }
 }

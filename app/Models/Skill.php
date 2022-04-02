@@ -13,7 +13,12 @@ class Skill extends Model
 
     protected $fillable = ['Role'];
 
-    public function skilljob(){
+    public function skillJob(){
         return $this->hasMany(PostSkill::class, 'skill', 'id');
     }
+
+    public function skillEmployee(){
+        return $this->hasMany(Employee_Skill::class, 'skill_id', 'id');
+    }
+    
 }

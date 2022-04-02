@@ -13,12 +13,12 @@ class PostSkill extends Model
     
     public $timestamps = false;
 
-    protected $fillable = ['skill'];
+    protected $fillable = ['job','skill'];
 
-    public function jobskill(){
+    public function jobSkill(){
         return $this->belongsTo(Skill::class, 'skill');
     }
-    public function skilljob(){
+    public function skillJob(){
         return $this->belongsTo(Job::class, 'job');
     }
 }

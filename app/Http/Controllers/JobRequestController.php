@@ -98,17 +98,31 @@ class JobRequestController extends Controller
                 // array_push($offer, $req->job_id);
                 $emp = $req->reqEmployee;
                 $employees = $emp->user;
+                $emp->jobCategories;
                 if($job->status == 1){
                     if ($req->status == 1){
-                        array_push($offer, $employees); 
+                        $message = [
+                            'job_id' => $job->id,
+                            'title' => $job->title,
+                            'client_id' => $job->user_id,
+                            'employee_user' => $employees,
+                            'employee_id' => $emp->employee_id,
+                            'employee' => $emp,
+                            'application' => $req->status,
+                        ];
+                        array_push($offer, $message); 
                     }
                 // array_push($offer, $employees);
                 }
             }
         }
-        $response = [
-            'employees' => $req->reqEmployee,
-        ];
+        // $response = [
+        //     'employees' => $req->reqEmployee,
+
+        // ];
+        if($offer == null){
+            return response()->json(['message' => 'No job requests']);
+        }
         return response($offer);
     }
 
@@ -124,15 +138,19 @@ class JobRequestController extends Controller
             // dd($jobOffer->detailJob);
             $jobDetail = $jobOffer->detailJob;
             // dd($jobDetail->user);
-            if($jobOffer->status == 1){
-                array_push($offer, $jobDetail->user);
+            if($jobOffer->status == 2){
+                // array_push($offer, $jobDetail->user);
+                $jobDetail->user;
                 array_push($responseJob, $jobDetail); 
             }
             // array_push($offer, $jobDetail->user);
         }
         // dd($jobOffer->reqEmployee);
+        if($responseJob == null){
+            return response()->json(['message' => 'No job offers']);
+        }
         $response = [
-            'offer' => $offer,
+            // 'offer' => $offer,
             'job' => $responseJob
         ];
         return response($response);
@@ -152,7 +170,7 @@ class JobRequestController extends Controller
                 $emp = $req->reqEmployee;
                 $employees = $emp->user;
                 if($job->status == 2){
-                    if ($req->status == 1){
+                    if ($req->status == 2){
                         array_push($offer, $employees); 
                         array_push($detailJob, $job); 
                     }

@@ -28,15 +28,40 @@ class AuthController extends Controller
             'role_id' =>  'required'
         ]);
         // dd('test');
+        // dd($request->profile);
+        // if ($files = $request->profile('profile')) {
+        //     // $profile_name = time().'_'.$request->profile->getClientOriginalName();
+        //     // $profile_path = $request->profile->storeAs('uploads', $profile_name, 'public');
+        //     $destinationPath = public_path('/profile_images/'); // upload path
+        //     // Upload Orginal Image           
+        //     $profile_name = date('YmdHis') . "." . $files->getClientOriginalExtension();
+        //     $files->move($destinationPath, $profile_name);
 
+        // }
+        $profile_name = '202203281818DSC00425.JPG';
+        $profile_path = 'images/202203281818DSC00425.jpg';
+        
+        if($request->file('profile')){
+            $file= $request->file('profile');
+            $profile_name= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('images'), $profile_name);
+            $profile_path = 'images/' .$profile_name;
+        }
         try {
             $user = User::create([
                 'first_name' => $fields['first_name'],
                 'last_name' => $fields['last_name'],
                 'email' => $fields['email'],
                 'password' => bcrypt($fields['password']),
+                'profile' => $profile_name,
+                'profile_path' => $profile_path,
+                'phone_no' => $request->phone_no,
+                'Address' => $request->Address,
+                'City' => $request->city,
+                'Province' => $request->province,
+                'gender' => $request->gender,
             ]);
-
+            // dd($user);
             $userRole = UserRoles::create([
                 'user_id' => $user->id,
                 'role_id' => $fields['role_id']
@@ -54,22 +79,24 @@ class AuthController extends Controller
 
         try {
             if ($fields['role_id'] == 3) {
+                $categories = JobCategory::all()->where('category_name', $request->category)->first();
                 $employee = Employee::create([
                     'user_id' => $user->id,
                     'qualification' => $request->qualification,
                     'hourly_rate' => $request->hourly_rate,
                     'experience' => $request->experience,
                     'employee_type' => $request->employee_type,
-                    'Job_Category_ID' => $request->Job_Category_ID,
+                    'Job_Category_ID' => $categories->job_category_id,
                 ]);
 
-                $categories = JobCategory::all()->where('category_name', $request->category)->first();
-                $employeeCategory = Employee_JobCategory::create([
-                    'job_category_id' => $categories->job_category_id,
-                    'employee_id' => $employee->employee_id,
-                ]);
+                // $categories = JobCategory::all()->where('category_name', $request->category)->first();
+                // $employeeCategory = Employee_JobCategory::create([
+                //     'job_category_id' => $categories->job_category_id,
+                //     'employee_id' => $employee->employee_id,
+                // ]);
 
                 foreach ($request->skill as $sk) {
+                    // dd($sk);
                     $skills = Skill::all()->where('skill', $sk)->first();
                     $employeeSkill = Employee_Skill::create([
                         'skill_id' => $skills->id,
@@ -171,7 +198,6 @@ class AuthController extends Controller
 
 
         $response = [
-            'test' => Auth::user(),
             'user' => $user,
             'token' => $token,
             'success' => $success,
@@ -181,7 +207,8 @@ class AuthController extends Controller
         // return response($response, 201);
         return response()->json($response);
     }
-    public function me(){
+    public function me()
+    {
         $data = auth()->user();
         $role = UserRoles::all()->where('user_id', $data->id)->first();
         $message = [

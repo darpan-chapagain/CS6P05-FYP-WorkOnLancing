@@ -50,20 +50,25 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::resource('/job', JobController::class);
     Route::get('/jobs/user/show', [JobController::class, 'myPost']);
     // Route::resource('/jobs/skill', PostSkillController::class);
-    Route::post('/employee/request/{id}', [EmployeeController::class, 'requstJob']);//request jobs from posted job
+    Route::post('/employee/request/{id}', [EmployeeController::class, 'checkRequest']);
+    Route::get('/employee/check/{id}', [EmployeeController::class, 'requestJob']);//request jobs from posted job
     Route::post('/user/offer/{id}', [UserController::class, 'offerJob']);//offer job to an employee
-    Route::get('/user/my-job/requests', [JobRequestController::class, 'jobRequests']); //this is to get job requests by employer
-    Route::get('/user/my-job/offers', [JobRequestController::class, 'getMyJobProposals']); //this is to get job offer to employer
+    Route::get('/user/job/requests', [JobRequestController::class, 'jobRequests']); //this is to get job requests by employer
+    Route::get('/user/job/offers', [JobRequestController::class, 'getMyJobProposals']); //this is to get job offer to employer
     Route::get('/employee/offers', [JobRequestController::class, 'jobOffer']); //this is to get job offer to employee
     Route::get('/job/progress/', [JobController::class, 'getInProgressJobs']); //this is to get job in progress
     Route::post('/job/complete/{id}', [JobController::class, 'completeJob']); //this is to complete a job
     Route::post('/user/choose/{userId}/{jobId}', [UserController::class, 'chooseEmployee']); //this is to choose employee
     Route::post('/user/reject/{userId}/{jobId}', [UserController::class, 'rejectEmployee']); //this is to reject employee
     Route::post('/employee/accept/{jobId}', [EmployeeController::class, 'jobOfferStatus']);
+    Route::get('/jobs/all/', [JobController::class, 'getOtherJobs']);
+    Route::get('/employee/all/', [EmployeeController::class, 'getOtherEmployee']);
+    Route::get('/employee/detail/{id}', [EmployeeController::class, 'getEmployee']);
     Route::resource('/blog', BlogController::class);
     //this is to accept jos by employee
 });
 Route::resource('/jobs/category', JobCategoryController::class);
+Route::resource('/employee', EmployeeController::class);
 // Route::resource('/job', JobController::class);
 Route::resource('/skill', SkillController::class);
 Route::resource('/user', UserController::class);
