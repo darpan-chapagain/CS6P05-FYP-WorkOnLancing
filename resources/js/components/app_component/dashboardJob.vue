@@ -27,7 +27,7 @@
 export default {
     name: 'Jobs',
     props: {
-        allJobs: Array,
+        allJobs: [Array, Object],
         view: String,
     },
     components: {

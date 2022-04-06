@@ -182,9 +182,6 @@
     </div>
   </div>
 </template>
-    </div>
-  </div>
-</template>
 
 <script>
 import Jobs from "../app_component/dashboardJob.vue";

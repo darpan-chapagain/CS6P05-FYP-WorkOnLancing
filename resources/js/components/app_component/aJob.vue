@@ -49,7 +49,9 @@
             </v-toolbar>
 
             <div v-if="role == 3">
-              <ApplyJob :a_job_detail="a_job" />
+              <ApplyJob :a_job_detail="a_job" 
+                :message="view"
+              />
             </div>
             <div v-else>
               <div v-if="view == 'all'">
@@ -235,7 +237,7 @@ export default {
     JobDetail,
   },
   props: {
-    a_job: Object,
+    a_job: [Object, Array],
     view: String,
   },
   data() {
@@ -264,21 +266,21 @@ export default {
         });
       });
     },
-    async stop() {
-
-    },
+    async stop() {},
     async rate(user) {
       // console.log(this.a_job);
-      this.$router.push({
-        name: "userRating",
-        params: {
-          a_job_detail: this.a_job,
-          a_user: user,
-        },
-      }).then(() => {
+      this.$router
+        .push({
+          name: "userRating",
+          params: {
+            a_job_detail: this.a_job,
+            a_user: user,
+          },
+        })
+        .then(() => {
           localStorage.setItem("a_job_detail", JSON.stringify(this.a_job));
           localStorage.setItem("a_user", JSON.stringify(user));
-        });;
+        });
     },
   },
   computed: {

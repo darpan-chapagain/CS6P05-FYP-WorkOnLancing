@@ -215,6 +215,11 @@ class AuthController extends Controller
     public function me()
     {
         $data = auth()->user();
+        // $emp = $data->employee;
+        // $emp->jobCategories;
+        // foreach($emp->employeeSkill as $skill){
+        //     $skill->allSkill;
+        // }
         $role = UserRoles::all()->where('user_id', $data->id)->first();
         $message = [
             'user' => $data,
