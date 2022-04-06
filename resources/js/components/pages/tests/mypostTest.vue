@@ -17,23 +17,30 @@
         style="object-fit: cover; object-position: center; width: 100%"
       />
 
-      <v-card-title>
-        <!-- {{ a_user.user.first_name }} {{ a_user.user.last_name }} -->
-      </v-card-title>
-
       <v-card-text>
         <v-row align="center" class="">
           <v-col cols="12">
             <div class="d-flex justify-content-center align-items-center">
-              <h3>
-                Rate this user
-              </h3>
+              <v-card-title>
+                <!-- {{ a_user.user.first_name }} {{ a_user.user.last_name }} -->
+                USer Nam,e
+              </v-card-title>
             </div>
           </v-col>
           <v-col cols="12">
-            <div class="d-flex justify-content-center align-items-center">
-              Help this user by rating them. Help others know what you think of
-              this user.
+            <div
+              class="
+                d-flex
+                flex-column
+                justify-content-center
+                align-items-center
+              "
+            >
+              <h3>Rate this user</h3>
+              <p>
+                Help this user by rating them. Help others know what you think
+                of this user.
+              </p>
             </div>
           </v-col>
         </v-row>

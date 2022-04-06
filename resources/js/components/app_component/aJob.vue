@@ -47,7 +47,7 @@
                 </v-btn>
               </v-toolbar-items>
             </v-toolbar>
-            
+
             <div v-if="role == 3">
               <ApplyJob :a_job_detail="a_job" />
             </div>
@@ -75,7 +75,7 @@
                           elevation="2"
                           class="p-3 mx-5 my-4"
                         >
-                          Job is offered assigned to
+                          Job is offered offered to
                           {{ req.req_employee.user.first_name }}
                           {{ req.req_employee.user.last_name }}
                         </v-alert>
@@ -84,7 +84,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div v-if="a_job.request_job">
                 <div v-for="req in a_job.request_job" :key="req.id">
                   <div v-if="req.status == 4">
@@ -117,6 +117,26 @@
                       Job is currently being done by
                       {{ req.req_employee.user.first_name }}
                       {{ req.req_employee.user.last_name }}
+                      <v-btn
+                        class="ml-10"
+                        outlined
+                        color="indigo"
+                        mid
+                        text
+                        @click.prevent="submit(req.req_employee.user.id)"
+                      >
+                        Complete the job!
+                      </v-btn>
+                      <v-btn
+                        class="ml-10"
+                        outlined
+                        color="indigo"
+                        mid
+                        text
+                        @click.prevent="stop(req.req_employee.user.id)"
+                      >
+                        Stop the job!
+                      </v-btn>
                     </v-alert>
                   </div>
                 </div>
@@ -135,8 +155,15 @@
                       Job is completed by
                       {{ req.req_employee.user.first_name }}
                       {{ req.req_employee.user.last_name }}
-                      
-                      <v-btn class="ml-10" outlined color="indigo" mid text @click.prevent="submit(req.req_employee.user.id)">
+
+                      <v-btn
+                        class="ml-10"
+                        outlined
+                        color="indigo"
+                        mid
+                        text
+                        @click.prevent="submit(req.req_employee.user.id)"
+                      >
                         Complete the job!
                       </v-btn>
                     </v-alert>
@@ -157,15 +184,22 @@
                       Job was completed by
                       {{ req.req_employee.user.first_name }}
                       {{ req.req_employee.user.last_name }}
-                      
-                      <v-btn class="ml-10" outlined color="indigo" mid text @click.prevent="submit(req.req_employee.user.id)" >
+
+                      <v-btn
+                        class="ml-10"
+                        outlined
+                        color="indigo"
+                        mid
+                        text
+                        @click.prevent="rate(req.req_employee)"
+                      >
                         Rate Employee!
                       </v-btn>
                     </v-alert>
                   </div>
                 </div>
               </div>
-              
+
               <v-col cols="12" sm="12" class="min-height:100vh">
                 <JobDetail :a_job_detail="a_job" />
               </v-col>
@@ -192,7 +226,7 @@
 import ApplyJob from "./applyJob.vue";
 import JobDetail from "../app_component/cardJobDetails.vue";
 import { mapGetters } from "vuex";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "AJob",
@@ -220,7 +254,31 @@ export default {
         method: "post",
         url: `/job/complete/${this.a_job.id}`,
         Authorization: "Bearer " + this.token,
+      }).then(() => {
+        this.$router.push({
+          path: "user/rating",
+          params: {
+            a_job: this.a_job,
+            a_user: this.req.req_employee,
+          },
+        });
       });
+    },
+    async stop() {
+
+    },
+    async rate(user) {
+      // console.log(this.a_job);
+      this.$router.push({
+        name: "userRating",
+        params: {
+          a_job_detail: this.a_job,
+          a_user: user,
+        },
+      }).then(() => {
+          localStorage.setItem("a_job_detail", JSON.stringify(this.a_job));
+          localStorage.setItem("a_user", JSON.stringify(user));
+        });;
     },
   },
   computed: {

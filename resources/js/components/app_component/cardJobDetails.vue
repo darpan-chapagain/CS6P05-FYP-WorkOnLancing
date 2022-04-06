@@ -43,7 +43,7 @@
                     Not Taking Work
                   </v-chip> -->
       </div>
-      <div class="m-3">
+      <div class="m-3" v-if="this.a_job_detail.request_job">
         <b-card-sub-title>Proposals: {{ this.proposals }}</b-card-sub-title>
       </div>
 
@@ -74,8 +74,9 @@ export default {
     };
   },
   created() {
-    this.proposals = this.a_job_detail.request_job.length;
-    
+    if (this.a_job_detail.request_job) {
+      this.proposals = this.a_job_detail.request_job.length;
+    }
   },
 };
 </script>

@@ -244,7 +244,6 @@ export default {
     this.pendingJobs = await this.getPendingJobs();
     this.myJobs = await this.myJob();
     this.jobInProgress = await this.startedJobs();
-    alert(this.pendingJobs);
   },
   computed: {
     ...mapGetters({

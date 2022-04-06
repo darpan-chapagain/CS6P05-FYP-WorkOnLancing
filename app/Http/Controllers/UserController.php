@@ -258,7 +258,12 @@ class UserController extends Controller
         $pending_jobs = [];
         foreach ($jobs as $job) {
             $job->user;
+            $job->jobCategory;
             $req = $job->requestJob;
+            foreach ($job->jobSkill as $skill) {
+                // dd($skill->skillJob);
+                $skill->allSkill;
+            }
             foreach ($req as $ob) {
                 $ob->reqEmployee->user;
                 if ($ob->status == 4) {
@@ -277,7 +282,12 @@ class UserController extends Controller
         $pending_jobs = [];
         foreach ($jobs as $job) {
             $job->user;
+            $job->jobCategory;
             $req = $job->requestJob;
+            foreach ($job->jobSkill as $skill) {
+                // dd($skill->skillJob);
+                $skill->allSkill;
+            }
             foreach ($req as $ob) {
                 $ob->reqEmployee->user;
                 if ($ob->status == 5 or $ob->status == 6) {

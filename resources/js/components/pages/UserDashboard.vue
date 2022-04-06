@@ -12,11 +12,59 @@
     <v-row class="dashboard-container">
       <v-col
         cols="12"
-        sm="5"
+        sm="12"
         md="6"
-        lg="2"
+        lg="3"
+        class="right-contents"
         order-md="1"
         order-sm="1"
+        order-lg="3"
+        order-xs="1"
+      >
+        <v-sheet rounded="lg" min-height="268">
+          <!--  -->
+          <v-card elevation="6" class="p-3">
+            <div class="proposal-title">
+              <h3 class="text-center">Job Requests</h3>
+            </div>
+            <v-divider></v-divider>
+            <div v-if="allRequests">
+              <div v-for="index in 3" :key="index">
+                <div>
+                  <Requests
+                    v-if="allRequests[index - 1]"
+                    :request="allRequests[index - 1]"
+                  />
+                  <!-- {{ allRequests[1] }} -->
+                </div>
+
+                <!-- {{ allRequests }} -->
+              </div>
+              <v-btn width="100%" @click="seeAll">See All</v-btn>
+            </div>
+            <div v-else>
+              <v-alert
+                border="left"
+                colored-border
+                color="red accent-4"
+                elevation="2"
+                style="width: 100%"
+              >
+                <div class="d-flex ml-5">
+                  <p>No requests yet!"</p>
+                </div>
+              </v-alert>
+            </div>
+          </v-card>
+        </v-sheet>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="12"
+        md="6"
+        lg="2"
+        order-md="2"
+        order-sm="2"
         order-lg="1"
         order-xs="2"
       >
@@ -57,56 +105,6 @@
             </v-row>
           </v-container>
         </v-main>
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="7"
-        md="6"
-        lg="3"
-        class="right-contents"
-        order-md="2"
-        order-sm="2"
-        order-lg="3"
-        order-xs="1"
-      >
-        <v-sheet rounded="lg" min-height="268">
-          <!--  -->
-          <v-card elevation="6" class="p-3">
-            <div class="proposal-title">
-              <h3 class="text-center">Job Requests</h3>
-            </div>
-            <v-divider></v-divider>
-            <div v-if="allRequests">
-              <div v-for="index in 3" :key="index">
-                <div>
-                  <Requests
-                    v-if="allRequests[index - 1]"
-                    :request="allRequests[index - 1]"
-                  />
-                  <!-- {{ allRequests[1] }} -->
-                </div>
-
-                <!-- {{ allRequests }} -->
-              </div>
-               <v-btn width="100%" @click="seeAll">See All</v-btn>
-            </div>
-            <div v-else>
-              <v-alert
-                border="left"
-                colored-border
-                color="red accent-4"
-                elevation="2"
-                style="width: 100%"
-              >
-                <div class="d-flex ml-5">
-                  <p>No requests yet!"</p>
-                </div>
-              </v-alert>
-            </div>
-
-          </v-card>
-        </v-sheet>
       </v-col>
     </v-row>
   </div>

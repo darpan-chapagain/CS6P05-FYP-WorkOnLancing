@@ -388,6 +388,26 @@ class EmployeeController extends Controller
         return response()->json($response);
     }
 
+    public function getUserJobNo($id)
+    {
+
+        $emp = Employee::find($id);
+        $jobs = $emp->assignment_no;
+        // if ($status == 1) {
+        //     $update = 2;
+        // } else {
+        //     $update = 1;
+        // }
+        // $user->update([
+        //     'status' => $update
+        // ]);
+        $response = [
+            'num' => $emp->assignment_no,
+        ];
+        return response()->json($response);
+    }
+
+
     public function getEmployeeSkill()
     {
         $user = auth()->user();

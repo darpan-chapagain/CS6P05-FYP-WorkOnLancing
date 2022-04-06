@@ -12,7 +12,7 @@
     <v-row class="dashboard-container">
       <v-col
         cols="12"
-        sm="5"
+        sm="12"
         md="6"
         lg="3"
         order-md="1"
@@ -33,35 +33,9 @@
           </v-card>
         </v-sheet>
       </v-col>
-
       <v-col
         cols="12"
         sm="12"
-        md="12"
-        lg="7"
-        class="right-contents"
-        order-md="3"
-        order-sm="3"
-        order-lg="2"
-      >
-        <v-sheet min-height="70vh" rounded="lg">
-          <!--  -->
-          <v-card elevation="6">
-            <div class="title px-4 pt-5">
-              <h1>Find Work</h1>
-            </div>
-            <v-divider />
-            <div class="px-3 pt-4">
-              View and apply to Jobs posted by recruiters!
-            </div>
-            <Jobs :allJobs="allJobs" />
-          </v-card>
-        </v-sheet>
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="7"
         md="6"
         lg="2"
         class="right-contents"
@@ -124,6 +98,30 @@
                 </div>
               </v-alert>
             </div>
+          </v-card>
+        </v-sheet>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="12"
+        md="12"
+        lg="7"
+        class="right-contents"
+        order-md="3"
+        order-sm="3"
+        order-lg="2"
+      >
+        <v-sheet min-height="70vh" rounded="lg">
+          <!--  -->
+          <v-card elevation="6">
+            <div class="title px-4 pt-5">
+              <h1>Find Work</h1>
+            </div>
+            <v-divider />
+            <div class="px-3 pt-4">
+              View and apply to Jobs posted by recruiters
+            </div>
+            <Jobs :allJobs="allJobs" />
           </v-card>
         </v-sheet>
       </v-col>
