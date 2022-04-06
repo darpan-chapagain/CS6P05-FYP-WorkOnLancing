@@ -32,8 +32,7 @@
                 </v-container>
                 <br>
                 <v-btn class="m-2 mt-4" rounded color="primary" dark>Accept Request!</v-btn>
-                <v-btn class="m-2 mt-4" rounded color="primary" dark>Reject Request!</v-btn>
-
+                <v-btn class="m-2 mt-4" rounded color="primary" dark >Reject Request!</v-btn>
               </div>
             </v-sheet>
           </v-sheet>
