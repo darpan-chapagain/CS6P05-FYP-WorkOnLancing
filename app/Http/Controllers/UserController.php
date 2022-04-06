@@ -10,6 +10,7 @@ use App\Models\JobRequest;
 use App\Models\JobCategory;
 use App\Models\Skill;
 use App\Models\PostSkill;
+use App\Models\UserRating;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -64,17 +65,17 @@ class UserController extends Controller
         // $emp->employeeSkill;
         // $emp->jobCategories;
         // $user->jobs;
-        if($emp){
+        if ($emp) {
             $skill = $emp->employeeSkill;
             $category = $emp->jobCategories;
-            foreach ($skill as $sk){
+            foreach ($skill as $sk) {
                 $sk->allSkill;
             }
-        }else{
+        } else {
             $skill = null;
             $category = null;
         }
-        
+
         return response()->json($user);
     }
 
@@ -92,7 +93,6 @@ class UserController extends Controller
             'user' => $user
         ];
         return response()->json($response);
-
     }
 
     /**
@@ -107,12 +107,11 @@ class UserController extends Controller
         //
         $user = User::find($id)->update($request->all());
         $response = [
-            'updated_user' => $user, 
+            'updated_user' => $user,
             'message' => 'sucess',
         ];
 
         return response()->json($response);
-
     }
 
     /**
@@ -138,9 +137,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $status = $user->status;
-        if($status == 1){
+        if ($status == 1) {
             $update = 2;
-        }else{
+        } else {
             $update = 1;
         }
         $user->update([
@@ -153,7 +152,8 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    public function getActiveUser(){
+    public function getActiveUser()
+    {
         // $user = User::where('status', '=', 1)->get();
         $user = User::all()->where('status', '=', 1)->first();
         $response = [
@@ -162,7 +162,8 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    public function offerJob(Request $request, $id){
+    public function offerJob(Request $request, $id)
+    {
         $authUser = auth()->user();
         // $employee = User::find($id);
 
@@ -175,7 +176,7 @@ class UserController extends Controller
         $categories = JobCategory::all()->where('category_name', $request->category)->first();
 
         // dd($employee);
-        if($authUserId != $id){
+        if ($authUserId != $id) {
             $job = Job::create([
                 'user_id' => $authUserId,
                 'title' =>  $request->title,
@@ -186,7 +187,7 @@ class UserController extends Controller
                 // 'salary_offered' =>  $request->salary_offered,
                 'job_category_id' => $categories->job_category_id,
                 'status' => 2,
-    
+
             ]);
             $job->save();
             foreach ($request->skill as $sk) {
@@ -210,7 +211,7 @@ class UserController extends Controller
                 'job_request' => $jobRequest,
                 'message' => 'success',
             ];
-        }else{
+        } else {
             $response = [
                 'message' => 'Error: Unauthorized',
             ];
@@ -218,7 +219,8 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    public function chooseEmployee(Request $request, $id, $jobId){
+    public function chooseEmployee(Request $request, $id, $jobId)
+    {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $id)->first();
         // dd($employee->employee_id);
@@ -231,34 +233,73 @@ class UserController extends Controller
         $otherRequests = JobRequest::where('job_id', $jobId)
             ->where('job_employement_id', '!=', $jobRequest->job_employement_id);
         $otherRequests->update(['status' => 3]);
-// dd($otherRequests);
+        $job = Job::find($jobId);
+        $job->status = 4;
+        $job->save();
+        // dd($otherRequests);
         // foreach($otherRequests as $otherRequest){
         //     // dd($otherRequest->job_employement_id);
         //     $otherRequest->status = 3;
         //     $jobRequest->save();
         // }
         // $jobRequest->save();
-            $response = [
+        $response = [
             'status' => 'success',
         ];
-        
-        return response()->json($response);
 
-    }
-
-    public function getPendingJob(Request $request, $jobId){
-        $authUser = auth()->user();
-        $jobRequest = JobRequest::all()
-            ->where('job_id', $jobId)
-            ->where('status', 4);
-        $jobRequest->save();
-        $response = [
-            'pending_jobs' => $jobRequest,
-        ];
         return response()->json($response);
     }
 
-    public function rejectEmployee(Request $request, $id, $jobId){
+    public function getPendingJob(Request $request)
+    {
+        $userID = auth()->user()->id;
+        // dd($userID);
+        $jobs = Job::all()->where('user_id', $userID);
+        $pending_jobs = [];
+        foreach ($jobs as $job) {
+            $job->user;
+            $job->jobCategory;
+            $req = $job->requestJob;
+            foreach ($job->jobSkill as $skill) {
+                // dd($skill->skillJob);
+                $skill->allSkill;
+            }
+            foreach ($req as $ob) {
+                $ob->reqEmployee->user;
+                if ($ob->status == 4) {
+                    array_push($pending_jobs, $job);
+                }
+            }
+        }
+        return response()->json($pending_jobs);
+    }
+
+    public function startedWork(Request $request)
+    {
+        $userID = auth()->user()->id;
+        // dd($userID);
+        $jobs = Job::all()->where('user_id', $userID);
+        $pending_jobs = [];
+        foreach ($jobs as $job) {
+            $job->user;
+            $job->jobCategory;
+            $req = $job->requestJob;
+            foreach ($job->jobSkill as $skill) {
+                // dd($skill->skillJob);
+                $skill->allSkill;
+            }
+            foreach ($req as $ob) {
+                $ob->reqEmployee->user;
+                if ($ob->status == 5 or $ob->status == 6) {
+                    array_push($pending_jobs, $job);
+                }
+            }
+        }
+        return response()->json($pending_jobs);
+    }
+
+    public function rejectEmployee(Request $request, $id, $jobId)
+    {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $id)->first();
         // dd($employee->employee_id);
@@ -268,11 +309,79 @@ class UserController extends Controller
             ->first();
         $jobRequest->status = 3;
         $jobRequest->save();
-            $response = [
+        $response = [
             'status' => 'success',
         ];
-        
-        return response()->json($response);
 
+        return response()->json($response);
+    }
+
+
+    public function completeJob(Request $request, $id, $jobId)
+    {
+        $authUser = auth()->user();
+        $employee = Employee::all()->where('user_id', $id)->first();
+        $jobRequest = JobRequest::all()
+            ->where('employee_id', $employee->employee_id)
+            ->where('job_id', $jobId)
+            ->first();
+        $jobRequest->status = 6;
+        $jobRequest->save();
+        $response = [
+            'status' => 'success',
+        ];
+        return response()->json($response);
+    }
+
+    public function jobInProgress(Request $request)
+    {
+        $userID = auth()->user()->id;
+        // dd($userID);
+        $jobs = Job::all()->where('user_id', $userID);
+        $progress_jobs = [];
+        foreach ($jobs as $job) {
+            $job->user;
+            $req = $job->requestJob;
+            foreach ($req as $ob) {
+                if ($ob->status == 5 or $ob->status == 6) {
+                    array_push($pending_jobs, $job);
+                }
+            }
+        }
+        return response()->json($progress_jobs);
+    }
+
+    public function rateUser(Request $request)
+    {
+        $authUser = auth()->user();
+
+        $job = $request->job;
+        dd($job->status);
+        if ($job->status == 4) {
+            if ($authUser != $request->userID) {
+                $userRating = new UserRating([
+                    'auth_user_id' => $authUser->id,
+                    'user_id' =>  $request->user->id,
+                    'job_id' => $request->job->job_id,
+                    'rating' => $request->rating,
+                    'description' => $request->description,
+                ]);
+
+                $response = [
+                    'message' => 'success'
+                ];
+            } else {
+                $response = [
+                    'message' => 'unauthorized'
+                ];
+            }
+        } else {
+            $response = [
+                'message' => 'unauthorized'
+            ];
+        }
+
+
+        return response()->json($response);
     }
 }

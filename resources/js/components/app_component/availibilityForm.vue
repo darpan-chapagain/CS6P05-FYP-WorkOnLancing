@@ -1,48 +1,59 @@
 <template>
-  <v-container m-5 style="max-width:800px;">
-      <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-    
-  >
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
-
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      type="submit"
-      @click="submit"
-    >
-      Save
-    </v-btn>
-  </v-form>
+  <v-container style="max-width: 400px; margin: 20px auto; display:flex">
+    <v-form ref="form" style="width:100%; margin: 0 auto;">
+      <v-autocomplete
+        v-model="select"
+        :items="items"
+        :rules="[(v) => !!v || 'Please enter a value']"
+        label="Choose how many assignment you can do at a time!"
+        required
+      ></v-autocomplete>
+      <v-btn color="success" type="submit" @click.prevent="submit" style="width: 100%; text-align:center">
+        Save
+      </v-btn>
+    </v-form>
   </v-container>
 </template>
 
 <script>
-export default {
-    name: 'AvailabilityForm',
-    data: () => ({
-        select: null,
-        items: [
-            'Item 1',
-            'Item 2',
-            'Item 3',
-            'Item 4',
-      ],
+import axios from "axios";
+import { mapGetters } from "vuex";
 
+export default {
+  name: "AvailabilityForm",
+  props: {
+    select: Number,
+  },
+  data: () => ({
+    items: [1, 2, 3, 4],
+    dialog: true,
+  }),
+  methods: {
+    async submit() {
+      let res = await axios({
+        method: "get",
+        url: "employee/update/job/",
+        headers: {
+          Authorization: "Bearer " + this.token,
+        },
+      });
+      alert(res.data);
+    },
+  },
+  // async mounted() {
+  //   let data = await this.getNum();
+  //   this.select = await data.num;
+  //   // alert(this.select);
+  // },
+  computed: {
+    ...mapGetters({
+      a_user: "auth/user",
+      token: "auth/getToken",
     }),
-}
+  },
+};
 </script>
 
-<style>
+<style scoped>
 
 </style>

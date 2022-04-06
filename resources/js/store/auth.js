@@ -24,7 +24,7 @@ export default {
         },
         getToken(state) {
             return state.token;
-        }
+        },
     },
 
     mutations: {
@@ -32,10 +32,7 @@ export default {
             state.token = token;
         },
         SET_USER(state, user) {
-            console.log("test: ", user);
-            console.log("test: ", state.user);
             state.user = user;
-            console.log("test2: ", state.user);
         },
         SET_ROLE(state, role) {
             state.role = role;
@@ -46,7 +43,7 @@ export default {
     },
     actions: {
         async login({ dispatch }, credentials) {
-            await axios.get('/sanctum/csrf-cookie')
+            await axios.get("/sanctum/csrf-cookie");
             let response = await axios.post("/login", credentials);
 
             return dispatch("attempt", response.data.token).then(() =>
@@ -55,13 +52,12 @@ export default {
         },
         async register(_, credentials) {
             let response = await axios({
-                method: 'post',
-                url: '/register',
+                method: "post",
+                url: "/register",
                 data: credentials,
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-
-                }
+                    "Content-Type": "multipart/form-data",
+                },
             });
             router.push({ name: "login" });
 
@@ -87,8 +83,8 @@ export default {
                 commit("SET_TOKEN", null);
                 commit("SET_USER", null);
                 commit("SET_ROLE", null);
-                commit('SET_AUTHENTICATED', false)
-                localStorage.removeItem('token')
+                commit("SET_AUTHENTICATED", false);
+                localStorage.removeItem("token");
             });
         },
     },

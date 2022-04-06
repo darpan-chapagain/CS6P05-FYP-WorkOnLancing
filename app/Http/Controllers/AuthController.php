@@ -18,8 +18,11 @@ use Session;
 
 class AuthController extends Controller
 {
+    
     public function register(Request $request)
     {
+        $hr = 0;
+        $pr = 0;
         $fields = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -27,25 +30,15 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
             'role_id' =>  'required'
         ]);
-        // dd('test');
-        // dd($request->profile);
-        // if ($files = $request->profile('profile')) {
-        //     // $profile_name = time().'_'.$request->profile->getClientOriginalName();
-        //     // $profile_path = $request->profile->storeAs('uploads', $profile_name, 'public');
-        //     $destinationPath = public_path('/profile_images/'); // upload path
-        //     // Upload Orginal Image           
-        //     $profile_name = date('YmdHis') . "." . $files->getClientOriginalExtension();
-        //     $files->move($destinationPath, $profile_name);
 
-        // }
         $profile_name = '202203281818DSC00425.JPG';
         $profile_path = 'images/202203281818DSC00425.jpg';
-        
-        if($request->file('profile')){
-            $file= $request->file('profile');
-            $profile_name= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('images'), $profile_name);
-            $profile_path = 'images/' .$profile_name;
+
+        if ($request->file('profile')) {
+            $file = $request->file('profile');
+            $profile_name = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('images'), $profile_name);
+            $profile_path = 'images/' . $profile_name;
         }
         try {
             $user = User::create([
@@ -60,6 +53,8 @@ class AuthController extends Controller
                 'City' => $request->city,
                 'Province' => $request->province,
                 'gender' => $request->gender,
+                'about' => $request->about,
+
             ]);
             // dd($user);
             $userRole = UserRoles::create([
@@ -76,17 +71,28 @@ class AuthController extends Controller
             $token = null;
         }
 
+        
 
+        if ($request->hourly_rate != 'null') {
+            $hr = $request->hourly_rate;
+        }
+        
+
+        if ($request->project_rate != 'null') {
+            $pr = $request->project_rate;
+        }
         try {
             if ($fields['role_id'] == 3) {
                 $categories = JobCategory::all()->where('category_name', $request->category)->first();
                 $employee = Employee::create([
                     'user_id' => $user->id,
                     'qualification' => $request->qualification,
-                    'hourly_rate' => $request->hourly_rate,
+                    'hourly_rate' => $hr,
                     'experience' => $request->experience,
                     'employee_type' => $request->employee_type,
                     'Job_Category_ID' => $categories->job_category_id,
+                    'education' => $request->education,
+                    'project_rate' => $pr,
                 ]);
 
                 // $categories = JobCategory::all()->where('category_name', $request->category)->first();
@@ -119,7 +125,6 @@ class AuthController extends Controller
             'success' => $success,
             'message' => $message,
             'id' => $user->id,
-            'type' => $type,
         ];
 
         return response()->json($response);
@@ -210,6 +215,11 @@ class AuthController extends Controller
     public function me()
     {
         $data = auth()->user();
+        // $emp = $data->employee;
+        // $emp->jobCategories;
+        // foreach($emp->employeeSkill as $skill){
+        //     $skill->allSkill;
+        // }
         $role = UserRoles::all()->where('user_id', $data->id)->first();
         $message = [
             'user' => $data,

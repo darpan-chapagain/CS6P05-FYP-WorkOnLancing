@@ -2,17 +2,17 @@
   <div style="margin-top: 100px">
     <div class="user-found" v-if="this.user">
       <v-row>
-        <v-col cols="12" lg="8">
+        <v-col cols="12" lg="12">
           <v-sheet min-height="268">
             <v-sheet
               elevation="3"
-              class="p-1 mx-4 profile-card"
+              class="p-1 m-4 profile-card"
               min-height="650"
             >
               <v-card
                 class="mx-auto"
                 style="margin-top: 20px"
-                max-width="1000"
+                width="100%"
                 tile
               >
                 <v-img
@@ -40,7 +40,7 @@
                         <v-list-item-title
                           class="title"
                           style="margin-top: 20px"
-                          >{{ this.user.first_name }}</v-list-item-title
+                          >{{ this.user.first_name }} {{ this.user.last_name }}</v-list-item-title
                         >
                         <v-list-item-subtitle v-if="this.user.employee">{{
                           this.user.employee.job_categories.category_name
@@ -59,192 +59,216 @@
                         display: flex;
                         flex-direction: column;
                       "
+                      v-if="this.auth"
                     >
                       <v-btn class="m-2 mt-4" rounded color="primary" dark
                         >Contact!</v-btn
                       >
                       <div v-if="this.user.roles.role_id == 3">
-                        <v-dialog v-model="dialog" width="600px">
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                              class="m-2 mt-4"
-                              rounded
-                              color="primary"
-                              dark
-                              v-bind="attrs"
-                              v-on="on"
-                              >Propose Job!</v-btn
-                            >
-                          </template>
-                          <v-card>
-                            <v-toolbar dark color="primary">
-                              <v-toolbar-title>Job Detail</v-toolbar-title>
-                              <v-spacer></v-spacer>
-                              <v-toolbar-items>
-                                <v-btn icon dark @click="dialog = false">
-                                  <v-icon>mdi-close</v-icon>
-                                </v-btn>
-                              </v-toolbar-items>
-                            </v-toolbar>
-                            <v-form v-model="valid" ref="form1" lazy-validation style="padding: 50px">
-                              <div class="job-info">
-                                <h3>Give Some Info to your Project</h3>
-                                <v-text-field
-                                  v-model="title"
-                                  :counter="10"
-                                  :rules="titleRules"
-                                  label="Name"
-                                  required
-                                ></v-text-field>
-
-                                <v-textarea
-                                  name="description"
-                                  filled
-                                  label="Description"
-                                  :rules="descriptionRule"
-                                  :counter="200"
-                                  auto-grow
-                                  v-model="description"
-                                  required
-                                  value="Write a description for your Job."
-                                ></v-textarea>
-                                <v-autocomplete
-                                  v-model="category"
-                                  :items="categories"
-                                  clearable
-                                  hide-selected
-                                  persistent-hint
-                                  label="Job Category"
-                                  :rules="[required]"
-                                  required
-                                  dense
-                                ></v-autocomplete>
-                              </div>
-                              <div class="scope m-4">
-                                <h3>Scope of Work</h3>
-                                <v-radio-group
-                                  v-model="scope"
-                                  :rules="[(v) => !!v || 'Item is required']"
-                                  row
-                                  required
-                                >
-                                  <v-radio label="Large" value="0"></v-radio>
-                                  <v-radio label="Medium" value="1"></v-radio>
-                                  <v-radio label="Small" value="2"></v-radio>
-                                </v-radio-group>
-                              </div>
-                              <div class="time m-4">
-                                <h3>Time Estimation</h3>
-                                <v-menu
-                                  ref="menu1"
-                                  v-model="menu2"
-                                  :close-on-content-click="false"
-                                  transition="scale-transition"
-                                  offset-y
-                                  max-width="290px"
-                                  min-width="auto"
-                                >
-                                  <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                      v-model="dateFormatted"
-                                      label="Date"
-                                      hint="MM/DD/YYYY format"
-                                      persistent-hint
-                                      prepend-icon="mdi-calendar"
-                                      :rules="[
-                                        (v) => !!v || 'Date is required',
-                                      ]"
-                                      v-bind="attrs"
-                                      @blur="date = parseDate(dateFormatted)"
-                                      v-on="on"
-                                    ></v-text-field>
-                                  </template>
-                                  <v-date-picker
-                                    v-model="date"
-                                    no-title
-                                    @input="menu2 = false"
-                                  ></v-date-picker>
-                                </v-menu>
-                              </div>
-                              <div class="experience m-4">
-                                <h3>Experience</h3>
-                                <v-radio-group
-                                  v-model="experience"
-                                  :rules="[
-                                    (v) => !!v || 'Please select experience',
-                                  ]"
-                                  row
-                                  required
-                                >
-                                  <v-radio label="Entry" value="0"></v-radio>
-                                  <v-radio
-                                    label="Intermediate"
-                                    value="1"
-                                  ></v-radio>
-                                  <v-radio label="Expert" value="2"></v-radio>
-                                </v-radio-group>
-                              </div>
-                              <div class="skills">
-                                <v-autocomplete
-                                  v-model="skill"
-                                  :items="items"
-                                  clearable
-                                  hide-selected
-                                  persistent-hint
-                                  label="Skills"
-                                  :rules="[required]"
-                                  dense
-                                  multiple
-                                  required
-                                  small-chips
-                                ></v-autocomplete>
-                              </div>
-                              <div class="rates">
-                                <div class="buttons my-auto p-3">
-                                  <v-btn class="mr-2" @click="types('hourly')"
-                                    >Hourly Rate</v-btn
-                                  >
-                                  <v-btn class="ml-2" @click="types('project')"
-                                    >Project Rate</v-btn
-                                  >
-                                </div>
-
-                                <div class="payment-inputs m-2">
-                                  <v-text-field
-                                    v-if="payment"
-                                    v-model="hourlyRate"
-                                    label="Hourly Rate"
-                                    placeholder="Enter Your Rate here"
-                                    outlined
-                                    clearable
-                                    type="number"
-                                    :rules="[
-                                      (v) => !!v || 'Please Enter a price',
-                                    ]"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    v-if="!payment"
-                                    v-model="projectRate"
-                                    clearable
-                                    label="Project Rate"
-                                    placeholder="Enter Your Rate here"
-                                    outlined
-                                    type="number"
-                                    :rules="[
-                                      (v) => !!v || 'Please Enter a price',
-                                    ]"
-                                  ></v-text-field>
-                                </div>
-                              </div>
-                              <v-btn color="primary" @click="submit" width="100%" height="50px"
-                                >Save</v-btn
+                        <div v-if="this.getNum()">
+                          <v-dialog v-model="dialog" width="600px">
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-btn
+                                class="m-2 mt-4"
+                                rounded
+                                color="primary"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                                >Propose Job!</v-btn
                               >
-                            </v-form>
-                          </v-card>
-                        </v-dialog>
+                            </template>
+                            <v-card>
+                              <v-toolbar dark color="primary">
+                                <v-toolbar-title>Job Detail</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-toolbar-items>
+                                  <v-btn icon dark @click="dialog = false">
+                                    <v-icon>mdi-close</v-icon>
+                                  </v-btn>
+                                </v-toolbar-items>
+                              </v-toolbar>
+                              <v-form
+                                v-model="valid"
+                                ref="form1"
+                                lazy-validation
+                                style="padding: 50px"
+                              >
+                                <div class="job-info">
+                                  <h3>Give Some Info to your Project</h3>
+                                  <v-text-field
+                                    v-model="title"
+                                    :counter="10"
+                                    :rules="titleRules"
+                                    label="Name"
+                                    required
+                                  ></v-text-field>
+
+                                  <v-textarea
+                                    name="description"
+                                    filled
+                                    label="Description"
+                                    :rules="descriptionRule"
+                                    :counter="200"
+                                    auto-grow
+                                    v-model="description"
+                                    required
+                                    value="Write a description for your Job."
+                                  ></v-textarea>
+                                  <v-autocomplete
+                                    v-model="category"
+                                    :items="categories"
+                                    clearable
+                                    hide-selected
+                                    persistent-hint
+                                    label="Job Category"
+                                    :rules="[required]"
+                                    required
+                                    dense
+                                  ></v-autocomplete>
+                                </div>
+                                <div class="scope m-4">
+                                  <h3>Scope of Work</h3>
+                                  <v-radio-group
+                                    v-model="scope"
+                                    :rules="[(v) => !!v || 'Item is required']"
+                                    row
+                                    required
+                                  >
+                                    <v-radio label="Large" value="0"></v-radio>
+                                    <v-radio label="Medium" value="1"></v-radio>
+                                    <v-radio label="Small" value="2"></v-radio>
+                                  </v-radio-group>
+                                </div>
+                                <div class="time m-4">
+                                  <h3>Time Estimation</h3>
+                                  <v-menu
+                                    ref="menu1"
+                                    v-model="menu2"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="dateFormatted"
+                                        label="Date"
+                                        hint="MM/DD/YYYY format"
+                                        persistent-hint
+                                        prepend-icon="mdi-calendar"
+                                        :rules="[
+                                          (v) => !!v || 'Date is required',
+                                        ]"
+                                        v-bind="attrs"
+                                        @blur="date = parseDate(dateFormatted)"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="date"
+                                      no-title
+                                      @input="menu2 = false"
+                                    ></v-date-picker>
+                                  </v-menu>
+                                </div>
+                                <div class="experience m-4">
+                                  <h3>Experience</h3>
+                                  <v-radio-group
+                                    v-model="experience"
+                                    :rules="[
+                                      (v) => !!v || 'Please select experience',
+                                    ]"
+                                    row
+                                    required
+                                  >
+                                    <v-radio label="Entry" value="0"></v-radio>
+                                    <v-radio
+                                      label="Intermediate"
+                                      value="1"
+                                    ></v-radio>
+                                    <v-radio label="Expert" value="2"></v-radio>
+                                  </v-radio-group>
+                                </div>
+                                <div class="skills">
+                                  <v-autocomplete
+                                    v-model="skill"
+                                    :items="items"
+                                    clearable
+                                    hide-selected
+                                    persistent-hint
+                                    label="Skills"
+                                    :rules="[required]"
+                                    dense
+                                    multiple
+                                    required
+                                    small-chips
+                                  ></v-autocomplete>
+                                </div>
+                                <div class="rates">
+                                  <div class="buttons my-auto p-3">
+                                    <v-btn class="mr-2" @click="types('hourly')"
+                                      >Hourly Rate</v-btn
+                                    >
+                                    <v-btn
+                                      class="ml-2"
+                                      @click="types('project')"
+                                      >Project Rate</v-btn
+                                    >
+                                  </div>
+
+                                  <div class="payment-inputs m-2">
+                                    <v-text-field
+                                      v-if="payment"
+                                      v-model="hourlyRate"
+                                      label="Hourly Rate"
+                                      placeholder="Enter Your Rate here"
+                                      outlined
+                                      clearable
+                                      type="number"
+                                      :rules="[
+                                        (v) => !!v || 'Please Enter a price',
+                                      ]"
+                                    ></v-text-field>
+                                    <v-text-field
+                                      v-if="!payment"
+                                      v-model="projectRate"
+                                      clearable
+                                      label="Project Rate"
+                                      placeholder="Enter Your Rate here"
+                                      outlined
+                                      type="number"
+                                      :rules="[
+                                        (v) => !!v || 'Please Enter a price',
+                                      ]"
+                                    ></v-text-field>
+                                  </div>
+                                </div>
+                                <v-btn
+                                  color="primary"
+                                  @click="submit"
+                                  width="100%"
+                                  height="50px"
+                                  >Save</v-btn
+                                >
+                              </v-form>
+                            </v-card>
+                          </v-dialog>
+                        </div>
+                        <div v-else>
+                          <v-btn
+                            class="m-2 mt-4"
+                            rounded
+                            color="primary"
+                            disabled
+                          >
+                            User busy!
+                          </v-btn>
+                        </div>
                       </div>
-                    </div></v-col
-                  >
+                    </div>
+                  </v-col>
                 </v-row>
               </v-card>
             </v-sheet>
@@ -299,6 +323,18 @@
                         <v-list-item-subtitle class="pb-2">{{
                           this.user.gender
                         }}</v-list-item-subtitle>
+
+                        <v-list-item-title>Total Job Slots</v-list-item-title>
+                        <v-list-item-subtitle class="pb-2">{{
+                          this.user.employee.assignment_no
+                        }}</v-list-item-subtitle>
+
+                        <v-list-item-title>Total Jobs Working</v-list-item-title>
+                        <v-list-item-subtitle class="pb-2">{{
+                          this.user.employee.total_job
+                        }}</v-list-item-subtitle>
+
+                        <!-- this.user.employee.total_job -->
                       </v-list-item-content>
                     </v-list-item>
                   </div>
@@ -308,9 +344,9 @@
           </v-sheet>
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12" lg="8">
           <v-sheet min-height="268">
-            <v-sheet elevation="3" class="p-1 m-4" min-height="200">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="575">
               <div class="job-title m-4 centre">
                 <h3>About!</h3>
 
@@ -343,6 +379,57 @@
                 </div> -->
 
                   <pre style="white-space: pre-line"></pre>
+                </div>
+              </div>
+            </v-sheet>
+          </v-sheet>
+        </v-col>
+
+        <v-col cols="12" lg="6">
+          <v-sheet min-height="268">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="400">
+              <div class="job-title m-4 centre">
+                <h3>User's Experience!</h3>
+
+                <b-card-sub-title>
+                  Lean about this user's experience!
+                </b-card-sub-title>
+
+                <v-divider></v-divider>
+              </div>
+
+              <div class="m-4">
+                <div class="additional-user-detail">
+                  <pre style="white-space: pre-line">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
+                  </pre>
+                </div>
+              </div>
+            </v-sheet>
+          </v-sheet>
+        </v-col>
+
+
+        <v-col cols="12" lg="6" v-if="this.user.roles.role_id == 3">
+           <v-sheet min-height="268">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="400">
+              <div class="job-title m-4 centre">
+                <h3>User's Education!</h3>
+
+                <b-card-sub-title>
+                  Lean about this user's experience!
+                </b-card-sub-title>
+
+                <v-divider></v-divider>
+              </div>
+
+              <div class="m-4">
+                <div class="additional-user-detail">
+                  <pre style="white-space: pre-line">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+                    Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
+                  </pre>
                 </div>
               </div>
             </v-sheet>
@@ -439,6 +526,7 @@ export default {
   },
   data: () => ({
     id: null,
+    job_num: 0, // the number of jobs the user has
     first_name: null,
     last_name: null,
     user: null,
@@ -517,6 +605,7 @@ export default {
     },
     ...mapGetters({
       token: "auth/getToken",
+      auth: "auth/authenticated",
     }),
   },
   watch: {
@@ -566,25 +655,12 @@ export default {
           headers: { Authorization: `Bearer ${this.token}` },
           data: this.formData(),
         });
-        alert(res.data);
+        // alert(res.data);
         this.dialog = false;
       }
     },
     validate() {
       return this.$refs.form1.validate();
-    },
-    steps(step) {
-      if (this.valid) {
-        this.step += 1;
-        this.valid = false;
-      }
-    },
-    stepBack(step) {
-      this.valid = true;
-      if (this.valid) {
-        this.step -= 1;
-      }
-      // this.valid = !this.valid
     },
     //for date
     formatDate(date) {
@@ -645,6 +721,27 @@ export default {
         jobForm.append("skill[]", this.skill[sk]);
       }
       return jobForm;
+    },
+    getNum() {
+      // let res = await axios({
+      //   method: "get",
+      //   url: `employee/get/job/user/${this.user.employee.employee_id}`,
+      //   data: {
+      //     num: this.select,
+      //   },
+      //   headers: {
+      //     Authorization: "Bearer " + this.token,
+      //   },
+      // });
+      // let data = await res.data;
+      if (this.user.employee.status == '1') {
+        if (this.user.employee.assignment_no > this.user.employee.total_job) {
+          return true;
+        }
+      } else {
+        return false;
+      }
+      // return data.num;
     },
   },
   async created() {

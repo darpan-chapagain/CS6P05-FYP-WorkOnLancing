@@ -12,11 +12,13 @@ import middlewarePipeline from "./middlewarePipeline";
 Vue.use(VueRouter);
 
 import JobRequest from "../components/pages/JobRequests.vue";
-
+import UserPortal from "../components/pages/UserPortal.vue";
+import Rating from '../components/pages/Rating.vue';
+import EmployeePortal from '../components/pages/EmployeePortal.vue'
 /* Guest Component */
 const Test2 = () =>
     import(
-        "../components/pages/tests/mypostTest.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/EmployeePortal.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Test = () =>
     import(
@@ -214,6 +216,24 @@ const Routes = [
         name: "jobRequest",
         path: "/job/requests",
         component: JobRequest,
+        props: true,
+    },
+    {
+        name: "userPortal",
+        path: "/user/Portal",
+        component: UserPortal,
+        props: true,
+    },
+    {
+        name: "employeePortal",
+        path: "/employee/Portal",
+        component: EmployeePortal,
+        props: true,
+    },
+    {
+        name: "userRating",
+        path: "/user/rating",
+        component: Rating,
         props: true,
     }
 ];

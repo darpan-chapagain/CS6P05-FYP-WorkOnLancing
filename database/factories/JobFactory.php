@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 class JobFactory extends Factory
 {
@@ -21,8 +22,10 @@ class JobFactory extends Factory
             'size' => $this->faker->numerify('##########'),
             // 'time' => $this->faker->unixTime(),
             'experience' => $this->faker->randomElement(['Intermediated', 'Expert', 'Entry']),
-            'salary_offered' => $this->faker->numerify('#####'),
+            'project_rate' => $this->faker->numerify('#####'),
             'status' => 1,
+            'time' =>  Carbon::parse("2022-08-07")->toDateTimeString(),
+
         ];
     }
 }

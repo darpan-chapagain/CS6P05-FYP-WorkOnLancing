@@ -27,10 +27,16 @@
           </v-btn> -->
 
           <div v-if="this.authenticated" class="d-flex">
-            <div class="navbar-nav m-3" v-if="this.role == 3"><a href="/dashboard">Find Jobs</a></div>
-            <div class="navbar-nav m-3" v-if="this.role == 2"><a href="/dashboard">Find Employee</a></div>
+            <div class="navbar-nav m-3" v-if="this.role == 3">
+              <a href="/dashboard">Find Jobs</a>
+            </div>
+            <div class="navbar-nav m-3" v-if="this.role == 2">
+              <a href="/dashboard">Find Employee</a>
+            </div>
             <div class="navbar-nav m-3"><a href="/post/job">Post Jobs</a></div>
-            <div class="navbar-nav m-3"><a href="/requests">View Requests</a></div>
+            <div class="navbar-nav m-3">
+              <a href="/requests">View Requests</a>
+            </div>
           </div>
 
           <div v-else class="d-flex">
@@ -52,13 +58,36 @@
             </template>
 
             <v-list>
-              <v-list-item @click="() => {}">
+              <v-list-item @click="() => {}" v-if="this.role == 2">
                 <v-list-item-title>
-                  <a
+                  <v-btn
                     class="nav-item nav-link"
                     style="cursor: pointer"
+                    text
+                    @click.prevent="userPortal"
+                    >User Portal</v-btn
+                  >
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="() => {}" v-if="this.role == 3">
+                <v-list-item-title>
+                  <v-btn
+                    class="nav-item nav-link"
+                    style="cursor: pointer"
+                    text
+                    @click.prevent="employeePortal"
+                    >Employee Portal</v-btn
+                  >
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="() => {}">
+                <v-list-item-title>
+                  <v-btn
+                    class="nav-item nav-link"
+                    style="cursor: pointer"
+                    text
                     @click.prevent="logOut"
-                    >Logout</a
+                    >Logout</v-btn
                   >
                 </v-list-item-title>
               </v-list-item>
@@ -162,6 +191,16 @@ export default {
             name: "login",
           })
           .catch(() => {});
+      });
+    },
+    userPortal() {
+      this.$router.push({
+        path: "/user/portal",
+      });
+    },
+    employeePortal() {
+      this.$router.push({
+        path: "/employee/portal",
       });
     },
   },

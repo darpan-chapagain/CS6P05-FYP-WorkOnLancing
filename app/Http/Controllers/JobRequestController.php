@@ -137,7 +137,7 @@ class JobRequestController extends Controller
             // $user = $jobOffer->user;
             // dd($jobOffer->detailJob);
             $jobDetail = $jobOffer->detailJob;
-            // dd($jobDetail->user);
+            $jobDetail->jobCategory;
             if($jobOffer->status == 2){
                 // array_push($offer, $jobDetail->user);
                 $jobDetail->user;

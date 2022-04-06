@@ -22,7 +22,8 @@ class CreateJobsTable extends Migration
             $table->string('size')->nullable();
             $table->date('time')->nullable();
             $table->string('experience')->nullable();
-            $table->integer('salary_offered')->nullable();
+            $table->integer('hourly_rate')->nullable();
+            $table->integer('project_rate')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
             $table->foreign('user_id')

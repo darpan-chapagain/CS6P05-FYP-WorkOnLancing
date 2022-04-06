@@ -141,11 +141,25 @@ class JobController extends Controller
     public function myPost()
     {
         $userID = auth()->user()->id;
-        $job = Job::all()->where('user_id', $userID);
-        $response = [
-            'job' => $job
-        ];
-        return response()->json($response);
+        $job = Job::where('user_id', $userID)->get();
+        foreach ($job as $j) {
+            $j->user;
+            // dd($j);
+            $j->jobCategory;
+            foreach ($j->jobSkill as $skill) {
+                $skill->allSkill;
+            }
+            $requests = $j->requestJob;
+
+            foreach ($requests as $r) {
+                $r->reqEmployee->user;
+            }
+        }
+        // dd($job);
+        // $response = [
+        //     'job' => $job
+        // ];
+        return response()->json($job);
     }
 
     public function postStatusChange($id)
@@ -183,13 +197,22 @@ class JobController extends Controller
         $userID = auth()->user()->id;
         // $users = [];
         $totalJob = [];
-        $jobs = Job::all()->where('status', '=', 1)->except($userID);
+        $jobs = Job::all()->where('status', '=', 1)->reverse()->except($userID);
         foreach ($jobs as $job) {
             $job->user;
             $job->requestJob;
+            $job->jobCategory;
+            foreach ($job->jobSkill as $skill) {
+                // dd($skill->skillJob);
+                $skill->allSkill;
+            }
             // $job->requestJob;
             // array_push($totalJob, $job);
             // array_push($users, $user);
+            foreach ($job->requestJob as $req) {
+                // array_push($offer, $req->job_id);
+                $stat = $req->status;
+            }
         }
         $response = [
             'other_post' => $totalJob,
@@ -210,12 +233,18 @@ class JobController extends Controller
         $offer = [];
         $detailJob = [];
         foreach ($jobs as $job) {
+            $job->user;
+            $job->jobCategory;
+            foreach ($job->jobSkill as $skill) {
+                // dd($skill->skillJob);
+                $skill->allSkill;
+            }
             foreach ($job->requestJob as $req) {
                 // array_push($offer, $req->job_id);
                 $stat = $req->status;
                 $emp = $req->reqEmployee;
                 $employees = $emp->user;
-                if ($stat == 2) {
+                if ($stat == 4) {
                     array_push($offer, $employees);
                     array_push($detailJob, $job->id);
                     // array_push($offer, $employees);
@@ -236,19 +265,22 @@ class JobController extends Controller
             ->where('user_id', $userID)
             ->where('id', $id)
             ->first();
+        $job->jobCategory;
         $req = $job->requestJob[0];
         // $user = User::all()->where('id', $userID)->first();
         // dd($req->status);
-        if ($req->status == 4) {
-            $req->status = 6;
+        if ($req->status == 5 or $req->status == 6) {
+            $req->status = 7;
             $job->status = 4;
             // $user->points += 100;
         }
         $job->save();
         $req->save();
         $response = [
-            'job' => $job
+            'job' => $job,
+            'message' => 'Job has been completed',
         ];
+        return response()->json($response);
     }
     public function deactivateJob(Request $request, $id)
     {

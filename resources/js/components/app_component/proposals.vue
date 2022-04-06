@@ -35,7 +35,7 @@
           </template>
           <v-card>
             <v-toolbar dark color="primary">
-              <v-toolbar-title>Proposal Detail</v-toolbar-title>
+              <v-toolbar-title>Proposals Detail</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-toolbar-items>
                 <v-btn icon dark @click="dialog = false">
@@ -151,7 +151,7 @@ export default {
           console.log(res);
           alert("Accepted!");
           this.updateRequests();
-          this.$router.push({ name: "dashboard.user" }).catch(() => {});
+          this.$router.push({ name: "dashboard" }).catch(() => {});
         });
     },
     async reject() {
@@ -163,7 +163,7 @@ export default {
           console.log(res);
           alert("Rejected!");
           this.updateRequests();
-          this.$router.push({ name: "dashboard.user" }).catch(() => {});
+          this.$router.push({ name: "dashboard" }).catch(() => {});
         });
     },
   },
