@@ -10,7 +10,7 @@
       <div class="d-flex flex-row align-items-center">
         <h5 class="text-center my-0 p-3">Description</h5>
         <v-chip class="ma-2" color="blue" text-color="white">
-          category: {{ a_job_detail.job_category_id }}
+          category: {{ a_job_detail.job_category.category_name }}
           <v-icon right> mdi-star </v-icon>
         </v-chip>
       </div>
@@ -44,7 +44,7 @@
                   </v-chip> -->
       </div>
       <div class="m-3">
-        <b-card-sub-title>Proposals: 2</b-card-sub-title>
+        <b-card-sub-title>Proposals: {{ this.proposals }}</b-card-sub-title>
       </div>
 
       <v-divider></v-divider>
@@ -52,13 +52,10 @@
     <div class="status m-4">
       <div class="status-detail">
         <h5 class="my-0 p-3">Skills Required</h5>
-        <div class="attributes">
-          <v-chip class="m-1"> Skill</v-chip>
-          <v-chip class="m-1"> Skill </v-chip>
-          <v-chip class="m-1"> Skill</v-chip>
-          <v-chip class="m-1"> Skill</v-chip>
-          <v-chip class="m-1"> Skill </v-chip>
-          <v-chip class="m-1"> Skill</v-chip>
+        <div class="attributes d-flex">
+          <div v-for="skill in a_job_detail.job_skill" :key="skill.id">
+            <v-chip class="m-1"> {{ skill.all_skill.skill }}</v-chip>
+          </div>
         </div>
       </div>
     </div>
@@ -70,6 +67,15 @@ export default {
   name: "JobCard",
   props: {
     a_job_detail: Object,
+  },
+  data() {
+    return {
+      proposals: 0,
+    };
+  },
+  created() {
+    this.proposals = this.a_job_detail.request_job.length;
+    
   },
 };
 </script>

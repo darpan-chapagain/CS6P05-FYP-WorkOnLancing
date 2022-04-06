@@ -12,6 +12,7 @@ import middlewarePipeline from "./middlewarePipeline";
 Vue.use(VueRouter);
 
 import JobRequest from "../components/pages/JobRequests.vue";
+import UserPortal from "../components/pages/UserPortal.vue";
 
 /* Guest Component */
 const Test2 = () =>
@@ -214,6 +215,12 @@ const Routes = [
         name: "jobRequest",
         path: "/job/requests",
         component: JobRequest,
+        props: true,
+    },
+    {
+        name: "userPortal",
+        path: "/user/Portal",
+        component: UserPortal,
         props: true,
     }
 ];

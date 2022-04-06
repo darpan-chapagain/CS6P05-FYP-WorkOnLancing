@@ -15,7 +15,8 @@ class PostSkill extends Model
 
     protected $fillable = ['job','skill'];
 
-    public function jobSkill(){
+    public function allSkill(){
+        // dd('test');
         return $this->belongsTo(Skill::class, 'skill');
     }
     public function skillJob(){

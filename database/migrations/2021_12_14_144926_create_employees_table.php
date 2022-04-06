@@ -16,11 +16,12 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id('employee_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('qualification')->nullable();
-            $table->integer('hourly_rate')->nullable();
-            $table->integer('project_rate')->nullable();
-            $table->string('experience')->nullable();
-            $table->string('employee_type')->nullable();
+            $table->string('title')->nullable();
+            $table->longText('qualification')->nullable();
+            $table->integer('hourly_rate')->default(0)->nullable();
+            $table->integer('project_rate')->default(0)->nullable();
+            $table->longText('experience')->nullable();
+            $table->string('employee_type')->nullable()->default('Individual');
             $table->unsignedBigInteger('Job_Category_ID')->nullable();
             $table->foreign('user_id')
                 ->references('id')->on('users')
@@ -29,6 +30,10 @@ class CreateEmployeesTable extends Migration
                 ->references('job_category_id')->on('job_categories')
                 ->onDelete('cascade')->nullable();
             $table->timestamps();
+            $table->boolean('status')->default(true);
+            $table->integer('assignment_no')->default(1);
+            $table->integer('total_job')->default(0);
+
         });
     }
 

@@ -6,6 +6,8 @@ use App\Models\Employee;
 use App\Models\JobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use App\Models\Skill;
+use App\Models\Employee_Skill;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -182,18 +184,22 @@ class EmployeeController extends Controller
         $empID = $employee->employee_id;
         $employeeJob = JobRequest::all()->where('employee_id', $employee->employee_id)
             ->where('job_id', $job->id)->first();
-
+        // dd($authUserId != $jobPostUserId);
         if ($authUserId != $jobPostUserId) {
             if ($employeeJob) {
                 $response = [
                     'message' => 'Already requested',
                 ];
-            } 
-        }
-        else{
+            }else{
+                $response = [
+                    'message' => 'Not requested',
+                ];
+            }
+        } else {
             $response = [
                 'message' => 'Unauthorized',
             ];
+            // dd($response);
         }
         return response()->json($response);
     }
@@ -221,37 +227,199 @@ class EmployeeController extends Controller
     public function getOtherEmployee()
     {
         $userID = auth()->user()->id;
-        $employees = Employee::all()->except($userID);
+        $employees = Employee::all()->reverse()->except($userID);
 
         foreach ($employees as $employee) {
             $employee->user;
             $employee->jobCategories;
             $skills = $employee->employeeSkill;
-            foreach($skills as $sk){
+            foreach ($skills as $sk) {
                 $sk->allSkill;
             }
         }
 
         return response()->json($employees);
     }
-    // public function rateEmployee(Request $request, $employeeId, $jobId){
-    //     $authUser = auth()->user();
-    //     $userRating = new EmployeeRating([
-    //         'user_id' => $authUser->id, 
-    //         'employee_id' => $employeeId,
-    //         'job_id' => $jobId,
-    //         'rating' => $request->rating,
-    //     ]);
-    // }
+    
     public function getEmployee($id)
     {
         $employee = Employee::find($id);
         $employee->user;
         $employee->jobCategories;
         $skills = $employee->employeeSkill;
-            foreach($skills as $sk){
-                $sk->allSkill;
-            }
+        foreach ($skills as $sk) {
+            $sk->allSkill;
+        }
         return response()->json($employee);
+    }
+
+    public function getPendingJob(Request $request)
+    {
+        $authUser = auth()->user();
+        $employee = Employee::all()->where('user_id', $authUser->id)->first();
+        // dd($employee->employee_id);
+        $jobRequest = JobRequest::where('employee_id', $employee->employee_id)
+            ->where('status', 4)->get();
+        foreach ($jobRequest as $req) {
+            $req->detailJob;
+        }
+
+        return response()->json($jobRequest);
+    }
+
+    public function startJob(Request $request, $jobId)
+    {
+        $authUser = auth()->user();
+        $employee = Employee::all()->where('user_id', $authUser->id)->first();
+        // dd($employee->employee_id);
+        $jobRequest = JobRequest::all()
+            ->where('employee_id', $employee->employee_id)
+            ->where('job_id', $jobId)
+            ->where('status', 4)
+            ->first();
+        $jobRequest->status = 5;
+        $jobRequest->save();
+        $response = [
+            'status' => 'success',
+        ];
+
+        return response()->json($response);
+    }
+
+    public function completeJob(Request $request, $id)
+    {
+        $userID = auth()->user()->id;
+        $job = Job::select('*')
+            ->where('id', $id)
+            ->first();
+        $req = $job->requestJob[0];
+        // $user = User::all()->where('id', $userID)->first();
+        // dd($req->status);
+        if ($req->status == 5) {
+            $req->status = 6;
+            // $user->points += 100;
+        }
+        $job->save();
+        $req->save();
+        $response = [
+            'job' => $job,
+            'status' => 'success',
+        ];
+
+        return response()->json($response);
+    }
+
+    public function changeStatus()
+    {
+        $user = auth()->user();
+
+        $emp = Employee::find($user->employee->employee_id);
+        $status = $emp->status;
+        if ($status == 1) {
+            $update = 2;
+        } else {
+            $update = 1;
+        }
+        $emp->update([
+            'status' => $update
+        ]);
+        $response = [
+            'user' => $emp,
+            'status' => $emp->status,
+        ];
+        return response()->json($response);
+    }
+
+    public function getStatus()
+    {
+        $user = auth()->user();
+
+        $emp = Employee::find($user->employee->employee_id);
+        $status = $emp->status;
+        // if ($status == 1) {
+        //     $update = 2;
+        // } else {
+        //     $update = 1;
+        // }
+        // $user->update([
+        //     'status' => $update
+        // ]);
+        $response = [
+            'status' => $emp->status,
+        ];
+        return response()->json($response);
+    }
+
+    public function updateJobNo(Request $request)
+    {
+        $user = auth()->user();
+
+        $emp = Employee::find($user->employee->employee_id);
+
+        $num = $request->job;
+        // dd($num);
+        // dd($user);
+        $emp->update([
+            'assignment_no' => $num
+        ]);
+        $response = [
+            'assignment_no' => $emp->assignment_no,
+        ];
+        return response()->json($response);
+    }
+
+    public function getJobNo()
+    {
+        $user = auth()->user();
+
+        $emp = Employee::find($user->employee->employee_id);
+        $jobs = $emp->assignment_no;
+        // if ($status == 1) {
+        //     $update = 2;
+        // } else {
+        //     $update = 1;
+        // }
+        // $user->update([
+        //     'status' => $update
+        // ]);
+        $response = [
+            'num' => $emp->assignment_no,
+        ];
+        return response()->json($response);
+    }
+
+    public function getEmployeeSkill()
+    {
+        $user = auth()->user();
+        $emp = Employee::where('employee_id', $user->employee->employee_id)->first();
+        $skills = $emp->employeeSkill;
+        foreach ($skills as $skill) {
+            $skill->allSkill;
+        }
+        $response = [
+            'skills' => $skills,
+        ];
+        return response()->json($skills);
+    }
+
+    public function updateEmployeeSkill(Request $request){
+        $user = auth()->user();
+        $empID = $user->employee->employee_id;
+
+        $delete = Employee_Skill::where('employee_id', $empID)->delete();
+
+        foreach ($request->skill as $sk) {
+            $skills = Skill::all()->where('skill', $sk)->first();
+            $employeeSkill = Employee_Skill::create([
+                'skill_id' => $skills->id,
+                'employee_id' => $empID,
+            ]);
+        }
+
+        $response = [
+            'status' => 'success',
+        ];
+
+        return response()->json($response);
     }
 }

@@ -52,8 +52,7 @@
             </div>
             <v-divider />
             <div class="px-3 pt-4">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Deserunt, rerum.
+              View and apply to Jobs posted by recruiters!
             </div>
             <Jobs :allJobs="allJobs" />
           </v-card>
@@ -112,6 +111,19 @@
               </div>
               <v-btn width="100%" @click="seeAll">See All</v-btn>
             </div>
+            <div v-else>
+              <v-alert
+                border="left"
+                colored-border
+                color="red accent-4"
+                elevation="2"
+                style="width: 100%"
+              >
+                <div class="d-flex ml-5">
+                  <p>No Proposal yet!"</p>
+                </div>
+              </v-alert>
+            </div>
           </v-card>
         </v-sheet>
       </v-col>
@@ -158,12 +170,14 @@ export default {
       fetchProposals: "requests/fetchProposals",
     }),
     seeAll() {
-      this.$router.push({
-        name: "offer",
-        params: {
-          proposals: this.allProposals,
-        },
-      }).catch(() => {});;
+      this.$router
+        .push({
+          name: "offer",
+          params: {
+            proposals: this.allProposals,
+          },
+        })
+        .catch(() => {});
     },
     // async fetchRequests(){
     //   const res = await axios.get('user/job/requests')

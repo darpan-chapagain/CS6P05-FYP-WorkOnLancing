@@ -15,6 +15,7 @@
             
             <AJob 
                 :a_job="a_job"
+                :view="view"
             />
         </div>
     </div>
@@ -27,6 +28,7 @@ export default {
     name: 'Jobs',
     props: {
         allJobs: Array,
+        view: String,
     },
     components: {
         AJob,

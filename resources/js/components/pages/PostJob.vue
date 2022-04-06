@@ -657,6 +657,8 @@ export default {
         url: "job",
         headers: { Authorization: `Bearer ${this.token}` },
         data: this.formData(),
+      }).then(() => {
+        this.$router.push("/dashboard");
       });
     },
     validate(type) {
@@ -731,15 +733,15 @@ export default {
     },
     formData() {
       let jobForm = new FormData();
-
+      
       jobForm.append("title", this.title);
       jobForm.append("description", this.description);
       jobForm.append("category", this.category);
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("salary_offered", this.hourlyRate);
-      jobForm.append("salary_offered", this.projectRate);
+      jobForm.append("hourly_rate", this.hourlyRate);
+      jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
       for (let sk in this.skill) {
         jobForm.append("skill[]", this.skill[sk]);
