@@ -1103,6 +1103,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Proposals",
@@ -1139,10 +1140,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.post("user/choose/".concat(_this.request_detail.employee_user.id, "/").concat(_this.request_detail.job_id)).then(function (res) {
-                  console.log(res);
-                  alert("Accepted!");
-
+                return axios({
+                  method: "post",
+                  url: "employee/accept/job/".concat(_this.proposals.id, "/"),
+                  data: {
+                    status: "accept"
+                  }
+                }).then(function (res) {
                   _this.updateRequests();
 
                   _this.$router.push({
@@ -1170,8 +1174,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return axios.post("user/reject/".concat(_this2.request_detail.employee_user.id, "/").concat(_this2.request_detail.job_id)).then(function (res) {
+                res = awaitaxios({
+                  method: "post",
+                  url: "employee/accept/job/".concat(_this2.proposals.id, "/"),
+                  data: {
+                    status: "reject"
+                  }
+                }).then(function (res) {
                   console.log(res);
                   alert("Rejected!");
 
@@ -1182,10 +1191,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   })["catch"](function () {});
                 });
 
-              case 2:
-                res = _context2.sent;
-
-              case 3:
+              case 1:
               case "end":
                 return _context2.stop();
             }
@@ -1263,6 +1269,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -3644,6 +3652,13 @@ var render = function () {
                                           },
                                         })
                                       : _vm._e(),
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(
+                                          _vm.allProposals.job[index - 1]
+                                        ) +
+                                        "\n\n            "
+                                    ),
                                   ],
                                   1
                                 )

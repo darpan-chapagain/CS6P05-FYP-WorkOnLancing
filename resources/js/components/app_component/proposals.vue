@@ -70,6 +70,7 @@
                       @click="action('accept')"
                       >Accept!</v-btn
                     >
+                    
                   </div>
                 </div>
                 <div class="m-4">
@@ -143,28 +144,30 @@ export default {
       }
     },
     async accept() {
-      const res = await axios
-        .post(
-          `user/choose/${this.request_detail.employee_user.id}/${this.request_detail.job_id}`
-        )
-        .then((res) => {
-          console.log(res);
-          alert("Accepted!");
-          this.updateRequests();
-          this.$router.push({ name: "dashboard" }).catch(() => {});
-        });
+      const res = await axios({
+        method: "post",
+        url: `employee/accept/job/${this.proposals.id}/`,
+        data: {
+          status: "accept",
+        },
+      }).then((res) => {
+        this.updateRequests();
+        this.$router.push({ name: "dashboard" }).catch(() => {});
+      });
     },
     async reject() {
-      const res = await axios
-        .post(
-          `user/reject/${this.request_detail.employee_user.id}/${this.request_detail.job_id}`
-        )
-        .then((res) => {
-          console.log(res);
-          alert("Rejected!");
-          this.updateRequests();
-          this.$router.push({ name: "dashboard" }).catch(() => {});
-        });
+      const res = awaitaxios({
+        method: "post",
+        url: `employee/accept/job/${this.proposals.id}/`,
+        data: {
+          status: "reject",
+        },
+      }).then((res) => {
+        console.log(res);
+        alert("Rejected!");
+        this.updateRequests();
+        this.$router.push({ name: "dashboard" }).catch(() => {});
+      });
     },
   },
 };

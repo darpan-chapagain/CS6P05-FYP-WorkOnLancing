@@ -82,6 +82,8 @@
                   v-if="allProposals.job[index - 1]"
                   :proposals="allProposals.job[index - 1]"
                 />
+                                  {{ allProposals.job[index - 1] }}
+
               </div>
               <v-btn width="100%" @click="seeAll">See All</v-btn>
             </div>

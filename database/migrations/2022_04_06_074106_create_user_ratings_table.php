@@ -17,6 +17,7 @@ class CreateUserRatingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('auth_user_id');
             $table->unsignedBigInteger('user_id');
+            $table->integer('rating');
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')->nullable();

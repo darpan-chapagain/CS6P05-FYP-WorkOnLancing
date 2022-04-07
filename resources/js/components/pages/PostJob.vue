@@ -570,7 +570,6 @@ export default {
       valid: true,
       e1: 1,
       step: 1,
-      skill: null,
       categories: [],
       scope: null,
       experience: null,

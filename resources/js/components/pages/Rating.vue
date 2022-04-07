@@ -58,14 +58,15 @@
               <v-divider class="mx-4"></v-divider>
 
               <v-card-text>
-                <div class="text-center mt-8">
+                <div class="text-center mt-3">
                   <v-rating
                     v-model="rating"
                     color="yellow darken-3"
                     background-color="grey darken-1"
                     empty-icon="$ratingFull"
                     hover
-                    large
+                    
+                    size="60"
                   ></v-rating>
                   <v-textarea
                     name="Description"
@@ -76,7 +77,7 @@
                     v-model="description"
                     value="Let us know more about this user"
                     clearable
-                    class="mt-4"
+                    class="mt-8"
                   ></v-textarea>
                 </div>
               </v-card-text>

@@ -62,8 +62,9 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/user/reject/{userId}/{jobId}', [UserController::class, 'rejectEmployee']); //this is to reject employee
     Route::get('/user/job/pending', [UserController::class, 'getPendingJob']); //this is get pending job of status 4
     Route::get('/user/job/started', [UserController::class, 'startedWork']); //this is to started job of status  employee
-    Route::get('/employee/job/pending', [EmployeeController::class, 'getPendingJob']); //this is to reject employee
-    Route::post('/employee/accept/{jobId}', [EmployeeController::class, 'jobOfferStatus']);
+    Route::get('/employee/job/pending', [EmployeeController::class, 'getPendingJob']);
+
+    Route::post('/employee/accept/job/{jobId}', [EmployeeController::class, 'jobOfferStatus']);
     Route::get('/jobs/all/', [JobController::class, 'getOtherJobs']);
     Route::get('/employee/all/', [EmployeeController::class, 'getOtherEmployee']);
     Route::get('/employee/detail/{id}', [EmployeeController::class, 'getEmployee']);
@@ -74,7 +75,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/employee/get/job/completed', [EmployeeController::class, 'getCompletedJob']);
     Route::get('/employee/get/job/assigned', [EmployeeController::class, 'getAssignedJob']);
     Route::get('/employee/get/job/progress', [EmployeeController::class, 'getInProgressJob']);
-    Route::get('/employee/get/job/requested', [EmployeeController::class, 'getRequestedJob']);
+    Route::get('/employee/get/job/requested', [EmployeeController::class, 'getAssignedJob']);
     //-----------------
     Route::get('/employee/get/job', [EmployeeController::class, 'getJobNo']);
     Route::get('/employee/get/job/user/{id}', [EmployeeController::class, 'getUserJobNo']);
@@ -82,7 +83,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/employee/update/skill', [EmployeeController::class, 'updateEmployeeSkill']);
     Route::post('/employee/start/job/{id}', [EmployeeController::class, 'startJob']);
     Route::post('/employee/complete/job/{id}', [EmployeeController::class, 'completeJob']);
-    Route::post('/user/rate/user', [UserController::class, 'rateUser']);
+    Route::post('/user/rating/{id}/{jobId}', [UserController::class, 'rateUser']);
 
 
 

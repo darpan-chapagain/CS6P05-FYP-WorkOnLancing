@@ -298,6 +298,7 @@ class UserController extends Controller
         return response()->json($pending_jobs);
     }
 
+
     public function rejectEmployee(Request $request, $id, $jobId)
     {
         $authUser = auth()->user();
@@ -351,22 +352,23 @@ class UserController extends Controller
         return response()->json($progress_jobs);
     }
 
-    public function rateUser(Request $request)
+    public function rateUser(Request $request, $userId, $jobId)
     {
+        
         $authUser = auth()->user();
 
         $job = $request->job;
-        dd($job->status);
+        // dd($request->description);
         if ($job->status == 4) {
-            if ($authUser != $request->userID) {
+            if ($authUser != $userId) {
                 $userRating = new UserRating([
                     'auth_user_id' => $authUser->id,
-                    'user_id' =>  $request->user->id,
-                    'job_id' => $request->job->job_id,
+                    'user_id' =>  $userId,
+                    'job_id' => $jobId,
                     'rating' => $request->rating,
                     'description' => $request->description,
                 ]);
-
+                $userRating->save();
                 $response = [
                     'message' => 'success'
                 ];
@@ -382,6 +384,6 @@ class UserController extends Controller
         }
 
 
-        return response()->json($response);
+        return response()->json($userRating);
     }
 }

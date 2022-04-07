@@ -13,8 +13,8 @@ Vue.use(VueRouter);
 
 import JobRequest from "../components/pages/JobRequests.vue";
 import UserPortal from "../components/pages/UserPortal.vue";
-import Rating from '../components/pages/Rating.vue';
-import EmployeePortal from '../components/pages/EmployeePortal.vue'
+import Rating from "../components/pages/Rating.vue";
+import EmployeePortal from "../components/pages/EmployeePortal.vue";
 /* Guest Component */
 const Test2 = () =>
     import(
@@ -40,7 +40,7 @@ const Proposal = () =>
     import(
         "../components/pages/Proposal.vue" /* webpackChunkName: "resource/js/components/register" */
     );
-    const Proposals = () =>
+const Proposals = () =>
     import(
         "../components/pages/Proposals.vue" /* webpackChunkName: "resource/js/components/register" */
     );
@@ -87,38 +87,36 @@ const Routes = [
         path: "/login",
         component: Login,
         beforeEnter: (to, from, next) => {
-            if (store.getters['auth/authenticated']){
+            if (store.getters["auth/authenticated"]) {
                 return next({
-                    name: 'dashboard'
-                })
+                    name: "dashboard",
+                });
             }
-            next()
-        }
+            next();
+        },
     },
     {
         name: "test",
         path: "/test",
         component: Test,
-    
     },
     {
         name: "test",
         path: "/test2",
         component: Test2,
-        
     },
     {
         name: "register",
         path: "/register",
         component: Register,
         beforeEnter: (to, from, next) => {
-            if (store.getters['auth/authenticated']){
+            if (store.getters["auth/authenticated"]) {
                 return next({
-                    name: 'dashboard'
-                })
+                    name: "dashboard",
+                });
             }
-            next()
-        }
+            next();
+        },
     },
     {
         path: "/dashboard",
@@ -152,13 +150,12 @@ const Routes = [
                     middleware: [auth, admin],
                 },
             },
-        ]
+        ],
     },
     {
         name: "postJob",
         path: "/post/job",
         component: PostJob,
-        
     },
     {
         name: "proposal",
@@ -167,15 +164,14 @@ const Routes = [
         meta: {
             middleware: [auth],
         },
-        
-    },{
+    },
+    {
         name: "offer",
         path: "/job/offers",
         component: Proposals,
         meta: {
             middleware: [auth],
         },
-        
     },
     {
         name: "requests",
@@ -184,14 +180,13 @@ const Routes = [
         meta: {
             middleware: [auth],
         },
-    
     },
     {
         name: "profile",
+        
         path: "/profile/:id/",
         component: UserProfile,
-        props: true
-        
+        props: true,
     },
     {
         name: "request",
@@ -200,7 +195,6 @@ const Routes = [
         meta: {
             middleware: [auth],
         },
-        
     },
     {
         name: "application",
@@ -210,7 +204,6 @@ const Routes = [
             middleware: [auth],
         },
         props: true,
-        
     },
     {
         name: "jobRequest",
@@ -235,34 +228,37 @@ const Routes = [
         path: "/user/rating",
         component: Rating,
         props: true,
-    }
+    },
 ];
 
 var router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
+    
     routes: Routes,
+    
+    
 });
+
 
 router.beforeEach((to, from, next) => {
     if (!to.meta.middleware) {
-        return next()
+        return next();
     }
-    const middleware = to.meta.middleware
+    const middleware = to.meta.middleware;
 
     const context = {
         to,
         from,
         next,
-        store
-    }
+        store,
+    };
 
     return middleware[0]({
         ...context,
-        next: middlewarePipeline(context, middleware, 1)
-    })
-
-})
+        next: middlewarePipeline(context, middleware, 1),
+    });
+});
 
 // router.beforeEach((to, from, next) => {
 //     document.title = `${to.meta.title} - ${process.env.MIX_APP_NAME}`

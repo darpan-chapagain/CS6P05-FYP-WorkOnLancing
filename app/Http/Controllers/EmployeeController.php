@@ -219,13 +219,14 @@ class EmployeeController extends Controller
             ->where('job_id', $jobId)
             ->first();
         // dd($jobRequest);
-        if ($request->status == "yes") {
-            $jobRequest->status = 2;
-        } else {
+        if ($request->status == "accept") {
             $jobRequest->status = 4;
+        } else {
+            $jobRequest->status = 3;
         }
 
         $jobRequest->save();
+
     }
 
     public function getOtherEmployee()

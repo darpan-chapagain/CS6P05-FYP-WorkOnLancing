@@ -40,7 +40,8 @@
                         <v-list-item-title
                           class="title"
                           style="margin-top: 20px"
-                          >{{ this.user.first_name }} {{ this.user.last_name }}</v-list-item-title
+                          >{{ this.user.first_name }}
+                          {{ this.user.last_name }}</v-list-item-title
                         >
                         <v-list-item-subtitle v-if="this.user.employee">{{
                           this.user.employee.job_categories.category_name
@@ -276,7 +277,7 @@
         </v-col>
         <v-col cols="12" lg="4">
           <v-sheet min-height="268">
-            <v-sheet elevation="3" class="p-1 m-4" min-height="400">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="575">
               <div class="job-title m-4 centre">
                 <h3>Client's Details</h3>
                 <b-card-sub-title
@@ -324,15 +325,19 @@
                           this.user.gender
                         }}</v-list-item-subtitle>
 
-                        <v-list-item-title>Total Job Slots</v-list-item-title>
-                        <v-list-item-subtitle class="pb-2">{{
-                          this.user.employee.assignment_no
-                        }}</v-list-item-subtitle>
+                        <div v-if="this.user.roles.role_id == 3">
+                          <v-list-item-title>Total Job Slots</v-list-item-title>
+                          <v-list-item-subtitle class="pb-2">{{
+                            this.user.employee.assignment_no
+                          }}</v-list-item-subtitle>
 
-                        <v-list-item-title>Total Jobs Working</v-list-item-title>
-                        <v-list-item-subtitle class="pb-2">{{
-                          this.user.employee.total_job
-                        }}</v-list-item-subtitle>
+                          <v-list-item-title
+                            >Total Jobs Working</v-list-item-title
+                          >
+                          <v-list-item-subtitle class="pb-2">{{
+                            this.user.employee.total_job
+                          }}</v-list-item-subtitle>
+                        </div>
 
                         <!-- this.user.employee.total_job -->
                       </v-list-item-content>
@@ -385,7 +390,7 @@
           </v-sheet>
         </v-col>
 
-        <v-col cols="12" lg="6">
+        <v-col cols="12" lg="6" v-if="this.user.roles.role_id == 3">
           <v-sheet min-height="268">
             <v-sheet elevation="3" class="p-1 m-4" min-height="400">
               <div class="job-title m-4 centre">
@@ -409,15 +414,14 @@
           </v-sheet>
         </v-col>
 
-
         <v-col cols="12" lg="6" v-if="this.user.roles.role_id == 3">
-           <v-sheet min-height="268">
+          <v-sheet min-height="268">
             <v-sheet elevation="3" class="p-1 m-4" min-height="400">
               <div class="job-title m-4 centre">
                 <h3>User's Education!</h3>
 
                 <b-card-sub-title>
-                  Lean about this user's experience!
+                  Lean about this user's education!
                 </b-card-sub-title>
 
                 <v-divider></v-divider>
@@ -431,6 +435,63 @@
                     Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
                   </pre>
                 </div>
+              </div>
+            </v-sheet>
+          </v-sheet>
+        </v-col>
+
+        <v-col cols="12">
+          <v-sheet min-height="268">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="600">
+              <div class="job-title m-4 centre">
+                <h3>User's Rating!</h3>
+
+                <b-card-sub-title>
+                  <div class="d-flex flex-row align-items-center">
+                    <div>Average Rating:</div>
+                    <v-rating
+                      :value="4.5"
+                      color="amber"
+                      dense
+                      readonly
+                      size="14"
+                      class="p-3"
+                    ></v-rating>
+                    <div class="p-1">4(11111)</div>
+                  </div>
+                </b-card-sub-title>
+
+                <v-divider></v-divider>
+                <v-virtual-scroll
+                  :items="this.rating"
+                  height="500"
+                  item-height="200"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item class="p-2 mb-5" :key="item.id">
+                      <v-list-item-content class="mb-5">
+                        <div>
+                          <div class="d-flex flex-column">
+                            <h5 class="mx-1">
+                              {{ item.user }}
+                            </h5>
+                            <v-rating
+                              :value="4.5"
+                              color="amber"
+                              dense
+                              readonly
+                              size="24"
+                            ></v-rating>
+                          </div>
+                          <div style="font-size: 15px; margin-top: 20px">
+                            He was good Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae ea officia atque velit eligendi dignissimos, impedit mollitia quo quis odio minima facere nisi iure blanditiis neque cum natus tempore nobis! Molestiae, veniam. Id autem exercitationem architecto explicabo deserunt ullam alias molestias rerum reprehenderit hic, tenetur doloribus recusandae nemo, asperiores quos.
+                          </div>
+                        </div>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                  </template>
+                </v-virtual-scroll>
               </div>
             </v-sheet>
           </v-sheet>
@@ -525,6 +586,16 @@ export default {
     a_user: Object,
   },
   data: () => ({
+    rating: [
+      {
+        id: 1,
+        user: "darpan",
+      },
+      {
+        id: 1,
+        user: "abhigyan",
+      },
+    ],
     id: null,
     job_num: 0, // the number of jobs the user has
     first_name: null,
@@ -734,7 +805,7 @@ export default {
       //   },
       // });
       // let data = await res.data;
-      if (this.user.employee.status == '1') {
+      if (this.user.employee.status == "1") {
         if (this.user.employee.assignment_no > this.user.employee.total_job) {
           return true;
         }
@@ -762,6 +833,9 @@ export default {
   //       this.errors.push(e)
   //     })
   // },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 

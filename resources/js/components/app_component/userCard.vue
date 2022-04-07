@@ -39,11 +39,11 @@
           <div class="grey--text ms-4">
             <v-chip outlined color="green" class="m-1">
               <v-icon class="p-1">mdi-cash</v-icon>
-              ${{ user.employee.project_rate }}/pr</v-chip
+              ${{ a_user.project_rate }}/pr</v-chip
             >
             <v-chip outlined color="green" class="m-1">
               <v-icon class="p-1">mdi-cash</v-icon>
-              ${{ user.employee.hourly_rate }}/hr</v-chip
+              ${{ a_user.hourly_rate }}/hr</v-chip
             >
           </div>
         </v-col>

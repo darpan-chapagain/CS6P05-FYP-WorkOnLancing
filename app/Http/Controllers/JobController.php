@@ -69,7 +69,7 @@ class JobController extends Controller
             $skills = Skill::all()->where('skill', $sk)->first();
             $jobSkill = PostSkill::create([
                 'skill' => $skills->id,
-                'job' => 1,
+                'job' => $job->id,
             ]);
         }
 
