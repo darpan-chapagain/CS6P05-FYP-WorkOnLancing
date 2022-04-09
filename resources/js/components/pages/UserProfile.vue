@@ -40,7 +40,8 @@
                         <v-list-item-title
                           class="title"
                           style="margin-top: 20px"
-                          >{{ this.user.first_name }} {{ this.user.last_name }}</v-list-item-title
+                          >{{ this.user.first_name }}
+                          {{ this.user.last_name }}</v-list-item-title
                         >
                         <v-list-item-subtitle v-if="this.user.employee">{{
                           this.user.employee.job_categories.category_name
@@ -135,9 +136,18 @@
                                     row
                                     required
                                   >
-                                    <v-radio label="Large" value="0"></v-radio>
-                                    <v-radio label="Medium" value="1"></v-radio>
-                                    <v-radio label="Small" value="2"></v-radio>
+                                    <v-radio
+                                      label="Large"
+                                      value="Large"
+                                    ></v-radio>
+                                    <v-radio
+                                      label="Medium"
+                                      value="Medium"
+                                    ></v-radio>
+                                    <v-radio
+                                      label="Small"
+                                      value="Small"
+                                    ></v-radio>
                                   </v-radio-group>
                                 </div>
                                 <div class="time m-4">
@@ -183,12 +193,18 @@
                                     row
                                     required
                                   >
-                                    <v-radio label="Entry" value="0"></v-radio>
+                                    <v-radio
+                                      label="Entry"
+                                      value="Entry"
+                                    ></v-radio>
                                     <v-radio
                                       label="Intermediate"
-                                      value="1"
+                                      value="Intermediate"
                                     ></v-radio>
-                                    <v-radio label="Expert" value="2"></v-radio>
+                                    <v-radio
+                                      label="Expert"
+                                      value="Expert"
+                                    ></v-radio>
                                   </v-radio-group>
                                 </div>
                                 <div class="skills">
@@ -276,7 +292,7 @@
         </v-col>
         <v-col cols="12" lg="4">
           <v-sheet min-height="268">
-            <v-sheet elevation="3" class="p-1 m-4" min-height="400">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="575">
               <div class="job-title m-4 centre">
                 <h3>Client's Details</h3>
                 <b-card-sub-title
@@ -324,15 +340,19 @@
                           this.user.gender
                         }}</v-list-item-subtitle>
 
-                        <v-list-item-title>Total Job Slots</v-list-item-title>
-                        <v-list-item-subtitle class="pb-2">{{
-                          this.user.employee.assignment_no
-                        }}</v-list-item-subtitle>
+                        <div v-if="this.user.roles.role_id == 3">
+                          <v-list-item-title>Total Job Slots</v-list-item-title>
+                          <v-list-item-subtitle class="pb-2">{{
+                            this.user.employee.assignment_no
+                          }}</v-list-item-subtitle>
 
-                        <v-list-item-title>Total Jobs Working</v-list-item-title>
-                        <v-list-item-subtitle class="pb-2">{{
-                          this.user.employee.total_job
-                        }}</v-list-item-subtitle>
+                          <v-list-item-title
+                            >Total Jobs Working</v-list-item-title
+                          >
+                          <v-list-item-subtitle class="pb-2">{{
+                            this.user.employee.total_job
+                          }}</v-list-item-subtitle>
+                        </div>
 
                         <!-- this.user.employee.total_job -->
                       </v-list-item-content>
@@ -378,14 +398,16 @@
                   </v-list-item>
                 </div> -->
 
-                  <pre style="white-space: pre-line"></pre>
+                  <pre style="white-space: pre-line">
+                    {{ this.user.about }}
+                  </pre>
                 </div>
               </div>
             </v-sheet>
           </v-sheet>
         </v-col>
 
-        <v-col cols="12" lg="6">
+        <v-col cols="12" lg="6" v-if="this.user.roles.role_id == 3">
           <v-sheet min-height="268">
             <v-sheet elevation="3" class="p-1 m-4" min-height="400">
               <div class="job-title m-4 centre">
@@ -401,7 +423,7 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
+                    {{ this.user.employee.experience }}
                   </pre>
                 </div>
               </div>
@@ -409,15 +431,14 @@
           </v-sheet>
         </v-col>
 
-
         <v-col cols="12" lg="6" v-if="this.user.roles.role_id == 3">
-           <v-sheet min-height="268">
+          <v-sheet min-height="268">
             <v-sheet elevation="3" class="p-1 m-4" min-height="400">
               <div class="job-title m-4 centre">
                 <h3>User's Education!</h3>
 
                 <b-card-sub-title>
-                  Lean about this user's experience!
+                  Lean about this user's education!
                 </b-card-sub-title>
 
                 <v-divider></v-divider>
@@ -426,11 +447,71 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                    Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
+                    {{ this.user.employee.education }}
                   </pre>
                 </div>
+              </div>
+            </v-sheet>
+          </v-sheet>
+        </v-col>
+
+        <v-col cols="12">
+          <v-sheet min-height="268">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="600">
+              <div class="job-title m-4 centre">
+                <h3>User's Rating!</h3>
+
+                <b-card-sub-title>
+                  <div class="d-flex flex-row align-items-center">
+                    <div>Average Rating:</div>
+                    <v-rating
+                      :value="this.avgRate"
+                      color="amber"
+                      dense
+                      readonly
+                      size="14"
+                      class="p-3"
+                    ></v-rating>
+                    <div class="p-1">
+                      {{ this.user.rating }}({{ this.rating.length }})
+                    </div>
+                  </div>
+                </b-card-sub-title>
+
+                <v-divider></v-divider>
+                <v-virtual-scroll
+                  :items="this.rating"
+                  height="500"
+                  item-height="200"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item class="p-2 mb-5" :key="item.id">
+                      <v-list-item-content class="mb-5">
+                        <div>
+                          <div class="d-flex flex-column">
+                            <h5 class="mx-1">
+                              {{ item.rated_by.first_name }}
+                              {{ item.rated_by.last_name }}
+                            </h5>
+                            <v-rating
+                              :value="item.rating"
+                              color="amber"
+                              dense
+                              readonly
+                              size="24"
+                            ></v-rating>
+                          </div>
+                          <div style="font-size: 15px; margin-top: 20px">
+                            <pre style="white-space: pre-line"
+                              >{{ item.description }}                    </pre
+                            >
+                          </div>
+                        </div>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                  </template>
+                </v-virtual-scroll>
               </div>
             </v-sheet>
           </v-sheet>
@@ -525,6 +606,18 @@ export default {
     a_user: Object,
   },
   data: () => ({
+    rating: [
+      // {
+      //   id: 1,
+      //   user: "darpan",
+      // },
+      // {
+      //   id: 1,
+      //   user: "abhigyan",
+      // },
+    ],
+    avgRate: 0,
+    count: 0,
     id: null,
     job_num: 0, // the number of jobs the user has
     first_name: null,
@@ -553,12 +646,9 @@ export default {
       },
     ],
     drawer: false, // false = Vuetify automatically "do the right thing" to show/hide the drawer
-    api_key: "Your_API_KEY_HERE", // Your API Key go here
     articles: [],
     errors: [],
     valid: true,
-    e1: 1,
-    step: 1,
     skill: null,
     categories: [],
     scope: null,
@@ -570,8 +660,8 @@ export default {
     description: null,
     title: null,
     search: null,
-    hourlyRate: null,
-    projectRate: null,
+    hourlyRate: 0,
+    projectRate: 0,
     titleRules: [
       (v) => !!v || "Job Title is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
@@ -619,6 +709,17 @@ export default {
     },
   },
   methods: {
+    async getRating() {
+      console.log(this.id);
+      let res = await axios.get(`/user/rating/${this.id}`);
+
+      let data = res.data;
+
+      data.ratings.forEach((ratings, index) => {
+        this.rating.push(ratings);
+      });
+      this.avgRate = data.average;
+    },
     async getUser() {
       let res = await axios.get(`/user/${this.id}`);
       let data = await res.data;
@@ -714,8 +815,8 @@ export default {
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("salary_offered", this.hourlyRate);
-      jobForm.append("salary_offered", this.projectRate);
+      jobForm.append("hourly_rate", this.hourlyRate);
+      jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
       for (let sk in this.skill) {
         jobForm.append("skill[]", this.skill[sk]);
@@ -734,7 +835,7 @@ export default {
       //   },
       // });
       // let data = await res.data;
-      if (this.user.employee.status == '1') {
+      if (this.user.employee.status == "1") {
         if (this.user.employee.assignment_no > this.user.employee.total_job) {
           return true;
         }
@@ -749,6 +850,7 @@ export default {
     this.user = await this.getUser();
     this.getSkill();
     this.getCategories();
+    this.getRating();
   },
   // created () {
   //   axios.get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey='+this.api_key)
@@ -762,6 +864,9 @@ export default {
   //       this.errors.push(e)
   //     })
   // },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 

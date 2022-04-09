@@ -54,6 +54,8 @@ class JobController extends Controller
             'size' =>  $request->size,
             'time' =>  Carbon::parse($request->time)->toDateTimeString(),
             'experience' =>  $request->experience,
+            'project_rate' => $request->project_rate,
+            'hourly_rate' => $request->hourly_rate,
             // 'salary_offered' =>  $request->salary_offered,
             'job_category_id' => $categories->job_category_id,
 
@@ -69,7 +71,7 @@ class JobController extends Controller
             $skills = Skill::all()->where('skill', $sk)->first();
             $jobSkill = PostSkill::create([
                 'skill' => $skills->id,
-                'job' => 1,
+                'job' => $job->id,
             ]);
         }
 
@@ -102,10 +104,22 @@ class JobController extends Controller
     public function edit($id)
     {
         $job = Job::find($id);
-        $response = [
-            'job' => $job
-        ];
-        return response()->json($response);
+        $userID = auth()->user()->id;
+        $job = Job::where('id', $id)->first();
+        // dd($j);
+        $job->jobCategory;
+        foreach ($job->jobSkill as $skill) {
+            $skill->allSkill;
+        }
+
+        if ($job->user_id == $userID) {
+            $response = [
+                'job' => $job,
+            ];
+            return response()->json($job);
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
     }
 
     /**
@@ -115,12 +129,38 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function updateJob($id, Request $request)
     {
-        $job = Job::find($id)->update($request->all());
-        // $job->update($request->all());
+        // dd('update');
+        $categories = JobCategory::all()->where('category_name', $request->category)->first();
+        $job = Job::find($id);
+        // $job = Job::where('id', $id)->first();
+        
+        // dd($job);
+        $job->title = $request->title;
+        $job->description = $request->description;
+        $job->size = $request->size;
+        $job->time = Carbon::parse($request->time)->toDateTimeString();
+        $job->update();
+        $job->experience = $request->experience;
+        $job->project_rate = $request->project_rate;
+        $job->hourly_rate = $request->hourly_rate;
+        // $job->salary_offered = $request->salary_offered;
+        $job->job_category_id = $categories->job_category_id;
+        $job->update();
 
-        return response()->json('The job successfully updated');
+
+        $delete = PostSkill::where('job', $id)->delete();
+        foreach ($request->skill as $sk) {
+            $skills = Skill::all()->where('skill', $sk)->first();
+            $jobSkill = PostSkill::create([
+                'skill' => $skills->id,
+                'job' => $job->id,
+            ]);
+        }
+
+        $response = ['message' => 'Job updated'];
+        return response()->json($response);
     }
 
     /**

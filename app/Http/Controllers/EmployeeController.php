@@ -219,13 +219,14 @@ class EmployeeController extends Controller
             ->where('job_id', $jobId)
             ->first();
         // dd($jobRequest);
-        if ($request->status == "yes") {
-            $jobRequest->status = 2;
-        } else {
+        if ($request->status == "accept") {
             $jobRequest->status = 4;
+        } else {
+            $jobRequest->status = 3;
         }
 
         $jobRequest->save();
+
     }
 
     public function getOtherEmployee()
@@ -234,7 +235,8 @@ class EmployeeController extends Controller
         $employees = Employee::all()->reverse()->except($userID);
 
         foreach ($employees as $employee) {
-            $employee->user;
+            $user = $employee->user;
+            $user->ratings;
             $employee->jobCategories;
             $skills = $employee->employeeSkill;
             foreach ($skills as $sk) {

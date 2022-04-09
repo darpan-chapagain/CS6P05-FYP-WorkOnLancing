@@ -216,9 +216,9 @@
                             row
                             required
                           >
-                            <v-radio label="Large" value="0"></v-radio>
-                            <v-radio label="Medium" value="1"></v-radio>
-                            <v-radio label="Small" value="2"></v-radio>
+                            <v-radio label="Large" value="Large"></v-radio>
+                            <v-radio label="Medium" value="Medium"></v-radio>
+                            <v-radio label="Small" value="Small"></v-radio>
                           </v-radio-group>
                         </div>
                         <div class="time m-4">
@@ -260,9 +260,9 @@
                             row
                             required
                           >
-                            <v-radio label="Entry" value="0"></v-radio>
-                            <v-radio label="Intermediate" value="1"></v-radio>
-                            <v-radio label="Expert" value="2"></v-radio>
+                            <v-radio label="Entry" value="Entry"></v-radio>
+                            <v-radio label="Intermediate" value="Intermediate"></v-radio>
+                            <v-radio label="Expert" value="Expert"></v-radio>
                           </v-radio-group>
                         </div>
                         <v-btn
@@ -446,9 +446,9 @@
                         row
                         required
                       >
-                        <v-radio label="Large" value="0"></v-radio>
-                        <v-radio label="Medium" value="1"></v-radio>
-                        <v-radio label="Small" value="2"></v-radio>
+                        <v-radio label="Large" value="Large"></v-radio>
+                        <v-radio label="Medium" value="Medium"></v-radio>
+                        <v-radio label="Small" value="Small"></v-radio>
                       </v-radio-group>
                     </div>
                     <div class="time m-4">
@@ -490,9 +490,9 @@
                         row
                         required
                       >
-                        <v-radio label="Entry" value="0"></v-radio>
-                        <v-radio label="Intermediate" value="1"></v-radio>
-                        <v-radio label="Expert" value="2"></v-radio>
+                        <v-radio label="Entry" value="Entry"></v-radio>
+                        <v-radio label="Intermediate" value="Intermediate"></v-radio>
+                        <v-radio label="Expert" value="Expert"></v-radio>
                       </v-radio-group>
                     </div>
                     <div class="skills">
@@ -570,7 +570,6 @@ export default {
       valid: true,
       e1: 1,
       step: 1,
-      skill: null,
       categories: [],
       scope: null,
       experience: null,
@@ -581,8 +580,8 @@ export default {
       description: null,
       title: null,
       search: null,
-      hourlyRate: null,
-      projectRate: null,
+      hourlyRate: 0,
+      projectRate: 0,
       titleRules: [
         (v) => !!v || "Job Title is required",
         (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
@@ -733,7 +732,7 @@ export default {
     },
     formData() {
       let jobForm = new FormData();
-      
+
       jobForm.append("title", this.title);
       jobForm.append("description", this.description);
       jobForm.append("category", this.category);

@@ -298,6 +298,7 @@ class UserController extends Controller
         return response()->json($pending_jobs);
     }
 
+
     public function rejectEmployee(Request $request, $id, $jobId)
     {
         $authUser = auth()->user();
@@ -353,19 +354,32 @@ class UserController extends Controller
 
     public function rateUser(Request $request)
     {
-        $authUser = auth()->user();
 
-        $job = $request->job;
-        dd($job->status);
+        $authUser = auth()->user();
+        // dd($request->job_id);
+        $job = Job::find($request->job_id);
         if ($job->status == 4) {
-            if ($authUser != $request->userID) {
+            if ($authUser != $request->user) {
                 $userRating = new UserRating([
                     'auth_user_id' => $authUser->id,
-                    'user_id' =>  $request->user->id,
-                    'job_id' => $request->job->job_id,
+                    'user_id' =>  $request->user,
+                    'job_id' => $request->job_id,
                     'rating' => $request->rating,
                     'description' => $request->description,
                 ]);
+                $user = User::find($request->user);
+                $userRating->save();
+                $userRatings = UserRating::where('user_id', $request->user)->get();
+                // dd($userRating);
+                $totalRate = 0;
+                $count = 0;
+                foreach ($userRatings as $rating) {
+                    $totalRate += $rating->rating;
+                    $count++;
+                }
+                $average = $totalRate / $count;
+                $user->rating = $average;
+                $user->update();
 
                 $response = [
                     'message' => 'success'
@@ -382,6 +396,6 @@ class UserController extends Controller
         }
 
 
-        return response()->json($response);
+        return response()->json($userRating);
     }
 }

@@ -14,7 +14,8 @@ class UserRatingController extends Controller
      */
     public function index()
     {
-        //
+        $rating = UserRating::all()->toArray();
+        return array_reverse($rating);
     }
 
     /**
@@ -22,64 +23,51 @@ class UserRatingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getUserRating(Request $request, $id)
     {
-        //
-    }
+        $userRating = UserRating::where('user_id', $id)->get();
+        // dd($userRating);
+        $totalRate = 0;
+        $count = 0;
+        foreach ($userRating as $rating) {
+            $rating->ratedBy;
+            $rating->job;
+            $rating->user;
+            $totalRate += $rating->rating;
+            $count++;
+        }
+        if($count == 0) {
+            $count = 1;
+        }
+        $average = $totalRate / $count;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $response = [
+            'ratings' => $userRating,
+            'average' => $average,
+        ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\UserRating  $userRating
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserRating $userRating)
-    {
-        //
+        return $response;
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\UserRating  $userRating
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserRating $userRating)
+    public function haveRated(Request $request, $auth_user_id, $user_id, $job_id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserRating  $userRating
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserRating $userRating)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\UserRating  $userRating
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserRating $userRating)
-    {
-        //
+        $userRated = UserRating::where('auth_user_id', $auth_user_id)
+            ->where('user_id', $user_id)
+            ->where('job_id', $job_id)
+            ->first();
+        // dd($userRating != null);
+        if($userRated == null) {
+            $response = [
+                'status' => 'Not rated',
+                'message' => 'You have not rated this user',
+                'data' => $userRated
+            ];
+        }else{
+            $response = [
+                'status' => 'Rated',
+                'message' => 'You have rated this user',
+                'data' => $userRated
+            ];
+        }
+        return $response;
     }
 }

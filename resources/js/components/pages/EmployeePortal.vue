@@ -3,7 +3,7 @@
     <div style="margin-top: 150px">
       <template>
         <v-row>
-          <v-col cols="12" sm="12" md="6" lg="6">
+          <v-col cols="12" sm="12" md="12" lg="6">
             <v-card :loading="loading" class="mx-auto my-5" max-width="674">
               <template slot="progress">
                 <v-progress-linear
@@ -100,7 +100,7 @@
               </v-card-actions>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="12" md="6" lg="6">
+          <v-col cols="12" sm="12" md="12" lg="6">
             <v-card class="mt-5" min-height="115vh">
               <v-tabs color="deep-purple accent-4" right>
                 <v-tab>Completed Job</v-tab>
@@ -110,52 +110,52 @@
 
                 <v-tab-item>
                   <v-card flat>
-                    <v-card-text v-if="completedJob">
+                    <v-card-text v-if="completedJob.length > 0">
                       <Jobs :allJobs="completedJob" :view="'completed'" />
                     </v-card-text>
                     <v-card-text v-else>
                       <v-divider></v-divider>
                       <v-alert outlined type="warning" prominent border="left">
-                        No Jobs found
+                        You have not completed any jobs yet
                       </v-alert>
                     </v-card-text>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
                   <v-card flat>
-                    <v-card-text v-if="requestedJob">
+                    <v-card-text v-if="requestedJob.length > 0">
                       <Jobs :allJobs="requestedJob" :view="'requested'" />
                     </v-card-text>
                     <v-card-text v-else>
                       <v-divider></v-divider>
                       <v-alert outlined type="warning" prominent border="left">
-                        No Jobs found
+                        You have not requested any jobs yet
                       </v-alert>
                     </v-card-text>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
                   <v-card flat>
-                    <v-card-text v-if="assignedJob">
+                    <v-card-text v-if="assignedJob.length > 0">
                       <Jobs :allJobs="assignedJob" :view="'assigned'" />
                     </v-card-text>
                     <v-card-text v-else>
                       <v-divider></v-divider>
                       <v-alert outlined type="warning" prominent border="left">
-                        No Jobs found
+                        You have are not assigned any jobs yet.
                       </v-alert>
                     </v-card-text>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
                   <v-card flat>
-                    <v-card-text v-if="progressJob">
+                    <v-card-text v-if="progressJob.length > 0">
                       <Jobs :allJobs="progressJob" :view="'progress'" />
                     </v-card-text>
                     <v-card-text v-else>
                       <v-divider></v-divider>
                       <v-alert outlined type="warning" prominent border="left">
-                        No Jobs found
+                        You are not doing any jobs yet.
                       </v-alert>
                     </v-card-text>
                   </v-card>
@@ -234,7 +234,7 @@ export default {
     async jobAssigned() {
       let res = await axios({
         method: "get",
-        url: "user/job/started",
+        url: "employee/get/job/assigned",
         headers: {
           Authorization: "Bearer " + this.token,
         },
