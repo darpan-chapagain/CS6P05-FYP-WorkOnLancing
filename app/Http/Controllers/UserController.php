@@ -352,23 +352,35 @@ class UserController extends Controller
         return response()->json($progress_jobs);
     }
 
-    public function rateUser(Request $request, $userId, $jobId)
+    public function rateUser(Request $request)
     {
-        
-        $authUser = auth()->user();
 
-        $job = $request->job;
-        // dd($request->description);
+        $authUser = auth()->user();
+        // dd($request->job_id);
+        $job = Job::find($request->job_id);
         if ($job->status == 4) {
-            if ($authUser != $userId) {
+            if ($authUser != $request->user) {
                 $userRating = new UserRating([
                     'auth_user_id' => $authUser->id,
-                    'user_id' =>  $userId,
-                    'job_id' => $jobId,
+                    'user_id' =>  $request->user,
+                    'job_id' => $request->job_id,
                     'rating' => $request->rating,
                     'description' => $request->description,
                 ]);
+                $user = User::find($request->user);
                 $userRating->save();
+                $userRatings = UserRating::where('user_id', $request->user)->get();
+                // dd($userRating);
+                $totalRate = 0;
+                $count = 0;
+                foreach ($userRatings as $rating) {
+                    $totalRate += $rating->rating;
+                    $count++;
+                }
+                $average = $totalRate / $count;
+                $user->rating = $average;
+                $user->update();
+
                 $response = [
                     'message' => 'success'
                 ];

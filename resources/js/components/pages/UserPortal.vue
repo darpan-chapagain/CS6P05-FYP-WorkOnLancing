@@ -148,29 +148,40 @@
 
                 <v-tab-item>
                   <v-card flat>
-                    <v-card-text v-if="myJobs">
+                    <v-card-text v-if="myJobs.length > 0">
                       <Jobs :allJobs="myJobs" :view="'all'" />
-                    </v-card-text>
-                    
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card flat>
-                    <v-card-text v-if="pendingJobs != null">
-                      <Jobs :allJobs="pendingJobs" :view="'pending'" />
                     </v-card-text>
                     <v-card-text v-else>
                       <v-divider></v-divider>
                       <v-alert outlined type="warning" prominent border="left">
-                        No Jobs found
+                        You have not posted any jobs yet
                       </v-alert>
                     </v-card-text>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
                   <v-card flat>
-                    <v-card-text>
+                    <v-card-text v-if="pendingJobs.length > 0">
+                      <Jobs :allJobs="pendingJobs" :view="'pending'" />
+                    </v-card-text>
+                    <v-card-text v-else>
+                      <v-divider></v-divider>
+                      <v-alert outlined type="warning" prominent border="left">
+                        You have no pending jobs
+                      </v-alert>
+                    </v-card-text>
+                  </v-card>
+                </v-tab-item>
+                <v-tab-item>
+                  <v-card flat>
+                    <v-card-text v-if="jobInProgress.length > 0">
                       <Jobs :allJobs="jobInProgress" :view="'assigned'" />
+                    </v-card-text>
+                    <v-card-text v-else>
+                      <v-divider></v-divider>
+                      <v-alert outlined type="warning" prominent border="left">
+                        You have no pending jobs
+                      </v-alert>
                     </v-card-text>
                   </v-card>
                 </v-tab-item>

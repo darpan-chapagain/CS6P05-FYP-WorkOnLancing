@@ -32,7 +32,8 @@
                       class="d-flex justify-content-center align-items-center"
                     >
                       <v-card-title>
-                        {{ this.returnUser().user.first_name }} {{ this.returnUser().user.last_name }}
+                        {{ this.returnUser().user.first_name }}
+                        {{ this.returnUser().user.last_name }}
                       </v-card-title>
                     </div>
                   </v-col>
@@ -65,7 +66,6 @@
                     background-color="grey darken-1"
                     empty-icon="$ratingFull"
                     hover
-                    
                     size="60"
                   ></v-rating>
                   <v-textarea
@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import JobDetail from "../app_component/cardJobDetails.vue";
 
 export default {
@@ -118,10 +119,35 @@ export default {
     },
     rate() {
       let rateForm = new FormData();
-        rateForm.append("rating", this.rating);
-        rateForm.append("description", this.description);
+      rateForm.append("rating", this.rating);
+      rateForm.append("description", this.description);
+      rateForm.append("job_id", this.returnJob().id);
+      rateForm.append("user", this.returnUser().user.id);
 
-        console.log(this.rating, this.description);
+      axios({
+        method: "post",
+        url: `user/rating/${this.returnUser().user.id}/${this.returnJob().id}`,
+        data: rateForm,
+        headers: {
+          Authorization: "Bearer " + this.token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) => {
+          this.$router.push({
+            name: "dashboard",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log(
+        this.rating,
+        this.description,
+        this.returnJob().id,
+        this.returnUser().user.id
+      );
     },
     returnJob() {
       if (this.a_job_detail) {

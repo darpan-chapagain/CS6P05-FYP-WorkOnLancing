@@ -10,6 +10,7 @@ use App\Http\Controllers\PostSkillController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JobRequestController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\JobCategoryController;
 
 
@@ -32,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('me/data', [AuthController::class, 'me']);
     // Route::get('/', [JobsController::class, 'index']);
@@ -42,17 +43,19 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     // Route::delete('delete/{id}', [JobsController::class, 'delete']);
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::post('create', [JobController::class, 'create']);
     // Route::get('edit/{id}', [JobController::class, 'edit']);
     // Route::post('update/{id}', [JobController::class, 'update']);
     // Route::delete('delete/{id}', [JobController::class, 'delete']);
     Route::resource('/job', JobController::class);
+    Route::post('update/job/{id}', [JobController::class, 'updateJob']);
+
     Route::get('/user/jobs/show', [JobController::class, 'myPost']);
     // Route::resource('/jobs/skill', PostSkillController::class);
     Route::get('/employee/check/{id}', [EmployeeController::class, 'checkRequest']);
-    Route::post('/employee/request/{id}', [EmployeeController::class, 'requestJob']);//request jobs from posted job
-    Route::post('/user/offer/{id}', [UserController::class, 'offerJob']);//offer job to an employee
+    Route::post('/employee/request/{id}', [EmployeeController::class, 'requestJob']); //request jobs from posted job
+    Route::post('/user/offer/{id}', [UserController::class, 'offerJob']); //offer job to an employee
     Route::get('/user/job/requests', [JobRequestController::class, 'jobRequests']); //this is to get job requests by employer
     Route::get('/user/job/offers', [JobRequestController::class, 'getMyJobProposals']); //this is to get job offer to employer
     Route::get('/employee/offers', [JobRequestController::class, 'jobOffer']); //this is to get job offer to employee
@@ -75,7 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/employee/get/job/completed', [EmployeeController::class, 'getCompletedJob']);
     Route::get('/employee/get/job/assigned', [EmployeeController::class, 'getAssignedJob']);
     Route::get('/employee/get/job/progress', [EmployeeController::class, 'getInProgressJob']);
-    Route::get('/employee/get/job/requested', [EmployeeController::class, 'getAssignedJob']);
+    Route::get('/employee/get/job/requested', [EmployeeController::class, 'getRequestedJob']);
     //-----------------
     Route::get('/employee/get/job', [EmployeeController::class, 'getJobNo']);
     Route::get('/employee/get/job/user/{id}', [EmployeeController::class, 'getUserJobNo']);
@@ -84,12 +87,15 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/employee/start/job/{id}', [EmployeeController::class, 'startJob']);
     Route::post('/employee/complete/job/{id}', [EmployeeController::class, 'completeJob']);
     Route::post('/user/rating/{id}/{jobId}', [UserController::class, 'rateUser']);
+    Route::get('/user/rating/{authId}/{userId}/{jobId}', [UserRatingController::class, 'haveRated']);
 
 
 
     Route::resource('/blog', BlogController::class);
     //this is to accept jos by employee
 });
+Route::get('/user/rating/{id}', [UserRatingController::class, 'getUserRating']);
+
 Route::resource('/jobs/category', JobCategoryController::class);
 Route::resource('/employee', EmployeeController::class);
 // Route::resource('/job', JobController::class);
@@ -99,8 +105,3 @@ Route::post('/user/update/status/{id}', [UserController::class, 'changeStatus'])
 Route::get('/user/status/active', [UserController::class, 'getActiveUser']);
 Route::post('/job/update/status/{id}', [JobController::class, 'postStatusChange']);
 Route::get('/job/status/active', [JobController::class, 'getActivePost']);
-
-
-
-
-

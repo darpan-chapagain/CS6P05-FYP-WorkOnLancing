@@ -136,9 +136,18 @@
                                     row
                                     required
                                   >
-                                    <v-radio label="Large" value="0"></v-radio>
-                                    <v-radio label="Medium" value="1"></v-radio>
-                                    <v-radio label="Small" value="2"></v-radio>
+                                    <v-radio
+                                      label="Large"
+                                      value="Large"
+                                    ></v-radio>
+                                    <v-radio
+                                      label="Medium"
+                                      value="Medium"
+                                    ></v-radio>
+                                    <v-radio
+                                      label="Small"
+                                      value="Small"
+                                    ></v-radio>
                                   </v-radio-group>
                                 </div>
                                 <div class="time m-4">
@@ -184,12 +193,18 @@
                                     row
                                     required
                                   >
-                                    <v-radio label="Entry" value="0"></v-radio>
+                                    <v-radio
+                                      label="Entry"
+                                      value="Entry"
+                                    ></v-radio>
                                     <v-radio
                                       label="Intermediate"
-                                      value="1"
+                                      value="Intermediate"
                                     ></v-radio>
-                                    <v-radio label="Expert" value="2"></v-radio>
+                                    <v-radio
+                                      label="Expert"
+                                      value="Expert"
+                                    ></v-radio>
                                   </v-radio-group>
                                 </div>
                                 <div class="skills">
@@ -383,7 +398,9 @@
                   </v-list-item>
                 </div> -->
 
-                  <pre style="white-space: pre-line"></pre>
+                  <pre style="white-space: pre-line">
+                    {{ this.user.about }}
+                  </pre>
                 </div>
               </div>
             </v-sheet>
@@ -406,7 +423,7 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
+                    {{ this.user.employee.experience }}
                   </pre>
                 </div>
               </div>
@@ -430,9 +447,7 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                    Voluptatibus suscipit saepe impedit quibusdam molestiae autem, maxime magni atque unde voluptates repudiandae. Aliquid ipsum, maiores asperiores modi deleniti rerum eveniet reprehenderit minima atque voluptas magnam suscipit voluptatum cupiditate similique libero ducimus, optio neque voluptate dolores, natus architecto qui id tempora consequuntur.
+                    {{ this.user.employee.education }}
                   </pre>
                 </div>
               </div>
@@ -450,14 +465,16 @@
                   <div class="d-flex flex-row align-items-center">
                     <div>Average Rating:</div>
                     <v-rating
-                      :value="4.5"
+                      :value="this.avgRate"
                       color="amber"
                       dense
                       readonly
                       size="14"
                       class="p-3"
                     ></v-rating>
-                    <div class="p-1">4(11111)</div>
+                    <div class="p-1">
+                      {{ this.user.rating }}({{ this.rating.length }})
+                    </div>
                   </div>
                 </b-card-sub-title>
 
@@ -473,10 +490,11 @@
                         <div>
                           <div class="d-flex flex-column">
                             <h5 class="mx-1">
-                              {{ item.user }}
+                              {{ item.rated_by.first_name }}
+                              {{ item.rated_by.last_name }}
                             </h5>
                             <v-rating
-                              :value="4.5"
+                              :value="item.rating"
                               color="amber"
                               dense
                               readonly
@@ -484,7 +502,9 @@
                             ></v-rating>
                           </div>
                           <div style="font-size: 15px; margin-top: 20px">
-                            He was good Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae ea officia atque velit eligendi dignissimos, impedit mollitia quo quis odio minima facere nisi iure blanditiis neque cum natus tempore nobis! Molestiae, veniam. Id autem exercitationem architecto explicabo deserunt ullam alias molestias rerum reprehenderit hic, tenetur doloribus recusandae nemo, asperiores quos.
+                            <pre style="white-space: pre-line"
+                              >{{ item.description }}                    </pre
+                            >
                           </div>
                         </div>
                       </v-list-item-content>
@@ -587,15 +607,17 @@ export default {
   },
   data: () => ({
     rating: [
-      {
-        id: 1,
-        user: "darpan",
-      },
-      {
-        id: 1,
-        user: "abhigyan",
-      },
+      // {
+      //   id: 1,
+      //   user: "darpan",
+      // },
+      // {
+      //   id: 1,
+      //   user: "abhigyan",
+      // },
     ],
+    avgRate: 0,
+    count: 0,
     id: null,
     job_num: 0, // the number of jobs the user has
     first_name: null,
@@ -624,12 +646,9 @@ export default {
       },
     ],
     drawer: false, // false = Vuetify automatically "do the right thing" to show/hide the drawer
-    api_key: "Your_API_KEY_HERE", // Your API Key go here
     articles: [],
     errors: [],
     valid: true,
-    e1: 1,
-    step: 1,
     skill: null,
     categories: [],
     scope: null,
@@ -641,8 +660,8 @@ export default {
     description: null,
     title: null,
     search: null,
-    hourlyRate: null,
-    projectRate: null,
+    hourlyRate: 0,
+    projectRate: 0,
     titleRules: [
       (v) => !!v || "Job Title is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
@@ -690,6 +709,17 @@ export default {
     },
   },
   methods: {
+    async getRating() {
+      console.log(this.id);
+      let res = await axios.get(`/user/rating/${this.id}`);
+
+      let data = res.data;
+
+      data.ratings.forEach((ratings, index) => {
+        this.rating.push(ratings);
+      });
+      this.avgRate = data.average;
+    },
     async getUser() {
       let res = await axios.get(`/user/${this.id}`);
       let data = await res.data;
@@ -785,8 +815,8 @@ export default {
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("salary_offered", this.hourlyRate);
-      jobForm.append("salary_offered", this.projectRate);
+      jobForm.append("hourly_rate", this.hourlyRate);
+      jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
       for (let sk in this.skill) {
         jobForm.append("skill[]", this.skill[sk]);
@@ -820,6 +850,7 @@ export default {
     this.user = await this.getUser();
     this.getSkill();
     this.getCategories();
+    this.getRating();
   },
   // created () {
   //   axios.get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey='+this.api_key)

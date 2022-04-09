@@ -49,9 +49,7 @@
             </v-toolbar>
 
             <div v-if="role == 3">
-              <ApplyJob :a_job_detail="a_job" 
-                :message="view"
-              />
+              <ApplyJob :a_job_detail="a_job" :message="view" />
             </div>
             <div v-else>
               <div v-if="view == 'all'">
@@ -63,7 +61,16 @@
                     elevation="2"
                     class="p-3 mx-5 my-4"
                   >
-                    Job Still active
+                    Job is Still active and still open for applications.<v-btn
+                      class="ml-10"
+                      outlined
+                      color="indigo"
+                      mid
+                      text
+                      @click.prevent="edit"
+                    >
+                      Edit the job
+                    </v-btn>
                   </v-alert>
                 </div>
                 <div v-if="a_job.status == 2">
@@ -164,7 +171,7 @@
                         color="indigo"
                         mid
                         text
-                        @click.prevent="submit(req.req_employee.user.id)"
+                        @click.prevent="submit(req.req_employee.user)"
                       >
                         Complete the job!
                       </v-btn>
@@ -187,7 +194,7 @@
                       {{ req.req_employee.user.first_name }}
                       {{ req.req_employee.user.last_name }}
 
-                      <v-btn
+                      <v-btn v-if="!rated"
                         class="ml-10"
                         outlined
                         color="indigo"
@@ -196,6 +203,15 @@
                         @click.prevent="rate(req.req_employee)"
                       >
                         Rate Employee!
+                      </v-btn>
+                      <v-btn v-else
+                        class="ml-10"
+                        outlined
+                        color="indigo"
+                        mid
+                        text
+                        :disabled="true"
+                        > Oops you've already rated
                       </v-btn>
                     </v-alert>
                   </div>
@@ -248,28 +264,53 @@ export default {
       widgets: false,
       value: null,
       time: 0,
+      rated: false,
     };
   },
   methods: {
-    async submit(id) {
+    edit() {
+      this.$router
+        .push({
+          name: "jobEdit",
+          params: {
+            job: this.a_job,
+          },
+        })
+        .then(() => {
+          localStorage.setItem("job", JSON.stringify(this.a_job));
+        });
+    },
+    async submit(user) {
       let res = await axios({
         method: "post",
         url: `/job/complete/${this.a_job.id}`,
         Authorization: "Bearer " + this.token,
       }).then(() => {
         this.$router.push({
-          path: "user/rating",
+          path: "rating",
           params: {
             a_job: this.a_job,
-            a_user: this.req.req_employee,
+            a_user: user,
           },
         });
       });
     },
     async stop() {},
-    async rate(user) {
+    async rate(employee) {
       // console.log(this.a_job);
-      this.$router
+      let res = await axios({
+        method: "get",
+        url: `/user/rating/${this.user.id}/${employee.user.id}/${this.a_job.id}`,
+        Authorization: "Bearer " + this.token,
+        data: {
+          employee_id: employee.id,
+        },
+      });
+      let data = res.data;
+      if(data.status == 'Rated'){
+        this.rated = true;
+      }else{
+        this.$router
         .push({
           name: "userRating",
           params: {
@@ -279,12 +320,15 @@ export default {
         })
         .then(() => {
           localStorage.setItem("a_job_detail", JSON.stringify(this.a_job));
-          localStorage.setItem("a_user", JSON.stringify(user));
+          localStorage.setItem("a_user", JSON.stringify(employee));
         });
+      }
+      
     },
   },
   computed: {
     ...mapGetters({
+      user: "auth/user",
       role: "auth/getRole",
       token: "auth/getToken",
     }),

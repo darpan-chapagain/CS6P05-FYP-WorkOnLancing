@@ -57,37 +57,41 @@
               </v-btn>
             </template>
 
-            <v-list>
-              <v-list-item @click="() => {}" v-if="this.role == 2">
+            <v-list @click="() => {}">
+              <v-list-item v-if="this.role == 2">
                 <v-list-item-title>
                   <v-btn
                     class="nav-item nav-link"
                     style="cursor: pointer"
                     text
-                    @click.prevent="userPortal"
+                    @click="userPortal"
+                    width="100%"
                     >User Portal</v-btn
                   >
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="() => {}" v-if="this.role == 3">
+              <v-list-item v-if="this.role == 3">
                 <v-list-item-title>
                   <v-btn
                     class="nav-item nav-link"
                     style="cursor: pointer"
                     text
-                    @click.prevent="employeePortal"
+                    @click="employeePortal"
+                    width="100%"
                     >Employee Portal</v-btn
                   >
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="() => {}">
+              <v-list-item>
                 <v-list-item-title>
                   <v-btn
                     class="nav-item nav-link"
                     style="cursor: pointer"
                     text
-                    @click.prevent="logOut"
+                    @click="logOut"
+                    width="100%"
                     >Logout</v-btn
+                    
                   >
                 </v-list-item-title>
               </v-list-item>
@@ -184,6 +188,9 @@ export default {
     ...mapActions({
       signOutAction: "auth/signOut",
     }),
+    test(){
+      console.log('test');
+    },
     logOut() {
       this.signOutAction().then(() => {
         this.$router

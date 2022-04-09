@@ -235,7 +235,8 @@ class EmployeeController extends Controller
         $employees = Employee::all()->reverse()->except($userID);
 
         foreach ($employees as $employee) {
-            $employee->user;
+            $user = $employee->user;
+            $user->ratings;
             $employee->jobCategories;
             $skills = $employee->employeeSkill;
             foreach ($skills as $sk) {

@@ -23,13 +23,13 @@
       <v-row align="center" class="">
         <v-col cols="4">
           <v-rating
-            :value="4.5"
+            :value="this.rating"
             color="amber"
             dense
             readonly
             size="14"
           ></v-rating>
-          4 (1111)
+          {{ this.avgRate }} ({{ this.count }})
         </v-col>
         <!-- <v-col cols="4">
           <div class="grey--text ms-4">4</div>
@@ -88,6 +88,9 @@ export default {
     loading: false,
     selection: null,
     img_path: "",
+    rating: 0,
+    avgRate: 0,
+    count: 0,
   }),
 
   methods: {
@@ -104,9 +107,21 @@ export default {
         },
       });
     },
+    async getRating() {
+      console.log(this.id);
+      let res = await axios.get(`/user/rating/${this.a_user.user.id}`);
+
+      let data = res.data;
+
+      data.ratings.forEach((ratings, index) => {
+        this.count++;
+      });
+      this.avgRate = data.average;
+    },
   },
   async created() {
     this.img_path = await this.a_user.user.profile_path;
+    await this.getRating();
   },
 };
 </script>

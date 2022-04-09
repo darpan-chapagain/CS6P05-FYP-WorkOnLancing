@@ -15,6 +15,7 @@ import JobRequest from "../components/pages/JobRequests.vue";
 import UserPortal from "../components/pages/UserPortal.vue";
 import Rating from "../components/pages/Rating.vue";
 import EmployeePortal from "../components/pages/EmployeePortal.vue";
+import JobEdit from "../components/pages/JobEdit.vue";
 /* Guest Component */
 const Test2 = () =>
     import(
@@ -229,6 +230,12 @@ const Routes = [
         component: Rating,
         props: true,
     },
+    {
+        name: "jobEdit",
+        path: "/job/edit",
+        component: JobEdit,
+        props: true,
+    }
 ];
 
 var router = new VueRouter({
