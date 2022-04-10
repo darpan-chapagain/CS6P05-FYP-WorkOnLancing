@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/employee/detail/{id}', [EmployeeController::class, 'getEmployee']);
     Route::post('/employee/update/status', [EmployeeController::class, 'changeStatus']);
     Route::get('/employee/get/status', [EmployeeController::class, 'getStatus']);
-    Route::post('/employee/update/job', [EmployeeController::class, 'updateJobNo']);
+    Route::post('/employee/update/job/no', [EmployeeController::class, 'updateJobNo']);
     //get jobs for employees
     Route::get('/employee/get/job/completed', [EmployeeController::class, 'getCompletedJob']);
     Route::get('/employee/get/job/assigned', [EmployeeController::class, 'getAssignedJob']);

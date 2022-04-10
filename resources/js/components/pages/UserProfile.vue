@@ -686,9 +686,9 @@ export default {
         method: "get",
         url: `user/blogs/all/${this.id}`,
       });
-      let data = await res.data
+      let data = await res.data;
 
-      return data
+      return data;
     },
     async getRating() {
       console.log(this.id);

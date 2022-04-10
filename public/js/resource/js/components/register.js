@@ -4654,7 +4654,11 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("v-card-text", [
-                _vm._v("\n        " + _vm._s(_vm.blog.detail) + "\n      "),
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.blog.detail.substring(0, 200)) +
+                    "...\n      "
+                ),
               ]),
               _vm._v(" "),
               _c(

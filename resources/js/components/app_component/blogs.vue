@@ -17,7 +17,7 @@
           </v-layout>
         </v-container>
         <v-card-text>
-          {{ blog.detail }}
+          {{ blog.detail.substring(0, 200) }}...
         </v-card-text>
         <v-card-actions>
           <v-chip big color="secondary" class="white--text">

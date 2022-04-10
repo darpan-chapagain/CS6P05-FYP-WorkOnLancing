@@ -142,13 +142,12 @@ export default {
     async submit() {
       let res = await axios({
         method: "post",
-        url: "employee/update/job/",
+        url: "employee/update/job/no",
         data: {
           job: this.select,
         },
         headers: {
-          Authorization: "Bearer " + this.token,
-          "Content-type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
     },

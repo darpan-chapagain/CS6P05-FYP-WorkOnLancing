@@ -277,16 +277,22 @@ export default {
       certification: null,
       type: null,
       title: null,
+      blog: null,
     };
   },
   methods: {
-    getData() {
-      blogData = new FormData();
+   getData() {
+      let blogData = new FormData();
+
+      if (this.posting) {
+        blogData.append("profile", this.profile);
+      } else {
+        blogData.append("profile", this.certification);
+      }
 
       blogData.append("title", this.title);
       blogData.append("description", this.blog);
       blogData.append("type", this.type);
-      blogData.append("profile", this.profile);
 
       return blogData;
     },
@@ -333,8 +339,8 @@ export default {
       this.$router.push({
         name: "profile",
         params: {
-          id: this.user.id,
-          a_user: this.user,
+          id: this.a_user.id,
+          a_user: this.a_user,
         },
       });
     },

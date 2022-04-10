@@ -268,13 +268,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context5.next = 2;
                 return axios({
                   method: "post",
-                  url: "employee/update/job/",
+                  url: "employee/update/job/no",
                   data: {
                     job: _this5.select
                   },
                   headers: {
-                    Authorization: "Bearer " + _this5.token,
-                    "Content-type": "application/json"
+                    Authorization: "Bearer " + localStorage.getItem("token")
                   }
                 });
 
