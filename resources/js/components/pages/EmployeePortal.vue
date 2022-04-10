@@ -3,6 +3,120 @@
     <div style="margin-top: 150px">
       <template>
         <v-row>
+          <v-col cols="12">
+            <v-card rounded outlined>
+              <v-card-title>
+                <v-layout>
+                  <v-btn
+                    text
+                    class="questrial font-weight-bold text-none"
+                    @click.prevent="changePosting"
+                    >Make Post</v-btn
+                  >
+                  <v-btn
+                    text
+                    class="questrial text-none"
+                    @click.prevent="changeCertificate"
+                    >Post a certificate</v-btn
+                  >
+                </v-layout>
+              </v-card-title>
+              <div class="post" v-if="posting">
+                <div class="img-input p-5">
+                  <v-text-field
+                    label="Title"
+                    hide-details
+                    single-line
+                    v-model="title"
+                  ></v-text-field>
+                  <v-file-input
+                    cols="8"
+                    :rules="[(v) => !!v || 'Please select an image']"
+                    accept="image/png, image/jpeg, image/bmp"
+                    placeholder="Pick an avatar"
+                    prepend-icon="mdi-camera"
+                    label="Banner Picture"
+                    v-model="profile"
+                  ></v-file-input>
+                  <v-img
+                    v-if="profile"
+                    max-height="500"
+                    width="100%"
+                    :src="urlProfile"
+                  ></v-img>
+                </div>
+
+                <div class="p-5">
+                  <v-layout>
+                    <v-flex xs12>
+                      <v-textarea
+                        label="Write about your Blog!"
+                        outlined
+                        rows="15"
+                        row-height="15"
+                        prepend-icon="mdi-comment"
+                        v-model="blog"
+                      ></v-textarea>
+                    </v-flex>
+                  </v-layout>
+                </div>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="deep-purple lighten-2" text @click="postBlog">
+                    Post
+                  </v-btn>
+                </v-card-actions>
+              </div>
+              <div class="certification" v-if="certificate">
+                <div class="img-input p-5">
+                  <v-text-field
+                    label="Title"
+                    hide-details
+                    single-line
+                    v-model="title"
+                  ></v-text-field>
+                  <v-file-input
+                    cols="8"
+                    :rules="[(v) => !!v || 'Please input a certificate pic']"
+                    accept="image/png, image/jpeg, image/bmp"
+                    placeholder="Upload a certificate picture"
+                    prepend-icon="mdi-camera"
+                    label="Certification pic"
+                    v-model="certification"
+                  ></v-file-input>
+                  <v-img
+                    v-if="certification"
+                    max-height="500"
+                    width="100%"
+                    :src="url"
+                  ></v-img>
+                </div>
+
+                <div class="p-5">
+                  <v-layout>
+                    <v-flex xs12>
+                      <v-textarea
+                        label="Write an announcement!"
+                        outlined
+                        rows="5"
+                        row-height="15"
+                        prepend-icon="mdi-comment"
+                        v-model="blog"
+                      ></v-textarea>
+                    </v-flex>
+                  </v-layout>
+                </div>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="deep-purple lighten-2" text @click="postBlog">
+                    Post
+                  </v-btn>
+                </v-card-actions>
+              </div>
+            </v-card>
+          </v-col>
           <v-col cols="12" sm="12" md="12" lg="6">
             <v-card :loading="loading" class="mx-auto my-5" max-width="674">
               <template slot="progress">
@@ -37,7 +151,7 @@
                       <v-btn
                         color="deep-purple lighten-2"
                         text
-                        @click="editProfile"
+                        @click.prevent="editProfile"
                       >
                         Edit
                       </v-btn>
@@ -45,14 +159,14 @@
                   </v-col>
                   <v-col cols="4">
                     <v-rating
-                      :value="4.5"
+                      :value="this.rating"
                       color="amber"
                       dense
                       readonly
                       size="14"
                       class="p-1"
                     ></v-rating>
-                    <div class="p-1">4(11111)</div>
+                    <div class="p-1">{{ this.avgRate }} ({{ this.count }})</div>
                   </v-col>
                   <!-- <v-col cols="4">
           <div class="grey--text ms-4">4</div>
@@ -77,8 +191,7 @@
                 </div>
 
                 <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Ullam, minima!.
+                  {{ user.about }}
                 </div>
               </v-card-text>
 
@@ -94,7 +207,7 @@
                 </v-chip-group>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="deep-purple lighten-2" text @click="profile">
+                <v-btn color="deep-purple lighten-2" text @click="visitProfile">
                   Visit Profile
                 </v-btn>
               </v-card-actions>
@@ -182,6 +295,7 @@ export default {
   },
   data() {
     return {
+      title: null,
       loading: false,
       selection: null,
       completedJob: [],
@@ -191,10 +305,46 @@ export default {
       progressJob: [],
       employee: null,
       img_path: "",
+      profile: null,
+      posting: false,
+      certificate: false,
+      certification: null,
+      type: null,
+      blog: null,
+      rating: 0,
+      avgRate: 0,
+      count: 0,
     };
   },
   methods: {
-    profile() {
+    getData() {
+      let blogData = new FormData();
+
+      if (this.posting) {
+        blogData.append("profile", this.profile);
+      } else {
+        blogData.append("profile", this.certification);
+      }
+
+      blogData.append("title", this.title);
+      blogData.append("description", this.blog);
+      blogData.append("type", this.type);
+
+      return blogData;
+    },
+    async postBlog() {
+      alert(this.blog);
+      let res = await axios({
+        method: "POST",
+        url: "/blog",
+        data: this.getData(),
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Header-Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
+    goProfile() {
       this.loading = true;
 
       setTimeout(() => (this.loading = false), 2000);
@@ -207,8 +357,51 @@ export default {
         },
       });
     },
-    editProfile() {},
-    visitProfile() {},
+    changeCertificate() {
+      if (!this.certificate) {
+        this.type = "certificate";
+        this.certificate = true;
+        this.posting = false;
+      } else {
+        this.certificate = false;
+      }
+    },
+    changePosting() {
+      if (!this.posting) {
+        this.type = "Blog";
+        this.posting = true;
+        this.certificate = false;
+      } else {
+        this.posting = false;
+      }
+    },
+    editProfile() {
+      console.log("test");
+    },
+    visitProfile() {
+      this.loading = true;
+
+      setTimeout(() => (this.loading = false), 2000);
+
+      this.$router.push({
+        name: "profile",
+        params: {
+          id: this.user.id,
+          a_user: this.user,
+        },
+      });
+    },
+    async getRating() {
+      console.log(this.id);
+      let res = await axios.get(`/user/rating/${this.a_user.user.id}`);
+
+      let data = res.data;
+
+      data.ratings.forEach((ratings, index) => {
+        this.count++;
+      });
+      this.avgRate = data.average;
+    },
     async jobRequested() {
       let res = await axios({
         method: "get",
@@ -280,6 +473,14 @@ export default {
       user: "auth/user",
       token: "auth/getToken",
     }),
+    urlProfile() {
+      if (!this.profile) return;
+      return URL.createObjectURL(this.profile);
+    },
+    url() {
+      if (!this.certification) return;
+      return URL.createObjectURL(this.certification);
+    },
   },
 };
 </script>

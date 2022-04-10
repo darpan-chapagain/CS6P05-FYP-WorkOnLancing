@@ -11,7 +11,7 @@ class Blog extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['user_id','title', 'thumb', 'full_img', 'time', 'detail', 'status'];
+    protected $fillable = ['user_id','title', 'img', 'img_path', 'type', 'detail', 'status'];
 
     public function comments(){
         // dd($this->hasMany(JobRequest::class, 'job_id'));

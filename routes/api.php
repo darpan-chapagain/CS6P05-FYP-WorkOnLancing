@@ -92,8 +92,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
     Route::resource('/blog', BlogController::class);
+    Route::get('/user/my/blogs/', [BlogController::class, 'myBlog']);
+
     //this is to accept jos by employee
 });
+Route::get('/user/blogs/all/{id}', [BlogController::class, 'userBlog']);
+Route::get('/blog/get/{id}', [BlogController::class, 'getBlog']);
+
 Route::get('/user/rating/{id}', [UserRatingController::class, 'getUserRating']);
 
 Route::resource('/jobs/category', JobCategoryController::class);

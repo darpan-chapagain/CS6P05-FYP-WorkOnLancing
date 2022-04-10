@@ -3,6 +3,67 @@
     <div style="margin-top: 150px">
       <template>
         <v-row>
+          <v-col cols="12">
+            <v-card rounded outlined>
+              <v-card-title>
+                <v-layout>
+                  <v-btn
+                    text
+                    class="questrial font-weight-bold text-none"
+                    @click.prevent="changePosting"
+                    >Make Post</v-btn
+                  >
+                </v-layout>
+              </v-card-title>
+              <div class="post" v-if="posting">
+                <div class="img-input p-5">
+                  <v-text-field
+                    label="Title"
+                    hide-details
+                    single-line
+                    v-model="title"
+                  ></v-text-field>
+                  <v-file-input
+                    cols="8"
+                    :rules="[(v) => !!v || 'Please select an image']"
+                    accept="image/png, image/jpeg, image/bmp"
+                    placeholder="Pick an avatar"
+                    prepend-icon="mdi-camera"
+                    label="Banner Picture"
+                    v-model="profile"
+                  ></v-file-input>
+                  <v-img
+                    v-if="profile"
+                    max-height="500"
+                    width="100%"
+                    :src="urlProfile"
+                  ></v-img>
+                </div>
+
+                <div class="p-5">
+                  <v-layout>
+                    <v-flex xs12>
+                      <v-textarea
+                        label="Write about your Blog!"
+                        outlined
+                        rows="15"
+                        row-height="15"
+                        prepend-icon="mdi-comment"
+                        v-model="blog"
+                      ></v-textarea>
+                    </v-flex>
+                  </v-layout>
+                </div>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="deep-purple lighten-2" text @click="postBlog">
+                    Post
+                  </v-btn>
+                </v-card-actions>
+              </div>
+            </v-card>
+          </v-col>
           <v-col cols="12" sm="12" md="6" lg="6">
             <v-card class="mx-auto mt-5" max-width="774" min-height="128vh">
               <template slot="progress">
@@ -14,7 +75,7 @@
               </template>
 
               <img
-                :src="'/images/202203291242DSC00425.JPG'"
+                :src="'/' + this.img_path"
                 alt="image"
                 class="img-fluid"
                 style="object-fit: cover; object-position: center; width: 100%"
@@ -209,11 +270,74 @@ export default {
       pendingJobs: [],
       myJobs: [],
       jobInProgress: [],
+      img_path: "",
+      profile: null,
+      posting: false,
+      certificate: false,
+      certification: null,
+      type: null,
+      title: null,
     };
   },
   methods: {
-    editProfile() {},
-    visitProfile() {},
+    getData() {
+      blogData = new FormData();
+
+      blogData.append("title", this.title);
+      blogData.append("description", this.blog);
+      blogData.append("type", this.type);
+      blogData.append("profile", this.profile);
+
+      return blogData;
+    },
+    async postBlog() {
+      let res = await axios({
+        method: "POST",
+        url: "/blog",
+        data: this.getData(),
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Header-Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
+    postCertification() {},
+    changeCertificate() {
+      if (!this.certificate) {
+        this.type = "certificate";
+        this.certificate = true;
+        this.posting = false;
+      } else {
+        this.certificate = false;
+      }
+    },
+    changePosting() {
+      if (!this.posting) {
+        this.type = "Blog";
+        this.posting = true;
+        this.certificate = false;
+      } else {
+        this.posting = false;
+      }
+    },
+    editProfile() {
+      this.$router.push({
+        name: "editProfile",
+      });
+    },
+    visitProfile() {
+      this.loading = true;
+
+      setTimeout(() => (this.loading = false), 2000);
+
+      this.$router.push({
+        name: "profile",
+        params: {
+          id: this.user.id,
+          a_user: this.user,
+        },
+      });
+    },
     async getPendingJobs() {
       let res = await axios({
         method: "get",
@@ -249,6 +373,7 @@ export default {
     },
   },
   async created() {
+    this.img_path = await this.a_user.profile_path;
     this.pendingJobs = await this.getPendingJobs();
     this.myJobs = await this.myJob();
     this.jobInProgress = await this.startedJobs();
@@ -258,6 +383,14 @@ export default {
       a_user: "auth/user",
       token: "auth/getToken",
     }),
+    urlProfile() {
+      if (!this.profile) return;
+      return URL.createObjectURL(this.profile);
+    },
+    url() {
+      if (!this.certification) return;
+      return URL.createObjectURL(this.certification);
+    },
   },
 };
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,9 +25,38 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
+
     {
-        //
+        $userID = auth()->user()->id;
+
+        $profile_name = '202203281818DSC00425.JPG';
+        $profile_path = 'images/202203281818DSC00425.jpg';
+
+        if ($request->file('profile')) {
+            $file = $request->file('profile');
+            $profile_name = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('images'), $profile_name);
+            $profile_path = 'posts/' . $profile_name;
+        }
+        dd($request->description);
+        $blog = new Blog([
+            'user_id' => $userID,
+            'title' => $request->title,
+            // 'thumb' => $reThumbImage,
+            // 'full_img' => $reThumbImage,
+            'detail' => $request->description, 
+            'img' =>  $profile_name,
+            'img_path' => $profile_path,
+            'type' => $request->type,
+        ]);
+        $blog->save();
+
+        $response = [
+            'blog' => $blog,
+            'message' => 'success',
+        ];
+        return response()->json($response);
     }
 
     /**
@@ -38,31 +68,26 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $userID = auth()->user()->id;
-        // if($request->hasFile('post_thumb')){
-        //     $image1=$request->file('post_thumb');
-        //     $reThumbImage=time().'.'.$image1->getClientOriginalExtension();
-        //     $dest1=public_path('/imgs/thumb');
-        //     $image1->move($dest1,$reThumbImage);
-        // }else{
-        //     $reThumbImage='na';
-        // }
 
-        // // Post Full Image
-        // if($request->hasFile('post_image')){
-        //     $image2=$request->file('post_image');
-        //     $reFullImage=time().'.'.$image2->getClientOriginalExtension();
-        //     $dest2=public_path('/imgs/full');
-        //     $image2->move($dest2,$reFullImage);
-        // }else{
-        //     $reFullImage='na';
-        // }
+        $profile_name = '202203281818DSC00425.JPG';
+        $profile_path = 'images/202203281818DSC00425.jpg';
+
+        if ($request->file('profile')) {
+            $file = $request->file('profile');
+            $profile_name = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('posts'), $profile_name);
+            $profile_path = 'posts/' . $profile_name;
+        }
+        // dd($profile_path);
         $blog = new Blog([
             'user_id' => $userID,
             'title' => $request->title,
             // 'thumb' => $reThumbImage,
             // 'full_img' => $reThumbImage,
-            'detail' => $request->detail, 
-            'tags' => $request->tags,
+            'detail' => $request->description, 
+            'img' =>  $profile_name,
+            'img_path' => $profile_path,
+            'type' => $request->type,
         ]);
         $blog->save();
 
@@ -101,6 +126,9 @@ class BlogController extends Controller
     {
         //
         $blog = Blog::find($id);
+        $user = $blog->user;
+        $roles = $user->roles;
+        $roles->role;
         $response = [
             'blog' => $blog
         ];
@@ -128,7 +156,7 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy(Blog $blog, $id)
     {
         $blog = Blog::find($id);
         $blog->delete();
@@ -156,7 +184,22 @@ class BlogController extends Controller
     }
 
     public function userBlog($id){
-        $blog = Blog::all()->where('user_id', $id);
+        // dd('test');
+        $blog = Blog::where('user_id', $id)->orderBy('id', 'DESC')->get();
+
+        $response = [
+            'blog' => $blog
+        ];
+        return response()->json($response);
+    }
+
+    public function getBlog($id)
+    {
+        //
+        $blog = Blog::find($id);
+        $user = $blog->user;
+        $roles = $user->roles;
+        $roles->role;
         $response = [
             'blog' => $blog
         ];
