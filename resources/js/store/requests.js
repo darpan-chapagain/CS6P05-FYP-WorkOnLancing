@@ -47,7 +47,7 @@ export default {
             let res = await axios({
                 method: 'get',
                 url: "employee/offers",
-                headers: { Authorization: `Bearer ${token}` }
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
 
             const data = await res.data;

@@ -583,8 +583,8 @@
           </v-sheet>
         </v-sheet> -->
           <v-row>
-            <v-col v-for="n in 3" :key="n" cols="12">
-              <Blogs />
+            <v-col v-for="blog in this.blogs.blog" :key="blog.id" cols="12">
+              <Blogs :blog="blog" />
               <br />
             </v-col>
           </v-row>
@@ -606,16 +606,8 @@ export default {
     a_user: Object,
   },
   data: () => ({
-    rating: [
-      // {
-      //   id: 1,
-      //   user: "darpan",
-      // },
-      // {
-      //   id: 1,
-      //   user: "abhigyan",
-      // },
-    ],
+    rating: [],
+    blogs: [],
     avgRate: 0,
     count: 0,
     id: null,
@@ -625,26 +617,6 @@ export default {
     user: null,
     show: false,
     dialog: false,
-    cards: [
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-        flex: 12,
-        subtitle: "testing",
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 6,
-        subtitle: "testing",
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 6,
-        subtitle: "testing",
-      },
-    ],
     drawer: false, // false = Vuetify automatically "do the right thing" to show/hide the drawer
     articles: [],
     errors: [],
@@ -709,6 +681,15 @@ export default {
     },
   },
   methods: {
+    async getBlogs() {
+      let res = await axios({
+        method: "get",
+        url: `user/blogs/all/${this.id}`,
+      });
+      let data = await res.data;
+
+      return data;
+    },
     async getRating() {
       console.log(this.id);
       let res = await axios.get(`/user/rating/${this.id}`);
@@ -851,6 +832,7 @@ export default {
     this.getSkill();
     this.getCategories();
     this.getRating();
+    this.blogs = await this.getBlogs();
   },
   // created () {
   //   axios.get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey='+this.api_key)

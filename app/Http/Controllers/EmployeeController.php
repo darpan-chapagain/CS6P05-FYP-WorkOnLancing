@@ -441,15 +441,16 @@ class EmployeeController extends Controller
         $user = auth()->user();
 
         $emp = Employee::find($user->employee->employee_id);
-
+        // dd($request->job);
         $num = $request->job;
         // dd($num);
+        // dd($num);
         // dd($user);
-        $emp->update([
-            'assignment_no' => $num
-        ]);
+        $emp->assignment_no = $num;
+        $emp->save();
         $response = [
             'assignment_no' => $emp->assignment_no,
+            'test' => $num
         ];
         return response()->json($response);
     }

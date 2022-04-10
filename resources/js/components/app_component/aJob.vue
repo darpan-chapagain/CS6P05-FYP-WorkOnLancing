@@ -295,7 +295,9 @@ export default {
         });
       });
     },
-    async stop() {},
+    async stop() {
+      console.log('steop');
+    },
     async rate(employee) {
       // console.log(this.a_job);
       let res = await axios({
