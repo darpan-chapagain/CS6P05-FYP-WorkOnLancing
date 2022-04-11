@@ -11,10 +11,13 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 import Vuetify from '../plugins/vuetify'
 import Vuex from 'vuex'
 import moment from 'moment';
+import Vue from 'vue';
 
 window.Vue = require("vue").default;
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
+
+Vue.component('Chat', require('./components/pages/Chat.vue').default);
 window.moment = require('moment');
 axios.defaults.baseURL ='http://127.0.0.1:8000/api/';
 require('./store/subscriber');

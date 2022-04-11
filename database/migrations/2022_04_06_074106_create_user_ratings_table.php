@@ -31,6 +31,18 @@ class CreateUserRatingsTable extends Migration
             $table->longText('description');
             $table->timestamps();
         });
+        // Schema::create('chat_rooms', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->longText('name');
+        //     $table->timestamps();
+        // });
+        // Schema::create('chat_messages', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->integer('chat_room_id');
+        //     $table->integer('user_id');
+        //     $table->longText('message');
+        //     $table->timestamps();
+        // });
     }
 
     /**

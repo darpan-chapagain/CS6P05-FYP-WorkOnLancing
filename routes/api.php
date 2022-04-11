@@ -12,6 +12,7 @@ use App\Http\Controllers\JobRequestController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\ChatController;
 
 
 
@@ -93,6 +94,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::resource('/blog', BlogController::class);
     Route::get('/user/my/blogs/', [BlogController::class, 'myBlog']);
+
+
+    Route::get('/chat/rooms', [ChatController::class, 'rooms']);
+    Route::get('/chat/rooms/{roomId}/messages', [ChatController::class, 'messages']);
+    Route::post('/chat/rooms/{roomId}/message', [ChatController::class, 'newMessage']);
+
+
 
     //this is to accept jos by employee
 });

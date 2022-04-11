@@ -17,10 +17,11 @@ import Rating from "../components/pages/Rating.vue";
 import EmployeePortal from "../components/pages/EmployeePortal.vue";
 import JobEdit from "../components/pages/JobEdit.vue";
 import Blog from "../components/pages/Blog.vue";
+import Chat from "../components/pages/Chat.vue";
 /* Guest Component */
 const Test2 = () =>
     import(
-        "../components/pages/EmployeePortal.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/bootStrapChat.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Test = () =>
     import(
@@ -241,6 +242,12 @@ const Routes = [
         name: "blog",
         path: "/blog/:id",
         component: Blog,
+        props: true,
+    },
+    {
+        name: "chat",
+        path: "/chat",
+        component: Chat,
         props: true,
     }
 ];
