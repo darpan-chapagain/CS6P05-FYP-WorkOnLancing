@@ -21,7 +21,7 @@ import Chat from "../components/pages/Chat.vue";
 /* Guest Component */
 const Test2 = () =>
     import(
-        "../components/pages/EmployeePortal.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/bootStrapChat.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Test = () =>
     import(

@@ -1,8 +1,8 @@
 <template>
   <div style="margin-top: 150px">
-      <h3>
+      <!-- <h3>
           <ChatRoomSelection v-if="currentRoom.id" :rooms="chatRooms" :currentRoom="currentRoom" v-on:room-changed="setRoom($event)"/>
-      </h3>
+      </h3> -->
     <div>Container</div>
     <MessageContainer :messages="messages"/>
     <InputMessage :room="currentRoom" v-on:message-sent="getMessages"/>

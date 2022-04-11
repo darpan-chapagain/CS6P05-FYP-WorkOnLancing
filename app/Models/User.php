@@ -78,4 +78,8 @@ class User extends Authenticatable
         // dd('test');
         return $this->hasMany(UserRating::class, 'user_id', 'id');
     }
+
+    public function chatRoom(){
+        return $this->hasMany(ChatRoom::class, 'user_id', 'id');
+    }
 }

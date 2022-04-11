@@ -142,6 +142,360 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/bootStrapChat.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/bootStrapChat.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    mdbRow: Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    mdbCol: Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    mdbChat: Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    mdbChatList: Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    mdbChatRoom: Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    mdbContainer: Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mdbvue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+  },
+  data: function data() {
+    return {
+      basicChat: [{
+        loggedUserId: 1,
+        active: true,
+        lastId: 4,
+        chat: [{
+          id: 0,
+          name: "Brad Pitt",
+          online: true,
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 4,
+            date: "2019-07-01 09:20",
+            content: "Can you pop out and buy lemons?"
+          }]
+        }, {
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 3,
+            date: "2019-06-26 11:16",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }]
+        }]
+      }, {
+        id: 1,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          online: true,
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }]
+        }, {
+          id: 2,
+          name: "Ashley Olsen",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-2.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Remember to bring me oranges",
+            unread: true
+          }]
+        }]
+      }, {
+        id: 2,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus remque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut doloremque laudantium."
+          }]
+        }, {
+          id: 3,
+          name: "Danny Smith",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-3.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Call me later!",
+            unread: false
+          }]
+        }]
+      }, {
+        id: 1,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }]
+        }, {
+          id: 6,
+          name: "Alex Turner",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-1.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Hey, are you at home?",
+            unread: false
+          }]
+        }]
+      }, {
+        id: 2,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus remque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut doloremque laudantium."
+          }]
+        }, {
+          id: 7,
+          name: "Kate Moss",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-4.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Wanna grab a bite later?",
+            unread: true
+          }]
+        }]
+      }, {
+        id: 1,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }]
+        }, {
+          id: 10,
+          name: "Meg Ryan",
+          online: true,
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-12.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Sed ut perspicantium.",
+            unread: false
+          }]
+        }]
+      }, {
+        id: 2,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus remque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut doloremque laudantium."
+          }]
+        }, {
+          id: 3,
+          name: "John Smith",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-13.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Sed ut!",
+            unread: true
+          }]
+        }]
+      }, {
+        id: 1,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+          }]
+        }, {
+          id: 13,
+          name: "Olenna Gervais",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-11.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Sed ut perspicantium.",
+            unread: false
+          }]
+        }]
+      }, {
+        id: 2,
+        loggedUserId: 1,
+        active: false,
+        lastId: 2,
+        chat: [{
+          id: 1,
+          name: "Lara Croft",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.webp",
+          messages: [{
+            id: 0,
+            date: "2019-04-21 15:00:09",
+            content: "Sed ut perspiciatis unde omnis iste natus remque laudantium."
+          }, {
+            id: 1,
+            date: "2019-06-26 11:00",
+            content: "Sed ut doloremque laudantium."
+          }]
+        }, {
+          id: 11,
+          name: "Max Jackson",
+          img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-14.webp",
+          messages: [{
+            id: 2,
+            date: "2019-06-26 11:15",
+            content: "Sed laudantium!",
+            unread: false
+          }]
+        }]
+      }],
+      activeChat: 0
+    };
+  },
+  methods: {
+    createMessage: function createMessage(e, id) {
+      var content = e.content,
+          unread = e.unread,
+          date = e.date;
+      return {
+        id: id + 1,
+        date: date,
+        content: content,
+        unread: unread
+      };
+    },
+    sendMessage: function sendMessage(e, chat) {
+      var newMessage = this.createMessage(e, chat.lastId);
+      chat.chat.find(function (el) {
+        return el.id === chat.loggedUserId;
+      }).messages.push(newMessage);
+      chat.lastId += 1;
+    },
+    changeActiveChat: function changeActiveChat(index) {
+      this.activeChat = index;
+      this.basicChat.forEach(function (chat, i) {
+        if (i === index) {
+          chat.active = true;
+        } else {
+          chat.active = false;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/tests/imageUploadtest.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/tests/imageUploadtest.vue?vue&type=script&lang=js& ***!
@@ -431,6 +785,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/bootStrapChat.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/pages/bootStrapChat.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_bootStrapChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./bootStrapChat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/bootStrapChat.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_bootStrapChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/tests/imageUploadtest.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************!*\
   !*** ./resources/js/components/pages/tests/imageUploadtest.vue?vue&type=script&lang=js& ***!
@@ -510,6 +879,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_4fe3757a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_4fe3757a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=template&id=4fe3757a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/Login.vue?vue&type=template&id=4fe3757a&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/bootStrapChat.vue?vue&type=template&id=44916780&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/pages/bootStrapChat.vue?vue&type=template&id=44916780& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_bootStrapChat_vue_vue_type_template_id_44916780___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_bootStrapChat_vue_vue_type_template_id_44916780___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_bootStrapChat_vue_vue_type_template_id_44916780___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./bootStrapChat.vue?vue&type=template&id=44916780& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/bootStrapChat.vue?vue&type=template&id=44916780&");
 
 
 /***/ }),
@@ -703,6 +1088,87 @@ var staticRenderFns = [
     return _c("div", [_c("h2", [_vm._v("Sign In")])])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/bootStrapChat.vue?vue&type=template&id=44916780&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/bootStrapChat.vue?vue&type=template&id=44916780& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "mdb-container",
+    [
+      _c(
+        "mdb-chat-room",
+        { staticClass: "lighten-2", attrs: { color: "grey" } },
+        [
+          _c(
+            "mdb-row",
+            { staticClass: "px-lg-2 px-2" },
+            [
+              _c(
+                "mdb-col",
+                { staticClass: "px-0 pt-3", attrs: { md: "6", xl: "4" } },
+                [
+                  _c("mdb-chat-list", {
+                    attrs: { data: _vm.basicChat },
+                    on: { click: _vm.changeActiveChat },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "mdb-col",
+                {
+                  staticClass: "pl-md-3 px-lg-auto px-0 pt-3",
+                  attrs: { md: "6", xl: "8" },
+                },
+                [
+                  _c("mdb-chat", {
+                    attrs: {
+                      loggedUserId: _vm.basicChat[_vm.activeChat].loggedUserId,
+                      chat: _vm.basicChat[_vm.activeChat].chat,
+                      color: "info",
+                      avatarWidth: 50,
+                    },
+                    on: {
+                      send: function ($event) {
+                        return _vm.sendMessage(
+                          $event,
+                          _vm.basicChat[_vm.activeChat]
+                        )
+                      },
+                    },
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -937,6 +1403,44 @@ _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/pages/Login.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/bootStrapChat.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/pages/bootStrapChat.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _bootStrapChat_vue_vue_type_template_id_44916780___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootStrapChat.vue?vue&type=template&id=44916780& */ "./resources/js/components/pages/bootStrapChat.vue?vue&type=template&id=44916780&");
+/* harmony import */ var _bootStrapChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bootStrapChat.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/bootStrapChat.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _bootStrapChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _bootStrapChat_vue_vue_type_template_id_44916780___WEBPACK_IMPORTED_MODULE_0__.render,
+  _bootStrapChat_vue_vue_type_template_id_44916780___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/bootStrapChat.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
