@@ -18,10 +18,11 @@ import EmployeePortal from "../components/pages/EmployeePortal.vue";
 import JobEdit from "../components/pages/JobEdit.vue";
 import Blog from "../components/pages/Blog.vue";
 import Chat from "../components/pages/Chat.vue";
+import ChatRoom from "../components/pages/Chat/chatRoom.vue"
 /* Guest Component */
 const Test2 = () =>
     import(
-        "../components/pages/bootStrapChat.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/tests/chatTest.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Test = () =>
     import(
@@ -249,6 +250,12 @@ const Routes = [
         path: "/chat",
         component: Chat,
         props: true,
+    },
+    {
+        name: "ChatRoom",
+        path: "/chatRoom",
+        component: ChatRoom,
+        props: true
     }
 ];
 

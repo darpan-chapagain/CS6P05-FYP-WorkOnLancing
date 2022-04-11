@@ -9,11 +9,11 @@ class UserRoom extends Model
 {
     use HasFactory;
 
-    public function room(){
+    public function rooms(){
         return $this->belongsTo(ChatRoom::class, 'id', 'chat_room_id');
     }
-    public function user(){
-        return $this->hasMany(User::class, 'id', 'user_id');
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     
 }

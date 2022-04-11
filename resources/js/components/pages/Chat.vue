@@ -1,43 +1,48 @@
 <template>
-  <div style="margin-top: 150px">
-      <!-- <h3>
-          <ChatRoomSelection v-if="currentRoom.id" :rooms="chatRooms" :currentRoom="currentRoom" v-on:room-changed="setRoom($event)"/>
-      </h3> -->
-    <div>Container</div>
-    <MessageContainer :messages="messages"/>
-    <InputMessage :room="currentRoom" v-on:message-sent="getMessages"/>
-    <!-- <MessageItem /> -->
+  <div style="margin-top: 150px" v-chat-scroll>
+    <v-row>
+      <v-col>
+
+      </v-col>
+    </v-row>
+    <ChatRoomSelection
+      v-if="currentRoom.id"
+      :rooms="chatRooms"
+      :currentRoom="currentRoom"
+      v-on:room-changed="setRoom($event)"
+    />
+    <!-- <MessageRoom :title="'test'" /> -->
   </div>
 </template>
 
 <script>
+import MessageRoom from "../pages/Chat/chatRoom.vue";
 import MessageContainer from "../pages/Chat/messageContainer.vue";
 import InputMessage from "../pages/Chat/inputMessage.vue";
-import MessageItem from "../pages/Chat/messageItem.vue"
+import MessageItem from "../pages/Chat/messageItem.vue";
 import ChatRoomSelection from "../pages/Chat/chatRoomContainer.vue";
 
 export default {
-    components: {
+  components: {
     MessageContainer,
     InputMessage,
     MessageItem,
     ChatRoomSelection,
+    MessageRoom,
   },
   data() {
     return {
       chatRooms: [],
       currentRoom: [],
       messages: [],
+      count: 5,
     };
   },
   methods: {
-    test() {
-      console.log("test");
-    },
     getRooms() {
       axios({
         method: "get",
-        url: "/chat/rooms",
+        url: "/chat/my/rooms",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -52,33 +57,29 @@ export default {
           console.log(error);
         });
     },
-    getMessages(){
-        axios(
-            {
-                method: "get",
-                url: "/chat/rooms/" + this.currentRoom.id + "/messages",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-            }
-        ).then((response) => {
-            this.messages = response.data;
-        }).catch((error) => {
-            console.log(error);
-        });
-    },
     setRoom(room) {
-    alert(room);
       this.currentRoom = room;
-      this.getMessages();
+      // this.getMessages();
     },
   },
   created() {
-      this.getRooms();
+    this.getRooms();
+  },
+  watch: {
+    count: function () {
+      this.$nextTick(function () {
+        var container = this.$refs.msgContainer;
+        container.scrollTop = container.scrollHeight + 120;
+      });
+    },
   },
 };
 </script>
 
 <style>
+.scrollable {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: calc(90vh - 20px);
+}
 </style>
