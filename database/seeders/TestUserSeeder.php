@@ -35,7 +35,7 @@ class TestUserSeeder extends Seeder
             'role_id' => 1,
         ]); 
 
-        User::factory()->times(101)->create();
+        User::factory()->times(71)->create();
         for($i=2;$i<=51;$i++){
             UserRoles::create([
                 'user_id' => $i,

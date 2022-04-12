@@ -37,7 +37,22 @@ class ChatController extends Controller
     }
 
     public function createRoom(Request $request){
+        $roomArray = [];
+
         $authUser = Auth::user();
+        $userRoom = UserRoom::where('user_id', $authUser->id)->get();
+        foreach($userRoom as $room){
+            $roomID = $room->chat_room_id;
+            $anotherUSer = UserRoom::where('user_id', $request->user_id)->where('chat_room_id', $roomID)->first();
+            if($anotherUSer){
+                array_push($roomArray, [
+                    'id' => $anotherUSer->id,
+                    'user' => $anotherUSer->users
+                ]);
+                $anotherUSer;
+                return $roomArray;
+            }
+        }
         $room = new ChatRoom();
         $room->name = 'Room '.rand(1, 100);
         $room->save();
@@ -51,15 +66,48 @@ class ChatController extends Controller
         $userRoom->user_id = $request->user_id;
         $userRoom->chat_room_id = $room->id;
         $userRoom->save();
-
-        return $room;
+        $aRoom = UserRoom::where('chat_room_id', $room->id)->get();
+        foreach($aRoom as $a){
+            $aUser = $a->users;
+            if($aUser->id != $authUser->id){
+                // array_push($roomArray, $a->chat_room_id, $aUser);
+                array_push($roomArray, [
+                    'id' => $a->chat_room_id,
+                    'user' => $aUser
+                ]);
+                // array_push($otherUser, $aUser);
+            }
+        }
+        return $roomArray;
     }
 
     public function getMyRoom(Request $request){
         $authUser = Auth::user();
         $userRoom = UserRoom::where('user_id', $authUser->id)->get();
-        $userRoom->user;
-        return $userRoom;
+        $roomArray = [];
+        $otherUser = [];
+        foreach($userRoom as $room){
+            $roomID = $room->chat_room_id;
+            $aRoom = UserRoom::where('chat_room_id', $roomID)->get();
+            foreach($aRoom as $a){
+                $aUser = $a->users;
+                if($aUser->id != $authUser->id){
+                    // array_push($roomArray, $a->chat_room_id, $aUser);
+                    array_push($roomArray, [
+                        'id' => $a->chat_room_id,
+                        'user' => $aUser
+                    ]);
+                    // array_push($otherUser, $aUser);
+                }
+            }
+            // dd($a->chat_room_id);
+            // array_push($roomArray, $aRoom);
+        }
+        $respone = [
+            'room' => $roomArray,
+            // 'otherUser' => $otherUser
+        ];
+        return $roomArray;
     }
 
     public function getRoom(Request $request, $roomId){

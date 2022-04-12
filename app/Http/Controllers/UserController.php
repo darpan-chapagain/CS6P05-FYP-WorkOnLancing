@@ -13,6 +13,7 @@ use App\Models\PostSkill;
 use App\Models\UserRating;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Session;
 // use Illuminate\Support\Facades\Auth;
 
@@ -211,6 +212,13 @@ class UserController extends Controller
                 'job_request' => $jobRequest,
                 'message' => 'success',
             ];
+            $details = [
+                'fname' => $employee->user->first_name,
+                'lname' => $employee->user->last_name,
+                'job' => $job->title,
+            ];
+            Mail::to($employee->user->email)->send(new \App\Mail\OfferMail($details));
+    
         } else {
             $response = [
                 'message' => 'Error: Unauthorized',
@@ -231,18 +239,32 @@ class UserController extends Controller
         $jobRequest->status = 4;
         $jobRequest->save();
         $otherRequests = JobRequest::where('job_id', $jobId)
-            ->where('job_employement_id', '!=', $jobRequest->job_employement_id);
-        $otherRequests->update(['status' => 3]);
+            ->where('job_employement_id', '!=', $jobRequest->job_employement_id)->get();
+        // $otherRequests->update(['status' => 3]);
         $job = Job::find($jobId);
         $job->status = 4;
         $job->save();
-        // dd($otherRequests);
-        // foreach($otherRequests as $otherRequest){
-        //     // dd($otherRequest->job_employement_id);
-        //     $otherRequest->status = 3;
-        //     $jobRequest->save();
-        // }
-        // $jobRequest->save();
+        $details = [
+            'fname' => $employee->user->first_name,
+            'lname' => $employee->user->last_name,
+            'job' => $job->title,
+        ];
+        Mail::to($employee->user->email)->send(new \App\Mail\HiredMail($details));
+
+        foreach ($otherRequests as $otherRequest) {
+            $otherRequest->status = 3;
+            $otherRequest->update();
+            $employee = Employee::find($otherRequest->employee_id);
+            // dd($employee->user->email);
+            $details = [
+                'fname' => $employee->user->first_name,
+                'lname' => $employee->user->last_name,
+                'job' => $job->title,
+            ];
+            Mail::to($employee->user->email)->send(new \App\Mail\NotHiredMail($details));
+        }
+        $jobRequest->save();
+
         $response = [
             'status' => 'success',
         ];
@@ -310,6 +332,14 @@ class UserController extends Controller
             ->first();
         $jobRequest->status = 3;
         $jobRequest->save();
+        $job = Job::find($jobId)->first();
+        // dd($job->title);
+        $details = [
+            'fname' => $employee->user->first_name,
+            'lname' => $employee->user->last_name,
+            'job' => $job->title,
+        ];
+        Mail::to($employee->user->email)->send(new \App\Mail\NotHiredMail($details));
         $response = [
             'status' => 'success',
         ];

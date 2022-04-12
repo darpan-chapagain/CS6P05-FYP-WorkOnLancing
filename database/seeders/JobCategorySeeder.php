@@ -44,14 +44,14 @@ class JobCategorySeeder extends Seeder
                 'skill' => rand(5, 6),
             ]);
         }
-        Employee::factory()->times(50)->create();
-        for ($i = 51; $i <= 102; $i++) {
+        Employee::factory()->times(20)->create();
+        for ($i = 51; $i <= 72; $i++) {
             UserRoles::create([
                 'user_id' => $i,
                 'role_id' => 3,
             ]);
         }
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             Employee_Skill::create([
                 'employee_id' => $i,
                 'skill_id' => rand(1, 2),
@@ -79,7 +79,7 @@ class JobCategorySeeder extends Seeder
         ]);
 
         UserRoles::create([
-            'user_id' => 103,
+            'user_id' => 73,
             'role_id' => 2,
         ]);
 
@@ -96,14 +96,14 @@ class JobCategorySeeder extends Seeder
         ]);
 
         UserRoles::create([
-            'user_id' => 104,
+            'user_id' => 74,
             'role_id' => 3,
         ]);
         // $faker = Faker\Factory::create();
 
         Employee::create([
             'title' => 'Programmer',
-            'user_id' => 104,
+            'user_id' => 74,
             'qualification' => 'Expert',
             'hourly_rate' => 10000,
             'project_rate' => 100000,
@@ -112,15 +112,15 @@ class JobCategorySeeder extends Seeder
             'Job_Category_ID' =>  rand(1, 3),
         ]);
         Employee_Skill::create([
-            'employee_id' => 51,
+            'employee_id' => 21,
             'skill_id' => rand(1, 2),
         ]);
         Employee_Skill::create([
-            'employee_id' => 51,
+            'employee_id' => 21,
             'skill_id' => rand(3, 4),
         ]);
         Employee_Skill::create([
-            'employee_id' => 51,
+            'employee_id' => 21,
             'skill_id' => rand(5, 6),
         ]);
     }

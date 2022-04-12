@@ -12,6 +12,9 @@ import Vuetify from '../plugins/vuetify'
 import Vuex from 'vuex'
 import moment from 'moment';
 import Vue from 'vue';
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
+
 
 window.Vue = require("vue").default;
 Vue.use(Vuex)

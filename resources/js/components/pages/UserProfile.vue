@@ -62,7 +62,7 @@
                       "
                       v-if="this.auth"
                     >
-                      <v-btn class="m-2 mt-4" rounded color="primary" dark
+                      <v-btn class="m-2 mt-4" rounded color="primary" dark @click="contact"
                         >Contact!</v-btn
                       >
                       <div v-if="this.user.roles.role_id == 3">
@@ -825,6 +825,32 @@ export default {
       }
       // return data.num;
     },
+    contact(){
+      // alert('test');
+      axios(
+        {
+          method: "post",
+          url: `/chat/start/`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          data: {
+            user_id: this.id,
+          },
+        }
+      ).then((res) => {
+        let data = res.data;
+        let room = data;
+        console.log(room);
+        this.$router.push({
+          name: "ChatRoom",
+          params: {
+            currentRoom: room[0],
+          },
+        });
+      });
+      
+    }
   },
   async created() {
     this.id = this.$route.params.id;

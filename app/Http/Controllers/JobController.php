@@ -10,7 +10,7 @@ use App\Models\Skill;
 use App\Models\PostSkill;
 use Session;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -314,6 +314,15 @@ class JobController extends Controller
             $job->status = 4;
             // $user->points += 100;
         }
+        $employee = $req->reqEmployee;
+        $details = [
+            'fname' => $employee->user->first_name,
+            'lname' => $employee->user->last_name,
+            'job' => $job->title,
+        ];
+
+        Mail::to($employee->user->email)->send(new \App\Mail\JobCompleteMail($details));
+
         $job->save();
         $req->save();
         $response = [
