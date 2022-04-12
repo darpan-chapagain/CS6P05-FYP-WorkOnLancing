@@ -13,8 +13,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\ChatController;
-
-
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,3 +119,14 @@ Route::post('/user/update/status/{id}', [UserController::class, 'changeStatus'])
 Route::get('/user/status/active', [UserController::class, 'getActiveUser']);
 Route::post('/job/update/status/{id}', [JobController::class, 'postStatusChange']);
 Route::get('/job/status/active', [JobController::class, 'getActivePost']);
+
+Route::post('/send', function () {
+   
+    $details = [
+        'title' => 'Mail from ItSolutionStuff.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    Mail::to('chapagaindarpan11@gmail.com')->send(new \App\Mail\NotificationMail($details));
+    dd("Email is Sent.");
+});

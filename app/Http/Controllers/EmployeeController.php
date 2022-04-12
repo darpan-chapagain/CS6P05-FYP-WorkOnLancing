@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\Employee_Skill;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Session;
 
 class EmployeeController extends Controller
@@ -139,7 +140,6 @@ class EmployeeController extends Controller
     {
         $authEmployee = auth()->user();
         $job = Job::find($id);
-
         $authUserId = $authEmployee->id;
         $jobPostUserId = $job->user->id;
         $employee = Employee::all()->where('user_id', $authUserId)->first();
@@ -167,6 +167,14 @@ class EmployeeController extends Controller
                     'job_request' => $jobRequest,
                     'message' => 'success',
                 ];
+                $details = [
+                    'fname' => $authEmployee->first_name,
+                    'lname' => $authEmployee->last_name,
+                    'job' => $job->title,
+                ];
+                
+                Mail::to($employee->user->email)->send(new \App\Mail\JobRequestMail($details));
+        
             }
         } else {
             $response = [
