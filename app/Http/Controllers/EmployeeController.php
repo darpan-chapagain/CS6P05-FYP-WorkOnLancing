@@ -414,11 +414,9 @@ class EmployeeController extends Controller
         } else {
             $update = 1;
         }
-        $emp->update([
-            'status' => $update
-        ]);
+        $emp->status = $update;
+        $emp->save();
         $response = [
-            'user' => $emp,
             'status' => $emp->status,
         ];
         return response()->json($response);

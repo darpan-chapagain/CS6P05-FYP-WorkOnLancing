@@ -1103,6 +1103,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Proposals",
@@ -3031,7 +3034,24 @@ var render = function () {
             1
           ),
         ])
-      : _c("div", [_vm._v("No Requests")]),
+      : _c(
+          "div",
+          [
+            _c(
+              "v-alert",
+              {
+                attrs: {
+                  outlined: "",
+                  type: "warning",
+                  prominent: "",
+                  border: "left",
+                },
+              },
+              [_vm._v("\n      You do not have any job proposals yet\n    ")]
+            ),
+          ],
+          1
+        ),
   ])
 }
 var staticRenderFns = []

@@ -19,6 +19,7 @@ import JobEdit from "../components/pages/JobEdit.vue";
 import Blog from "../components/pages/Blog.vue";
 import Chat from "../components/pages/Chat.vue";
 import ChatRoom from "../components/pages/Chat/chatRoom.vue"
+import Home from "../components/pages/Home.vue";
 /* Guest Component */
 const Test2 = () =>
     import(
@@ -86,6 +87,11 @@ const UserDashboard = () =>
 function requireAuth(to, from, next) {}
 
 const Routes = [
+    {
+        name: "home",
+        path: "/",
+        component: Home,
+    },
     {
         name: "login",
         path: "/login",

@@ -70,7 +70,6 @@
                       @click="action('accept')"
                       >Accept!</v-btn
                     >
-                    
                   </div>
                 </div>
                 <div class="m-4">
@@ -112,7 +111,11 @@
         </v-dialog>
       </div>
     </div>
-    <div v-else>No Requests</div>
+    <div v-else>
+      <v-alert outlined type="warning" prominent border="left">
+        You do not have any job proposals yet
+      </v-alert>
+    </div>
   </div>
 </template>
 

@@ -301,6 +301,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Proposals",
@@ -5158,7 +5161,24 @@ var render = function () {
             1
           ),
         ])
-      : _c("div", [_vm._v("No Requests")]),
+      : _c(
+          "div",
+          [
+            _c(
+              "v-alert",
+              {
+                attrs: {
+                  outlined: "",
+                  type: "warning",
+                  prominent: "",
+                  border: "left",
+                },
+              },
+              [_vm._v("\n      You do not have any job proposals yet\n    ")]
+            ),
+          ],
+          1
+        ),
   ])
 }
 var staticRenderFns = []
@@ -9377,10 +9397,15 @@ var render = function () {
         [
           _c(
             "v-card",
-            { staticClass: "p-3 mt-5", attrs: { elevation: "6" } },
+            {
+              staticClass: "p-3 mt-5",
+              attrs: { elevation: "6", "min-width": "320px" },
+            },
             [
               _c("div", { staticClass: "proposal-title" }, [
-                _c("h3", { staticClass: "text-center" }, [_vm._v("Proposals")]),
+                _c("h3", { staticClass: "text-center" }, [
+                  _vm._v("Job Requests"),
+                ]),
               ]),
               _vm._v(" "),
               _c("v-divider"),
