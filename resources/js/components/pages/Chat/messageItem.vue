@@ -10,7 +10,7 @@
                 <p>{{ message.message }}</p>
               </div>
               <v-list-item-subtitle
-                >{{ message.created_at }}
+                >{{ this.getTime(message.created_at) }}
                 <!-- <span class="ml-16">Seen 1:03PM</span> -->
               </v-list-item-subtitle>
             </v-list-item-content>

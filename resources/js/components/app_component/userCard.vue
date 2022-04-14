@@ -23,7 +23,7 @@
       <v-row align="center" class="">
         <v-col cols="4">
           <v-rating
-            :value="this.rating"
+            :value="this.avgRate"
             color="amber"
             dense
             readonly

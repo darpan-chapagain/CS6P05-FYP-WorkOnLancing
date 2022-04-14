@@ -121,6 +121,7 @@
 
 <script>
 import JobDetail from "../app_component/cardJobDetails.vue";
+import {mapActions} from "vuex";
 
 export default {
   name: "Proposals",
@@ -135,6 +136,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      updateRequests: "requests/fetchProposals",
+    }),
     test() {
       alert("yooo");
     },

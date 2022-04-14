@@ -44,7 +44,8 @@ class ChatController extends Controller
         foreach($userRoom as $room){
             $roomID = $room->chat_room_id;
             $anotherUSer = UserRoom::where('user_id', $request->user_id)->where('chat_room_id', $roomID)->first();
-            if($anotherUSer){
+            // dd($anotherUSer);
+            if($anotherUSer != null){
                 array_push($roomArray, [
                     'id' => $anotherUSer->id,
                     'user' => $anotherUSer->users

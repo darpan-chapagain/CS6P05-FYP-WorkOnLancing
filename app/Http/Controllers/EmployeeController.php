@@ -172,9 +172,8 @@ class EmployeeController extends Controller
                     'lname' => $authEmployee->last_name,
                     'job' => $job->title,
                 ];
-                
+
                 Mail::to($employee->user->email)->send(new \App\Mail\JobRequestMail($details));
-        
             }
         } else {
             $response = [
@@ -221,7 +220,8 @@ class EmployeeController extends Controller
         $authEmployee = auth()->user();
         // dd($authEmployee->first_name);
         $employee = Employee::all()->where('user_id', $authEmployee->id)->first();
-
+        $currentWork = $employee->total_job;
+        $currentWork += 1;
         $jobRequest = JobRequest::all()
             ->where('employee_id', $employee->employee_id)
             ->where('job_id', $jobId)
@@ -229,12 +229,13 @@ class EmployeeController extends Controller
         // dd($jobRequest);
         if ($request->status == "accept") {
             $jobRequest->status = 4;
+            $employee->total_job = $currentWork;
+            $employee->save();
         } else {
             $jobRequest->status = 3;
         }
 
         $jobRequest->save();
-
     }
 
     public function getOtherEmployee()
@@ -250,6 +251,11 @@ class EmployeeController extends Controller
             foreach ($skills as $sk) {
                 $sk->allSkill;
             }
+            // $badges = $employee->badgeRatings;
+
+            // foreach ($badges as $bg) {
+            //     $bg->workBadges;
+            // }
         }
 
         return response()->json($employees);

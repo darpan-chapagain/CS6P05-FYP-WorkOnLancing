@@ -132,7 +132,7 @@
                         color="indigo"
                         mid
                         text
-                        @click.prevent="submit(req.req_employee.user.id)"
+                        @click.prevent="submit(req.req_employee)"
                       >
                         Complete the job!
                       </v-btn>
@@ -171,7 +171,7 @@
                         color="indigo"
                         mid
                         text
-                        @click.prevent="submit(req.req_employee.user)"
+                        @click.prevent="submit(req.req_employee)"
                       >
                         Complete the job!
                       </v-btn>
@@ -194,7 +194,8 @@
                       {{ req.req_employee.user.first_name }}
                       {{ req.req_employee.user.last_name }}
 
-                      <v-btn v-if="!rated"
+                      <v-btn
+                        v-if="!rated"
                         class="ml-10"
                         outlined
                         color="indigo"
@@ -204,14 +205,16 @@
                       >
                         Rate Employee!
                       </v-btn>
-                      <v-btn v-else
+                      <v-btn
+                        v-else
                         class="ml-10"
                         outlined
                         color="indigo"
                         mid
                         text
                         :disabled="true"
-                        > Oops you've already rated
+                      >
+                        Oops you've already rated
                       </v-btn>
                     </v-alert>
                   </div>
@@ -280,23 +283,25 @@ export default {
           localStorage.setItem("job", JSON.stringify(this.a_job));
         });
     },
-    async submit(user) {
+    async submit(users) {
       let res = await axios({
         method: "post",
         url: `/job/complete/${this.a_job.id}`,
         Authorization: "Bearer " + this.token,
       }).then(() => {
+        localStorage.setItem("a_job_detail", JSON.stringify(this.a_job));
+        localStorage.setItem("a_user", JSON.stringify(users));
         this.$router.push({
           path: "rating",
           params: {
             a_job: this.a_job,
-            a_user: user,
+            a_user: users.user,
           },
         });
       });
     },
     async stop() {
-      console.log('steop');
+      console.log("stop");
     },
     async rate(employee) {
       // console.log(this.a_job);
@@ -309,23 +314,22 @@ export default {
         },
       });
       let data = res.data;
-      if(data.status == 'Rated'){
+      if (data.status == "Rated") {
         this.rated = true;
-      }else{
+      } else {
         this.$router
-        .push({
-          name: "userRating",
-          params: {
-            a_job_detail: this.a_job,
-            a_user: user,
-          },
-        })
-        .then(() => {
-          localStorage.setItem("a_job_detail", JSON.stringify(this.a_job));
-          localStorage.setItem("a_user", JSON.stringify(employee));
-        });
+          .push({
+            name: "userRating",
+            params: {
+              a_job_detail: this.a_job,
+              a_user: user,
+            },
+          })
+          .then(() => {
+            localStorage.setItem("a_job_detail", JSON.stringify(this.a_job));
+            localStorage.setItem("a_user", JSON.stringify(employee));
+          });
       }
-      
     },
   },
   computed: {
