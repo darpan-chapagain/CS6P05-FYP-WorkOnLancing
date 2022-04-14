@@ -9,7 +9,7 @@
           transition="dialog-bottom-transition"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-card-actions >
+            <v-card-actions>
               <a style="width: 100%" v-bind="attrs" v-on="on" text>
                 <v-alert
                   border="left"
@@ -47,10 +47,8 @@
                 </v-btn>
               </v-toolbar-items>
             </v-toolbar>
-            <div style="min-height:100vh">
-              <RequestDetail 
-                :request_detail="request"
-              />
+            <div style="min-height: 100vh">
+              <RequestDetail :request_detail="request" />
             </div>
             <v-bottom-navigation :value="value" background-color="blue" grow>
               <v-btn icon @click="dialog = false">
@@ -61,12 +59,16 @@
         </v-dialog>
       </div>
     </div>
-    <div v-else>No Requests</div>
+    <div v-else>
+      <v-alert outlined type="warning" prominent border="left">
+        You have received any job requests yet
+      </v-alert>
+    </div>
   </div>
 </template>
 
 <script>
-import RequestDetail from './requestDetail.vue';
+import RequestDetail from "./requestDetail.vue";
 export default {
   components: { RequestDetail },
   name: "Requests",

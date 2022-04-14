@@ -79,6 +79,24 @@
                     clearable
                     class="mt-8"
                   ></v-textarea>
+                  <v-divider> </v-divider>
+                  <div class="pa-4">
+                    <v-chip-group
+                      v-model="badge"
+                      active-class="yellow darken-1 --text"
+                      column
+                      multiple
+                    >
+                      <v-chip
+                        v-for="tag in tags"
+                        :key="tag.id"
+                        :value="tag.work_badge_id"
+                      >
+                        <v-icon>{{ tag.badge_image }}</v-icon>
+                        {{ tag.Badge_Name }}
+                      </v-chip>
+                    </v-chip-group>
+                  </div>
                 </div>
               </v-card-text>
               <v-divider></v-divider>
@@ -110,6 +128,8 @@ export default {
   data: () => ({
     rating: 4.9,
     description: null,
+    tags: [],
+    badge: [],
   }),
   methods: {
     route() {
@@ -117,12 +137,26 @@ export default {
         name: "dashboard",
       });
     },
+    test(){
+      console.log(this.returnUser().employee_id);
+    },
+    async getBadges() {
+      let res = await axios.get(
+        `category/badges/${this.returnUser().Job_Category_ID}`
+      );
+      let data = await res.data;
+      return data;
+    },
     rate() {
       let rateForm = new FormData();
       rateForm.append("rating", this.rating);
       rateForm.append("description", this.description);
       rateForm.append("job_id", this.returnJob().id);
       rateForm.append("user", this.returnUser().user.id);
+      rateForm.append('employee_id', this.returnUser().employee_id);
+      for(let bd in this.badge){
+        rateForm.append('badges[]', this.badge[bd]);
+      }
 
       axios({
         method: "post",
@@ -163,6 +197,11 @@ export default {
         return JSON.parse(localStorage.getItem("a_user"));
       }
     },
+  },
+  async created() {
+    let badges = await this.getBadges();
+    this.tags = await badges;
+    console.log(this.returnUser())
   },
 };
 </script>

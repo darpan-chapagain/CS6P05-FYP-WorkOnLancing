@@ -177,12 +177,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _app_component_cardJobDetails_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../app_component/cardJobDetails.vue */ "./resources/js/components/app_component/cardJobDetails.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -301,6 +308,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Proposals",
@@ -316,7 +327,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       value: null
     };
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)({
+    updateRequests: "requests/fetchProposals"
+  })), {}, {
     test: function test() {
       alert("yooo");
     },
@@ -396,7 +409,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     }
-  }
+  })
 });
 
 /***/ }),
@@ -3436,6 +3449,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // importing the axios (a HTTP library) to connects the app with the News API
 
 
@@ -3452,6 +3489,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref;
 
     return _ref = {
+      tags: [],
+      badge: [],
       rating: [],
       blogs: [],
       avgRate: 0,
@@ -3513,7 +3552,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    getBlogs: function getBlogs() {
+    getBadges: function getBadges() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -3523,10 +3562,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default()({
-                  method: "get",
-                  url: "user/blogs/all/".concat(_this2.id)
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("badges/employee/".concat(_this2.user.employee.employee_id));
 
               case 2:
                 res = _context.sent;
@@ -3545,7 +3581,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee);
       }))();
     },
-    getRating: function getRating() {
+    getBlogs: function getBlogs() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -3554,17 +3590,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log(_this3.id);
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/user/rating/".concat(_this3.id));
-
-              case 3:
-                res = _context2.sent;
-                data = res.data;
-                data.ratings.forEach(function (ratings, index) {
-                  _this3.rating.push(ratings);
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default()({
+                  method: "get",
+                  url: "user/blogs/all/".concat(_this3.id)
                 });
-                _this3.avgRate = data.average;
+
+              case 2:
+                res = _context2.sent;
+                _context2.next = 5;
+                return res.data;
+
+              case 5:
+                data = _context2.sent;
+                return _context2.abrupt("return", data);
 
               case 7:
               case "end":
@@ -3574,7 +3613,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    getUser: function getUser() {
+    getRating: function getRating() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -3583,17 +3622,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/user/".concat(_this4.id));
+                console.log(_this4.id);
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/user/rating/".concat(_this4.id));
 
-              case 2:
+              case 3:
                 res = _context3.sent;
-                _context3.next = 5;
-                return res.data;
-
-              case 5:
-                data = _context3.sent;
-                return _context3.abrupt("return", data);
+                data = res.data;
+                data.ratings.forEach(function (ratings, index) {
+                  _this4.rating.push(ratings);
+                });
+                _this4.avgRate = data.average;
 
               case 7:
               case "end":
@@ -3601,6 +3640,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }
           }
         }, _callee3);
+      }))();
+    },
+    getUser: function getUser() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var res, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/user/".concat(_this5.id));
+
+              case 2:
+                res = _context4.sent;
+                _context4.next = 5;
+                return res.data;
+
+              case 5:
+                data = _context4.sent;
+                return _context4.abrupt("return", data);
+
+              case 7:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     },
     propose: function propose() {
@@ -3628,40 +3696,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return !!value || "Required.";
     },
     submit: function submit() {
-      var _this5 = this;
+      var _this6 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
         var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                if (!_this5.validate()) {
-                  _context4.next = 5;
+                if (!_this6.validate()) {
+                  _context5.next = 5;
                   break;
                 }
 
-                _context4.next = 3;
+                _context5.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default()({
                   method: "post",
-                  url: "user/offer/".concat(_this5.id),
+                  url: "user/offer/".concat(_this6.id),
                   headers: {
-                    Authorization: "Bearer ".concat(_this5.token)
+                    Authorization: "Bearer ".concat(_this6.token)
                   },
-                  data: _this5.formData()
+                  data: _this6.formData()
                 });
 
               case 3:
-                res = _context4.sent;
+                res = _context5.sent;
                 // alert(res.data);
-                _this5.dialog = false;
+                _this6.dialog = false;
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }))();
     },
     validate: function validate() {
@@ -3691,50 +3759,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return "".concat(year, "-").concat(month.padStart(2, "0"), "-").concat(day.padStart(2, "0"));
     },
     sendDate: function sendDate(value) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/job", {
-                  time: value
-                });
-
-              case 2:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }))();
-    },
-    created: function created() {
-      console.log(moment(this.date).format("dd.mm.YYYY"));
-    },
-    //for skills
-    getSkill: function getSkill() {
-      var _this6 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
-        var res, skill_data, i;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/skill");
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/job", {
+                  time: value
+                });
 
               case 2:
-                res = _context6.sent;
-                skill_data = [];
-
-                for (i = 0; i < res.data.length; i++) {
-                  // console.log(res.data[i].skill);
-                  _this6.items.push(res.data[i].skill);
-                }
-
-              case 5:
               case "end":
                 return _context6.stop();
             }
@@ -3742,7 +3777,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee6);
       }))();
     },
-    getCategories: function getCategories() {
+    created: function created() {
+      console.log(moment(this.date).format("dd.mm.YYYY"));
+    },
+    //for skills
+    getSkill: function getSkill() {
       var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
@@ -3752,7 +3791,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("jobs/category");
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/skill");
 
               case 2:
                 res = _context7.sent;
@@ -3760,7 +3799,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 for (i = 0; i < res.data.length; i++) {
                   // console.log(res.data[i].skill);
-                  _this7.categories.push(res.data[i].category_name);
+                  _this7.items.push(res.data[i].skill);
                 }
 
               case 5:
@@ -3771,23 +3810,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee7);
       }))();
     },
-    postSkill: function postSkill(val) {
+    getCategories: function getCategories() {
+      var _this8 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+        var res, skill_data, i;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
                 _context8.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("jobs/category");
+
+              case 2:
+                res = _context8.sent;
+                skill_data = [];
+
+                for (i = 0; i < res.data.length; i++) {
+                  // console.log(res.data[i].skill);
+                  _this8.categories.push(res.data[i].category_name);
+                }
+
+              case 5:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
+    },
+    postSkill: function postSkill(val) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _context9.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/jobs_skill", {
                   skill: val
                 });
 
               case 2:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8);
+        }, _callee9);
       }))();
     },
     formData: function formData() {
@@ -3830,9 +3898,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     },
     contact: function contact() {
-      var _this8 = this;
+      var _this9 = this;
 
-      // alert('test');
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: "post",
         url: "/chat/start/",
@@ -3847,7 +3914,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var room = data;
         console.log(room);
 
-        _this8.$router.push({
+        _this9.$router.push({
           name: "ChatRoom",
           params: {
             currentRoom: room[0]
@@ -3857,38 +3924,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    var _this9 = this;
+    var _this10 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10() {
+      var badges;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
-              _this9.id = _this9.$route.params.id;
-              _context9.next = 3;
-              return _this9.getUser();
+              _this10.id = _this10.$route.params.id;
+              _context10.next = 3;
+              return _this10.getUser();
 
             case 3:
-              _this9.user = _context9.sent;
+              _this10.user = _context10.sent;
 
-              _this9.getSkill();
+              _this10.getSkill();
 
-              _this9.getCategories();
+              _this10.getCategories();
 
-              _this9.getRating();
+              _this10.getRating();
 
-              _context9.next = 9;
-              return _this9.getBlogs();
+              _context10.next = 9;
+              return _this10.getBlogs();
 
             case 9:
-              _this9.blogs = _context9.sent;
+              _this10.blogs = _context10.sent;
+              _context10.next = 12;
+              return _this10.getBadges();
 
-            case 10:
+            case 12:
+              badges = _context10.sent;
+              _context10.next = 15;
+              return badges;
+
+            case 15:
+              _this10.tags = _context10.sent;
+
+            case 16:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
         }
-      }, _callee9);
+      }, _callee10);
     }))();
   },
   // created () {
@@ -5158,7 +5236,24 @@ var render = function () {
             1
           ),
         ])
-      : _c("div", [_vm._v("No Requests")]),
+      : _c(
+          "div",
+          [
+            _c(
+              "v-alert",
+              {
+                attrs: {
+                  outlined: "",
+                  type: "warning",
+                  prominent: "",
+                  border: "left",
+                },
+              },
+              [_vm._v("\n      You do not have any job proposals yet\n    ")]
+            ),
+          ],
+          1
+        ),
   ])
 }
 var staticRenderFns = []
@@ -9377,10 +9472,15 @@ var render = function () {
         [
           _c(
             "v-card",
-            { staticClass: "p-3 mt-5", attrs: { elevation: "6" } },
+            {
+              staticClass: "p-3 mt-5",
+              attrs: { elevation: "6", "min-width": "320px" },
+            },
             [
               _c("div", { staticClass: "proposal-title" }, [
-                _c("h3", { staticClass: "text-center" }, [_vm._v("Proposals")]),
+                _c("h3", { staticClass: "text-center" }, [
+                  _vm._v("Job Requests"),
+                ]),
               ]),
               _vm._v(" "),
               _c("v-divider"),
@@ -9532,7 +9632,8 @@ var render = function () {
                                                           this.user.employee
                                                             .job_categories
                                                             .category_name
-                                                        )
+                                                        ) +
+                                                          "\n                      "
                                                       ),
                                                     ])
                                                   : _c("v-list-item-subtitle", [
@@ -10603,7 +10704,7 @@ var render = function () {
                           "v-sheet",
                           {
                             staticClass: "p-1 m-4",
-                            attrs: { elevation: "3", "min-height": "575" },
+                            attrs: { elevation: "3", "min-height": "700" },
                           },
                           [
                             _c(
@@ -10766,6 +10867,78 @@ var render = function () {
                                                           ),
                                                         ]
                                                       ),
+                                                      _vm._v(" "),
+                                                      _c("v-list-item-title", [
+                                                        _vm._v(
+                                                          "Total Work Badges"
+                                                        ),
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-item-subtitle",
+                                                        { staticClass: "pb-2" },
+                                                        [
+                                                          _c(
+                                                            "v-chip-group",
+                                                            {
+                                                              attrs: {
+                                                                column: "",
+                                                                multiple: "",
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm.badge,
+                                                                callback:
+                                                                  function (
+                                                                    $$v
+                                                                  ) {
+                                                                    _vm.badge =
+                                                                      $$v
+                                                                  },
+                                                                expression:
+                                                                  "badge",
+                                                              },
+                                                            },
+                                                            _vm._l(
+                                                              _vm.tags.badges,
+                                                              function (tag) {
+                                                                return _c(
+                                                                  "v-chip",
+                                                                  {
+                                                                    key: tag.id,
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "v-icon",
+                                                                      [
+                                                                        _vm._v(
+                                                                          _vm._s(
+                                                                            tag.badge_image
+                                                                          )
+                                                                        ),
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(
+                                                                      "\n                            " +
+                                                                        _vm._s(
+                                                                          tag.Badge_Name
+                                                                        ) +
+                                                                        " (" +
+                                                                        _vm._s(
+                                                                          tag.count
+                                                                        ) +
+                                                                        ")\n                          "
+                                                                    ),
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              }
+                                                            ),
+                                                            1
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
                                                     ],
                                                     1
                                                   )
@@ -10797,13 +10970,13 @@ var render = function () {
                   [
                     _c(
                       "v-sheet",
-                      { attrs: { "min-height": "268" } },
+                      { attrs: { "min-height": "668" } },
                       [
                         _c(
                           "v-sheet",
                           {
                             staticClass: "p-1 m-4",
-                            attrs: { elevation: "3", "min-height": "575" },
+                            attrs: { elevation: "3", "min-height": "700" },
                           },
                           [
                             _c(
@@ -11892,28 +12065,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VAutocomplete */ "./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js");
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/VBtn.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/VCard.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
-/* harmony import */ var vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDatePicker */ "./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js");
-/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/VDialog.js");
-/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/VForm.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
-/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/VImg.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItem.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItemAvatar.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
-/* harmony import */ var vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vuetify/lib/components/VMenu */ "./node_modules/vuetify/lib/components/VMenu/VMenu.js");
-/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js");
-/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js");
-/* harmony import */ var vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! vuetify/lib/components/VRating */ "./node_modules/vuetify/lib/components/VRating/VRating.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
-/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
-/* harmony import */ var vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! vuetify/lib/components/VVirtualScroll */ "./node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScroll.js");
+/* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/VChip.js");
+/* harmony import */ var vuetify_lib_components_VChipGroup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VChipGroup */ "./node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
+/* harmony import */ var vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDatePicker */ "./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/VDialog.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/VForm.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/VImg.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItem.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItemAvatar.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
+/* harmony import */ var vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vuetify/lib/components/VMenu */ "./node_modules/vuetify/lib/components/VMenu/VMenu.js");
+/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js");
+/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js");
+/* harmony import */ var vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! vuetify/lib/components/VRating */ "./node_modules/vuetify/lib/components/VRating/VRating.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
+/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! vuetify/lib/components/VVirtualScroll */ "./node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScroll.js");
 
 
 
@@ -11963,7 +12138,9 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAutocomplete: vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VDatePicker: vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_9__["default"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_12__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_13__["default"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_14__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_15__["default"],VListItemAvatar: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_16__["default"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__.VListItemContent,VListItemSubtitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__.VListItemSubtitle,VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__.VListItemTitle,VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_18__["default"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_19__["default"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_20__["default"],VRating: vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_21__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_22__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_23__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_25__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_26__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_27__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_28__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_28__.VToolbarTitle,VVirtualScroll: vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_29__["default"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAutocomplete: vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["default"],VChipGroup: vuetify_lib_components_VChipGroup__WEBPACK_IMPORTED_MODULE_9__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__["default"],VDatePicker: vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_11__["default"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_12__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_13__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_14__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_15__["default"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_16__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__["default"],VListItemAvatar: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_18__["default"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemContent,VListItemSubtitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemSubtitle,VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemTitle,VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_20__["default"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_21__["default"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_22__["default"],VRating: vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_23__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_25__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_26__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_27__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_28__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_29__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__.VToolbarTitle,VVirtualScroll: vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_31__["default"]})
 
 
 /* hot reload */

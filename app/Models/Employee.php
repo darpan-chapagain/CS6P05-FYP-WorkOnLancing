@@ -28,4 +28,8 @@ class Employee extends Model
     public function employeeSkill(){
         return $this->hasMany(Employee_Skill::class, 'employee_id', 'employee_id');
     }
+
+    public function badgeRatings(){
+        return $this->hasMany(EmployeeBadges::class, 'employee_id', 'employee_id');
+    }
 }

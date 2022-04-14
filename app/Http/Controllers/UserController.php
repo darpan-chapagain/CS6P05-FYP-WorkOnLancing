@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\Employee;
+use App\Models\EmployeeBadges;
 use App\Models\JobRequest;
 use App\Models\JobCategory;
 use App\Models\Skill;
@@ -72,9 +73,15 @@ class UserController extends Controller
             foreach ($skill as $sk) {
                 $sk->allSkill;
             }
+            $badges = $emp->badgeRatings;
+
+            foreach ($badges as $bg) {
+                $bg->workBadges;
+            }
         } else {
             $skill = null;
             $category = null;
+            $badges = null;
         }
 
         return response()->json($user);
@@ -397,6 +404,14 @@ class UserController extends Controller
                     'rating' => $request->rating,
                     'description' => $request->description,
                 ]);
+                if($request->badges != null){
+                    foreach ($request->badges as $badge) {
+                        $employeeBadge = new EmployeeBadges();
+                        $employeeBadge->employee_id =  $request->employee_id;
+                        $employeeBadge->work_badge_id = $badge;
+                        $employeeBadge->save();
+                    }
+                }
                 $user = User::find($request->user);
                 $userRating->save();
                 $userRatings = UserRating::where('user_id', $request->user)->get();

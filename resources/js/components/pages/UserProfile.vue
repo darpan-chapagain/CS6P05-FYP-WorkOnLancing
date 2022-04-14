@@ -43,9 +43,9 @@
                           >{{ this.user.first_name }}
                           {{ this.user.last_name }}</v-list-item-title
                         >
-                        <v-list-item-subtitle v-if="this.user.employee">{{
-                          this.user.employee.job_categories.category_name
-                        }}</v-list-item-subtitle>
+                        <v-list-item-subtitle v-if="this.user.employee"
+                          >{{ this.user.employee.job_categories.category_name }}
+                        </v-list-item-subtitle>
                         <v-list-item-subtitle v-else
                           >Client</v-list-item-subtitle
                         >
@@ -62,7 +62,12 @@
                       "
                       v-if="this.auth"
                     >
-                      <v-btn class="m-2 mt-4" rounded color="primary" dark @click="contact"
+                      <v-btn
+                        class="m-2 mt-4"
+                        rounded
+                        color="primary"
+                        dark
+                        @click="contact"
                         >Contact!</v-btn
                       >
                       <div v-if="this.user.roles.role_id == 3">
@@ -292,7 +297,7 @@
         </v-col>
         <v-col cols="12" lg="4">
           <v-sheet min-height="268">
-            <v-sheet elevation="3" class="p-1 m-4" min-height="575">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="700">
               <div class="job-title m-4 centre">
                 <h3>Client's Details</h3>
                 <b-card-sub-title
@@ -352,6 +357,25 @@
                           <v-list-item-subtitle class="pb-2">{{
                             this.user.employee.total_job
                           }}</v-list-item-subtitle>
+                           <v-list-item-title
+                            >Total Work Badges</v-list-item-title
+                          >
+                          <v-list-item-subtitle class="pb-2">
+                            <v-chip-group
+                            v-model="badge"
+                            column
+                            multiple
+                          >
+                            <v-chip
+                              v-for="tag in tags.badges"
+                              :key="tag.id"
+                            >
+                              <v-icon>{{ tag.badge_image }}</v-icon>
+                              {{ tag.Badge_Name }} ({{tag.count}})
+                            </v-chip>
+                          </v-chip-group>
+                          </v-list-item-subtitle>
+                          
                         </div>
 
                         <!-- this.user.employee.total_job -->
@@ -365,8 +389,8 @@
         </v-col>
 
         <v-col cols="12" lg="8">
-          <v-sheet min-height="268">
-            <v-sheet elevation="3" class="p-1 m-4" min-height="575">
+          <v-sheet min-height="668">
+            <v-sheet elevation="3" class="p-1 m-4" min-height="700">
               <div class="job-title m-4 centre">
                 <h3>About!</h3>
 
@@ -606,6 +630,8 @@ export default {
     a_user: Object,
   },
   data: () => ({
+    tags: [],
+    badge: [],
     rating: [],
     blogs: [],
     avgRate: 0,
@@ -681,6 +707,13 @@ export default {
     },
   },
   methods: {
+    async getBadges() {
+      let res = await axios.get(
+        `badges/employee/${this.user.employee.employee_id}`
+      );
+      let data = await res.data;
+      return data;
+    },
     async getBlogs() {
       let res = await axios({
         method: "get",
@@ -825,20 +858,17 @@ export default {
       }
       // return data.num;
     },
-    contact(){
-      // alert('test');
-      axios(
-        {
-          method: "post",
-          url: `/chat/start/`,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          data: {
-            user_id: this.id,
-          },
-        }
-      ).then((res) => {
+    contact() {
+      axios({
+        method: "post",
+        url: `/chat/start/`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: {
+          user_id: this.id,
+        },
+      }).then((res) => {
         let data = res.data;
         let room = data;
         console.log(room);
@@ -849,8 +879,7 @@ export default {
           },
         });
       });
-      
-    }
+    },
   },
   async created() {
     this.id = this.$route.params.id;
@@ -859,6 +888,8 @@ export default {
     this.getCategories();
     this.getRating();
     this.blogs = await this.getBlogs();
+    let badges = await this.getBadges();
+    this.tags = await badges;
   },
   // created () {
   //   axios.get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey='+this.api_key)

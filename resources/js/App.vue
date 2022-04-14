@@ -11,37 +11,41 @@
         >
           <v-app-bar-nav-icon
             @click="drawer = !drawer"
-            class="drawer d-lg-none d-md-none"
+            class="drawer d-lg-none d-md-none white"
           ></v-app-bar-nav-icon>
 
-          <v-toolbar-title>Title</v-toolbar-title>
+          <v-toolbar-title class="white--text text-h5 d-sm-none d-md-flex"
+            >WorkOnLancing</v-toolbar-title
+          >
 
           <v-spacer></v-spacer>
 
-          <div class="navbar-nav m-3">
-            <a href="/">Home</a>
+          <div class="navbar-nav m-3 d-sm-none d-md-flex">
+            <a href="/" class="white--text">Home</a>
           </div>
 
           <!-- <v-btn icon>
             <v-icon>mdi-heart</v-icon>
           </v-btn> -->
 
-          <div v-if="this.authenticated" class="d-flex">
-            <div class="navbar-nav m-3" v-if="this.role == 3">
-              <a href="/dashboard">Find Jobs</a>
-            </div>
-            <div class="navbar-nav m-3" v-if="this.role == 2">
-              <a href="/dashboard">Find Employee</a>
-            </div>
-            <div class="navbar-nav m-3"><a href="/post/job">Post Jobs</a></div>
+          <div v-if="this.authenticated" class="d-flex d-sm-none d-md-flex">
             <div class="navbar-nav m-3">
-              <a href="/requests">View Requests</a>
+              <a href="/dashboard" class="text-white ml-3">Dashboard</a>
+            </div>
+            <div class="navbar-nav m-3">
+              <a href="/post/job" class="text-white">Post Jobs</a>
+            </div>
+            <div class="navbar-nav m-3">
+              <a href="/requests" class="text-white">View Requests</a>
+            </div>
+            <div class="navbar-nav m-3" v-if="this.role == 3">
+              <a href="/proposal" class="text-white">View Proposals</a>
             </div>
           </div>
 
           <div v-else class="d-flex">
             <div class="navbar-nav m-3">
-              <a href="/login">Login</a>
+              <a href="/login" class="text-white">Login</a>
             </div>
           </div>
 
@@ -91,7 +95,6 @@
                     @click="logOut"
                     width="100%"
                     >Logout</v-btn
-                    
                   >
                 </v-list-item-title>
               </v-list-item>
@@ -110,14 +113,31 @@
                 <v-list-item-icon>
                   <v-icon>mdi-home</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Home</v-list-item-title>
+                <v-list-item-title
+                  ><a href="/" class="white--text">Home</a></v-list-item-title
+                >
+              </v-list-item>
+
+              <v-list-item v-if="this.role == 3">
+                <v-list-item-icon>
+                  <v-icon>mdi-dashboard</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                  <a href="/dashboard" class="text-white ml-3"
+                    >Dashboard</a
+                  ></v-list-item-title
+                >
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-icon>
-                  <v-icon>mdi-account</v-icon>
+                  <v-icon>mdi-work-outline</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Account</v-list-item-title>
+                <v-list-item-title
+                  ><a href="/post/job" class="text-white"
+                    >Post Jobs</a
+                  ></v-list-item-title
+                >
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -132,7 +152,12 @@
             <router-view />
           </div>
           <v-footer dark padless>
-            <v-card flat tile class="indigo lighten-1 white--text text-center">
+            <v-card
+              flat
+              tile
+              class="indigo lighten-1 white--text text-center"
+              width="100%"
+            >
               <v-card-text>
                 <v-btn
                   v-for="icon in icons"
@@ -147,21 +172,13 @@
               </v-card-text>
 
               <v-card-text class="white--text pt-0">
-                Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit
-                amet. Mauris cursus commodo interdum. Praesent ut risus eget
-                metus luctus accumsan id ultrices nunc. Sed at orci sed massa
-                consectetur dignissim a sit amet dui. Duis commodo vitae velit
-                et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat
-                augue vel ipsum ultrices, cursus iaculis dui sollicitudin.
-                Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
+                Visit our Socials
               </v-card-text>
 
               <v-divider></v-divider>
 
               <v-card-text class="white--text">
-                {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+                {{ new Date().getFullYear() }} — <strong>WorkOnLancing</strong>
               </v-card-text>
             </v-card>
           </v-footer>
@@ -188,8 +205,8 @@ export default {
     ...mapActions({
       signOutAction: "auth/signOut",
     }),
-    test(){
-      console.log('test');
+    test() {
+      console.log("test");
     },
     logOut() {
       this.signOutAction().then(() => {
@@ -224,5 +241,8 @@ export default {
 <style>
 body::-webkit-scrollbar {
   display: none;
+}
+a {
+  text-decoration: none;
 }
 </style>
