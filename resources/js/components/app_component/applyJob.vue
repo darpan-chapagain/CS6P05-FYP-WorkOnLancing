@@ -68,7 +68,7 @@
                         >Send a message to client and discuss about the
                         job!</b-card-sub-title
                       >
-                      <v-btn class="m-2 mt-4" rounded color="primary" dark
+                      <v-btn class="m-2 mt-4" rounded color="primary" dark @click="contact"
                         >Send a message!</v-btn
                       >
                     </div>
@@ -90,7 +90,12 @@
                         >Send a message to client and discuss about the
                         job!</b-card-sub-title
                       >
-                      <v-btn class="m-2 mt-4" rounded color="primary" dark
+                      <v-btn
+                        class="m-2 mt-4"
+                        rounded
+                        color="primary"
+                        dark
+                        @click="contact"
                         >Send a message!</v-btn
                       >
                     </div>
@@ -126,22 +131,32 @@
                         >Send a message to client and discuss about the
                         job!</b-card-sub-title
                       >
-                      <v-btn class="m-2 mt-4" rounded color="primary" dark
+                      <v-btn
+                        class="m-2 mt-4"
+                        rounded
+                        color="primary"
+                        dark
+                        @click="contact"
                         >Send a message!</v-btn
                       >
                     </div>
                     <div class="">
                       <div class="message">
                         <h5 class="my-0">Ready to complete it!</h5>
-                        <b-card-sub-title>Finish the given task!</b-card-sub-title>
-                        <v-btn class="m-2 mt-4" rounded color="primary" dark @click.prevent="finish">Finish the job!</v-btn>
-                          >Finish the job 
-                        
-                        
+                        <b-card-sub-title
+                          >Finish the given task!</b-card-sub-title
+                        >
+                        <v-btn
+                          class="m-2 mt-4"
+                          rounded
+                          color="primary"
+                          dark
+                          @click.prevent="finish"
+                          >Finish the job!</v-btn
+                        >
+                        >Finish the job
                       </div>
-                      
                     </div>
-                    
                   </div>
                 </div>
               </v-sheet>
@@ -230,7 +245,7 @@
                       >Send a message to client and discuss about the
                       job!</b-card-sub-title
                     >
-                    <v-btn class="m-2 mt-4" rounded color="primary" dark
+                    <v-btn class="m-2 mt-4" rounded color="primary" dark @click="contact"
                       >Send a message!</v-btn
                     >
                   </div>
@@ -302,6 +317,28 @@ export default {
     };
   },
   methods: {
+    contact() {
+      axios({
+        method: "post",
+        url: `/chat/start/`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: {
+          user_id: this.a_job_detail.user.id,
+        },
+      }).then((res) => {
+        let data = res.data;
+        let room = data;
+        console.log(room);
+        this.$router.push({
+          name: "ChatRoom",
+          params: {
+            currentRoom: room[0],
+          },
+        });
+      });
+    },
     finish() {
       let res = axios({
         method: "post",

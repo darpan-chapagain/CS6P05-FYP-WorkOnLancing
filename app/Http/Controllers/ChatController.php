@@ -44,13 +44,14 @@ class ChatController extends Controller
         foreach($userRoom as $room){
             $roomID = $room->chat_room_id;
             $anotherUSer = UserRoom::where('user_id', $request->user_id)->where('chat_room_id', $roomID)->first();
-            // dd($anotherUSer);
-            if($anotherUSer != null){
+            if($anotherUSer){
+                // dd($anotherUSer->chat_room_id);
                 array_push($roomArray, [
-                    'id' => $anotherUSer->id,
+                    'id' => $anotherUSer->chat_room_id,
                     'user' => $anotherUSer->users
                 ]);
-                $anotherUSer;
+                // dd($anotherUSer);
+
                 return $roomArray;
             }
         }
@@ -76,6 +77,7 @@ class ChatController extends Controller
                     'id' => $a->chat_room_id,
                     'user' => $aUser
                 ]);
+                // dd($aUser);
                 // array_push($otherUser, $aUser);
             }
         }

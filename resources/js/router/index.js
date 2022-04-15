@@ -20,10 +20,17 @@ import Blog from "../components/pages/Blog.vue";
 import Chat from "../components/pages/Chat.vue";
 import ChatRoom from "../components/pages/Chat/chatRoom.vue"
 import Home from "../components/pages/Home.vue";
+import AdminDashboard from "../components/pages/AdminDashboard.vue";
+import AdminJob from "../components/pages/AdminPage/ManageJob.vue"
+import AdminUser from "../components/pages/AdminPage/ManageUser.vue"
+import AdminCategory from "../components/pages/AdminPage/ManageCategory.vue";
+import AdminSkill from "../components/pages/AdminPage/ManageSkill.vue";
+import UserEdit from "../components/pages/UserEdit.vue"
+
 /* Guest Component */
 const Test2 = () =>
     import(
-        "../components/pages/tests/chatTest.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/AdminDashboard.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Test = () =>
     import(
@@ -155,7 +162,7 @@ const Routes = [
             {
                 name: "dashboard.admin",
                 path: "dashboard/admin",
-                component: EmployeeDashboard,
+                component: AdminDashboard,
                 meta: {
                     middleware: [auth, admin],
                 },
@@ -246,6 +253,12 @@ const Routes = [
         props: true,
     },
     {
+        name: "userEdit",
+        path: "/user/edit",
+        component: UserEdit,
+        props: true,
+    },
+    {
         name: "blog",
         path: "/blog/:id",
         component: Blog,
@@ -261,6 +274,30 @@ const Routes = [
         name: "ChatRoom",
         path: "/chatRoom",
         component: ChatRoom,
+        props: true
+    },
+    {
+        name: "adminJob",
+        path: "/job",
+        component: AdminJob,
+        props: true
+    },
+    {
+        name: "adminUser",
+        path: "/job",
+        component: AdminUser,
+        props: true
+    },
+    {
+        name: "adminCategory",
+        path: "/job",
+        component: AdminCategory,
+        props: true
+    },
+    {
+        name: "adminSkill",
+        path: "/job",
+        component: AdminSkill,
         props: true
     }
 ];

@@ -1,73 +1,339 @@
 <template>
   <div class="mt-5">
-      <v-card class="mt-5">
-    <v-form v-model="valid" ref="form4" lazy-validation @submit.prevent="">
-      <h3>Publish your Profile</h3>
-      <div class="image d-flex flex-column">
-        <div class="avatar mx-auto">
-          <v-avatar color="orange" size="80">
-            <v-img v-if="user.profile" :src="url"></v-img>
-            <span v-else class="white--text text-h3">U</span>
-          </v-avatar>
+    <v-card class="mt-5 p-5">
+      <v-form
+        v-model="valid"
+        ref="form5"
+        lazy-validation
+        enctype="multipart/form-data"
+      >
+        <div class="services">
+          <h3>What services do you offer?</h3>
+          <div>
+            <v-text-field
+              v-model="user.title"
+              :counter="10"
+              :rules="titleRules"
+              label="Title of your Work"
+              required
+            ></v-text-field>
+            <v-autocomplete
+              v-model="user.category"
+              :items="categories"
+              clearable
+              hide-selected
+              persistent-hint
+              label="Job Category"
+              :rules="categoryRule"
+              dense
+            ></v-autocomplete>
+            <h4>Experience Level</h4>
+            <v-radio-group
+              v-model="user.experience"
+              :rules="[(v) => !!v || 'Please select experience']"
+              row
+              required
+            >
+              <v-radio label="Entry" value="0"></v-radio>
+              <v-radio label="Intermediate" value="1"></v-radio>
+              <v-radio label="Expert" value="2"></v-radio>
+            </v-radio-group>
+            <h4>Qualifications</h4>
+            <v-radio-group v-model="user.employee_type" row>
+              <v-radio label="Individual" value="0"></v-radio>
+              <v-radio label="Team" value="1"></v-radio>
+            </v-radio-group>
+            <v-textarea
+              name="Qualification"
+              filled
+              label="Qualification"
+              auto-grow
+              v-model="user.qualification"
+              value="List down your education level."
+            ></v-textarea>
+            <v-textarea
+              name="Education"
+              filled
+              label="Education"
+              auto-grow
+              v-model="user.education"
+              value="List down your education level."
+            ></v-textarea>
+          </div>
         </div>
-        <div class="img-input">
-          <v-file-input
-            cols="8"
-            :rules="[(v) => !!v || 'Please select experience']"
-            accept="image/png, image/jpeg, image/bmp"
-            placeholder="Pick an avatar"
-            prepend-icon="mdi-camera"
-            label="Profile Picture"
-            v-model="user.profile"
-          ></v-file-input>
+        <div class="skill-and-worth">
+          <div class="scope m-4">
+            <h3>Tell us your skill and worth!</h3>
+          </div>
+
+          <div class="skills">
+            <v-autocomplete
+              v-model="user.skill"
+              :items="items"
+              clearable
+              hide-selected
+              persistent-hint
+              label="Skills"
+              :rules="[required]"
+              dense
+              multiple
+              required
+              small-chips
+            ></v-autocomplete>
+          </div>
+
+          <div class="rates">
+            <div class="buttons my-auto p-3">
+              <v-btn class="mr-2" @click="types('hourly')">Hourly Rate</v-btn>
+              <v-btn class="ml-2" @click="types('project')">Project Rate</v-btn>
+            </div>
+
+            <div class="payment-inputs m-2">
+              <v-text-field
+                v-if="payment"
+                v-model="user.hourly_rate"
+                label="Hourly Rate"
+                placeholder="Enter Your Rate here"
+                outlined
+                clearable
+                type="number"
+                :rules="[(v) => !!v || 'Please Enter a price']"
+              ></v-text-field>
+              <v-text-field
+                v-if="!payment"
+                v-model="user.project_rate"
+                clearable
+                label="Project Rate"
+                placeholder="Enter Your Rate here"
+                outlined
+                type="number"
+                :rules="[(v) => !!v || 'Please Enter a price']"
+              ></v-text-field>
+              <v-textarea
+                name="About"
+                filled
+                label="About"
+                :rules="about"
+                :counter="500"
+                auto-grow
+                v-model="user.about"
+                value="Let others know about yourself."
+              ></v-textarea>
+            </div>
+          </div>
         </div>
-      </div>
-      <v-text-field
-        v-model="user.address"
-        :counter="10"
-        :rules="[(v) => !!v || 'Please Enter a Address']"
-        label="Address"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="user.city"
-        :counter="10"
-        :rules="[(v) => !!v || 'Please Enter a city']"
-        label="City"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="user.province"
-        :counter="10"
-        :rules="[(v) => !!v || 'Please Enter a province']"
-        label="Province"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="user.phone_number"
-        :counter="14"
-        :rules="[(v) => !!v || 'Please Enter a phone number']"
-        label="Phone Number"
-        required
-      ></v-text-field>
-      <div class="buttons d-flex justify-content-between">
-        <v-btn color="error" @click="changeTab2()">Cancel</v-btn>
-        <v-btn
-          :disabled="!valid"
-          color="success"
-          @click="validate('profile')"
-          @click.native="steps(step)"
-        >
-          Finalize
-        </v-btn>
-      </div>
-    </v-form>
-  </v-card>
+        <div class="profile-info">
+          <h3>Publish your Profile</h3>
+          <div class="image d-flex flex-column">
+            <div class="avatar mx-auto">
+              <v-avatar color="orange" size="80">
+                <v-img v-if="user.profile" :src="url"></v-img>
+                <span v-else class="white--text text-h3">U</span>
+              </v-avatar>
+            </div>
+            <div class="img-input">
+              <v-file-input
+                cols="8"
+                :rules="[(v) => !!v || 'Please input a profile pic']"
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="Pick an avatar"
+                prepend-icon="mdi-camera"
+                label="Profile Picture"
+                v-model="user.profile"
+              ></v-file-input>
+            </div>
+          </div>
+          <v-text-field
+            v-model="user.address"
+            :rules="[(v) => !!v || 'Please Enter a Address']"
+            label="Address"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="user.city"
+            :counter="10"
+            :rules="[(v) => !!v || 'Please Enter a city']"
+            label="City"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="user.province"
+            :counter="10"
+            :rules="[(v) => !!v || 'Please Enter a province number']"
+            label="Province"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="user.phone_number"
+            :counter="14"
+            :rules="[(v) => !!v || 'Please Enter a phone number']"
+            label="Phone Number"
+            required
+          ></v-text-field>
+        </div>
+        <div class="d-flex flex-column mx-5 justify-around">
+          <v-btn
+            class="btn btn-lg sign-in-btn mb-2"
+            @click.prevent="action('register_employee')"
+          >
+            Register as Employer
+          </v-btn>
+          <v-btn class="btn btn-lg mb-2" color="error" @click="changeTab2()"
+            >Cancel</v-btn
+          >
+        </div>
+        <!-- <v-btn color="primary" @click.prevent="submit"
+                          >Save</v-btn
+                        > -->
+      </v-form>
+    </v-card>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  props: {
+    a_user: [Array, Object],
+  },
+  data() {
+    return {
+      tab: "tab-1",
+      switch2: false,
+      state: false,
+      categories: [],
+      items: [],
+      user: {
+        first_name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        gender: null,
+        skill: null,
+        scope: null,
+        experience: null,
+        skill: [],
+        category: [],
+        description: null,
+        title: null,
+        search: null,
+        hourly_rate: null,
+        project_rate: null,
+        profile: null,
+        employee_type: null,
+        qualification: null,
+        about: null,
+        address: null,
+        city: null,
+        province: null,
+        phone_number: null,
+        education: null,
+        role_id: null,
+      },
+      payment: true,
+      show3: false,
+      pass_rule: {
+        required: (value) => !!value || "Required.",
+      },
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
+      ],
+      //for employee
+      valid: true,
+      e1: 1,
+      step: 1,
+      titleRules: [
+        (v) => !!v || "Job Title is required",
+        (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+      ],
+      descriptionRule: [
+        (v) => !!v || "Description required",
+        (v) =>
+          (v && v.length <= 20) ||
+          "Description must be less than 200 characters",
+
+        // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      categoryRule: [(v) => !!v || "Please select category"],
+      scopeRule: [[(v) => !!v || "Scope is required"]],
+      about: [
+        (v) => !!v || "About is required",
+        (v) =>
+          (v && v.length <= 20) ||
+          "Description must be less than 200 characters",
+      ],
+      //for date
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      //   dateFormatted: vm.formatDate(
+      //     new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      //       .toISOString()
+      //       .substr(0, 10)
+      //   ),
+      dateFormatted: null,
+      menu1: false,
+      menu2: false,
+    };
+  },
+  methods: {
+    formData() {
+      let userForm = new FormData();
+
+      userForm.append("profile", this.user.profile);
+
+      userForm.append("first_name", this.user.first_name);
+      userForm.append("last_name", this.user.last_name);
+      userForm.append("email", this.user.email);
+      userForm.append("password", this.user.password);
+      userForm.append("password_confirmation", this.user.password_confirmation);
+      userForm.append("gender", this.user.gender);
+      for (let sk in this.user.skill) {
+        userForm.append("skill[]", this.user.skill[sk]);
+      }
+      userForm.append("scope", this.user.scope);
+      userForm.append("experience", this.user.experience);
+      userForm.append("category", this.user.category);
+      userForm.append("description", this.user.description);
+      userForm.append("title", this.user.title);
+      userForm.append("search", this.user.search);
+      userForm.append("hourly_rate", this.user.hourly_rate);
+      userForm.append("project_rate", this.user.project_rate);
+      userForm.append("employee_type", this.user.employee_type);
+      userForm.append("qualification", this.user.qualification);
+      userForm.append("about", this.user.about);
+      userForm.append("Address", this.user.address);
+      userForm.append("city", this.user.city);
+      userForm.append("province", this.user.province);
+      userForm.append("phone_no", this.user.phone_number);
+      userForm.append("education", this.user.education);
+      userForm.append("role_id", this.user.role_id);
+      // let formData = new FormData()
+      //   <!-- WE APPEND THE AVATAR TO THE FORMDATA WE'RE GONNA POST -->
+      //   formData.append('avatar', this.avatar)
+
+      //   _.each(this.formData, (value, key) => {
+      //     formData.append(key, value)
+      //   })
+
+      return userForm;
+    },
+
+    async submitUser() {
+      let res = await axios({
+        method: "post",
+        url: `/user/users/${this.a_user.id}`,
+        data: this.formData(),
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(res.data);
+      console.log(this.formData());
+    },
+  },
+};
 </script>
 
 <style>
