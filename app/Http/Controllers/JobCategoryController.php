@@ -77,7 +77,7 @@ class JobCategoryController extends Controller
      * @param  \App\Models\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(JobCategory $jobCategory)
+    public function edit($id)
     {
         $jobCategory = JobCategory::find($id);
         $response = [
@@ -92,7 +92,7 @@ class JobCategoryController extends Controller
      * @param  \App\Models\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobCategory $jobCategory)
+    public function update(Request $request, JobCategory $jobCategory, $id)
     {
         $jobCategory = JobCategory::find($id)->update($request->all());
         // $job->update($request->all());
@@ -105,7 +105,7 @@ class JobCategoryController extends Controller
      * @param  \App\Models\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobCategory $jobCategory)
+    public function destroy(JobCategory $jobCategory, $id)
     {
         $jobCategory = JobCategory::find($id);
         $jobCategory->delete();

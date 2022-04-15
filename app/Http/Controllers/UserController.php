@@ -12,6 +12,8 @@ use App\Models\JobCategory;
 use App\Models\Skill;
 use App\Models\PostSkill;
 use App\Models\UserRating;
+use App\Models\UserRoles;
+use App\Models\Employee_Skill;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -28,8 +30,30 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all()->toArray();
-        return array_reverse($user);
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $user->roles;
+            $emp = $user->employee;
+            // $emp->employeeSkill;
+            // $emp->jobCategories;
+            // $user->jobs;
+            if ($emp) {
+                $skill = $emp->employeeSkill;
+                $category = $emp->jobCategories;
+                foreach ($skill as $sk) {
+                    $sk->allSkill;
+                }
+                $badges = $emp->badgeRatings;
+    
+                foreach ($badges as $bg) {
+                    $bg->workBadges;
+                }
+            }
+        }
+
+        return response()->json($users);
+
     }
 
     /**
@@ -97,10 +121,29 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        $response = [
-            'user' => $user
-        ];
-        return response()->json($response);
+        $user->roles;
+        $emp = $user->employee;
+        // $emp->employeeSkill;
+        // $emp->jobCategories;
+        // $user->jobs;
+        if ($emp) {
+            $skill = $emp->employeeSkill;
+            $category = $emp->jobCategories;
+            foreach ($skill as $sk) {
+                $sk->allSkill;
+            }
+            $badges = $emp->badgeRatings;
+
+            foreach ($badges as $bg) {
+                $bg->workBadges;
+            }
+        } else {
+            $skill = null;
+            $category = null;
+            $badges = null;
+        }
+        
+        return response()->json($user);
     }
 
     /**
@@ -113,7 +156,78 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user = User::find($id)->update($request->all());
+        $user = User::find($id);
+        $role = UserRoles::all()->where('user_id', $user->id)->first();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->phone_no = $request->phone_no;
+        $user->password = bcrypt($request->password);
+        $user->Address = $request->Address;
+        $user->City = $request->city;
+        $user->Province = $request->province;
+        $user->gender = $request->gender;
+        $user->about = $request->about;
+        $user->save();
+        if($role->role_id == 3){
+
+            $employee = Employee::all()->where('user_id', $user->id)->first();
+
+
+            if ($request->hourly_rate != 'null') {
+                $hr = $request->hourly_rate;
+            }
+            
+    
+            if ($request->project_rate != 'null') {
+                $pr = $request->project_rate;
+            }
+            $categories = JobCategory::all()->where('category_name', $request->category)->first();
+            // dd($categories);
+
+            $employee->title = $request->title;
+            $employee->qualification = $request->qualification;
+            $employee->hourly_rate = $hr;
+            $employee->experience = $request->experience;
+            $employee->project_rate = $pr;
+            $employee->employee_type = $request->employee_type;
+            $employee->Job_Category_ID = $categories->job_category_id;
+            $employee->education = $request->education;
+
+            $employee->save();
+            // $empID = $user->employee->employee_id;
+
+
+            if($request->skill){
+                $delete = Employee_Skill::where('employee_id', $employee->employee_id)->delete();
+
+                foreach ($request->skill as $sk) {
+                    $skills = Skill::all()->where('skill', $sk)->first();
+                    $employeeSkill = Employee_Skill::create([
+                        'skill_id' => $skills->id,
+                        'employee_id' => $employee->employee_id,
+                    ]);
+                }
+            }
+        }
+        
+        $emp = $user->employee;
+        // $emp->employeeSkill;
+        // $emp->jobCategories;
+        // $user->jobs;
+        if ($emp) {
+            $skill = $emp->employeeSkill;
+            $category = $emp->jobCategories;
+            foreach ($skill as $sk) {
+                $sk->allSkill;
+            }
+            $badges = $emp->badgeRatings;
+
+            foreach ($badges as $bg) {
+                $bg->workBadges;
+            }
+        }
+
         $response = [
             'updated_user' => $user,
             'message' => 'sucess',

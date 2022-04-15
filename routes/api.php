@@ -104,7 +104,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/chat/rooms/{roomId}/message', [ChatController::class, 'newMessage']);
 
 
-
     //this is to accept jos by employee
 });
 Route::get('/user/blogs/all/{id}', [BlogController::class, 'userBlog']);

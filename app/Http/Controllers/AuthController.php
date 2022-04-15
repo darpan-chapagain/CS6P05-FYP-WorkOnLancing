@@ -86,6 +86,7 @@ class AuthController extends Controller
                 $categories = JobCategory::all()->where('category_name', $request->category)->first();
                 $employee = Employee::create([
                     'user_id' => $user->id,
+                    'title' => $request->title,
                     'qualification' => $request->qualification,
                     'hourly_rate' => $hr,
                     'experience' => $request->experience,
