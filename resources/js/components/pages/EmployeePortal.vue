@@ -373,7 +373,16 @@ export default {
       }
     },
     editProfile() {
-      console.log("test");
+      this.$router
+        .push({
+          name: "userEdit",
+          params: {
+            a_user: this.user,
+          },
+        })
+        .then(() => {
+          localStorage.setItem("users", JSON.stringify(this.user));
+        });
     },
     visitProfile() {
       this.loading = true;

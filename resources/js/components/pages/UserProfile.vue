@@ -104,7 +104,7 @@
                                   <h3>Give Some Info to your Project</h3>
                                   <v-text-field
                                     v-model="title"
-                                    :counter="10"
+                                    :counter="100"
                                     :rules="titleRules"
                                     label="Name"
                                     required
@@ -115,7 +115,7 @@
                                     filled
                                     label="Description"
                                     :rules="descriptionRule"
-                                    :counter="200"
+                                    :counter="1000"
                                     auto-grow
                                     v-model="description"
                                     required
@@ -640,12 +640,12 @@ export default {
     projectRate: null,
     titleRules: [
       (v) => !!v || "Job Title is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+      (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
     ],
     descriptionRule: [
       (v) => !!v || "Description required",
       (v) =>
-        (v && v.length <= 20) || "Description must be less than 200 characters",
+        (v && v.length <= 1000) || "Description must be less than 1000 characters",
 
       // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],

@@ -652,4 +652,12 @@ class UserController extends Controller
 
         return response()->json($userRating);
     }
+
+    public function paymentVerification(Request $request){
+        $response = [
+            'message' => 'success',
+            'request' => $request->all()
+        ];
+        return response()->json($response);
+    }
 }

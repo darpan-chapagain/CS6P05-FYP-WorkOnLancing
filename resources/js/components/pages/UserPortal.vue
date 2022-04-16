@@ -281,7 +281,7 @@ export default {
     };
   },
   methods: {
-   getData() {
+    getData() {
       let blogData = new FormData();
 
       if (this.posting) {
@@ -327,9 +327,16 @@ export default {
       }
     },
     editProfile() {
-      this.$router.push({
-        name: "editProfile",
-      });
+      this.$router
+        .push({
+          name: "userEdit",
+          params: {
+            a_user: this.user,
+          },
+        })
+        .then(() => {
+          localStorage.setItem("users", JSON.stringify(this.user));
+        });
     },
     visitProfile() {
       this.loading = true;

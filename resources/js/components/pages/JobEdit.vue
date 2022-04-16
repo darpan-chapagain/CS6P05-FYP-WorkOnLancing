@@ -151,12 +151,12 @@ export default {
     projectRate: null,
     titleRules: [
       (v) => !!v || "Job Title is required",
-      (v) => (v && v.length <= 100) || "Name must be less than 20 characters",
+      (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
     ],
     descriptionRule: [
       (v) => !!v || "Description required",
       (v) =>
-        (v && v.length <= 1000) || "Description must be less than 200 characters",
+        (v && v.length <= 1000) || "Description must be less than 1000 characters",
 
       // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],

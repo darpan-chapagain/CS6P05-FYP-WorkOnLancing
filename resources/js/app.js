@@ -14,6 +14,8 @@ import moment from 'moment';
 import Vue from 'vue';
 import VueChatScroll from 'vue-chat-scroll'
 Vue.use(VueChatScroll)
+// Vue.forceUpdate();
+
 
 
 window.Vue = require("vue").default;
