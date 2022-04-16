@@ -103,7 +103,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/chat/rooms/{roomId}/messages', [ChatController::class, 'messages']);
     Route::post('/chat/rooms/{roomId}/message', [ChatController::class, 'newMessage']);
 
+    Route::resource('/jobs/category', JobCategoryController::class);
 
+    Route::resource('/skill', SkillController::class);
+
+    Route::resource('/badges', WorkBadgesController::class);
     //this is to accept jos by employee
 });
 Route::get('/user/blogs/all/{id}', [BlogController::class, 'userBlog']);
@@ -111,12 +115,11 @@ Route::get('/blog/get/{id}', [BlogController::class, 'getBlog']);
 
 Route::get('/user/rating/{id}', [UserRatingController::class, 'getUserRating']);
 
-Route::resource('/jobs/category', JobCategoryController::class);
 Route::resource('/employee', EmployeeController::class);
 // Route::resource('/job', JobController::class);
-Route::resource('/skill', SkillController::class);
 Route::resource('/user', UserController::class);
 Route::post('/user/update/status/{id}', [UserController::class, 'changeStatus']);
+Route::post('/user/update/all/{id}', [UserController::class, 'updateUser']);
 Route::get('/user/status/active', [UserController::class, 'getActiveUser']);
 Route::post('/job/update/status/{id}', [JobController::class, 'postStatusChange']);
 Route::get('/job/status/active', [JobController::class, 'getActivePost']);

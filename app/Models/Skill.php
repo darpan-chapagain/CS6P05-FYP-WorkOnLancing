@@ -11,7 +11,7 @@ class Skill extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['Role'];
+    protected $fillable = ['skill'];
 
     public function skillJob(){
         return $this->hasMany(PostSkill::class, 'skill', 'id');

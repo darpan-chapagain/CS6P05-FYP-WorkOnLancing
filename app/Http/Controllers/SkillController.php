@@ -44,7 +44,7 @@ class SkillController extends Controller
         $skill->save();
 
         $response = ['skill' => $skill];
-        return response()->json($response);
+        return response()->json($skill);;
     }
 
     /**
@@ -55,13 +55,14 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->skill);
         $skill = new Skill([
             'skill' =>  $request->skill,
         ]);
-
+        // dd(  $request->skill);
         $skill->save();
 
-        $reponse = ['skill' => $skill];
+        $response = ['skill' => $skill];
         return response()->json($skill);
     }
 

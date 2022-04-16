@@ -45,7 +45,7 @@ class UserController extends Controller
                     $sk->allSkill;
                 }
                 $badges = $emp->badgeRatings;
-    
+
                 foreach ($badges as $bg) {
                     $bg->workBadges;
                 }
@@ -53,7 +53,6 @@ class UserController extends Controller
         }
 
         return response()->json($users);
-
     }
 
     /**
@@ -142,7 +141,7 @@ class UserController extends Controller
             $category = null;
             $badges = null;
         }
-        
+
         return response()->json($user);
     }
 
@@ -169,7 +168,7 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->about = $request->about;
         $user->save();
-        if($role->role_id == 3){
+        if ($role->role_id == 3) {
 
             $employee = Employee::all()->where('user_id', $user->id)->first();
 
@@ -177,13 +176,13 @@ class UserController extends Controller
             if ($request->hourly_rate != 'null') {
                 $hr = $request->hourly_rate;
             }
-            
-    
+
+
             if ($request->project_rate != 'null') {
                 $pr = $request->project_rate;
             }
             $categories = JobCategory::all()->where('category_name', $request->category)->first();
-            // dd($categories);
+            dd($request->first_name);
 
             $employee->title = $request->title;
             $employee->qualification = $request->qualification;
@@ -194,11 +193,21 @@ class UserController extends Controller
             $employee->Job_Category_ID = $categories->job_category_id;
             $employee->education = $request->education;
 
+            if ($request->file('profile')) {
+                $file = $request->file('profile');
+                $profile_name = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('images'), $profile_name);
+                $profile_path = 'images/' . $profile_name;
+
+                $employee->profile = $profile_name;
+                $employee->profile_path = $profile_path;
+            }
+
             $employee->save();
             // $empID = $user->employee->employee_id;
 
 
-            if($request->skill){
+            if ($request->skill) {
                 $delete = Employee_Skill::where('employee_id', $employee->employee_id)->delete();
 
                 foreach ($request->skill as $sk) {
@@ -210,7 +219,100 @@ class UserController extends Controller
                 }
             }
         }
-        
+
+        $emp = $user->employee;
+        // $emp->employeeSkill;
+        // $emp->jobCategories;
+        // $user->jobs;
+        if ($emp) {
+            $skill = $emp->employeeSkill;
+            $category = $emp->jobCategories;
+            foreach ($skill as $sk) {
+                $sk->allSkill;
+            }
+            $badges = $emp->badgeRatings;
+
+            foreach ($badges as $bg) {
+                $bg->workBadges;
+            }
+        }
+
+        $response = [
+            'updated_user' => $user,
+            'message' => 'sucess',
+        ];
+
+        return response()->json($response);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $role = UserRoles::all()->where('user_id', $user->id)->first();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->phone_no = $request->phone_no;
+        $user->password = bcrypt($request->password);
+        $user->Address = $request->Address;
+        $user->City = $request->city;
+        $user->Province = $request->province;
+        $user->gender = $request->gender;
+        $user->about = $request->about;
+        if ($request->file('profile')) {
+            $file = $request->file('profile');
+            $profile_name = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('images'), $profile_name);
+            $profile_path = 'images/' . $profile_name;
+
+            $user->profile = $profile_name;
+            $user->profile_path = $profile_path;
+        }
+        $user->save();
+        if ($role->role_id == 3) {
+
+            $employee = Employee::all()->where('user_id', $user->id)->first();
+
+
+            if ($request->hourly_rate != 'null') {
+                $hr = $request->hourly_rate;
+            }
+
+
+            if ($request->project_rate != 'null') {
+                $pr = $request->project_rate;
+            }
+            $categories = JobCategory::all()->where('category_name', $request->category)->first();
+            // dd($request->first_name);
+
+            $employee->title = $request->title;
+            $employee->qualification = $request->qualification;
+            $employee->hourly_rate = $hr;
+            $employee->experience = $request->experience;
+            $employee->project_rate = $pr;
+            $employee->employee_type = $request->employee_type;
+            $employee->Job_Category_ID = $categories->job_category_id;
+            $employee->education = $request->education;
+
+
+
+            $employee->save();
+            // $empID = $user->employee->employee_id;
+
+
+            if ($request->skill) {
+                $delete = Employee_Skill::where('employee_id', $employee->employee_id)->delete();
+
+                foreach ($request->skill as $sk) {
+                    $skills = Skill::all()->where('skill', $sk)->first();
+                    $employeeSkill = Employee_Skill::create([
+                        'skill_id' => $skills->id,
+                        'employee_id' => $employee->employee_id,
+                    ]);
+                }
+            }
+        }
+
         $emp = $user->employee;
         // $emp->employeeSkill;
         // $emp->jobCategories;
@@ -339,7 +441,6 @@ class UserController extends Controller
                 'job' => $job->title,
             ];
             Mail::to($employee->user->email)->send(new \App\Mail\OfferMail($details));
-    
         } else {
             $response = [
                 'message' => 'Error: Unauthorized',
@@ -518,7 +619,7 @@ class UserController extends Controller
                     'rating' => $request->rating,
                     'description' => $request->description,
                 ]);
-                if($request->badges != null){
+                if ($request->badges != null) {
                     foreach ($request->badges as $badge) {
                         $employeeBadge = new EmployeeBadges();
                         $employeeBadge->employee_id =  $request->employee_id;

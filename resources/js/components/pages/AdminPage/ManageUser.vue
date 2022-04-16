@@ -1,68 +1,128 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    sort-by="calories"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
-  </v-data-table>
+  <div style="margin: 150px 10px">
+    <v-data-table
+      :headers="headers"
+      :items="all_users"
+      sort-by="calories"
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Manage Users</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data: () => ({
     headers: [
       {
-        text: "Employee Name",
+        text: "ID",
         align: "start",
-        sortable: false,
-        value: "first_name.name",
+        sortable: true,
+        value: "id",
       },
-      { text: "Contact Number", value: "number", sortable: false },
-      { text: "Paid", value: "pre_pay" },
-      { text: "Pending Amount", value: "pending_amount" },
-      { text: "Testing", value: "test" },
+      {
+        text: "First Name",
+        sortable: false,
+        value: "first_name",
+      },
+      {
+        text: "Last Name",
+        sortable: false,
+        value: "last_name",
+      },
+      {
+        text: "Phone number",
+        sortable: false,
+        value: "phone_no",
+      },
+      {
+        text: "Email",
+        sortable: false,
+        value: "email",
+      },
+      {
+        text: "Email",
+        sortable: false,
+        value: "email",
+      },
+      {
+        text: "Address",
+        sortable: false,
+        value: "Address",
+      },
+      {
+        text: "City",
+        sortable: false,
+        value: "City",
+      },
+      {
+        text: "Province",
+        sortable: false,
+        value: "Province",
+      },
+      {
+        text: "Gender",
+        sortable: false,
+        value: "gender",
+      },
+      {
+        text: "Status",
+        sortable: false,
+        value: "status",
+      },
+      {
+        text: "Role",
+        sortable: false,
+        value: "roles.role+id",
+      },
       { text: "Actions", value: "actions" },
     ],
-    desserts: [],
+    all_users: [],
   }),
 
   computed: {},
 
   watch: {},
 
-  created() {
-    this.initialize();
+  async created() {
+    this.all_users = await this.getUser();
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          first_name: { name: "This is a Test"} ,
-          number: 1,
-          pre_pay: 2,
-          pending_amount: 3,
-          test: "Another Test",
+    async getUser() {
+      let res = await axios({
+        methods: "GET",
+        url: "/user",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      ];
+      });
+      let data = await res.data;
+      return data;
     },
-
-    editItem(item) {},
+    editItem(item) {
+      this.$router
+        .push({
+          name: "userEdit",
+          params: {
+            a_user: item,
+          },
+        })
+        .then(() => {
+          localStorage.setItem("users", JSON.stringify(item));
+        });
+    },
 
     deleteItem(item) {},
   },

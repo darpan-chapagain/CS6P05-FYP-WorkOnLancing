@@ -18,7 +18,7 @@ class WorkBadges extends Model
     ];
 
     public function jobCategories(){
-        return $this->belongsTo(JobCategory::class, 'job_category_id', 'job_category_id');
+        return $this->belongsTo(JobCategory::class, 'Job_Category_Id', 'Job_Category_Id');
     }
 
     public function employeeBadges(){

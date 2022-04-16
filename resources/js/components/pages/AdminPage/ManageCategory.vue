@@ -1,70 +1,153 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    sort-by="calories"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
-  </v-data-table>
+  <div style="margin: 150px 10px">
+    <v-data-table
+      :headers="headers"
+      :items="category"
+      sort-by="calories"
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Manage Job Categories</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" width="700">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                v-on="on"
+                outlined
+                color="indigo"
+                dark
+                class="mb-2"
+              >
+                New Category
+              </v-btn>
+            </template>
+
+            <v-card>
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Job Detail</v-toolbar-title>
+              </v-toolbar>
+
+              <v-container
+                fluid
+                style="max-width: 400px; margin: 20px auto; display: flex"
+              >
+                <form ref="form" style="width: 100%; margin: 0 auto">
+                  <v-text-field
+                    label="Your landing page"
+                    hint="www.example.com/page"
+                    persistent-hint
+                    outlined
+                    v-model="newCat"
+                  ></v-text-field>
+
+                  <v-btn
+                    color="success"
+                    @click.prevent="submit"
+                    style="width: 100%; text-align: center"
+                  >
+                    submit
+                  </v-btn>
+                </form>
+              </v-container>
+
+              <v-bottom-navigation
+                :value="value"
+                background-color="blue"
+                grow
+                class="mb-0"
+              >
+                <v-btn icon @click="dialog = false">
+                  <v-icon color="white">mdi-close</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    newCat: "",
+    value: null,
     headers: [
       {
-        text: "Employee Name",
+        text: "id",
         align: "start",
         sortable: false,
-        value: "first_name.name",
+        value: "job_category_id",
       },
-      { text: "Contact Number", value: "number", sortable: false },
-      { text: "Paid", value: "pre_pay" },
-      { text: "Pending Amount", value: "pending_amount" },
-      { text: "Testing", value: "test" },
+      {
+        text: "Job Category Name",
+        align: "start",
+        sortable: false,
+        value: "category_name",
+      },
       { text: "Actions", value: "actions" },
     ],
-    desserts: [],
+    category: [],
   }),
 
   computed: {},
 
   watch: {},
 
-  created() {
-    this.initialize();
+  async created() {
+    this.category = await this.getCategory(); // get category
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          first_name: { name: "This is a Test"} ,
-          number: 1,
-          pre_pay: 2,
-          pending_amount: 3,
-          test: "Another Test",
+    async submit() {
+      axios({
+        method: "POST",
+        url: "jobs/category",
+        data: {
+          category: this.newCat,
         },
-      ];
+        headers: { Authorization: `Bearer ${this.token}` },
+      }).then(() => {
+        this.category = [];
+      });
+      // this.category = await this.getCategory();
+      this.category = await this.getCategory();
+      this.dialog = false;
+    },
+    async getCategory() {
+      let res = await axios({
+        method: "get",
+        url: "jobs/category",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      let data = await res.data;
+      return data;
     },
 
-    editItem(item) {},
-
-    deleteItem(item) {},
+    async deleteItem(item) {
+      axios({
+        method: "DELETE",
+        url: `jobs/category/${item.job_category_id}`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then(() => {
+        this.category = [];
+      });
+      this.category = await this.getCategory();
+    },
   },
 };
 </script>
