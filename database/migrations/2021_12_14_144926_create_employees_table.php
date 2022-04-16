@@ -18,7 +18,6 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title')->nullable();
             $table->longText('qualification')->nullable();
-            $table->integer('hourly_rate')->default(0)->nullable();
             $table->integer('project_rate')->default(0)->nullable();
             $table->longText('experience')->nullable();
             $table->longText('education')->nullable();

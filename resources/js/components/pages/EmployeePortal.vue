@@ -178,10 +178,7 @@
                         <v-icon class="p-1">mdi-cash</v-icon>
                         ${{ employee.project_rate }}/pr</v-chip
                       >
-                      <v-chip outlined color="green" class="m-1">
-                        <v-icon class="p-1">mdi-cash</v-icon>
-                        ${{ employee.hourly_rate }} /hr</v-chip
-                      >
+                      
                     </div>
                   </v-col>
                 </v-row>
@@ -376,7 +373,16 @@ export default {
       }
     },
     editProfile() {
-      console.log("test");
+      this.$router
+        .push({
+          name: "userEdit",
+          params: {
+            a_user: this.user,
+          },
+        })
+        .then(() => {
+          localStorage.setItem("users", JSON.stringify(this.user));
+        });
     },
     visitProfile() {
       this.loading = true;

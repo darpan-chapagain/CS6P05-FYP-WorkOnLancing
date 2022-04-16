@@ -69,7 +69,6 @@ class JobController extends Controller
             'time' =>  Carbon::parse($request->time)->toDateTimeString(),
             'experience' =>  $request->experience,
             'project_rate' => $request->project_rate,
-            'hourly_rate' => $request->hourly_rate,
             // 'salary_offered' =>  $request->salary_offered,
             'job_category_id' => $categories->job_category_id,
 
@@ -159,7 +158,6 @@ class JobController extends Controller
         $job->update();
         $job->experience = $request->experience;
         $job->project_rate = $request->project_rate;
-        $job->hourly_rate = $request->hourly_rate;
         // $job->salary_offered = $request->salary_offered;
         $job->job_category_id = $categories->job_category_id;
         $job->update();

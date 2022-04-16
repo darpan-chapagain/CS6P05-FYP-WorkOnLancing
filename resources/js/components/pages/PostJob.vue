@@ -127,7 +127,7 @@
                         <v-form ref="form1" v-model="valid" lazy-validation>
                           <v-text-field
                             v-model="title"
-                            :counter="10"
+                            :counter="100"
                             :rules="titleRules"
                             label="Name"
                             required
@@ -144,7 +144,7 @@
                             filled
                             label="Description"
                             :rules="descriptionRule"
-                            :counter="200"
+                            :counter="1000"
                             auto-grow
                             v-model="description"
                             required
@@ -261,7 +261,10 @@
                             required
                           >
                             <v-radio label="Entry" value="Entry"></v-radio>
-                            <v-radio label="Intermediate" value="Intermediate"></v-radio>
+                            <v-radio
+                              label="Intermediate"
+                              value="Intermediate"
+                            ></v-radio>
                             <v-radio label="Expert" value="Expert"></v-radio>
                           </v-radio-group>
                         </div>
@@ -341,28 +344,8 @@
                     <v-col cols="12" md="6">
                       <v-form v-model="valid" ref="form4" lazy-validation>
                         <div class="rates">
-                          <div class="buttons my-auto p-3">
-                            <v-btn class="mr-2" @click="types('hourly')"
-                              >Hourly Rate</v-btn
-                            >
-                            <v-btn class="ml-2" @click="types('project')"
-                              >Project Rate</v-btn
-                            >
-                          </div>
-
                           <div class="payment-inputs m-2">
                             <v-text-field
-                              v-if="payment"
-                              v-model="hourlyRate"
-                              label="Hourly Rate"
-                              placeholder="Enter Your Rate here"
-                              outlined
-                              clearable
-                              type="number"
-                              :rules="[(v) => !!v || 'Please Enter a price']"
-                            ></v-text-field>
-                            <v-text-field
-                              v-if="!payment"
                               v-model="projectRate"
                               clearable
                               label="Project Rate"
@@ -395,7 +378,7 @@
                       <h3>Give Some Info to your Project</h3>
                       <v-text-field
                         v-model="title"
-                        :counter="10"
+                        :counter="100"
                         :rules="titleRules"
                         label="Name"
                         required
@@ -412,7 +395,7 @@
                         filled
                         label="Description"
                         :rules="descriptionRule"
-                        :counter="200"
+                        :counter="1000"
                         auto-grow
                         v-model="description"
                         required
@@ -491,7 +474,10 @@
                         required
                       >
                         <v-radio label="Entry" value="Entry"></v-radio>
-                        <v-radio label="Intermediate" value="Intermediate"></v-radio>
+                        <v-radio
+                          label="Intermediate"
+                          value="Intermediate"
+                        ></v-radio>
                         <v-radio label="Expert" value="Expert"></v-radio>
                       </v-radio-group>
                     </div>
@@ -511,28 +497,8 @@
                       ></v-autocomplete>
                     </div>
                     <div class="rates">
-                      <div class="buttons my-auto p-3">
-                        <v-btn class="mr-2" @click="types('hourly')"
-                          >Hourly Rate</v-btn
-                        >
-                        <v-btn class="ml-2" @click="types('project')"
-                          >Project Rate</v-btn
-                        >
-                      </div>
-
                       <div class="payment-inputs m-2">
                         <v-text-field
-                          v-if="payment"
-                          v-model="hourlyRate"
-                          label="Hourly Rate"
-                          placeholder="Enter Your Rate here"
-                          outlined
-                          clearable
-                          type="number"
-                          :rules="[(v) => !!v || 'Please Enter a price']"
-                        ></v-text-field>
-                        <v-text-field
-                          v-if="!payment"
                           v-model="projectRate"
                           clearable
                           label="Project Rate"
@@ -544,6 +510,22 @@
                       </div>
                     </div>
                     <v-btn color="primary" @click.prevent="submit">Save</v-btn>
+                    <!-- <KhaltiButton
+                      :title="this.title"
+                      :id2="this.user_id"
+                      :jobForm="this.formData()"
+                      :type="`posting`"
+                      
+                      :key="componentKey"
+                    /> -->
+                    <vue-khalti
+                      ref="khaltiCheckout"
+                      v-bind="khaltiConfig"
+                      :key="componentKey"
+                    >
+                      <v-btn @click="onKhaltiClick"> Pay with Khalti </v-btn>
+                    </vue-khalti>
+                    <!-- <v-btn><vue-khalti v-bind="khaltiConfig" /> </v-btn> -->
                   </v-form>
                 </v-stepper-content>
               </v-stepper-items>
@@ -561,12 +543,23 @@
 import axios from "axios";
 import Images from "../app_component/bannerImage.vue";
 import { mapGetters } from "vuex";
+import VueKhalti from "vue-khalti";
+import KhaltiButton from "../Khalti/KhaltiButton.vue";
+
 export default {
   components: {
     Images,
+    VueKhalti,
+    KhaltiButton,
   },
   data(vm) {
+    var self = this;
+
     return {
+      //Khalti Payment
+
+      //----------
+
       valid: true,
       e1: 1,
       step: 1,
@@ -580,17 +573,16 @@ export default {
       description: null,
       title: null,
       search: null,
-      hourlyRate: 0,
-      projectRate: 0,
+      projectRate: null,
       titleRules: [
         (v) => !!v || "Job Title is required",
-        (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+        (v) => (v && v.length <= 100) || "Name must be less than 20 characters",
       ],
       descriptionRule: [
         (v) => !!v || "Description required",
         (v) =>
-          (v && v.length <= 20) ||
-          "Description must be less than 200 characters",
+          (v && v.length <= 1000) ||
+          "Description must be less than 1000 characters",
 
         // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
@@ -609,8 +601,36 @@ export default {
       dateFormatted: null,
       menu1: false,
       menu2: false,
+
+      //for date
+
+      //Payment
+      khaltiConfig: {
+        publicKey: "test_public_key_28ffbaeeb514468ca0a736669ca9d4b1",
+        productIdentity: `${Math.floor(Math.random() * 10)}-${moment(
+          this.date
+        ).format("YYYY-MM-DD")}`,
+        productName: "YOUR_PRODUCT_NAME",
+        amount: 1000,
+        eventHandler: {
+          onSuccess(payload) {
+            console.log(moment(this.date).format("YYYY-MM-DD"));
+            self.test(payload);
+            const sendData = async () => {
+              const res = await axios.post("/verify", payload);
+              console.log(res);
+            };
+            sendData();
+          },
+          onClose() {
+            console.log("widget is closing");
+          },
+        },
+      },
+
+      user_id: null,
+      componentKey: 0,
     };
-    //end for date
   },
 
   //for date
@@ -620,6 +640,7 @@ export default {
     },
     ...mapGetters({
       token: "auth/getToken",
+      thisUser: "auth/user",
     }),
   },
 
@@ -635,13 +656,17 @@ export default {
   },
   //end for date
   methods: {
-    types(pay) {
-      if (pay == "hourly") {
-        this.payment = true;
-      }
-      if (pay == "project") {
-        this.payment = false;
-      }
+    forceRerender() {
+      this.componentKey += 1;
+    },
+    async onKhaltiClick() {
+      const khaltiCheckout = await this.$refs.khaltiCheckout;
+      let res = khaltiCheckout.onClick();
+      console.log(res, "bhayo!");
+    },
+    test(payload) {
+      alert(`sucess masala`);
+      console.log(payload);
     },
     required(value) {
       if (value instanceof Array && value.length == 0) {
@@ -678,6 +703,7 @@ export default {
       if (this.valid) {
         this.step += 1;
         this.valid = false;
+        this.forceRerender();
       }
     },
     stepBack(step) {
@@ -739,7 +765,6 @@ export default {
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("hourly_rate", this.hourlyRate);
       jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
       for (let sk in this.skill) {
@@ -751,7 +776,10 @@ export default {
   created() {
     this.getSkill();
     this.getCategories();
+    console.log(this.thisUser.id);
+    this.user_id = this.thisUser.id;
   },
+
   //for budget
 };
 </script>

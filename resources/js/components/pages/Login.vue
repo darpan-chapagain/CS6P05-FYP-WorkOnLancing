@@ -48,10 +48,13 @@
 <script>
 import { mapActions } from "vuex";
 import AuthInput from "../app_component/AuthInput.vue";
+import VueKhalti from 'vue-khalti'
+
 export default {
   name: "login",
   components: {
     AuthInput,
+    VueKhalti
   },
   data() {
     return {

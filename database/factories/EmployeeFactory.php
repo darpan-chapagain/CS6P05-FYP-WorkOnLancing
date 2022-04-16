@@ -17,7 +17,6 @@ class EmployeeFactory extends Factory
         return [
             'user_id' => $number++,
             'qualification' => $this->faker->randomElement(['Intermediated', 'Expert', 'Entry']),
-            'hourly_rate' => $this->faker->numerify('##'),
             'project_rate' => $this->faker->numerify('####'),
             'experience' => $this->faker->randomElement(['Intermediated', 'Expert', 'Entry']),
             'employee_type' => $this->faker->randomElement(['Individual', 'Team']),

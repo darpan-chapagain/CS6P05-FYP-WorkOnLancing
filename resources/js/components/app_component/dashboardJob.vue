@@ -3,7 +3,6 @@
         <div v-for="a_job in allJobs" :key="a_job.id">
             <!-- <h5>Job Title: Lorem ipsum dolor sit amet.</h5>
             <div class="attributes">
-                <v-chip outlined color="green" class="m-1">Hourly/Price: $###</v-chip>
                 <v-chip outlined class="m-1">Skill Level</v-chip>
                 <v-chip outlined class="m-1">Est. Time</v-chip>
                 <v-chip outlined class="m-1">Posted 2 hours ago</v-chip>

@@ -123,7 +123,7 @@ Route::post('/user/update/all/{id}', [UserController::class, 'updateUser']);
 Route::get('/user/status/active', [UserController::class, 'getActiveUser']);
 Route::post('/job/update/status/{id}', [JobController::class, 'postStatusChange']);
 Route::get('/job/status/active', [JobController::class, 'getActivePost']);
-
+Route::post('/verify', [UserController::class, 'paymentVerification']);
 // Route::post('/send', function () {
    
 //     $details = [

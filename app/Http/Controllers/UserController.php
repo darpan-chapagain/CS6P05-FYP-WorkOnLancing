@@ -173,9 +173,7 @@ class UserController extends Controller
             $employee = Employee::all()->where('user_id', $user->id)->first();
 
 
-            if ($request->hourly_rate != 'null') {
-                $hr = $request->hourly_rate;
-            }
+            
 
 
             if ($request->project_rate != 'null') {
@@ -186,7 +184,6 @@ class UserController extends Controller
 
             $employee->title = $request->title;
             $employee->qualification = $request->qualification;
-            $employee->hourly_rate = $hr;
             $employee->experience = $request->experience;
             $employee->project_rate = $pr;
             $employee->employee_type = $request->employee_type;
@@ -274,9 +271,7 @@ class UserController extends Controller
             $employee = Employee::all()->where('user_id', $user->id)->first();
 
 
-            if ($request->hourly_rate != 'null') {
-                $hr = $request->hourly_rate;
-            }
+            
 
 
             if ($request->project_rate != 'null') {
@@ -287,7 +282,6 @@ class UserController extends Controller
 
             $employee->title = $request->title;
             $employee->qualification = $request->qualification;
-            $employee->hourly_rate = $hr;
             $employee->experience = $request->experience;
             $employee->project_rate = $pr;
             $employee->employee_type = $request->employee_type;
@@ -657,5 +651,13 @@ class UserController extends Controller
 
 
         return response()->json($userRating);
+    }
+
+    public function paymentVerification(Request $request){
+        $response = [
+            'message' => 'success',
+            'request' => $request->all()
+        ];
+        return response()->json($response);
     }
 }

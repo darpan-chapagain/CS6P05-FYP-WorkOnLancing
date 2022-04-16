@@ -47,7 +47,6 @@ class EmployeeController extends Controller
         $employee = Employee::create([
             'user_id' => $request->user_id,
             'qualification' => $request->qualification,
-            'hourly_rate' => $request->hourly_rate,
             'experience' => $request->experience,
             // 'skills' => $request->skills, 
             'employee_type' => $request->employee_type,

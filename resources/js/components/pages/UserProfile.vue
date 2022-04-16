@@ -104,7 +104,7 @@
                                   <h3>Give Some Info to your Project</h3>
                                   <v-text-field
                                     v-model="title"
-                                    :counter="10"
+                                    :counter="100"
                                     :rules="titleRules"
                                     label="Name"
                                     required
@@ -115,7 +115,7 @@
                                     filled
                                     label="Description"
                                     :rules="descriptionRule"
-                                    :counter="200"
+                                    :counter="1000"
                                     auto-grow
                                     v-model="description"
                                     required
@@ -228,32 +228,11 @@
                                   ></v-autocomplete>
                                 </div>
                                 <div class="rates">
-                                  <div class="buttons my-auto p-3">
-                                    <v-btn class="mr-2" @click="types('hourly')"
-                                      >Hourly Rate</v-btn
-                                    >
-                                    <v-btn
-                                      class="ml-2"
-                                      @click="types('project')"
-                                      >Project Rate</v-btn
-                                    >
-                                  </div>
+                                  
 
                                   <div class="payment-inputs m-2">
+                                    
                                     <v-text-field
-                                      v-if="payment"
-                                      v-model="hourlyRate"
-                                      label="Hourly Rate"
-                                      placeholder="Enter Your Rate here"
-                                      outlined
-                                      clearable
-                                      type="number"
-                                      :rules="[
-                                        (v) => !!v || 'Please Enter a price',
-                                      ]"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      v-if="!payment"
                                       v-model="projectRate"
                                       clearable
                                       label="Project Rate"
@@ -658,16 +637,15 @@ export default {
     description: null,
     title: null,
     search: null,
-    hourlyRate: 0,
-    projectRate: 0,
+    projectRate: null,
     titleRules: [
       (v) => !!v || "Job Title is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+      (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
     ],
     descriptionRule: [
       (v) => !!v || "Description required",
       (v) =>
-        (v && v.length <= 20) || "Description must be less than 200 characters",
+        (v && v.length <= 1000) || "Description must be less than 1000 characters",
 
       // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
@@ -747,14 +725,6 @@ export default {
         },
       });
     },
-    types(pay) {
-      if (pay == "hourly") {
-        this.payment = true;
-      }
-      if (pay == "project") {
-        this.payment = false;
-      }
-    },
     required(value) {
       if (value instanceof Array && value.length == 0) {
         return "Required.";
@@ -829,7 +799,6 @@ export default {
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("hourly_rate", this.hourlyRate);
       jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
       for (let sk in this.skill) {
