@@ -53,7 +53,6 @@ export default {
       { text: "Job Size", value: "size", sortable: false },
       { text: "Time", value: "time" },
       { text: "Experience", value: "experience", sortable: false },
-      { text: "Hourly Rate", value: "hourly_rate" },
       { text: "Project Rate", value: "project_rate" },
       { text: "Job Status", value: "status" },
       { text: "Actions", value: "actions", sortable: false },

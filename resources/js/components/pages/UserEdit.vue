@@ -172,26 +172,11 @@
             </div>
 
             <div class="rates">
-              <div class="buttons my-auto p-3">
-                <v-btn class="mr-2" @click="types('hourly')">Hourly Rate</v-btn>
-                <v-btn class="ml-2" @click="types('project')"
-                  >Project Rate</v-btn
-                >
-              </div>
+              
 
               <div class="payment-inputs m-2">
+
                 <v-text-field
-                  v-if="payment"
-                  v-model="user.hourly_rate"
-                  label="Hourly Rate"
-                  placeholder="Enter Your Rate here"
-                  outlined
-                  clearable
-                  type="number"
-                  :rules="[(v) => !!v || 'Please Enter a price']"
-                ></v-text-field>
-                <v-text-field
-                  v-if="!payment"
                   v-model="user.project_rate"
                   clearable
                   label="Project Rate"
@@ -253,7 +238,6 @@ export default {
         description: null,
         title: null,
         search: null,
-        hourly_rate: null,
         project_rate: null,
         profile: null,
         employee_type: null,
@@ -347,7 +331,6 @@ export default {
       userForm.append("description", this.user.description);
       userForm.append("title", this.user.title);
       userForm.append("search", this.user.search);
-      userForm.append("hourly_rate", this.user.hourly_rate);
       userForm.append("project_rate", this.user.project_rate);
       userForm.append("employee_type", this.user.employee_type);
       userForm.append("qualification", this.user.qualification);
@@ -422,7 +405,6 @@ export default {
         this.user.experience = this.a_user.employee.experience;
         this.user.category = this.a_user.employee.job_categories.category_name;
         this.user.title = this.a_user.employee.title;
-        this.user.hourly_rate = this.a_user.employee.hourly_rate;
         this.user.project_rate = this.a_user.employee.project_rate;
         this.user.employee_type = this.a_user.employee.employee_type;
         this.user.qualification = this.a_user.employee.qualification;
@@ -449,7 +431,6 @@ export default {
         this.user.category = a_users.employee.job_categories.category_name;
         this.user.title = a_users.employee.title;
         this.user.search = a_users.employee.search;
-        this.user.hourly_rate = a_users.employee.hourly_rate;
         this.user.project_rate = a_users.employee.project_rate;
         this.user.employee_type = a_users.employee.employee_type;
         this.user.qualification = a_users.employee.qualification;

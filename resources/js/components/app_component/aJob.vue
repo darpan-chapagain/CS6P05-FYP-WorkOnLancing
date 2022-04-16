@@ -6,7 +6,7 @@
       <div class="attributes">
         <v-chip outlined color="green" class="m-1">
           <v-icon class="p-1">mdi-cash</v-icon>
-          ${{ a_job.salary_offered }}</v-chip
+          ${{ a_job.project_rate }}</v-chip
         >
         <v-chip outlined class="m-1">
           <v-icon class="p-1">mdi-brain</v-icon>

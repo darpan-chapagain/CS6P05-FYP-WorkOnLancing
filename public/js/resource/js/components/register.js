@@ -1285,41 +1285,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1342,8 +1307,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       description: null,
       title: null,
       search: null,
-      hourlyRate: 0,
-      projectRate: 0,
+      projectRate: null,
       titleRules: [function (v) {
         return !!v || "Job Title is required";
       }, function (v) {
@@ -1397,15 +1361,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   //end for date
   methods: {
-    types: function types(pay) {
-      if (pay == "hourly") {
-        this.payment = true;
-      }
-
-      if (pay == "project") {
-        this.payment = false;
-      }
-    },
     required: function required(value) {
       if (value instanceof Array && value.length == 0) {
         return "Required.";
@@ -1607,7 +1562,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("hourly_rate", this.hourlyRate);
       jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
 
@@ -2375,42 +2329,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "register",
@@ -2432,7 +2350,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         skill: null,
         scope: null,
         experience: null
-      }, _defineProperty(_user, "skill", []), _defineProperty(_user, "category", []), _defineProperty(_user, "description", null), _defineProperty(_user, "title", null), _defineProperty(_user, "search", null), _defineProperty(_user, "hourly_rate", null), _defineProperty(_user, "project_rate", null), _defineProperty(_user, "profile", null), _defineProperty(_user, "employee_type", null), _defineProperty(_user, "qualification", null), _defineProperty(_user, "about", null), _defineProperty(_user, "address", null), _defineProperty(_user, "city", null), _defineProperty(_user, "province", null), _defineProperty(_user, "phone_number", null), _defineProperty(_user, "education", null), _defineProperty(_user, "role_id", null), _user),
+      }, _defineProperty(_user, "skill", []), _defineProperty(_user, "category", []), _defineProperty(_user, "description", null), _defineProperty(_user, "title", null), _defineProperty(_user, "search", null), _defineProperty(_user, "project_rate", null), _defineProperty(_user, "profile", null), _defineProperty(_user, "employee_type", null), _defineProperty(_user, "qualification", null), _defineProperty(_user, "about", null), _defineProperty(_user, "address", null), _defineProperty(_user, "city", null), _defineProperty(_user, "province", null), _defineProperty(_user, "phone_number", null), _defineProperty(_user, "education", null), _defineProperty(_user, "role_id", null), _user),
       payment: true,
       show3: false,
       pass_rule: {
@@ -2505,7 +2423,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       userForm.append("category", this.user.category);
       userForm.append("title", this.user.title);
       userForm.append("search", this.user.search);
-      userForm.append("hourly_rate", this.user.hourly_rate);
       userForm.append("project_rate", this.user.project_rate);
       userForm.append("employee_type", this.user.employee_type);
       userForm.append("qualification", this.user.qualification);
@@ -2600,15 +2517,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     changeTab2: function changeTab2() {
       this.tab = "tab-1";
-    },
-    types: function types(pay) {
-      if (pay == "hourly") {
-        this.payment = true;
-      }
-
-      if (pay == "project") {
-        this.payment = false;
-      }
     },
     required: function required(value) {
       if (value instanceof Array && value.length == 0) {
@@ -3451,27 +3359,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
  // importing the axios (a HTTP library) to connects the app with the News API
 
 
@@ -3513,7 +3400,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       experience: null,
       payment: true,
       items: []
-    }, _defineProperty(_ref, "skill", []), _defineProperty(_ref, "category", []), _defineProperty(_ref, "description", null), _defineProperty(_ref, "title", null), _defineProperty(_ref, "search", null), _defineProperty(_ref, "hourlyRate", 0), _defineProperty(_ref, "projectRate", 0), _defineProperty(_ref, "titleRules", [function (v) {
+    }, _defineProperty(_ref, "skill", []), _defineProperty(_ref, "category", []), _defineProperty(_ref, "description", null), _defineProperty(_ref, "title", null), _defineProperty(_ref, "search", null), _defineProperty(_ref, "projectRate", null), _defineProperty(_ref, "titleRules", [function (v) {
       return !!v || "Job Title is required";
     }, function (v) {
       return v && v.length <= 20 || "Name must be less than 20 characters";
@@ -3677,15 +3564,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           user: this.user
         }
       });
-    },
-    types: function types(pay) {
-      if (pay == "hourly") {
-        this.payment = true;
-      }
-
-      if (pay == "project") {
-        this.payment = false;
-      }
     },
     required: function required(value) {
       if (value instanceof Array && value.length == 0) {
@@ -3865,7 +3743,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       jobForm.append("size", this.scope);
       jobForm.append("experience", this.experience);
       jobForm.append("payment", this.payment);
-      jobForm.append("hourly_rate", this.hourlyRate);
       jobForm.append("project_rate", this.projectRate);
       jobForm.append("time", moment(this.date).format("MM/DD/YYYY"));
 
@@ -4072,7 +3949,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* *{\r\n    margin: 0px;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n} */\n.main-div[data-v-62ff28b9] {\r\n  padding-top: 55px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100%;\r\n  min-height: 96vh;\n}\n.login-card[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-width: 320px;\r\n  align-items: center;\n}\n.image-holder[data-v-62ff28b9] {\r\n  padding-top: 25px;\r\n  width: 50%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\r\n  -o-object-position: center;\r\n     object-position: center;\n}\n.form-holder[data-v-62ff28b9] {\r\n  margin-left: 5%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  /* justify-content: center; */\r\n  align-items: center;\n}\n.form-container[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\n}\n.form-group .form-input[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 200px;\r\n  width: 100%;\n}\n.form-input-2[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 300px;\r\n  width: 100%;\n}\n.form-group[data-v-62ff28b9] {\r\n  margin-bottom: 10px;\n}\n.work_type[data-v-62ff28b9] {\r\n  display: flex;\r\n  align-items: center;\n}\n.freelance[data-v-62ff28b9] {\r\n  margin-bottom: 0;\r\n  margin-right: 15px;\n}\n.btn[data-v-62ff28b9] {\r\n  max-width: 380px;\r\n  min-width: 240px;\r\n  width: 100%;\r\n  font-size: 18px;\n}\n.sign-in-btn[data-v-62ff28b9] {\r\n  background-color: #0c0b0b !important;\r\n  color: #ffffff !important;\n}\n@media only screen and (min-width: 769px) {\n.login-card[data-v-62ff28b9] {\r\n    flex-direction: row;\r\n    max-width: 1022px;\r\n    min-width: 768px;\r\n    width: 100%;\r\n    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;\n}\n.form-holder[data-v-62ff28b9] {\r\n    padding: 25px;\r\n    width: 40%;\n}\n.image-holder[data-v-62ff28b9] {\r\n    height: 100%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n    height: 100%;\n}\n}\n@media only screen and (min-width: 1025px) {\n.login-card[data-v-62ff28b9] {\r\n    max-width: 1400px;\r\n    min-width: 1024px;\n}\n.name-group[data-v-62ff28b9] {\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 420px;\r\n    justify-content: space-between;\n}\n.first-name-container[data-v-62ff28b9],\r\n  .last-name-container[data-v-62ff28b9] {\r\n    width: 200px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* *{\r\n    margin: 0px;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n} */\n.main-div[data-v-62ff28b9] {\r\n  padding-top: 55px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100%;\r\n  min-height: 96vh;\n}\n.login-card[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-width: 320px;\r\n  align-items: center;\n}\n.image-holder[data-v-62ff28b9] {\r\n  padding-top: 25px;\r\n  width: 50%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\r\n  -o-object-position: center;\r\n     object-position: center;\n}\n.form-holder[data-v-62ff28b9] {\r\n  margin-left: 5%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  /* justify-content: center; */\r\n  align-items: center;\n}\n.form-container[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\n}\n.form-group .form-input[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 200px;\r\n  width: 100%;\n}\n.form-input-2[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 300px;\r\n  width: 100%;\n}\n.form-group[data-v-62ff28b9] {\r\n  margin-bottom: 10px;\n}\n.work_type[data-v-62ff28b9] {\r\n  display: flex;\r\n  align-items: center;\n}\n.freelance[data-v-62ff28b9] {\r\n  margin-bottom: 0;\r\n  margin-right: 15px;\n}\n.btn[data-v-62ff28b9] {\r\n  max-width: 380px;\r\n  min-width: 240px;\r\n  width: 100%;\r\n  font-size: 18px;\n}\n.sign-in-btn[data-v-62ff28b9] {\r\n  background-color: #0c0b0b !important;\r\n  color: #ffffff !important;\n}\n@media only screen and (min-width: 769px) {\n.login-card[data-v-62ff28b9] {\r\n    flex-direction: row;\r\n    max-width: 1022px;\r\n    min-width: 768px;\r\n    width: 100%;\r\n    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;\n}\n.form-holder[data-v-62ff28b9] {\r\n    padding: 25px;\r\n    width: 40%;\n}\n.image-holder[data-v-62ff28b9] {\r\n    height: 100%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n    height: 100%;\n}\n}\n@media only screen and (min-width: 1025px) {\n.login-card[data-v-62ff28b9] {\r\n    max-width: 1400px;\r\n    min-width: 1024px;\n}\n.name-group[data-v-62ff28b9] {\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 420px;\r\n    justify-content: space-between;\n}\n.first-name-container[data-v-62ff28b9],\r\n  .last-name-container[data-v-62ff28b9] {\r\n    width: 200px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5500,7 +5377,7 @@ var render = function () {
                                             ]),
                                             _vm._v(" "),
                                             _c("v-list-item-title", [
-                                              _vm._v("Hourly Rate"),
+                                              _vm._v("Project Rate"),
                                             ]),
                                             _vm._v(" "),
                                             _c("v-list-item-subtitle", [
@@ -6412,120 +6289,37 @@ var render = function () {
                                                   "div",
                                                   {
                                                     staticClass:
-                                                      "buttons my-auto p-3",
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "v-btn",
-                                                      {
-                                                        staticClass: "mr-2",
-                                                        on: {
-                                                          click: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.types(
-                                                              "hourly"
-                                                            )
-                                                          },
-                                                        },
-                                                      },
-                                                      [_vm._v("Hourly Rate")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "v-btn",
-                                                      {
-                                                        staticClass: "ml-2",
-                                                        on: {
-                                                          click: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.types(
-                                                              "project"
-                                                            )
-                                                          },
-                                                        },
-                                                      },
-                                                      [_vm._v("Project Rate")]
-                                                    ),
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
                                                       "payment-inputs m-2",
                                                   },
                                                   [
-                                                    _vm.payment
-                                                      ? _c("v-text-field", {
-                                                          attrs: {
-                                                            label:
-                                                              "Hourly Rate",
-                                                            placeholder:
-                                                              "Enter Your Rate here",
-                                                            outlined: "",
-                                                            clearable: "",
-                                                            type: "number",
-                                                            rules: [
-                                                              function (v) {
-                                                                return (
-                                                                  !!v ||
-                                                                  "Please Enter a price"
-                                                                )
-                                                              },
-                                                            ],
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        clearable: "",
+                                                        label: "Project Rate",
+                                                        placeholder:
+                                                          "Enter Your Rate here",
+                                                        outlined: "",
+                                                        type: "number",
+                                                        rules: [
+                                                          function (v) {
+                                                            return (
+                                                              !!v ||
+                                                              "Please Enter a price"
+                                                            )
                                                           },
-                                                          model: {
-                                                            value:
-                                                              _vm.hourlyRate,
-                                                            callback: function (
-                                                              $$v
-                                                            ) {
-                                                              _vm.hourlyRate =
-                                                                $$v
-                                                            },
-                                                            expression:
-                                                              "hourlyRate",
-                                                          },
-                                                        })
-                                                      : _vm._e(),
-                                                    _vm._v(" "),
-                                                    !_vm.payment
-                                                      ? _c("v-text-field", {
-                                                          attrs: {
-                                                            clearable: "",
-                                                            label:
-                                                              "Project Rate",
-                                                            placeholder:
-                                                              "Enter Your Rate here",
-                                                            outlined: "",
-                                                            type: "number",
-                                                            rules: [
-                                                              function (v) {
-                                                                return (
-                                                                  !!v ||
-                                                                  "Please Enter a price"
-                                                                )
-                                                              },
-                                                            ],
-                                                          },
-                                                          model: {
-                                                            value:
-                                                              _vm.projectRate,
-                                                            callback: function (
-                                                              $$v
-                                                            ) {
-                                                              _vm.projectRate =
-                                                                $$v
-                                                            },
-                                                            expression:
-                                                              "projectRate",
-                                                          },
-                                                        })
-                                                      : _vm._e(),
+                                                        ],
+                                                      },
+                                                      model: {
+                                                        value: _vm.projectRate,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.projectRate = $$v
+                                                        },
+                                                        expression:
+                                                          "projectRate",
+                                                      },
+                                                    }),
                                                   ],
                                                   1
                                                 ),
@@ -6954,96 +6748,33 @@ var render = function () {
                                     _c("div", { staticClass: "rates" }, [
                                       _c(
                                         "div",
-                                        { staticClass: "buttons my-auto p-3" },
-                                        [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "mr-2",
-                                              on: {
-                                                click: function ($event) {
-                                                  return _vm.types("hourly")
-                                                },
-                                              },
-                                            },
-                                            [_vm._v("Hourly Rate")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "ml-2",
-                                              on: {
-                                                click: function ($event) {
-                                                  return _vm.types("project")
-                                                },
-                                              },
-                                            },
-                                            [_vm._v("Project Rate")]
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
                                         { staticClass: "payment-inputs m-2" },
                                         [
-                                          _vm.payment
-                                            ? _c("v-text-field", {
-                                                attrs: {
-                                                  label: "Hourly Rate",
-                                                  placeholder:
-                                                    "Enter Your Rate here",
-                                                  outlined: "",
-                                                  clearable: "",
-                                                  type: "number",
-                                                  rules: [
-                                                    function (v) {
-                                                      return (
-                                                        !!v ||
-                                                        "Please Enter a price"
-                                                      )
-                                                    },
-                                                  ],
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              clearable: "",
+                                              label: "Project Rate",
+                                              placeholder:
+                                                "Enter Your Rate here",
+                                              outlined: "",
+                                              type: "number",
+                                              rules: [
+                                                function (v) {
+                                                  return (
+                                                    !!v ||
+                                                    "Please Enter a price"
+                                                  )
                                                 },
-                                                model: {
-                                                  value: _vm.hourlyRate,
-                                                  callback: function ($$v) {
-                                                    _vm.hourlyRate = $$v
-                                                  },
-                                                  expression: "hourlyRate",
-                                                },
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          !_vm.payment
-                                            ? _c("v-text-field", {
-                                                attrs: {
-                                                  clearable: "",
-                                                  label: "Project Rate",
-                                                  placeholder:
-                                                    "Enter Your Rate here",
-                                                  outlined: "",
-                                                  type: "number",
-                                                  rules: [
-                                                    function (v) {
-                                                      return (
-                                                        !!v ||
-                                                        "Please Enter a price"
-                                                      )
-                                                    },
-                                                  ],
-                                                },
-                                                model: {
-                                                  value: _vm.projectRate,
-                                                  callback: function ($$v) {
-                                                    _vm.projectRate = $$v
-                                                  },
-                                                  expression: "projectRate",
-                                                },
-                                              })
-                                            : _vm._e(),
+                                              ],
+                                            },
+                                            model: {
+                                              value: _vm.projectRate,
+                                              callback: function ($$v) {
+                                                _vm.projectRate = $$v
+                                              },
+                                              expression: "projectRate",
+                                            },
+                                          }),
                                         ],
                                         1
                                       ),
@@ -8121,156 +7852,43 @@ var render = function () {
                                                         "div",
                                                         {
                                                           staticClass:
-                                                            "buttons my-auto p-3",
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "v-btn",
-                                                            {
-                                                              staticClass:
-                                                                "mr-2",
-                                                              on: {
-                                                                click:
-                                                                  function (
-                                                                    $event
-                                                                  ) {
-                                                                    return _vm.types(
-                                                                      "hourly"
-                                                                    )
-                                                                  },
-                                                              },
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "Hourly Rate"
-                                                              ),
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-btn",
-                                                            {
-                                                              staticClass:
-                                                                "ml-2",
-                                                              on: {
-                                                                click:
-                                                                  function (
-                                                                    $event
-                                                                  ) {
-                                                                    return _vm.types(
-                                                                      "project"
-                                                                    )
-                                                                  },
-                                                              },
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "Project Rate"
-                                                              ),
-                                                            ]
-                                                          ),
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
                                                             "payment-inputs m-2",
                                                         },
                                                         [
-                                                          _vm.payment
-                                                            ? _c(
-                                                                "v-text-field",
-                                                                {
-                                                                  attrs: {
-                                                                    label:
-                                                                      "Hourly Rate",
-                                                                    placeholder:
-                                                                      "Enter Your Rate here",
-                                                                    outlined:
-                                                                      "",
-                                                                    clearable:
-                                                                      "",
-                                                                    type: "number",
-                                                                    rules: [
-                                                                      function (
-                                                                        v
-                                                                      ) {
-                                                                        return (
-                                                                          !!v ||
-                                                                          "Please Enter a price"
-                                                                        )
-                                                                      },
-                                                                    ],
-                                                                  },
-                                                                  model: {
-                                                                    value:
-                                                                      _vm.user
-                                                                        .hourly_rate,
-                                                                    callback:
-                                                                      function (
-                                                                        $$v
-                                                                      ) {
-                                                                        _vm.$set(
-                                                                          _vm.user,
-                                                                          "hourly_rate",
-                                                                          $$v
-                                                                        )
-                                                                      },
-                                                                    expression:
-                                                                      "user.hourly_rate",
-                                                                  },
-                                                                }
-                                                              )
-                                                            : _vm._e(),
-                                                          _vm._v(" "),
-                                                          !_vm.payment
-                                                            ? _c(
-                                                                "v-text-field",
-                                                                {
-                                                                  attrs: {
-                                                                    clearable:
-                                                                      "",
-                                                                    label:
-                                                                      "Project Rate",
-                                                                    placeholder:
-                                                                      "Enter Your Rate here",
-                                                                    outlined:
-                                                                      "",
-                                                                    type: "number",
-                                                                    rules: [
-                                                                      function (
-                                                                        v
-                                                                      ) {
-                                                                        return (
-                                                                          !!v ||
-                                                                          "Please Enter a price"
-                                                                        )
-                                                                      },
-                                                                    ],
-                                                                  },
-                                                                  model: {
-                                                                    value:
-                                                                      _vm.user
-                                                                        .project_rate,
-                                                                    callback:
-                                                                      function (
-                                                                        $$v
-                                                                      ) {
-                                                                        _vm.$set(
-                                                                          _vm.user,
-                                                                          "project_rate",
-                                                                          $$v
-                                                                        )
-                                                                      },
-                                                                    expression:
-                                                                      "user.project_rate",
-                                                                  },
-                                                                }
-                                                              )
-                                                            : _vm._e(),
+                                                          _c("v-text-field", {
+                                                            attrs: {
+                                                              clearable: "",
+                                                              label:
+                                                                "Project Rate",
+                                                              placeholder:
+                                                                "Enter Your Rate here",
+                                                              outlined: "",
+                                                              type: "number",
+                                                              rules: [
+                                                                function (v) {
+                                                                  return (
+                                                                    !!v ||
+                                                                    "Please Enter a price"
+                                                                  )
+                                                                },
+                                                              ],
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.user
+                                                                  .project_rate,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.user,
+                                                                    "project_rate",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "user.project_rate",
+                                                            },
+                                                          }),
                                                           _vm._v(" "),
                                                           _c("v-textarea", {
                                                             attrs: {
@@ -8983,50 +8601,9 @@ var render = function () {
                                                 "div",
                                                 { staticClass: "rates" },
                                                 [
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "buttons my-auto p-3",
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "v-btn",
-                                                        {
-                                                          staticClass: "mr-2",
-                                                          on: {
-                                                            click: function (
-                                                              $event
-                                                            ) {
-                                                              return _vm.types(
-                                                                "hourly"
-                                                              )
-                                                            },
-                                                          },
-                                                        },
-                                                        [_vm._v("Hourly Rate")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-btn",
-                                                        {
-                                                          staticClass: "ml-2",
-                                                          on: {
-                                                            click: function (
-                                                              $event
-                                                            ) {
-                                                              return _vm.types(
-                                                                "project"
-                                                              )
-                                                            },
-                                                          },
-                                                        },
-                                                        [_vm._v("Project Rate")]
-                                                      ),
-                                                    ],
-                                                    1
+                                                  _vm._v(
+                                                    "\n                          <\n\n                          "
                                                   ),
-                                                  _vm._v(" "),
                                                   _c(
                                                     "div",
                                                     {
@@ -9034,79 +8611,40 @@ var render = function () {
                                                         "payment-inputs m-2",
                                                     },
                                                     [
-                                                      _vm.payment
-                                                        ? _c("v-text-field", {
-                                                            attrs: {
-                                                              label:
-                                                                "Hourly Rate",
-                                                              placeholder:
-                                                                "Enter Your Rate here",
-                                                              outlined: "",
-                                                              clearable: "",
-                                                              type: "number",
-                                                              rules: [
-                                                                function (v) {
-                                                                  return (
-                                                                    !!v ||
-                                                                    "Please Enter a price"
-                                                                  )
-                                                                },
-                                                              ],
+                                                      _c("v-text-field", {
+                                                        attrs: {
+                                                          clearable: "",
+                                                          label: "Project Rate",
+                                                          placeholder:
+                                                            "Enter Your Rate here",
+                                                          outlined: "",
+                                                          type: "number",
+                                                          rules: [
+                                                            function (v) {
+                                                              return (
+                                                                !!v ||
+                                                                "Please Enter a price"
+                                                              )
                                                             },
-                                                            model: {
-                                                              value:
-                                                                _vm.user
-                                                                  .hourly_rate,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.$set(
-                                                                    _vm.user,
-                                                                    "hourly_rate",
-                                                                    $$v
-                                                                  )
-                                                                },
-                                                              expression:
-                                                                "user.hourly_rate",
-                                                            },
-                                                          })
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      !_vm.payment
-                                                        ? _c("v-text-field", {
-                                                            attrs: {
-                                                              clearable: "",
-                                                              label:
-                                                                "Project Rate",
-                                                              placeholder:
-                                                                "Enter Your Rate here",
-                                                              outlined: "",
-                                                              type: "number",
-                                                              rules: [
-                                                                function (v) {
-                                                                  return (
-                                                                    !!v ||
-                                                                    "Please Enter a price"
-                                                                  )
-                                                                },
-                                                              ],
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.user
-                                                                  .project_rate,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.$set(
-                                                                    _vm.user,
-                                                                    "project_rate",
-                                                                    $$v
-                                                                  )
-                                                                },
-                                                              expression:
-                                                                "user.project_rate",
-                                                            },
-                                                          })
-                                                        : _vm._e(),
+                                                          ],
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            _vm.user
+                                                              .project_rate,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              _vm.user,
+                                                              "project_rate",
+                                                              $$v
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "user.project_rate",
+                                                        },
+                                                      }),
                                                       _vm._v(" "),
                                                       _c("v-textarea", {
                                                         attrs: {
@@ -10445,160 +9983,51 @@ var render = function () {
                                                                                 "div",
                                                                                 {
                                                                                   staticClass:
-                                                                                    "buttons my-auto p-3",
-                                                                                },
-                                                                                [
-                                                                                  _c(
-                                                                                    "v-btn",
-                                                                                    {
-                                                                                      staticClass:
-                                                                                        "mr-2",
-                                                                                      on: {
-                                                                                        click:
-                                                                                          function (
-                                                                                            $event
-                                                                                          ) {
-                                                                                            return _vm.types(
-                                                                                              "hourly"
-                                                                                            )
-                                                                                          },
-                                                                                      },
-                                                                                    },
-                                                                                    [
-                                                                                      _vm._v(
-                                                                                        "Hourly Rate"
-                                                                                      ),
-                                                                                    ]
-                                                                                  ),
-                                                                                  _vm._v(
-                                                                                    " "
-                                                                                  ),
-                                                                                  _c(
-                                                                                    "v-btn",
-                                                                                    {
-                                                                                      staticClass:
-                                                                                        "ml-2",
-                                                                                      on: {
-                                                                                        click:
-                                                                                          function (
-                                                                                            $event
-                                                                                          ) {
-                                                                                            return _vm.types(
-                                                                                              "project"
-                                                                                            )
-                                                                                          },
-                                                                                      },
-                                                                                    },
-                                                                                    [
-                                                                                      _vm._v(
-                                                                                        "Project Rate"
-                                                                                      ),
-                                                                                    ]
-                                                                                  ),
-                                                                                ],
-                                                                                1
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "div",
-                                                                                {
-                                                                                  staticClass:
                                                                                     "payment-inputs m-2",
                                                                                 },
                                                                                 [
-                                                                                  _vm.payment
-                                                                                    ? _c(
-                                                                                        "v-text-field",
+                                                                                  _c(
+                                                                                    "v-text-field",
+                                                                                    {
+                                                                                      attrs:
                                                                                         {
-                                                                                          attrs:
-                                                                                            {
-                                                                                              label:
-                                                                                                "Hourly Rate",
-                                                                                              placeholder:
-                                                                                                "Enter Your Rate here",
-                                                                                              outlined:
-                                                                                                "",
-                                                                                              clearable:
-                                                                                                "",
-                                                                                              type: "number",
-                                                                                              rules:
-                                                                                                [
-                                                                                                  function (
-                                                                                                    v
-                                                                                                  ) {
-                                                                                                    return (
-                                                                                                      !!v ||
-                                                                                                      "Please Enter a price"
-                                                                                                    )
-                                                                                                  },
-                                                                                                ],
+                                                                                          clearable:
+                                                                                            "",
+                                                                                          label:
+                                                                                            "Project Rate",
+                                                                                          placeholder:
+                                                                                            "Enter Your Rate here",
+                                                                                          outlined:
+                                                                                            "",
+                                                                                          type: "number",
+                                                                                          rules:
+                                                                                            [
+                                                                                              function (
+                                                                                                v
+                                                                                              ) {
+                                                                                                return (
+                                                                                                  !!v ||
+                                                                                                  "Please Enter a price"
+                                                                                                )
+                                                                                              },
+                                                                                            ],
+                                                                                        },
+                                                                                      model:
+                                                                                        {
+                                                                                          value:
+                                                                                            _vm.projectRate,
+                                                                                          callback:
+                                                                                            function (
+                                                                                              $$v
+                                                                                            ) {
+                                                                                              _vm.projectRate =
+                                                                                                $$v
                                                                                             },
-                                                                                          model:
-                                                                                            {
-                                                                                              value:
-                                                                                                _vm.hourlyRate,
-                                                                                              callback:
-                                                                                                function (
-                                                                                                  $$v
-                                                                                                ) {
-                                                                                                  _vm.hourlyRate =
-                                                                                                    $$v
-                                                                                                },
-                                                                                              expression:
-                                                                                                "hourlyRate",
-                                                                                            },
-                                                                                        }
-                                                                                      )
-                                                                                    : _vm._e(),
-                                                                                  _vm._v(
-                                                                                    " "
+                                                                                          expression:
+                                                                                            "projectRate",
+                                                                                        },
+                                                                                    }
                                                                                   ),
-                                                                                  !_vm.payment
-                                                                                    ? _c(
-                                                                                        "v-text-field",
-                                                                                        {
-                                                                                          attrs:
-                                                                                            {
-                                                                                              clearable:
-                                                                                                "",
-                                                                                              label:
-                                                                                                "Project Rate",
-                                                                                              placeholder:
-                                                                                                "Enter Your Rate here",
-                                                                                              outlined:
-                                                                                                "",
-                                                                                              type: "number",
-                                                                                              rules:
-                                                                                                [
-                                                                                                  function (
-                                                                                                    v
-                                                                                                  ) {
-                                                                                                    return (
-                                                                                                      !!v ||
-                                                                                                      "Please Enter a price"
-                                                                                                    )
-                                                                                                  },
-                                                                                                ],
-                                                                                            },
-                                                                                          model:
-                                                                                            {
-                                                                                              value:
-                                                                                                _vm.projectRate,
-                                                                                              callback:
-                                                                                                function (
-                                                                                                  $$v
-                                                                                                ) {
-                                                                                                  _vm.projectRate =
-                                                                                                    $$v
-                                                                                                },
-                                                                                              expression:
-                                                                                                "projectRate",
-                                                                                            },
-                                                                                        }
-                                                                                      )
-                                                                                    : _vm._e(),
                                                                                 ],
                                                                                 1
                                                                               ),

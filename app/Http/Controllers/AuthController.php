@@ -18,7 +18,7 @@ use Session;
 
 class AuthController extends Controller
 {
-    
+
     public function register(Request $request)
     {
         $hr = 0;
@@ -71,12 +71,10 @@ class AuthController extends Controller
             $token = null;
         }
 
-        
 
-        if ($request->hourly_rate != 'null') {
-            $hr = $request->hourly_rate;
-        }
-        
+
+
+
 
         if ($request->project_rate != 'null') {
             $pr = $request->project_rate;
@@ -88,7 +86,6 @@ class AuthController extends Controller
                     'user_id' => $user->id,
                     'title' => $request->title,
                     'qualification' => $request->qualification,
-                    'hourly_rate' => $hr,
                     'experience' => $request->experience,
                     'employee_type' => $request->employee_type,
                     'Job_Category_ID' => $categories->job_category_id,
@@ -216,11 +213,14 @@ class AuthController extends Controller
     public function me()
     {
         $data = auth()->user();
-        // $emp = $data->employee;
-        // $emp->jobCategories;
-        // foreach($emp->employeeSkill as $skill){
-        //     $skill->allSkill;
-        // }
+        $emp = $data->employee;
+        if ($emp) {
+            $emp->jobCategories;
+            foreach ($emp->employeeSkill as $skill) {
+                $skill->allSkill;
+            }
+        }
+
         $role = UserRoles::all()->where('user_id', $data->id)->first();
         $message = [
             'user' => $data,

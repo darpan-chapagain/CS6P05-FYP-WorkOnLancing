@@ -23,7 +23,7 @@
                         <v-list-item-title>Qualification</v-list-item-title>
                         <v-list-item-subtitle>School</v-list-item-subtitle>
 
-                        <v-list-item-title>Hourly Rate</v-list-item-title>
+                        <v-list-item-title>Project Rate</v-list-item-title>
                         <v-list-item-subtitle>2$ 0</v-list-item-subtitle>
 
                         <v-list-item-title>Experience</v-list-item-title>
