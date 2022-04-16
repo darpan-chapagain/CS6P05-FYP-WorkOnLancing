@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5">
+  <div style="margin-top: 100px;">
     <v-card>
       <v-form v-model="valid" ref="form1" lazy-validation style="padding: 50px">
         <div class="job-info">
@@ -134,6 +134,8 @@
         </div>
         <v-btn color="primary" @click="submit" width="100%" height="50px"
           >Save</v-btn
+        ><v-btn color="error" @click="remove" width="100%" height="50px" class="mt-4"
+          >Delete</v-btn
         >
       </v-form>
     </v-card>
@@ -164,12 +166,12 @@ export default {
     projectRate: 0,
     titleRules: [
       (v) => !!v || "Job Title is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+      (v) => (v && v.length <= 100) || "Name must be less than 20 characters",
     ],
     descriptionRule: [
       (v) => !!v || "Description required",
       (v) =>
-        (v && v.length <= 20) || "Description must be less than 200 characters",
+        (v && v.length <= 1000) || "Description must be less than 200 characters",
 
       // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
@@ -246,13 +248,28 @@ export default {
           headers: { Authorization: `Bearer ${this.token}` },
           data: this.formData(),
         }).then(() => {
+          localStorage.removeItem("job");
           this.$router.push({
             name: "dashboard",
           });
-          localStorage.removeItem("job");
+          
         });
         // alert(res.data);
       }
+    },
+    async remove() {
+      let res = await axios({
+          method: "DELETE",
+          url: `job/${JSON.parse(localStorage.getItem("job")).id}`,
+          headers: { Authorization: `Bearer ${this.token}` },
+          data: this.formData(),
+        }).then(() => {
+          localStorage.removeItem("job");
+          this.$router.push({
+            name: "dashboard",
+          });
+          
+        });
     },
     validate() {
       return this.$refs.form1.validate();

@@ -705,7 +705,6 @@ export default {
       userForm.append("scope", this.user.scope);
       userForm.append("experience", this.user.experience);
       userForm.append("category", this.user.category);
-      userForm.append("description", this.user.description);
       userForm.append("title", this.user.title);
       userForm.append("search", this.user.search);
       userForm.append("hourly_rate", this.user.hourly_rate);

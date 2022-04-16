@@ -16,7 +16,7 @@ class JobCategoryController extends Controller
     {
         //
         $jobCategory = JobCategory::all()->toArray();
-        return array_reverse($jobCategory);
+        return $jobCategory;
     }
 
     /**
@@ -35,8 +35,9 @@ class JobCategoryController extends Controller
         //     $i+=1;
         // 
         // }
+        dd('test');
         $jobCategory = new JobCategory([
-            'job_category' =>  $request->skill,
+            'category_name' =>  $request->category,
         ]);
 
         $jobCategory->save();
@@ -54,6 +55,15 @@ class JobCategoryController extends Controller
     public function store(Request $request)
     {
         //
+        // dd('test');
+        $jobCategory = new JobCategory([
+            'category_name' =>  $request->category,
+        ]);
+
+        $jobCategory->save();
+
+        $response = ['job_category' => $jobCategory];
+        return response()->json($response);
     }
 
     /**
@@ -105,10 +115,9 @@ class JobCategoryController extends Controller
      * @param  \App\Models\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobCategory $jobCategory, $id)
+    public function destroy(JobCategory $jobCategory, $job_category_id)
     {
-        $jobCategory = JobCategory::find($id);
-        $jobCategory->delete();
+        $jobCategory = JobCategory::where('job_category_id', $job_category_id)->delete();
 
         return response()->json('The category successfully deleted');
     }

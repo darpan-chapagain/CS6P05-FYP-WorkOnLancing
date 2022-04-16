@@ -23,8 +23,21 @@ class JobController extends Controller
     public function index()
     {
         //
-        $jobs = Job::all()->toArray();
-        return array_reverse($jobs);
+        $jobs = Job::all();
+        foreach ($jobs as $j) {
+            $j->user;
+            // dd($j);
+            $j->jobCategory;
+            foreach ($j->jobSkill as $skill) {
+                $skill->allSkill;
+            }
+            $requests = $j->requestJob;
+
+            foreach ($requests as $r) {
+                $r->reqEmployee->user;
+            }
+        }
+        return $jobs;
     }
 
     /**
@@ -108,6 +121,7 @@ class JobController extends Controller
         $userID = auth()->user()->id;
         $job = Job::where('id', $id)->first();
         // dd($j);
+
         $job->jobCategory;
         foreach ($job->jobSkill as $skill) {
             $skill->allSkill;
@@ -136,7 +150,7 @@ class JobController extends Controller
         $categories = JobCategory::all()->where('category_name', $request->category)->first();
         $job = Job::find($id);
         // $job = Job::where('id', $id)->first();
-        
+
         // dd($job);
         $job->title = $request->title;
         $job->description = $request->description;

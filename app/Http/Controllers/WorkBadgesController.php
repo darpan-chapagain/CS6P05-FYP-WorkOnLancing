@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WorkBadges;
+use App\Models\JobCategory;
 use Illuminate\Http\Request;
 
 class WorkBadgesController extends Controller
@@ -14,7 +15,14 @@ class WorkBadgesController extends Controller
      */
     public function index()
     {
-        //
+        
+        $workBadges = WorkBadges::all();
+        foreach($workBadges as $workBadge){
+            $workBadge->jobCategories;
+            // $workBadge->employeeBadges;
+        }
+
+        return $workBadges;
     }
 
     /**
@@ -22,9 +30,16 @@ class WorkBadgesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $categories = JobCategory::all()->where('category_name', $request->category)->first();
+        $badges = WorkBadges::create([
+            'job_category_id' => $categories->job_category_id,
+            'badge_name' =>  $request->badge_name,
+            'badge_image' => $request->badge_icon,
+        ]);
+
+        return $badges;
     }
 
     /**
@@ -35,7 +50,14 @@ class WorkBadgesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categories = JobCategory::all()->where('category_name', $request->category)->first();
+        $badges = WorkBadges::create([
+            'job_category_id' => $categories->job_category_id,
+            'badge_name' =>  "mdi-".$request->badge_name,
+            'badge_image' => $request->badge_icon,
+        ]);
+
+        return $badges;
     }
 
     /**
@@ -78,9 +100,14 @@ class WorkBadgesController extends Controller
      * @param  \App\Models\WorkBadges  $workBadges
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WorkBadges $workBadges)
+    public function destroy(WorkBadges $workBadges, $work_badge_id)
     {
         //
+        $badge = WorkBadges::where('work_badge_id', $work_badge_id)->delete();
+
+        return response()->json('The badge successfully deleted');
+
+
     }
 
     public function allBadges(){

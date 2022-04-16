@@ -26,6 +26,7 @@ import AdminUser from "../components/pages/AdminPage/ManageUser.vue"
 import AdminCategory from "../components/pages/AdminPage/ManageCategory.vue";
 import AdminSkill from "../components/pages/AdminPage/ManageSkill.vue";
 import UserEdit from "../components/pages/UserEdit.vue"
+import AdminBadge from "../components/pages/AdminPage/Manage Badge.vue";
 
 /* Guest Component */
 const Test2 = () =>
@@ -278,26 +279,32 @@ const Routes = [
     },
     {
         name: "adminJob",
-        path: "/job",
+        path: "/admin/job",
         component: AdminJob,
         props: true
     },
     {
         name: "adminUser",
-        path: "/job",
+        path: "/admin/user",
         component: AdminUser,
         props: true
     },
     {
         name: "adminCategory",
-        path: "/job",
+        path: "/admin/category",
         component: AdminCategory,
         props: true
     },
     {
         name: "adminSkill",
-        path: "/job",
+        path: "/admin/skill",
         component: AdminSkill,
+        props: true
+    },
+    {
+        name: "adminBadge",
+        path: "/admin/badge",
+        component: AdminBadge,
         props: true
     }
 ];

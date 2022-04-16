@@ -114,9 +114,7 @@
         <v-navigation-drawer v-model="drawer" fixed temporary>
           <!--  -->
           <v-list nav dense>
-            <v-list-item-group
-              active-class="deep-purple--text text--accent-4"
-            >
+            <v-list-item-group active-class="deep-purple--text text--accent-4">
               <v-list-item>
                 <v-list-item-icon>
                   <v-icon>mdi-home</v-icon>
@@ -178,7 +176,7 @@
 
           <v-divider></v-divider>
 
-          <v-list-item >
+          <v-list-item>
             <v-list-item-content>
               <v-list-item-subtitle>Manage Payments</v-list-item-subtitle>
             </v-list-item-content>
@@ -202,33 +200,39 @@
           </v-list-item>
           <v-list nav dense>
             <v-list-item-group>
-
-              <v-list-item  @click="job">
+              <v-list-item @click="job">
                 <v-list-item-icon>
                   <v-icon>mdi-file-tree</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>Manage Jobs</v-list-item-title>
               </v-list-item>
 
-              <v-list-item  @click="users">
+              <v-list-item @click="users">
                 <v-list-item-icon>
                   <v-icon>mdi-account</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>Manage Users</v-list-item-title>
               </v-list-item>
 
-              <v-list-item  @click="category">
+              <v-list-item @click="category">
                 <v-list-item-icon>
                   <v-icon>mdi-shape</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>Manage Category</v-list-item-title>
               </v-list-item>
 
-              <v-list-item  @click="skill">
+              <v-list-item @click="skill">
                 <v-list-item-icon>
                   <v-icon>mdi-star-shooting</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>Manage Skill</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item @click="badge">
+                <v-list-item-icon>
+                  <v-icon>mdi-shield-star</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Manage Badge</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -301,21 +305,46 @@ export default {
       signOutAction: "auth/signOut",
     }),
     payment() {
-      this.$router.push({
-        name: "dashboard.admin",
-      }).catch(()=>{});;
+      this.$router
+        .push({
+          name: "dashboard.admin",
+        })
+        .catch(() => {});
     },
     job() {
-      alert('coming soon')
+      this.$router
+        .push({
+          name: "adminJob",
+        })
+        .catch(() => {});
     },
     users() {
-      alert('coming soon')
+      this.$router
+        .push({
+          name: "adminUser",
+        })
+        .catch(() => {});
     },
     category() {
-      alert('coming soon')
+      this.$router
+        .push({
+          name: "adminCategory",
+        })
+        .catch(() => {});
     },
     skill() {
-      alert('coming soon')
+      this.$router
+        .push({
+          name: "adminSkill",
+        })
+        .catch(() => {});
+    },
+    badge() {
+      this.$router
+        .push({
+          name: "adminBadge",
+        })
+        .catch(() => {});
     },
     test() {
       console.log("test");
@@ -339,7 +368,6 @@ export default {
         path: "/employee/portal",
       });
     },
-    
   },
   computed: {
     ...mapGetters({
