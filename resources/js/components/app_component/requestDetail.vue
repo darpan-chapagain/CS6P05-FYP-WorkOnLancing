@@ -201,11 +201,24 @@ export default {
           onSuccess(payload) {
             console.log(moment(this.date).format("YYYY-MM-DD"));
             const sendData = async () => {
-              const res = await axios.post("/verify", payload);
-              console.log(res);
+              const res = await axios({
+                method: "POST",
+                url: "/verify",
+                data: {
+                  token: payload.token,
+                  amount: payload.amount,
+                },
+                headers: {
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+              });
+              if(res.status == 200){
+              self.accept(payload);
+              }else{
+                console.log('fail');
+              }
             };
             sendData();
-            self.accept(payload);
           },
           onClose() {
             console.log("widget is closing");
@@ -253,7 +266,8 @@ export default {
           discount: this.discount,
           amount: this.amount,
           sub_amount: this.total,
-          project_rate : this.a_job_detail.project_rate,
+          project_rate: this.a_job_detail.project_rate,
+          jobId: this.request_detail.job_id,
         },
       }).then((res) => {
         console.log(res);
