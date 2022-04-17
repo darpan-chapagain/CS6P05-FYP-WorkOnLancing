@@ -61,7 +61,7 @@
     </div>
     <div v-else>
       <v-alert outlined type="warning" prominent border="left">
-        You have received any job requests yet
+        You have not received any job requests yet
       </v-alert>
     </div>
   </div>

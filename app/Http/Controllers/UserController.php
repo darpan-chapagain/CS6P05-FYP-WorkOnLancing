@@ -14,6 +14,7 @@ use App\Models\PostSkill;
 use App\Models\UserRating;
 use App\Models\UserRoles;
 use App\Models\Employee_Skill;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -173,7 +174,7 @@ class UserController extends Controller
             $employee = Employee::all()->where('user_id', $user->id)->first();
 
 
-            
+
 
 
             if ($request->project_rate != 'null') {
@@ -271,7 +272,7 @@ class UserController extends Controller
             $employee = Employee::all()->where('user_id', $user->id)->first();
 
 
-            
+
 
 
             if ($request->project_rate != 'null') {
@@ -446,6 +447,7 @@ class UserController extends Controller
     public function chooseEmployee(Request $request, $id, $jobId)
     {
         $authUser = auth()->user();
+        // dd($request->idx);
         $employee = Employee::all()->where('user_id', $id)->first();
         // dd($employee->employee_id);
         $jobRequest = JobRequest::all()
@@ -453,18 +455,34 @@ class UserController extends Controller
             ->where('job_id', $jobId)
             ->first();
         $jobRequest->status = 4;
-        $jobRequest->save();
         $otherRequests = JobRequest::where('job_id', $jobId)
             ->where('job_employement_id', '!=', $jobRequest->job_employement_id)->get();
         // $otherRequests->update(['status' => 3]);
         $job = Job::find($jobId);
         $job->status = 4;
+        // dd($request->project_rate);
+        $payment = new Payment([
+            'user_id' => $jobId,
+            'employee_id' => $employee->employee_id,
+            'total' => $request->project_rate,
+            'discount' => $request->discount,
+            'sub_total' => $request->sub_amount,
+            'idx' => $request->idx,
+            'token' => $request->token,
+            'product_name' => $request->product_name,
+            'status' => 0,
+            
+        ]);
+        $payment->save();
+        // dd($payment);
+        $jobRequest->save();
         $job->save();
         $details = [
             'fname' => $employee->user->first_name,
             'lname' => $employee->user->last_name,
             'job' => $job->title,
         ];
+        
         Mail::to($employee->user->email)->send(new \App\Mail\HiredMail($details));
 
         foreach ($otherRequests as $otherRequest) {
@@ -653,7 +671,8 @@ class UserController extends Controller
         return response()->json($userRating);
     }
 
-    public function paymentVerification(Request $request){
+    public function paymentVerification(Request $request)
+    {
         $response = [
             'message' => 'success',
             'request' => $request->all()
