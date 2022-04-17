@@ -9,7 +9,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['employee_id', 'user_id', 'total', 'discount', 'sub_total', 'idx', 'token', 'product_name'];
+    protected $fillable = ['employee_id', 'user_id', 'job_id', 'status', 'total', 'discount', 'sub_total', 'idx', 'token', 'product_name'];
 
     public function employee()
     {
@@ -19,6 +19,11 @@ class Payment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
     }
 
     // public function job_requests()

@@ -13,7 +13,13 @@ import Vuex from 'vuex'
 import moment from 'moment';
 import Vue from 'vue';
 import VueChatScroll from 'vue-chat-scroll'
+import VueApexCharts from 'vue-apexcharts'
+
+
 Vue.use(VueChatScroll)
+Vue.component('apexchart', VueApexCharts)
+
+
 // Vue.forceUpdate();
 
 

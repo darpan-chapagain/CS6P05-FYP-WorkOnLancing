@@ -7,6 +7,7 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobCategory;
+use App\Models\Payment;
 use App\Models\Skill;
 use App\Models\PostSkill;
 use Session;
@@ -335,10 +336,19 @@ class JobController extends Controller
         ];
         $currentWork = $employee->total_job;
         $currentWork -= 1;
+
+        $paymentStatus = Payment::all()->where('job_id', $job->id)
+            ->first();
+        // dd($paymentStatus->status);
+        // $paymentStatus->status = 1;
+        $paymentStatus->update([
+            'status' => 1,
+        ]);
         Mail::to($employee->user->email)->send(new \App\Mail\JobCompleteMail($details));
         Employee::where('user_id', $employee->user_id)->update([
             'total_job' => $currentWork,
         ]);
+
         $job->save();
         $req->save();
         $response = [

@@ -14,6 +14,7 @@ use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EmployeeBadgesController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\WorkBadgesController;
 use Illuminate\Support\Facades\Mail;
 
@@ -108,7 +109,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/skill', SkillController::class);
 
     Route::resource('/badges', WorkBadgesController::class);
+
+    Route::get('/admin/roles', [RoleController::class, 'getUserByRoles']);
+    Route::get('/admin/requests', [RoleController::class, 'getRequests']);
+    Route::get('/admin/payment', [RoleController::class, 'getPayments']);
+    Route::post('/admin/payment/update', [RoleController::class, 'updatePayment']);
+
+
     //this is to accept jos by employee
+
+    Route::post('/verify', [UserController::class, 'paymentVerification']);
 });
 Route::get('/user/blogs/all/{id}', [BlogController::class, 'userBlog']);
 Route::get('/blog/get/{id}', [BlogController::class, 'getBlog']);
@@ -123,18 +133,6 @@ Route::post('/user/update/all/{id}', [UserController::class, 'updateUser']);
 Route::get('/user/status/active', [UserController::class, 'getActiveUser']);
 Route::post('/job/update/status/{id}', [JobController::class, 'postStatusChange']);
 Route::get('/job/status/active', [JobController::class, 'getActivePost']);
-Route::post('/verify', [UserController::class, 'paymentVerification']);
-// Route::post('/send', function () {
-   
-//     $details = [
-//         'title' => 'Mail from ItSolutionStuff.com',
-//         'body' => 'This is for testing email using smtp'
-//     ];
-   
-//     Mail::to('chapagaindarpan11@gmail.com')->send(new \App\Mail\NotificationMail($details));
-//     dd("Email is Sent.");
-// });
 
 Route::get('/category/badges/{id}', [WorkBadgesController::class, 'getBadgesByCategory']);
 Route::get('/badges/employee/{id}', [EmployeeBadgesController::class, 'getBadgesByEmployee']);
-

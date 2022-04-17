@@ -14,9 +14,10 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id('payment_id');
+            $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('job_id');
             $table->integer('total');
             $table->integer('discount')->default(0);
             $table->integer('sub_total');
@@ -29,7 +30,10 @@ class CreatePaymentsTable extends Migration
                 ->onDelete('cascade')->nullable();
             $table->foreign('employee_id')
                 ->references('employee_id')->on('employees')
-                ->onDelete('cascade')->nullable();   
+                ->onDelete('cascade')->nullable();
+            $table->foreign('job_id')
+                ->references('id')->on('jobs')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

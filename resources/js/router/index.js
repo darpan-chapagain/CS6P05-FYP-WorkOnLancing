@@ -27,6 +27,7 @@ import AdminCategory from "../components/pages/AdminPage/ManageCategory.vue";
 import AdminSkill from "../components/pages/AdminPage/ManageSkill.vue";
 import UserEdit from "../components/pages/UserEdit.vue"
 import AdminBadge from "../components/pages/AdminPage/Manage Badge.vue";
+import filterTest from '../components/pages/filterTest.vue'
 
 /* Guest Component */
 const Test2 = () =>
@@ -35,7 +36,7 @@ const Test2 = () =>
     );
 const Test = () =>
     import(
-        "../components/pages/tests/imageUploadtest.vue" /* webpackChunkName: "resource/js/components/login" */
+        "../components/pages/filterTest.vue" /* webpackChunkName: "resource/js/components/login" */
     );
 const Login = () =>
     import(

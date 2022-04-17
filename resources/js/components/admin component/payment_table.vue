@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="pay"
     sort-by="calories"
     class="elevation-1"
   >
@@ -13,11 +13,18 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
+      <v-icon
+        small
+        class="mr-2"
+        @click="updateStatus(item)"
+        v-if="item.status == 1"
+      >
+        mdi-account-check
+      </v-icon>
+      <p v-else class="mr-2">
+        Payment Completed
+        <v-icon small> mdi-account-multiple-check </v-icon>
+      </p>
     </template>
   </v-data-table>
 </template>
@@ -27,33 +34,42 @@ export default {
   data: () => ({
     headers: [
       {
-        text: "Employee Name",
+        text: "id",
         align: "start",
-        sortable: false,
-        value: "first_name.name",
+        sortable: true,
+        value: "id",
       },
-      { text: "Contact Number", value: "number", sortable: false },
-      { text: "Paid", value: "pre_pay" },
-      { text: "Pending Amount", value: "pending_amount" },
-      { text: "Testing", value: "test" },
-      { text: "Actions", value: "actions" },
+      { text: "Employee ID", value: "employee_id", sortable: true },
+      { text: "Client ID", value: "user_id", sortable: true },
+      { text: "Job ID", value: "job_id", sortable: true },
+      { text: "Total Amount", value: "total", sortable: true },
+      { text: "Discount", value: "discount", sortable: true },
+      { text: "Sub Total", value: "sub_total", sortable: true },
+      { text: "idx code", value: "idx", sortable: true },
+      { text: "khalti token", value: "token", sortable: true },
+      { text: "Product Payment Name", value: "product_name", sortable: true },
+      { text: "Payment Status", value: "status", sortable: true },
+      { text: "Action", value: "actions" },
     ],
-    desserts: [],
+    pay: [],
   }),
 
   computed: {},
 
   watch: {},
 
-  created() {
+  async mounted() {
     this.initialize();
+    this.pay = await this.getPayments();
+
+    console.log(this.pay);
   },
 
   methods: {
     initialize() {
       this.desserts = [
         {
-          first_name: { name: "This is a Test"} ,
+          first_name: { name: "This is a Test" },
           number: 1,
           pre_pay: 2,
           pending_amount: 3,
@@ -61,13 +77,35 @@ export default {
         },
       ];
     },
-
-    editItem(item) {
-        console.log(item);
+    
+    async updateStatus(item) {
+      axios({
+        method: "POST",
+        url: `admin/payment/update`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: {
+          id: item.id,
+        }
+      }).then(() => {
+        this.pay = [];
+      });
+      this.pay = await this.getPayments();
     },
 
-    deleteItem(item) {
-        console.log(item);
+    
+    async getPayments() {
+      let res = await axios({
+        method: "get",
+        url: "admin/payment",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      let data = res.data;
+
+      return data;
     },
   },
 };

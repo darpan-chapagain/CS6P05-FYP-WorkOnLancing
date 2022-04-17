@@ -470,8 +470,9 @@ class UserController extends Controller
             'idx' => $request->idx,
             'token' => $request->token,
             'product_name' => $request->product_name,
+            'job_id' =>  $request->jobId,
             'status' => 0,
-            
+
         ]);
         $payment->save();
         // dd($payment);
@@ -482,7 +483,7 @@ class UserController extends Controller
             'lname' => $employee->user->last_name,
             'job' => $job->title,
         ];
-        
+
         Mail::to($employee->user->email)->send(new \App\Mail\HiredMail($details));
 
         foreach ($otherRequests as $otherRequest) {
@@ -592,6 +593,7 @@ class UserController extends Controller
             ->first();
         $jobRequest->status = 6;
         $jobRequest->save();
+
         $response = [
             'status' => 'success',
         ];
@@ -673,10 +675,33 @@ class UserController extends Controller
 
     public function paymentVerification(Request $request)
     {
-        $response = [
-            'message' => 'success',
-            'request' => $request->all()
-        ];
+
+        $args = http_build_query(array(
+            'token' => $request->token,
+            'amount' => $request->amount,
+        ));
+
+        $url = "https://khalti.com/api/v2/payment/verify/";
+
+        # Make the call using API.
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $headers = ['Authorization: Key test_secret_key_2546ca1de93841e8b7efae2ca5e2c6f6'];
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // Response
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $response = json_decode($response, true);
+
         return response()->json($response);
     }
+
+    
 }
