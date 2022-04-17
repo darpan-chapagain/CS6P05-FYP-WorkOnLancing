@@ -35,6 +35,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('total_job')->default(0);
 
         });
+        
     }
 
     /**
