@@ -714,13 +714,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2973,7 +2966,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "6",
-                lg: "2",
+                lg: "3",
                 "order-md": "2",
                 "order-sm": "2",
                 "order-lg": "3",
@@ -3090,7 +3083,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "12",
-                lg: "7",
+                lg: "6",
                 "order-md": "3",
                 "order-sm": "3",
                 "order-lg": "2",
@@ -3290,7 +3283,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "6",
-                lg: "2",
+                lg: "3",
                 "order-md": "2",
                 "order-sm": "2",
                 "order-lg": "1",
@@ -3329,7 +3322,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "12",
-                lg: "7",
+                lg: "6",
                 "order-md": "3",
                 "order-sm": "3",
                 "order-lg": "2",

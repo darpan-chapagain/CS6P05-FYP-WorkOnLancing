@@ -63,13 +63,6 @@
         </v-card>
       </v-dialog>
     </div>
-    <!-- <div class="services mt-5 ml-5">
-      <div class="skills" style="margin: 0 5%; display: flex">
-        <div v-for="skills in mySkills" :key="skills.id">
-          <v-chip class="m-1"> {{ skills.all_skill.skill }} </v-chip>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 

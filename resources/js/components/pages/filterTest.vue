@@ -156,13 +156,6 @@ export default {
 
       return data;
     },
-    // async fetchRequests(){
-    //   const res = await axios.get('user/job/requests')
-
-    //   const data = await res.data;
-
-    //   return data;
-    // },
     ...mapActions({
       fetchRequests: "requests/fetchRequest",
     }),
