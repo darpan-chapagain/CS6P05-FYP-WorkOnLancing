@@ -115,9 +115,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/admin/payment', [RoleController::class, 'getPayments']);
     Route::post('/admin/payment/update', [RoleController::class, 'updatePayment']);
 
-
-    //this is to accept jos by employee
-
     Route::post('/verify', [UserController::class, 'paymentVerification']);
 });
 Route::get('/user/blogs/all/{id}', [BlogController::class, 'userBlog']);

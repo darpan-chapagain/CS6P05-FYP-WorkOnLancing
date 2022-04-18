@@ -2,19 +2,6 @@
   <div class="filter">
     <v-container fluid>
       <p>Filter By</p>
-      <!-- <v-radio-group
-        v-model="radios"
-        mandatory
-        >
-        <v-radio
-            label="Radio 1"
-            value="radio-1"
-        ></v-radio>
-        <v-radio
-            label="Radio 2"
-            value="radio-2"
-        ></v-radio>
-        </v-radio-group> -->
       <v-autocomplete
         v-model="category"
         :items="categories"
@@ -22,8 +9,8 @@
         hide-selected
         persistent-hint
         label="Job Category"
-        :rules="categoryRule"
         dense
+        @change="sendCategory"
       ></v-autocomplete>
       <div class="p-4">
         <v-range-slider
@@ -32,6 +19,7 @@
           :min="min"
           hide-details
           class="align-center"
+          @change="sendRange"
         >
           <template v-slot:prepend>
             <v-text-field
@@ -84,6 +72,12 @@ export default {
         this.categories.push(res.data[i].category_name);
       }
     },
+    sendCategory() {
+      this.$emit("categoryChange", this.category);
+    },
+    sendRange() {
+      this.$emit("rangeChange", this.range);
+    }
   },
   async mounted() {
     await this.getCategories();
