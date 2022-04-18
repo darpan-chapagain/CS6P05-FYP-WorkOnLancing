@@ -7,6 +7,7 @@
         prepend-icon="mdi-magnify"
         single-line
         style="max-width: 600px"
+        v-model="name"
       ></v-text-field>
     </div>
     <v-row class="dashboard-container">
@@ -37,36 +38,22 @@
         cols="12"
         sm="12"
         md="6"
-        lg="2"
+        lg="3"
         class="right-contents"
         order-md="2"
         order-sm="2"
         order-lg="3"
       >
         <v-sheet rounded="lg" min-height="268">
-          <!--  -->
           <v-card elevation="6" class="p-3">
             <h3>Filter</h3>
             <v-divider></v-divider>
-            <!-- <div class="filter">
-                        <v-container fluid>
-                            <p>{{ radios || 'Filter By' }}</p>
-                            <v-radio-group
-                            v-model="radios"
-                            mandatory
-                            >
-                            <v-radio
-                                label="Radio 1"
-                                value="radio-1"
-                            ></v-radio>
-                            <v-radio
-                                label="Radio 2"
-                                value="radio-2"
-                            ></v-radio>
-                            </v-radio-group>
-                        </v-container>
-                    </div> -->
-            <FilterBy class="filter" />
+
+            <FilterBy
+              class="filter"
+              @categoryChange="getCategory"
+              @rangeChange="getRange"
+            />
           </v-card>
         </v-sheet>
         <v-sheet rounded="lg" min-height="268">
@@ -105,7 +92,7 @@
         cols="12"
         sm="12"
         md="12"
-        lg="7"
+        lg="6"
         class="right-contents"
         order-md="3"
         order-sm="3"
@@ -121,7 +108,7 @@
             <div class="px-3 pt-4">
               View and apply to Jobs posted by recruiters
             </div>
-            <Jobs :allJobs="allJobs" />
+            <Jobs :allJobs="filterJobs" />
           </v-card>
         </v-sheet>
       </v-col>
@@ -152,11 +139,30 @@ export default {
   name: "dashboard",
   data() {
     return {
+      category: "",
+      name: "",
+      min: "0",
+      max: "70000",
       allJobs: [],
-      // allRequests: [],
     };
   },
   methods: {
+    getCategory(value) {
+      if (value) {
+        this.category = value;
+      } else {
+        this.category = [];
+      }
+    },
+    getRange(value) {
+      if (value) {
+        this.min = value[0];
+        this.max = value[1];
+      } else {
+        this.min = "0";
+        this.max = "70000";
+      }
+    },
     async fetchJobs() {
       const res = await axios.get("/jobs/all");
 
@@ -177,23 +183,40 @@ export default {
         })
         .catch(() => {});
     },
-    // async fetchRequests(){
-    //   const res = await axios.get('user/job/requests')
+    filterByCategory: function (allJobs) {
+      return allJobs.filter(
+        (allJobs) => !allJobs.job_category.category_name.indexOf(this.category)
+      );
+    },
 
-    //   const data = await res.data;
+    filterByName: function (allJobs) {
+      return allJobs.filter(
+        (allJobs) =>
+          !allJobs.title.toLowerCase().indexOf(this.name.toLowerCase())
+      );
+    },
 
-    //   return data;
-    // }
+    filterByRange: function (allJobs) {
+      return allJobs.filter((allJobs) =>
+        allJobs.project_rate > this.min && allJobs.project_rate < this.max
+          ? allJobs
+          : ""
+      );
+    },
   },
   async created() {
     this.allJobs = await this.fetchJobs();
     await this.fetchProposals();
-    // this.allRequests = await this.fetchRequests()
   },
   computed: {
     ...mapGetters({
       allProposals: "requests/job_Proposal",
     }),
+    filterJobs: function () {
+      return this.filterByRange(
+        this.filterByCategory(this.filterByName(this.allJobs))
+      );
+    },
   },
 };
 </script>

@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <ChatRoomSelection
-      v-if="currentRoom.id"
+      v-if="currentRoom"
       :rooms="chatRooms"
       :currentRoom="currentRoom"
       v-on:room-changed="setRoom($event)"

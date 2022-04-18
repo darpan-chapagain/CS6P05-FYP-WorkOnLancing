@@ -714,13 +714,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1324,19 +1317,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1358,11 +1338,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "dashboard",
   data: function data() {
     return {
-      allJobs: [] // allRequests: [],
-
+      category: "",
+      name: "",
+      min: "0",
+      max: "70000",
+      allJobs: []
     };
   },
   methods: _objectSpread(_objectSpread({
+    getCategory: function getCategory(value) {
+      if (value) {
+        this.category = value;
+      } else {
+        this.category = [];
+      }
+    },
+    getRange: function getRange(value) {
+      if (value) {
+        this.min = value[0];
+        this.max = value[1];
+      } else {
+        this.min = "0";
+        this.max = "70000";
+      }
+    },
     fetchJobs: function fetchJobs() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var res, data;
@@ -1400,15 +1399,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           proposals: this.allProposals
         }
       })["catch"](function () {});
-    } // async fetchRequests(){
-    //   const res = await axios.get('user/job/requests')
-    //   const data = await res.data;
-    //   return data;
-    // }
+    },
+    filterByCategory: function filterByCategory(allJobs) {
+      var _this = this;
 
+      return allJobs.filter(function (allJobs) {
+        return !allJobs.job_category.category_name.indexOf(_this.category);
+      });
+    },
+    filterByName: function filterByName(allJobs) {
+      var _this2 = this;
+
+      return allJobs.filter(function (allJobs) {
+        return !allJobs.title.toLowerCase().indexOf(_this2.name.toLowerCase());
+      });
+    },
+    filterByRange: function filterByRange(allJobs) {
+      var _this3 = this;
+
+      return allJobs.filter(function (allJobs) {
+        return allJobs.project_rate > _this3.min && allJobs.project_rate < _this3.max ? allJobs : "";
+      });
+    }
   }),
   created: function created() {
-    var _this = this;
+    var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -1416,12 +1431,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this.fetchJobs();
+              return _this4.fetchJobs();
 
             case 2:
-              _this.allJobs = _context2.sent;
+              _this4.allJobs = _context2.sent;
               _context2.next = 5;
-              return _this.fetchProposals();
+              return _this4.fetchProposals();
 
             case 5:
             case "end":
@@ -1431,9 +1446,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee2);
     }))();
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapGetters)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapGetters)({
     allProposals: "requests/job_Proposal"
-  }))
+  })), {}, {
+    filterJobs: function filterJobs() {
+      return this.filterByRange(this.filterByCategory(this.filterByName(this.allJobs)));
+    }
+  })
 });
 
 /***/ }),
@@ -1580,6 +1599,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1598,11 +1622,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "dashboard",
   data: function data() {
     return {
-      allUsers: [] // allRequests: [],
+      category: "",
+      name: "",
+      min: "0",
+      max: "70000",
+      allUsers: [],
+      filterU: [] // allRequests: [],
 
     };
   },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)({
+    allRequests: "requests/job_Request"
+  })), {}, {
+    filterUsers: function filterUsers() {
+      // return this.filterByRange(
+      //   this.filterByName(this.filterByCategory(this.allUsers))
+      // );
+      return this.filterByRange(this.filterByCategory(this.filterByName(this.allUsers)));
+    }
+  }),
   methods: _objectSpread(_objectSpread({
+    getCategory: function getCategory(value) {
+      if (value) {
+        this.category = value;
+      } else {
+        this.category = [];
+      }
+    },
+    getRange: function getRange(value) {
+      if (value) {
+        this.min = value[0];
+        this.max = value[1];
+      } else {
+        this.min = "0";
+        this.max = "70000";
+      }
+    },
     fetchUsers: function fetchUsers() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var res, data;
@@ -1640,10 +1695,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           job: this.allRequests
         }
       })["catch"](function () {});
+    },
+    filterByCategory: function filterByCategory(allUsers) {
+      var _this = this;
+
+      return allUsers.filter(function (allUsers) {
+        return !allUsers.job_categories.category_name.indexOf(_this.category);
+      });
+    },
+    filterByName: function filterByName(allUsers) {
+      var _this2 = this;
+
+      return allUsers.filter(function (allUsers) {
+        return !allUsers.user.first_name.toLowerCase().indexOf(_this2.name.toLowerCase()) || !allUsers.user.last_name.toLowerCase().indexOf(_this2.name.toLowerCase());
+      });
+    },
+    filterByRange: function filterByRange(allUsers) {
+      var _this3 = this;
+
+      return allUsers.filter(function (allUsers) {
+        return allUsers.project_rate > _this3.min && allUsers.project_rate < _this3.max ? allUsers : "";
+      });
     }
   }),
   created: function created() {
-    var _this = this;
+    var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -1651,13 +1727,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this.fetchUsers();
+              return _this4.fetchUsers();
 
             case 2:
-              _this.allUsers = _context2.sent;
-              console.log(_this.allUsers);
+              _this4.allUsers = _context2.sent;
+              // this.filterU = this.allUsers;
+              console.log(_this4.allUsers);
               _context2.next = 6;
-              return _this.fetchRequests();
+              return _this4.fetchRequests();
 
             case 6:
             case "end":
@@ -1666,10 +1743,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }, _callee2);
     }))();
-  },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)({
-    allRequests: "requests/job_Request"
-  }))
+  }
 });
 
 /***/ }),
@@ -2910,6 +2984,13 @@ var render = function () {
               "prepend-icon": "mdi-magnify",
               "single-line": "",
             },
+            model: {
+              value: _vm.name,
+              callback: function ($$v) {
+                _vm.name = $$v
+              },
+              expression: "name",
+            },
           }),
         ],
         1
@@ -2973,7 +3054,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "6",
-                lg: "2",
+                lg: "3",
                 "order-md": "2",
                 "order-sm": "2",
                 "order-lg": "3",
@@ -2992,7 +3073,13 @@ var render = function () {
                       _vm._v(" "),
                       _c("v-divider"),
                       _vm._v(" "),
-                      _c("FilterBy", { staticClass: "filter" }),
+                      _c("FilterBy", {
+                        staticClass: "filter",
+                        on: {
+                          categoryChange: _vm.getCategory,
+                          rangeChange: _vm.getRange,
+                        },
+                      }),
                     ],
                     1
                   ),
@@ -3090,7 +3177,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "12",
-                lg: "7",
+                lg: "6",
                 "order-md": "3",
                 "order-sm": "3",
                 "order-lg": "2",
@@ -3117,7 +3204,7 @@ var render = function () {
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("Jobs", { attrs: { allJobs: _vm.allJobs } }),
+                      _c("Jobs", { attrs: { allJobs: _vm.filterJobs } }),
                     ],
                     1
                   ),
@@ -3174,6 +3261,13 @@ var render = function () {
               "hide-details": "",
               "prepend-icon": "mdi-magnify",
               "single-line": "",
+            },
+            model: {
+              value: _vm.name,
+              callback: function ($$v) {
+                _vm.name = $$v
+              },
+              expression: "name",
             },
           }),
         ],
@@ -3290,7 +3384,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "6",
-                lg: "2",
+                lg: "3",
                 "order-md": "2",
                 "order-sm": "2",
                 "order-lg": "1",
@@ -3310,7 +3404,13 @@ var render = function () {
                       _vm._v(" "),
                       _c("v-divider"),
                       _vm._v(" "),
-                      _c("FilterBy", { staticClass: "filter" }),
+                      _c("FilterBy", {
+                        staticClass: "filter",
+                        on: {
+                          categoryChange: _vm.getCategory,
+                          rangeChange: _vm.getRange,
+                        },
+                      }),
                     ],
                     1
                   ),
@@ -3329,7 +3429,7 @@ var render = function () {
                 cols: "12",
                 sm: "12",
                 md: "12",
-                lg: "7",
+                lg: "6",
                 "order-md": "3",
                 "order-sm": "3",
                 "order-lg": "2",
@@ -3352,7 +3452,7 @@ var render = function () {
                             [_vm._v("Find Employees!")]
                           ),
                           _vm._v(" "),
-                          _vm._l(_vm.allUsers, function (a_user) {
+                          _vm._l(_vm.filterUsers, function (a_user) {
                             return _c(
                               "v-col",
                               {

@@ -7,6 +7,7 @@
         prepend-icon="mdi-magnify"
         single-line
         style="max-width: 600px"
+        v-model="name"
       ></v-text-field>
     </div>
     <v-row class="dashboard-container">
@@ -62,7 +63,7 @@
         cols="12"
         sm="12"
         md="6"
-        lg="2"
+        lg="3"
         order-md="2"
         order-sm="2"
         order-lg="1"
@@ -74,7 +75,11 @@
           <v-card elevation="6" class="p-3">
             <h3>Filter</h3>
             <v-divider></v-divider>
-            <FilterBy class="filter" />
+            <FilterBy
+              class="filter"
+              @categoryChange="getCategory"
+              @rangeChange="getRange"
+            />
           </v-card>
         </v-sheet>
       </v-col>
@@ -83,7 +88,7 @@
         cols="12"
         sm="12"
         md="12"
-        lg="7"
+        lg="6"
         class="right-contents"
         order-md="3"
         order-sm="3"
@@ -95,7 +100,7 @@
             <v-row>
               <h2 style="text-align: center">Find Employees!</h2>
               <v-col
-                v-for="a_user in allUsers"
+                v-for="a_user in filterUsers"
                 :key="a_user.employee_id"
                 cols="12"
                 md="12"
@@ -130,11 +135,43 @@ export default {
   name: "dashboard",
   data() {
     return {
+      category: "",
+      name: "",
+      min: "0",
+      max: "70000",
       allUsers: [],
+      filterU: [],
       // allRequests: [],
     };
   },
+  computed: {
+    ...mapGetters({
+      allRequests: "requests/job_Request",
+    }),
+    filterUsers: function () {
+      // return this.filterByRange(
+      //   this.filterByName(this.filterByCategory(this.allUsers))
+      // );
+      return this.filterByRange(this.filterByCategory(this.filterByName(this.allUsers)));
+    },
+  },
   methods: {
+    getCategory(value) {
+      if (value) {
+        this.category = value;
+      } else {
+        this.category = [];
+      }
+    },
+    getRange(value) {
+      if (value) {
+        this.min = value[0];
+        this.max = value[1];
+      } else {
+        this.min = "0";
+        this.max = "70000";
+      }
+    },
     async fetchUsers() {
       const res = await axios.get("employee/all");
 
@@ -162,17 +199,33 @@ export default {
         })
         .catch(() => {});
     },
+    filterByCategory: function (allUsers) {
+      return allUsers.filter(
+        (allUsers) =>
+          !allUsers.job_categories.category_name.indexOf(this.category)
+      );
+    },
+
+    filterByName: function (allUsers) {
+      return allUsers.filter(
+        (allUsers) => !allUsers.user.first_name.toLowerCase().indexOf(this.name.toLowerCase()) || !allUsers.user.last_name.toLowerCase().indexOf(this.name.toLowerCase())
+      );
+    },
+
+    filterByRange: function (allUsers) {
+      return allUsers.filter((allUsers) =>
+        allUsers.project_rate > this.min && allUsers.project_rate < this.max
+          ? allUsers
+          : ""
+      );
+    },
   },
   async created() {
     this.allUsers = await this.fetchUsers();
+    // this.filterU = this.allUsers;
     console.log(this.allUsers);
     await this.fetchRequests();
     // this.fetchRequests(localStorage.getItem('token'));
-  },
-  computed: {
-    ...mapGetters({
-      allRequests: "requests/job_Request",
-    }),
   },
 };
 </script>
