@@ -30,14 +30,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('points')->default(0);
-            // $table->bigInteger('role_id')->unsigned()->nullable();              
             $table->rememberToken();
             $table->boolean('status')->default(true);
             $table->float('rating', 5, 1)->default(0)->nullable();
             $table->timestamps();
-            // $table->foreign('role_id')
-            //     ->references('id')->on('roles')
-            //     ->onDelete('cascade')->nullable();
         });
     }
 
