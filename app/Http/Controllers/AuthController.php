@@ -21,8 +21,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $hr = 0;
-        $pr = 0;
         $fields = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -54,9 +52,9 @@ class AuthController extends Controller
                 'Province' => $request->province,
                 'gender' => $request->gender,
                 'about' => $request->about,
+                'birth_date' => $request->dob
 
             ]);
-            // dd($user);
             $userRole = UserRoles::create([
                 'user_id' => $user->id,
                 'role_id' => $fields['role_id']
@@ -71,14 +69,6 @@ class AuthController extends Controller
             $token = null;
         }
 
-
-
-
-
-
-        if ($request->project_rate != 'null') {
-            $pr = $request->project_rate;
-        }
         try {
             if ($fields['role_id'] == 3) {
                 $categories = JobCategory::all()->where('category_name', $request->category)->first();
@@ -90,17 +80,10 @@ class AuthController extends Controller
                     'employee_type' => $request->employee_type,
                     'Job_Category_ID' => $categories->job_category_id,
                     'education' => $request->education,
-                    'project_rate' => $pr,
+                    'project_rate' => $request->project_rate,
                 ]);
 
-                // $categories = JobCategory::all()->where('category_name', $request->category)->first();
-                // $employeeCategory = Employee_JobCategory::create([
-                //     'job_category_id' => $categories->job_category_id,
-                //     'employee_id' => $employee->employee_id,
-                // ]);
-
                 foreach ($request->skill as $sk) {
-                    // dd($sk);
                     $skills = Skill::all()->where('skill', $sk)->first();
                     $employeeSkill = Employee_Skill::create([
                         'skill_id' => $skills->id,
@@ -118,11 +101,8 @@ class AuthController extends Controller
         }
 
         $response = [
-            // 'user' => $user,
-            'token' => $token,
             'success' => $success,
             'message' => $message,
-            'id' => $user->id,
         ];
 
         return response()->json($response);
@@ -132,7 +112,6 @@ class AuthController extends Controller
     {
 
         try {
-            // auth()->user()->tokens()->delete();
             Session::flush();
             auth()->user()->tokens()->delete();
             // Auth::logout();
@@ -143,10 +122,6 @@ class AuthController extends Controller
             $message = $ex->getMessage();
         }
 
-
-        // return[
-        //     'message' => 'logged out'
-        // ];
 
         $response = [
             'test' => Auth::user(),
@@ -181,24 +156,6 @@ class AuthController extends Controller
             $user = null;
         }
 
-        //check email and password
-        // $user = User::where('email', $fields['email'])->first();
-
-        // if(!$user || !Hash::check($fields['password'], $user->password)){
-        //     $success = false;
-        //     $message = 'Unauthorised';
-        //     $token = null;
-        //     // return response([
-        //     //     'message' => 'Bad creds'
-        //     // ], 401);
-        // }
-        // else{
-        //     $token = $user->createToken('myapptoken')->plainTextToken;
-        //     $success = true;
-        //     $message = 'User login successfully';
-        // }
-
-
 
         $response = [
             'user' => $user,
@@ -207,7 +164,6 @@ class AuthController extends Controller
             'message' => $message,
         ];
 
-        // return response($response, 201);
         return response()->json($response);
     }
     public function me()

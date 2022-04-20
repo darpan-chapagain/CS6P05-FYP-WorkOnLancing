@@ -11,7 +11,7 @@ class Employee extends Model
 
     protected $primaryKey = 'employee_id';
 
-    protected $fillable = ['user_id','qualification', 'rating', 'experience', 'skills', 'employee_type', 'Job_Category_ID'];
+    protected $fillable = ['user_id','qualification', 'rating', 'experience', 'skills', 'employee_type', 'Job_Category_ID', 'education', 'project_rate'];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');

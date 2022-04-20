@@ -1447,7 +1447,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }))();
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapGetters)({
-    allProposals: "requests/job_Proposal"
+    allProposals: "requests/job_Proposal",
+    user: "auth/user"
   })), {}, {
     filterJobs: function filterJobs() {
       return this.filterByRange(this.filterByCategory(this.filterByName(this.allJobs)));
@@ -3024,8 +3025,8 @@ var render = function () {
                     [
                       _c("User", {
                         attrs: {
-                          name: "This is a good pic",
-                          image: "https://cdn.vuetifyjs.com/images/john.jpg",
+                          name: _vm.user.first_name + " " + _vm.user.last_name,
+                          image: _vm.user.profile_path,
                         },
                       }),
                       _vm._v(" "),

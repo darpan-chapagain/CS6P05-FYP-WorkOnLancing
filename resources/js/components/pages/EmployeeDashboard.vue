@@ -24,8 +24,8 @@
           <!--  -->
           <v-card elevation="6" class="p-3">
             <User
-              name="This is a good pic"
-              image="https://cdn.vuetifyjs.com/images/john.jpg"
+              :name="user.first_name + ' ' + user.last_name"
+              :image="user.profile_path"
             />
             <v-divider></v-divider>
             <Availability class="test" />
@@ -211,6 +211,7 @@ export default {
   computed: {
     ...mapGetters({
       allProposals: "requests/job_Proposal",
+      user: "auth/user",
     }),
     filterJobs: function () {
       return this.filterByRange(
