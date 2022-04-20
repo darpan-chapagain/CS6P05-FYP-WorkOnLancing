@@ -1,8 +1,38 @@
 <template>
   <div class="main-div">
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      top
+      color="red accent-2"
+      right
+    >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="timeout"
+      top
+      color="success"
+      right
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar2 = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <div class="login-card">
       <div class="image-holder">
-        <img src="images/signin.png" alt="image" class="img-fluid" />
+        <img :src="'/logos/register.png'" alt="image" class="img-fluid" />
       </div>
       <div class="form-holder">
         <div>
@@ -248,10 +278,7 @@
                             </div>
 
                             <div class="rates">
-
-
                               <div class="payment-inputs m-2">
-                                
                                 <v-text-field
                                   v-model="user.project_rate"
                                   clearable
@@ -373,7 +400,12 @@
                       </v-row>
                     </v-stepper-content>
                     <v-stepper-content step="4">
-                      <v-form v-model="valid" ref="form5" lazy-validation enctype="multipart/form-data">
+                      <v-form
+                        v-model="valid"
+                        ref="form5"
+                        lazy-validation
+                        enctype="multipart/form-data"
+                      >
                         <div class="services">
                           <h3>What services do you offer?</h3>
                           <div>
@@ -451,11 +483,10 @@
                             ></v-autocomplete>
                           </div>
 
-                          <div class="rates">
-                            <
+                          <div class="rates" style="margin-top: 100px">
+                            <h4>Rate your skills</h4>
 
                             <div class="payment-inputs m-2">
-                              
                               <v-text-field
                                 v-model="user.project_rate"
                                 clearable
@@ -571,6 +602,11 @@ export default {
   name: "register",
   data() {
     return {
+      snackbar: false,
+      text: "Error!",
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       tab: "tab-1",
       switch2: false,
       state: false,
@@ -651,7 +687,7 @@ export default {
   },
   methods: {
     //for tabs
-    formData(){
+    formData() {
       let userForm = new FormData();
 
       userForm.append("profile", this.user.profile);
@@ -662,9 +698,9 @@ export default {
       userForm.append("password", this.user.password);
       userForm.append("password_confirmation", this.user.password_confirmation);
       userForm.append("gender", this.user.gender);
-      for(let sk in this.user.skill){
-        userForm.append("skill[]", this.user.skill[sk])
-      };
+      for (let sk in this.user.skill) {
+        userForm.append("skill[]", this.user.skill[sk]);
+      }
       userForm.append("scope", this.user.scope);
       userForm.append("experience", this.user.experience);
       userForm.append("category", this.user.category);
@@ -687,22 +723,38 @@ export default {
       //   _.each(this.formData, (value, key) => {
       //     formData.append(key, value)
       //   })
-      
-      return userForm;
 
+      return userForm;
     },
     async submitUser() {
-       let res = await this.signUp(this.formData());
-      console.log(res.data);
-      console.log(this.formData());
-
+      let res = await this.signUp(this.formData());
+      if (res) {
+        console.log(res);
+        this.snackbar2 = true;
+        this.text2 = "Successfully registered";
+        setTimeout(() => this.$router.push({ name: "login" }), 2000);
+      } else {
+        console.log(res);
+        this.snackbar = true;
+        this.text = "Email already Taken";
+      }
     },
     async submitEmployee() {
-    //  let res = await this.signUp(this.user);
-         let res = await this.signUp(this.formData());
+      //  let res = await this.signUp(this.user);
+      let res = await this.signUp(this.formData());
+      if (res) {
+        console.log(res);
+        this.snackbar2 = true;
+        this.text2 = "Successfully registered";
+        setTimeout(() => this.$router.push({ name: "login" }), 2000);
+      } else {
+        console.log(res);
+        this.snackbar = true;
+        this.text = "Email already Taken";
+      }
 
-    console.log(res.data);
-     console.log(this.user)
+      console.log("1", res);
+      //  console.log(this.user)
     },
     action(ac) {
       if (ac == "register_user") {
@@ -729,7 +781,7 @@ export default {
     changeTab2() {
       this.tab = "tab-1";
     },
-   
+
     required(value) {
       if (value instanceof Array && value.length == 0) {
         return "Required.";
