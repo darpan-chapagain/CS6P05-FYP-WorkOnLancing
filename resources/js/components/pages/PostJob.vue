@@ -132,13 +132,6 @@
                             label="Name"
                             required
                           ></v-text-field>
-
-                          <!-- <v-text-field
-                        v-model="registration.email"
-                        :rules="emailRules"
-                        label="E-mail"
-                        required
-                      ></v-text-field> -->
                           <v-textarea
                             name="description"
                             filled
@@ -175,35 +168,6 @@
                   </v-row>
                 </v-stepper-content>
                 <v-stepper-content step="2">
-                  <!-- <v-form ref="form" v-model="valid" lazy-validation>
-                      <h3>Scope of Work</h3>
-                  <v-radio-group v-model="scope" row required :rules="scopeRule">
-                    <v-radio label="Large" value="0"></v-radio>
-                    <v-radio label="Medium" value="1"></v-radio>
-                    <v-radio label="Small" value="2"></v-radio>
-                  </v-radio-group>
-                  <v-btn flat @click.native="step -= 1">Previous</v-btn>
-                  <v-btn
-                    :disabled="!valid"
-                    color="success"
-                    class="mr-4"
-                    @click="validate"
-                    @click.native="steps(step)"
-                  >
-                    Scoop of Work
-                  </v-btn>
-                  </v-form> -->
-                  <!--                   
-                  <v-row>
-                    <v-col cols="12" md="6">
-                      pic
-                    </v-col>
-                    <v-col cols="12" md="6">
-                      
-                    </v-col>
-                  </v-row>
-
-                   -->
                   <v-row>
                     <v-col cols="12" md="6"> <Images /> </v-col>
                     <v-col cols="12" md="6">
@@ -294,20 +258,6 @@
                         lazy-validation
                         @submit.prevent=""
                       >
-                        <!-- <v-autocomplete
-                      v-model="skill"
-                      :items="items"
-                      clearable
-                      hide-selected
-                      persistent-hint
-                      label="Add Skills"
-                      :rules="categoryRule"
-                      dense
-                      hint="Maximum of 5 tags"
-                      multiple
-                      small-chips
-                    >
-                    </v-autocomplete> -->
                         <div class="skills">
                           <v-autocomplete
                             v-model="skill"
@@ -316,7 +266,10 @@
                             hide-selected
                             persistent-hint
                             label="Skills"
-                            :rules="[required]"
+                            :rules="[
+                              (v) =>
+                                !!(v && v.length) || 'Please select a category',
+                            ]"
                             dense
                             multiple
                             required
@@ -408,7 +361,10 @@
                         hide-selected
                         persistent-hint
                         label="Job Category"
-                        :rules="categoryRule"
+                        :rules="[
+                          (v) =>
+                            !!(v && v.length) || 'Please select a category',
+                        ]"
                         dense
                       ></v-autocomplete>
                       <v-btn

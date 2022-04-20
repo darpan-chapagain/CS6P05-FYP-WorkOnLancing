@@ -37,7 +37,6 @@
       <div class="form-holder">
         <div>
           <h2>Sign In</h2>
-          {{ this.user.profile }}
         </div>
 
         <v-tabs v-model="tab">
@@ -78,7 +77,7 @@
                   autocomplete="current-password"
                 ></v-text-field>
               </div>
-              <div class="form-group">
+              <div class="">
                 <v-radio-group
                   v-model="user.gender"
                   :rules="[(v) => !!v || 'Please select gender']"
@@ -89,6 +88,36 @@
                   <v-radio label="Female" value="female"></v-radio>
                   <v-radio label="Others" value="others"></v-radio>
                 </v-radio-group>
+              </div>
+              <div class="time m-4 form-group">
+                <v-menu
+                  ref="menu1"
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="dateFormatted"
+                      label="Your Date of Birth"
+                      hint="MM/DD/YYYY format"
+                      persistent-hint
+                      prepend-icon="mdi-calendar"
+                      :rules="[(v) => !!v || 'Date is required']"
+                      v-bind="attrs"
+                      @blur="date = parseDate(dateFormatted)"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="date"
+                    no-title
+                    @input="menu2 = false"
+                  ></v-date-picker>
+                </v-menu>
               </div>
               <div class="form-group">
                 <v-text-field
@@ -179,7 +208,7 @@
                             <v-form ref="form2" v-model="valid" lazy-validation>
                               <v-text-field
                                 v-model="user.title"
-                                :counter="10"
+                                :counter="40"
                                 :rules="titleRules"
                                 label="Title of your Work"
                                 required
@@ -191,7 +220,7 @@
                                 hide-selected
                                 persistent-hint
                                 label="Job Category"
-                                :rules="categoryRule"
+                                
                                 dense
                               ></v-autocomplete>
                               <h4>Experience Level</h4>
@@ -210,20 +239,27 @@
                                 ></v-radio>
                                 <v-radio label="Expert" value="2"></v-radio>
                               </v-radio-group>
-                              <h4>Qualifications</h4>
-                              <v-radio-group v-model="user.employee_type" row>
+                              <h4>Are you a team or an individual?</h4>
+                              <v-radio-group
+                                v-model="user.employee_type"
+                                row
+                                :rules="[
+                                  (v) => !!v || 'Please select your type',
+                                ]"
+                              >
                                 <v-radio label="Individual" value="0"></v-radio>
                                 <v-radio label="Team" value="1"></v-radio>
                               </v-radio-group>
+                              <h4>Do you have some qualification?</h4>
                               <v-textarea
                                 name="Qualification"
                                 filled
                                 label="Qualification"
-                                :counter="200"
                                 auto-grow
                                 v-model="user.qualification"
                                 value="List down your education level."
                               ></v-textarea>
+                              <h4>Tell us about your educations.</h4>
                               <v-textarea
                                 name="Education"
                                 filled
@@ -411,7 +447,7 @@
                           <div>
                             <v-text-field
                               v-model="user.title"
-                              :counter="10"
+                              :counter="40"
                               :rules="titleRules"
                               label="Title of your Work"
                               required
@@ -423,7 +459,11 @@
                               hide-selected
                               persistent-hint
                               label="Job Category"
-                              :rules="categoryRule"
+                              :rules="[
+                                (v) =>
+                                  !!(v && v.length) ||
+                                  'Please select a category',
+                              ]"
                               dense
                             ></v-autocomplete>
                             <h4>Experience Level</h4>
@@ -439,11 +479,16 @@
                               <v-radio label="Intermediate" value="1"></v-radio>
                               <v-radio label="Expert" value="2"></v-radio>
                             </v-radio-group>
-                            <h4>Qualifications</h4>
-                            <v-radio-group v-model="user.employee_type" row>
+                            <h4>Are you a team or an individual?</h4>
+                            <v-radio-group
+                              v-model="user.employee_type"
+                              row
+                              :rules="[(v) => !!v || 'Please select your type']"
+                            >
                               <v-radio label="Individual" value="0"></v-radio>
                               <v-radio label="Team" value="1"></v-radio>
                             </v-radio-group>
+                            <h4>Do you have some qualification?</h4>
                             <v-textarea
                               name="Qualification"
                               filled
@@ -452,6 +497,7 @@
                               v-model="user.qualification"
                               value="List down your education level."
                             ></v-textarea>
+                            <h4>Tell us about your Education.</h4>
                             <v-textarea
                               name="Education"
                               filled
@@ -653,33 +699,25 @@ export default {
       step: 1,
       titleRules: [
         (v) => !!v || "Job Title is required",
-        (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+        (v) => (v && v.length <= 40) || "Name must be less than 20 characters",
       ],
       descriptionRule: [
         (v) => !!v || "Description required",
         (v) =>
-          (v && v.length <= 20) ||
-          "Description must be less than 200 characters",
-
-        // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+          (v && v.length <= 500) ||
+          "Description must be less than 500 characters",
       ],
       categoryRule: [(v) => !!v || "Please select category"],
       scopeRule: [[(v) => !!v || "Scope is required"]],
       about: [
         (v) => !!v || "About is required",
         (v) =>
-          (v && v.length <= 20) ||
-          "Description must be less than 200 characters",
+          (v && v.length <= 500) || "About must be less than 500 characters",
       ],
       //for date
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      //   dateFormatted: vm.formatDate(
-      //     new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //       .toISOString()
-      //       .substr(0, 10)
-      //   ),
       dateFormatted: null,
       menu1: false,
       menu2: false,
@@ -698,6 +736,8 @@ export default {
       userForm.append("password", this.user.password);
       userForm.append("password_confirmation", this.user.password_confirmation);
       userForm.append("gender", this.user.gender);
+      userForm.append("dob", moment(this.date).format("MM/DD/YYYY"));
+
       for (let sk in this.user.skill) {
         userForm.append("skill[]", this.user.skill[sk]);
       }
@@ -716,14 +756,6 @@ export default {
       userForm.append("phone_no", this.user.phone_number);
       userForm.append("education", this.user.education);
       userForm.append("role_id", this.user.role_id);
-      // let formData = new FormData()
-      //   <!-- WE APPEND THE AVATAR TO THE FORMDATA WE'RE GONNA POST -->
-      //   formData.append('avatar', this.avatar)
-
-      //   _.each(this.formData, (value, key) => {
-      //     formData.append(key, value)
-      //   })
-
       return userForm;
     },
     async submitUser() {
@@ -740,7 +772,6 @@ export default {
       }
     },
     async submitEmployee() {
-      //  let res = await this.signUp(this.user);
       let res = await this.signUp(this.formData());
       if (res) {
         console.log(res);
@@ -752,9 +783,6 @@ export default {
         this.snackbar = true;
         this.text = "Email already Taken";
       }
-
-      console.log("1", res);
-      //  console.log(this.user)
     },
     action(ac) {
       if (ac == "register_user") {
@@ -788,9 +816,7 @@ export default {
       }
       return !!value || "Required.";
     },
-    submit() {
-      alert(this.user.title);
-    },
+
     validate(type) {
       if (type == "register") {
         return this.$refs.form1.validate();
@@ -819,7 +845,6 @@ export default {
       const res = await axios.get("skill");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.items.push(res.data[i].skill);
       }
     },
@@ -827,7 +852,6 @@ export default {
       const res = await axios.get("jobs/category");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.categories.push(res.data[i].category_name);
       }
     },
@@ -836,23 +860,21 @@ export default {
         skill: val,
       });
     },
-    //for employee Registration
-
-    // ...mapActions({
-    //   signIn: "auth/login",
-    // }),
-    // async register() {
-    //   this.processing = true;
-    //   await axios.get("/sanctum/csrf-cookie").then((response) => {
-    //     axios
-    //       .post("api/register", this.user)
-    //       .then((response) => {
-    //         if (response.data.success) {
-    //           console.log(response.data.success);
-    //           window.location.href = "/login";
     ...mapActions({
       signUp: "auth/register",
     }),
+    formatDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split("-");
+      return `${month}/${day}/${year}`;
+    },
+    parseDate(date) {
+      if (!date) return null;
+
+      const [month, day, year] = date.split("/");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
   },
   //for date
   computed: {

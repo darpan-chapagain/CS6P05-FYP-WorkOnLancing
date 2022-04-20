@@ -80,7 +80,6 @@ export default {
       snackbar: false,
       text: "Error!",
       timeout: 2000,
-      // loginImage: require("asset('images/signin.png')"),
       auth: {
         email: "",
         password: "",
@@ -114,11 +113,6 @@ export default {
 </script>
 
 <style scoped>
-/* *{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-} */
 
 .main-div {
   display: flex;
@@ -149,7 +143,6 @@ export default {
   margin-left: 5%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 }
 

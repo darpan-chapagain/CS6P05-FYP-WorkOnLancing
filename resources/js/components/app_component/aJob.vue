@@ -14,7 +14,7 @@
         </v-chip>
         <v-chip outlined class="m-1">
           <v-icon class="p-1">mdi-clock-time-four-outline</v-icon>
-          Est. Time</v-chip
+          {{ this.getTime(a_job.time) }} days remaining</v-chip
         >
       </div>
       <v-divider></v-divider>
@@ -330,6 +330,14 @@ export default {
             localStorage.setItem("a_user", JSON.stringify(employee));
           });
       }
+    },
+    getTime(time) {
+      var given = moment(time, "YYYY-MM-DD");
+      var current = moment().startOf("day");
+
+      //Difference in number of days
+      moment.duration(given.diff(current)).asDays();
+      return moment.duration(given.diff(current)).asDays();
     },
   },
   computed: {
