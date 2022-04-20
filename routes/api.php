@@ -104,9 +104,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/chat/rooms/{roomId}/messages', [ChatController::class, 'messages']);
     Route::post('/chat/rooms/{roomId}/message', [ChatController::class, 'newMessage']);
 
-    Route::resource('/jobs/category', JobCategoryController::class);
 
-    Route::resource('/skill', SkillController::class);
 
     Route::resource('/badges', WorkBadgesController::class);
 
@@ -117,6 +115,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/verify', [UserController::class, 'paymentVerification']);
 });
+
+Route::resource('/skill', SkillController::class);
+
+Route::resource('/jobs/category', JobCategoryController::class);
+
 Route::get('/user/blogs/all/{id}', [BlogController::class, 'userBlog']);
 Route::get('/blog/get/{id}', [BlogController::class, 'getBlog']);
 

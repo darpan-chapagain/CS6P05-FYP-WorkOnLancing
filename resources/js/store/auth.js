@@ -45,7 +45,9 @@ export default {
         async login({ dispatch }, credentials) {
             await axios.get("/sanctum/csrf-cookie");
             let response = await axios.post("/login", credentials);
-
+            if(response.data.message == "Unauthorised"){
+                return "Please enter valid credentials";
+            }
             return dispatch("attempt", response.data.token).then(() =>
                 router.push({ name: "dashboard" })
             );
@@ -58,10 +60,24 @@ export default {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+            }).then(response => { 
+                console.log(response, 'res')
+                console.log(response.status)
+                return true;
+            })
+            .catch(error => {
+                console.log(error.response, 'err')
+                console.log(error.response.status)
+                return false;
             });
-            router.push({ name: "login" });
-
-            console.log(response.data.token);
+            if(response){
+                console.log(response, 'res');
+                return true;
+            }else{
+                console.log(response);
+                return false;
+            }
+            
         },
         async attempt({ commit }, token) {
             commit("SET_TOKEN", token);

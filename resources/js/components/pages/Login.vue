@@ -1,8 +1,25 @@
 <template>
   <div class="main-div">
+    <div class="text-center">
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+        top
+        color="red accent-2"
+        right
+      >
+        {{ text }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
     <div class="login-card">
       <div class="image-holder">
-        <img src="images/signin.png" alt="image" class="img-fluid" />
+        <img :src="'/logos/sign in.png'" alt="image" class="img-fluid" />
       </div>
       <div class="form-holder">
         <div>
@@ -33,7 +50,9 @@
             ></v-text-field>
           </div>
           <div class="form-group">
-            <v-btn class="btn btn-lg btn-block sign-in-btn mb-2" @click="login"> Login </v-btn>
+            <v-btn class="btn btn-lg btn-block sign-in-btn mb-2" @click="login">
+              Login
+            </v-btn>
           </div>
           <p>
             Don't Have an Account?
@@ -48,16 +67,19 @@
 <script>
 import { mapActions } from "vuex";
 import AuthInput from "../app_component/AuthInput.vue";
-import VueKhalti from 'vue-khalti'
+import VueKhalti from "vue-khalti";
 
 export default {
   name: "login",
   components: {
     AuthInput,
-    VueKhalti
+    VueKhalti,
   },
   data() {
     return {
+      snackbar: false,
+      text: "Error!",
+      timeout: 2000,
       // loginImage: require("asset('images/signin.png')"),
       auth: {
         email: "",
@@ -70,19 +92,23 @@ export default {
         emailMatch: () => "Please enter a valid password",
       },
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
       ],
     };
   },
   methods: {
     ...mapActions({
-      signIn: "auth/login"
+      signIn: "auth/login",
     }),
 
-    login(){
-      this.signIn(this.auth);
-    }
+    async login() {
+      let res = await this.signIn(this.auth);
+      if(res){
+        this.snackbar = true;
+        this.text = res;
+      }
+    },
   },
 };
 </script>

@@ -6,7 +6,7 @@
           <v-subheader>Your messages</v-subheader>
 
           <v-list two-line>
-            <template>
+            <template v-if="rooms">
               <v-list-item
                 v-for="room in rooms"
                 :key="room.id"
@@ -29,12 +29,12 @@
                   >
 
                   <v-list-item-subtitle>
-                    
                     Talk with {{ room.user.first_name }}!
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </template>
+            <div v-else><v-card-text>No chats yet</v-card-text></div>
           </v-list>
         </v-card>
       </v-container>

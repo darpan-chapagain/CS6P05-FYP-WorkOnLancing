@@ -22,14 +22,10 @@
           ></v-app-bar-nav-icon>
 
           <v-toolbar-title class="white--text text-h5 d-sm-none d-md-flex"
-            >WorkOnLancing</v-toolbar-title
+            ><a href="/" class="white--text">WorkOnLancing</a></v-toolbar-title
           >
 
           <v-spacer></v-spacer>
-
-          <div class="navbar-nav m-3 d-sm-none d-md-flex" v-if="this.role != 1">
-            <a href="/" class="white--text">Home</a>
-          </div>
 
           <!-- <v-btn icon>
             <v-icon>mdi-heart</v-icon>
@@ -41,11 +37,18 @@
                 <a href="/dashboard" class="text-white ml-3">Dashboard</a>
               </div>
               <div class="navbar-nav m-3">
+                <a href="/chat" class="text-white"
+                  ><v-icon class="text-white">mdi-chat</v-icon> Chat</a
+                >
+              </div>
+              <div class="navbar-nav m-3">
                 <a href="/post/job" class="text-white">Post Jobs</a>
               </div>
+
               <div class="navbar-nav m-3">
                 <a href="/requests" class="text-white">View Requests</a>
               </div>
+
               <div class="navbar-nav m-3" v-if="this.role == 3">
                 <a href="/proposal" class="text-white">View Proposals</a>
               </div>
@@ -62,10 +65,16 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="m-3">
                 <v-avatar>
-                  <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
+                  <img v-if="user.profile_path"
+                    :src="'/' + user.profile_path"
+                    :alt="user.first_name"
+                    style="
+                      object-fit: cover;
+                      object-position: center;
+                      width: 100%;
+                    "
                   />
+                  <v-icon class="text-white" v-else>mdi-account</v-icon>
                 </v-avatar>
               </v-btn>
             </template>
