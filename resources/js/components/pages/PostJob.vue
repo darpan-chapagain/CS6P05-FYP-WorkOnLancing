@@ -1,97 +1,14 @@
 <template>
-  <!-- <div style="margin-top: 100px">
-      
-    <v-card class="mt-5">
-        <div class="title p-3">
-          <h2>Post Job</h2>
-      </div>
-        <v-stepper v-model="e1">
-    <v-stepper-header>
-      <v-stepper-step
-        :complete="e1 > 1"
-        editable
-        step="1"
-      >
-        Name of step 1
-      </v-stepper-step>
-
-      <v-divider></v-divider>
-
-      <v-stepper-step
-        :complete="e1 > 2"
-        editable
-        step="2"
-      >
-        Name of step 2
-      </v-stepper-step>
-
-      <v-divider></v-divider>
-
-      <v-stepper-step editable step="3">
-        Name of step 3
-      </v-stepper-step>
-    </v-stepper-header>
-
-    <v-stepper-items>
-      <v-stepper-content step="1">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        ></v-card>
-
-        <v-btn
-          color="primary"
-          @click="e1 = 2"
-        >
-          Continue
-        </v-btn>
-
-      </v-stepper-content>
-
-      <v-stepper-content step="2">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        ></v-card>
-
-        <v-btn
-          color="primary"
-          @click="e1 = 3"
-        >
-          Continue
-        </v-btn>
-
-        <v-btn text @click="e1 = 1">
-          Back
-        </v-btn>
-      </v-stepper-content>
-
-      <v-stepper-content step="3">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        ></v-card>
-
-        <v-btn
-          color="primary"
-          @click="e1 = 1"
-        >
-          Continue
-        </v-btn>
-
-        <v-btn text @click="e1 = 2">
-          Cancel
-        </v-btn>
-      </v-stepper-content>
-    </v-stepper-items>
-  </v-stepper>
-    </v-card>
-  </div> -->
-
   <div style="margin-top: 100px">
+    <v-snackbar v-model="snackbar" :timeout="timeout" top color="success" right>
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <div id="app">
       <v-app>
         <v-main>
@@ -119,7 +36,9 @@
                 <v-stepper-content step="1">
                   <v-row>
                     <v-col cols="12" md="6">
-                      <Images />
+                      <Images
+                        :image="'/logos/133-1337353_work-with-us-work-with-us-illustration-hd.png'"
+                      />
                     </v-col>
                     <v-col cols="12" md="6">
                       <div class="job-info">
@@ -169,7 +88,9 @@
                 </v-stepper-content>
                 <v-stepper-content step="2">
                   <v-row>
-                    <v-col cols="12" md="6"> <Images /> </v-col>
+                    <v-col cols="12" md="6">
+                      <Images :image="'/logos/artboard_42-100_4x.png'" />
+                    </v-col>
                     <v-col cols="12" md="6">
                       <v-form v-model="valid" ref="form2" lazy-validation>
                         <div class="scope m-4">
@@ -250,7 +171,11 @@
                 </v-stepper-content>
                 <v-stepper-content step="3">
                   <v-row>
-                    <v-col cols="12" md="6"> <Images /> </v-col>
+                    <v-col cols="12" md="6">
+                      <Images
+                        :image="'/logos/istockphoto-1252249414-612x612.png'"
+                      />
+                    </v-col>
                     <v-col cols="12" md="6">
                       <v-form
                         v-model="valid"
@@ -258,7 +183,8 @@
                         lazy-validation
                         @submit.prevent=""
                       >
-                        <div class="skills">
+                        <div class="skills" style="margin-top: 100px">
+                          <h3>What are the skills required?</h3>
                           <v-autocomplete
                             v-model="skill"
                             :items="items"
@@ -293,11 +219,18 @@
                   </v-row> </v-stepper-content
                 ><v-stepper-content step="4">
                   <v-row>
-                    <v-col cols="12" md="6"> <Images /> </v-col>
+                    <v-col cols="12" md="6">
+                      <Images
+                        :image="'/logos/istockphoto-959212324-612x612.png'"
+                      />
+                    </v-col>
                     <v-col cols="12" md="6">
                       <v-form v-model="valid" ref="form4" lazy-validation>
                         <div class="rates">
                           <div class="payment-inputs m-2">
+                            <h3>
+                              How much rate are you offering for this project?
+                            </h3>
                             <v-text-field
                               v-model="projectRate"
                               clearable
@@ -312,7 +245,6 @@
                         <v-btn text @click.native="stepBack(step)"
                           >Previous</v-btn
                         >
-                        <!-- <v-btn color="primary" @click.prevent="submit">Save</v-btn> -->
                         <v-btn
                           :disabled="!valid"
                           color="success"
@@ -337,12 +269,6 @@
                         required
                       ></v-text-field>
 
-                      <!-- <v-text-field
-                        v-model="registration.email"
-                        :rules="emailRules"
-                        label="E-mail"
-                        required
-                      ></v-text-field> -->
                       <v-textarea
                         name="description"
                         filled
@@ -352,7 +278,7 @@
                         auto-grow
                         v-model="description"
                         required
-                        value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                        value="Write your description here"
                       ></v-textarea>
                       <v-autocomplete
                         v-model="category"
@@ -367,15 +293,6 @@
                         ]"
                         dense
                       ></v-autocomplete>
-                      <v-btn
-                        :disabled="!valid"
-                        color="success"
-                        class="mr-4"
-                        @click="validate('info')"
-                        @click.native="steps(step)"
-                      >
-                        Choose Skill
-                      </v-btn>
                     </div>
                     <div class="scope m-4">
                       <h3>Scope of Work</h3>
@@ -465,23 +382,7 @@
                         ></v-text-field>
                       </div>
                     </div>
-                    <v-btn color="primary" @click.prevent="submit">Save</v-btn>
-                    <!-- <KhaltiButton
-                      :title="this.title"
-                      :id2="this.user_id"
-                      :jobForm="this.formData()"
-                      :type="`posting`"
-                      
-                      :key="componentKey"
-                    /> -->
-                    <vue-khalti
-                      ref="khaltiCheckout"
-                      v-bind="khaltiConfig"
-                      :key="componentKey"
-                    >
-                      <v-btn @click="onKhaltiClick"> Pay with Khalti </v-btn>
-                    </vue-khalti>
-                    <!-- <v-btn><vue-khalti v-bind="khaltiConfig" /> </v-btn> -->
+                    <v-btn color="primary" @click.prevent="submit">Post Job</v-btn>
                   </v-form>
                 </v-stepper-content>
               </v-stepper-items>
@@ -489,8 +390,6 @@
           </v-container>
         </v-main>
       </v-app>
-
-      <!-- <br /><br />Debug: {{ registration }} -->
     </div>
   </div>
 </template>
@@ -512,11 +411,10 @@ export default {
     var self = this;
 
     return {
-      //Khalti Payment
-
-      //----------
-
+      snackbar: false,
+      text: "Error!",
       valid: true,
+      timeout: 2000,
       e1: 1,
       step: 1,
       categories: [],
@@ -539,8 +437,6 @@ export default {
         (v) =>
           (v && v.length <= 1000) ||
           "Description must be less than 1000 characters",
-
-        // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       categoryRule: [(v) => !!v || "Please select category"],
       scopeRule: [[(v) => !!v || "Scope is required"]],
@@ -549,40 +445,11 @@ export default {
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      //   dateFormatted: vm.formatDate(
-      //     new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //       .toISOString()
-      //       .substr(0, 10)
-      //   ),
       dateFormatted: null,
       menu1: false,
       menu2: false,
 
       //for date
-
-      //Payment
-      khaltiConfig: {
-        publicKey: "test_public_key_28ffbaeeb514468ca0a736669ca9d4b1",
-        productIdentity: `${Math.floor(Math.random() * 10)}-${moment(
-          this.date
-        ).format("YYYY-MM-DD")}`,
-        productName: "YOUR_PRODUCT_NAME",
-        amount: 1000,
-        eventHandler: {
-          onSuccess(payload) {
-            console.log(moment(this.date).format("YYYY-MM-DD"));
-            self.test(payload);
-            const sendData = async () => {
-              const res = await axios.post("/verify", payload);
-              console.log(res);
-            };
-            sendData();
-          },
-          onClose() {
-            console.log("widget is closing");
-          },
-        },
-      },
 
       user_id: null,
       componentKey: 0,
@@ -631,14 +498,15 @@ export default {
       return !!value || "Required.";
     },
     async submit() {
-      // console.log(this.token);
       let res = await axios({
         method: "post",
         url: "job",
         headers: { Authorization: `Bearer ${this.token}` },
         data: this.formData(),
-      }).then(() => {
-        this.$router.push("/dashboard");
+      }).then((res) => {
+        this.snackbar = true;
+        this.text = "Job Posted Successfully!";
+        setTimeout(() => this.$router.push("/dashboard"), 2000);
       });
     },
     validate(type) {
@@ -667,7 +535,6 @@ export default {
       if (this.valid) {
         this.step -= 1;
       }
-      // this.valid = !this.valid
     },
     //for date
     formatDate(date) {
@@ -695,7 +562,6 @@ export default {
       const res = await axios.get("/skill");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.items.push(res.data[i].skill);
       }
     },
@@ -703,7 +569,6 @@ export default {
       const res = await axios.get("jobs/category");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.categories.push(res.data[i].category_name);
       }
     },
@@ -735,8 +600,6 @@ export default {
     console.log(this.thisUser.id);
     this.user_id = this.thisUser.id;
   },
-
-  //for budget
 };
 </script>
 

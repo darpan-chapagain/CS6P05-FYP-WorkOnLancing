@@ -1,5 +1,14 @@
 <template>
   <div>
+    <v-snackbar v-model="snackbar" :timeout="timeout" top color="success" right>
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-container>
       <v-row class="dashboard-container">
         <v-col cols="12" sm="12">
@@ -25,36 +34,22 @@
                   <v-textarea
                     filled
                     counter
+                    v-model="application"
                     label="Write your application here!"
                     small
-                    :rules="[(v) => v.length <= 25 || 'Max 25 characters']"
+                    :rules="[(v) => v.length <= 1000 || 'Max 1000 characters']"
                     :value="value"
                   ></v-textarea>
                 </v-container>
                 <br />
                 <v-btn
-                    class="m-2 mt-4"
-                    rounded
-                    color="primary"
-                    dark
-                    @click="apply"
-                    >Send application!</v-btn
-                  >
-                <!-- <div v-if="this.applied">
-                  <v-btn class="m-2 mt-4" rounded color="primary" disabled>
-                    Already Applied!
-                  </v-btn>
-                </div>
-                <div v-else>
-                  <v-btn
-                    class="m-2 mt-4"
-                    rounded
-                    color="primary"
-                    dark
-                    @click="apply"
-                    >Send application!</v-btn
-                  >
-                </div> -->
+                  class="m-2 mt-4"
+                  rounded
+                  color="primary"
+                  dark
+                  @click="apply"
+                  >Send application!</v-btn
+                >
               </div>
             </v-sheet>
           </v-sheet>
@@ -75,18 +70,37 @@ export default {
     job: Object,
   },
   data: () => ({
-    rules: [(v) => v.length <= 5000 || "Max 25 characters"],
+    rules: [(v) => v.length <= 5000 || "Max 1000 characters"],
     value: "Application",
     pageJob: null,
     applied: false,
+    application: "",
+    snackbar: false,
+    text: "Error!",
+    valid: true,
   }),
   methods: {
     async apply() {
-      let res = await axios.post(`employee/request/${this.returnJob().id}`);
-      // console.log(this.returnJob().id);
-      console.log(res.data);
+      let res = await axios({
+        method: "post",
+        url: `employee/request/${this.returnJob().id}`,
+        data: {
+          application: this.application,
+        },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then(() => {
+        this.snackbar = true;
+        this.text = "Application Sent!";
+        this.applied = true;
+        setTimeout(
+          () => this.$router.push({ name: "dashboard.employee" }),
+          2000
+        );
+      });
+      // console.log(res.data);
       this.applied = true;
-      this.$router.push({ name: "dashboard.employee" });
     },
     returnJob() {
       if (this.job) {
@@ -102,12 +116,6 @@ export default {
       return data;
     },
   },
-  // async created() {
-  //   let check = await this.checkApplication();
-  //   check == "Already requested"
-  //     ? (this.applied = true)
-  //     : (this.applied = false);
-  // },
 };
 </script>
 

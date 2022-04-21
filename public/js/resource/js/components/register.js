@@ -190,7 +190,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Images'
+  name: 'Images',
+  props: {
+    image: String
+  }
 });
 
 /***/ }),
@@ -667,11 +670,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -686,11 +684,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       rules: [function (v) {
-        return v.length <= 5000 || "Max 25 characters";
+        return v.length <= 5000 || "Max 1000 characters";
       }],
       value: "Application",
       pageJob: null,
-      applied: false
+      applied: false,
+      application: "",
+      snackbar: false,
+      text: "Error!",
+      valid: true
     };
   },
   methods: {
@@ -704,19 +706,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().post("employee/request/".concat(_this.returnJob().id));
+                return axios__WEBPACK_IMPORTED_MODULE_3___default()({
+                  method: "post",
+                  url: "employee/request/".concat(_this.returnJob().id),
+                  data: {
+                    application: _this.application
+                  },
+                  headers: {
+                    Authorization: "Bearer ".concat(localStorage.getItem("token"))
+                  }
+                }).then(function () {
+                  _this.snackbar = true;
+                  _this.text = "Application Sent!";
+                  _this.applied = true;
+                  setTimeout(function () {
+                    return _this.$router.push({
+                      name: "dashboard.employee"
+                    });
+                  }, 2000);
+                });
 
               case 2:
                 res = _context.sent;
-                // console.log(this.returnJob().id);
-                console.log(res.data);
+                // console.log(res.data);
                 _this.applied = true;
 
-                _this.$router.push({
-                  name: "dashboard.employee"
-                });
-
-              case 6:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -757,13 +772,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     }
-  } // async created() {
-  //   let check = await this.checkApplication();
-  //   check == "Already requested"
-  //     ? (this.applied = true)
-  //     : (this.applied = false);
-  // },
-
+  }
 });
 
 /***/ }),
@@ -922,119 +931,18 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1445,9 +1353,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data(vm) {
     var self = this;
     return {
-      //Khalti Payment
-      //----------
+      snackbar: false,
+      text: "Error!",
       valid: true,
+      timeout: 2000,
       e1: 1,
       step: 1,
       categories: [],
@@ -1470,8 +1379,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return !!v || "Description required";
       }, function (v) {
         return v && v.length <= 1000 || "Description must be less than 1000 characters";
-      } // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
+      }],
       categoryRule: [function (v) {
         return !!v || "Please select category";
       }],
@@ -1480,60 +1388,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }]],
       //for date
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      //   dateFormatted: vm.formatDate(
-      //     new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //       .toISOString()
-      //       .substr(0, 10)
-      //   ),
       dateFormatted: null,
       menu1: false,
       menu2: false,
       //for date
-      //Payment
-      khaltiConfig: {
-        publicKey: "test_public_key_28ffbaeeb514468ca0a736669ca9d4b1",
-        productIdentity: "".concat(Math.floor(Math.random() * 10), "-").concat(moment(this.date).format("YYYY-MM-DD")),
-        productName: "YOUR_PRODUCT_NAME",
-        amount: 1000,
-        eventHandler: {
-          onSuccess: function onSuccess(payload) {
-            console.log(moment(this.date).format("YYYY-MM-DD"));
-            self.test(payload);
-
-            var sendData = /*#__PURE__*/function () {
-              var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-                var res;
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        _context.next = 2;
-                        return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/verify", payload);
-
-                      case 2:
-                        res = _context.sent;
-                        console.log(res);
-
-                      case 4:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee);
-              }));
-
-              return function sendData() {
-                return _ref.apply(this, arguments);
-              };
-            }();
-
-            sendData();
-          },
-          onClose: function onClose() {
-            console.log("widget is closing");
-          }
-        }
-      },
       user_id: null,
       componentKey: 0
     };
@@ -1569,26 +1427,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onKhaltiClick: function onKhaltiClick() {
       var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var khaltiCheckout, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context2.next = 2;
+                _context.next = 2;
                 return _this2.$refs.khaltiCheckout;
 
               case 2:
-                khaltiCheckout = _context2.sent;
+                khaltiCheckout = _context.sent;
                 res = khaltiCheckout.onClick();
                 console.log(res, "bhayo!");
 
               case 5:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }))();
     },
     test: function test(payload) {
@@ -1605,13 +1463,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     submit: function submit() {
       var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context3.next = 2;
+                _context2.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default()({
                   method: "post",
                   url: "job",
@@ -1619,19 +1477,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     Authorization: "Bearer ".concat(_this3.token)
                   },
                   data: _this3.formData()
-                }).then(function () {
-                  _this3.$router.push("/dashboard");
+                }).then(function (res) {
+                  _this3.snackbar = true;
+                  _this3.text = "Job Posted Successfully!";
+                  setTimeout(function () {
+                    return _this3.$router.push("/dashboard");
+                  }, 2000);
                 });
 
               case 2:
-                res = _context3.sent;
+                res = _context2.sent;
 
               case 3:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3);
+        }, _callee2);
       }))();
     },
     validate: function validate(type) {
@@ -1663,8 +1525,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.valid) {
         this.step -= 1;
-      } // this.valid = !this.valid
-
+      }
     },
     //for date
     formatDate: function formatDate(date) {
@@ -1690,22 +1551,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return "".concat(year, "-").concat(month.padStart(2, "0"), "-").concat(day.padStart(2, "0"));
     },
     sendDate: function sendDate(value) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context4.next = 2;
+                _context3.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/job", {
                   time: value
                 });
 
               case 2:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }))();
     },
     created: function created() {
@@ -1715,6 +1576,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getSkill: function getSkill() {
       var _this4 = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var res, skill_data, i;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/skill");
+
+              case 2:
+                res = _context4.sent;
+                skill_data = [];
+
+                for (i = 0; i < res.data.length; i++) {
+                  _this4.items.push(res.data[i].skill);
+                }
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    getCategories: function getCategories() {
+      var _this5 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
         var res, skill_data, i;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
@@ -1722,15 +1611,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/skill");
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("jobs/category");
 
               case 2:
                 res = _context5.sent;
                 skill_data = [];
 
                 for (i = 0; i < res.data.length; i++) {
-                  // console.log(res.data[i].skill);
-                  _this4.items.push(res.data[i].skill);
+                  _this5.categories.push(res.data[i].category_name);
                 }
 
               case 5:
@@ -1741,52 +1629,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    getCategories: function getCategories() {
-      var _this5 = this;
-
+    postSkill: function postSkill(val) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
-        var res, skill_data, i;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("jobs/category");
-
-              case 2:
-                res = _context6.sent;
-                skill_data = [];
-
-                for (i = 0; i < res.data.length; i++) {
-                  // console.log(res.data[i].skill);
-                  _this5.categories.push(res.data[i].category_name);
-                }
-
-              case 5:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }))();
-    },
-    postSkill: function postSkill(val) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                _context7.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/jobs_skill", {
                   skill: val
                 });
 
               case 2:
               case "end":
-                return _context7.stop();
+                return _context6.stop();
             }
           }
-        }, _callee7);
+        }, _callee6);
       }))();
     },
     formData: function formData() {
@@ -1812,8 +1671,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getCategories();
     console.log(this.thisUser.id);
     this.user_id = this.thisUser.id;
-  } //for budget
-
+  }
 });
 
 /***/ }),
@@ -5050,10 +4908,10 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "image-holder" }, [
+    _c("div", { staticClass: "image-holder d-flex justify-content-center" }, [
       _c("img", {
         staticClass: "img-fluid",
-        attrs: { src: "/images/202203291242DSC00425.JPG", alt: "image" },
+        attrs: { src: _vm.image, alt: "image" },
       }),
     ]),
   ])
@@ -5702,6 +5560,48 @@ var render = function () {
     "div",
     [
       _c(
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.timeout, top: "", color: "success", right: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
+                      {
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar = false
+                          },
+                        },
+                      },
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
+                  ),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar,
+            callback: function ($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
         "v-container",
         [
           _c(
@@ -5775,12 +5675,19 @@ var render = function () {
                                       rules: [
                                         function (v) {
                                           return (
-                                            v.length <= 25 ||
-                                            "Max 25 characters"
+                                            v.length <= 1000 ||
+                                            "Max 1000 characters"
                                           )
                                         },
                                       ],
                                       value: _vm.value,
+                                    },
+                                    model: {
+                                      value: _vm.application,
+                                      callback: function ($$v) {
+                                        _vm.application = $$v
+                                      },
+                                      expression: "application",
                                     },
                                   }),
                                 ],
@@ -6139,1267 +6046,1341 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { "margin-top": "100px" } }, [
-    _c(
-      "div",
-      { attrs: { id: "app" } },
-      [
-        _c(
-          "v-app",
-          [
-            _c(
-              "v-main",
-              [
-                _c(
-                  "v-container",
-                  [
-                    _c(
-                      "v-stepper",
+  return _c(
+    "div",
+    { staticStyle: { "margin-top": "100px" } },
+    [
+      _c(
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.timeout, top: "", color: "success", right: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
                       {
-                        model: {
-                          value: _vm.step,
-                          callback: function ($$v) {
-                            _vm.step = $$v
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar = false
                           },
-                          expression: "step",
                         },
                       },
-                      [
-                        _c(
-                          "v-stepper-header",
-                          [
-                            _c(
-                              "v-stepper-step",
-                              { attrs: { step: "1", complete: _vm.step > 1 } },
-                              [_vm._v("Job Info")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-stepper-step",
-                              { attrs: { step: "2", complete: _vm.step > 2 } },
-                              [_vm._v("Skill")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-stepper-step",
-                              { attrs: { step: "3", complete: _vm.step > 3 } },
-                              [_vm._v("Scope of Work")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-stepper-step",
-                              { attrs: { step: "4", complete: _vm.step > 4 } },
-                              [_vm._v("Budget")]
-                            ),
-                            _vm._v(" "),
-                            _c("v-stepper-step", { attrs: { step: "5" } }, [
-                              _vm._v("Final"),
-                            ]),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-stepper-items",
-                          [
-                            _c(
-                              "v-stepper-content",
-                              { attrs: { step: "1" } },
-                              [
-                                _c(
-                                  "v-row",
-                                  [
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [_c("Images")],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "job-info" },
-                                          [
-                                            _c("h3", [
-                                              _vm._v(
-                                                "Give Some Info to your Project"
-                                              ),
-                                            ]),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-form",
-                                              {
-                                                ref: "form1",
-                                                attrs: {
-                                                  "lazy-validation": "",
-                                                },
-                                                model: {
-                                                  value: _vm.valid,
-                                                  callback: function ($$v) {
-                                                    _vm.valid = $$v
-                                                  },
-                                                  expression: "valid",
-                                                },
-                                              },
-                                              [
-                                                _c("v-text-field", {
-                                                  attrs: {
-                                                    counter: 100,
-                                                    rules: _vm.titleRules,
-                                                    label: "Name",
-                                                    required: "",
-                                                  },
-                                                  model: {
-                                                    value: _vm.title,
-                                                    callback: function ($$v) {
-                                                      _vm.title = $$v
-                                                    },
-                                                    expression: "title",
-                                                  },
-                                                }),
-                                                _vm._v(" "),
-                                                _c("v-textarea", {
-                                                  attrs: {
-                                                    name: "description",
-                                                    filled: "",
-                                                    label: "Description",
-                                                    rules: _vm.descriptionRule,
-                                                    counter: 1000,
-                                                    "auto-grow": "",
-                                                    required: "",
-                                                    value:
-                                                      "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
-                                                  },
-                                                  model: {
-                                                    value: _vm.description,
-                                                    callback: function ($$v) {
-                                                      _vm.description = $$v
-                                                    },
-                                                    expression: "description",
-                                                  },
-                                                }),
-                                                _vm._v(" "),
-                                                _c("v-autocomplete", {
-                                                  attrs: {
-                                                    items: _vm.categories,
-                                                    clearable: "",
-                                                    "hide-selected": "",
-                                                    "persistent-hint": "",
-                                                    label: "Job Category",
-                                                    rules: _vm.categoryRule,
-                                                    dense: "",
-                                                  },
-                                                  model: {
-                                                    value: _vm.category,
-                                                    callback: function ($$v) {
-                                                      _vm.category = $$v
-                                                    },
-                                                    expression: "category",
-                                                  },
-                                                }),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "v-btn",
-                                                  {
-                                                    staticClass: "mr-4",
-                                                    attrs: {
-                                                      disabled: !_vm.valid,
-                                                      color: "success",
-                                                    },
-                                                    on: {
-                                                      click: function ($event) {
-                                                        return _vm.validate(
-                                                          "info"
-                                                        )
-                                                      },
-                                                    },
-                                                    nativeOn: {
-                                                      click: function ($event) {
-                                                        return _vm.steps(
-                                                          _vm.step
-                                                        )
-                                                      },
-                                                    },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                          Choose Skill\n                        "
-                                                    ),
-                                                  ]
-                                                ),
-                                              ],
-                                              1
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ]
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-stepper-content",
-                              { attrs: { step: "2" } },
-                              [
-                                _c(
-                                  "v-row",
-                                  [
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [_c("Images")],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [
-                                        _c(
-                                          "v-form",
-                                          {
-                                            ref: "form2",
-                                            attrs: { "lazy-validation": "" },
-                                            model: {
-                                              value: _vm.valid,
-                                              callback: function ($$v) {
-                                                _vm.valid = $$v
-                                              },
-                                              expression: "valid",
-                                            },
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "scope m-4" },
-                                              [
-                                                _c("h3", [
-                                                  _vm._v("Scope of Work"),
-                                                ]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "v-radio-group",
-                                                  {
-                                                    attrs: {
-                                                      rules: [
-                                                        function (v) {
-                                                          return (
-                                                            !!v ||
-                                                            "Item is required"
-                                                          )
-                                                        },
-                                                      ],
-                                                      row: "",
-                                                      required: "",
-                                                    },
-                                                    model: {
-                                                      value: _vm.scope,
-                                                      callback: function ($$v) {
-                                                        _vm.scope = $$v
-                                                      },
-                                                      expression: "scope",
-                                                    },
-                                                  },
-                                                  [
-                                                    _c("v-radio", {
-                                                      attrs: {
-                                                        label: "Large",
-                                                        value: "Large",
-                                                      },
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("v-radio", {
-                                                      attrs: {
-                                                        label: "Medium",
-                                                        value: "Medium",
-                                                      },
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("v-radio", {
-                                                      attrs: {
-                                                        label: "Small",
-                                                        value: "Small",
-                                                      },
-                                                    }),
-                                                  ],
-                                                  1
-                                                ),
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "time m-4" },
-                                              [
-                                                _c("h3", [
-                                                  _vm._v("Time Estimation"),
-                                                ]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "v-menu",
-                                                  {
-                                                    ref: "menu1",
-                                                    attrs: {
-                                                      "close-on-content-click": false,
-                                                      transition:
-                                                        "scale-transition",
-                                                      "offset-y": "",
-                                                      "max-width": "290px",
-                                                      "min-width": "auto",
-                                                    },
-                                                    scopedSlots: _vm._u([
-                                                      {
-                                                        key: "activator",
-                                                        fn: function (ref) {
-                                                          var on = ref.on
-                                                          var attrs = ref.attrs
-                                                          return [
-                                                            _c(
-                                                              "v-text-field",
-                                                              _vm._g(
-                                                                _vm._b(
-                                                                  {
-                                                                    attrs: {
-                                                                      label:
-                                                                        "Date",
-                                                                      hint: "MM/DD/YYYY format",
-                                                                      "persistent-hint":
-                                                                        "",
-                                                                      "prepend-icon":
-                                                                        "mdi-calendar",
-                                                                      rules: [
-                                                                        function (
-                                                                          v
-                                                                        ) {
-                                                                          return (
-                                                                            !!v ||
-                                                                            "Date is required"
-                                                                          )
-                                                                        },
-                                                                      ],
-                                                                    },
-                                                                    on: {
-                                                                      blur: function (
-                                                                        $event
-                                                                      ) {
-                                                                        _vm.date =
-                                                                          _vm.parseDate(
-                                                                            _vm.dateFormatted
-                                                                          )
-                                                                      },
-                                                                    },
-                                                                    model: {
-                                                                      value:
-                                                                        _vm.dateFormatted,
-                                                                      callback:
-                                                                        function (
-                                                                          $$v
-                                                                        ) {
-                                                                          _vm.dateFormatted =
-                                                                            $$v
-                                                                        },
-                                                                      expression:
-                                                                        "dateFormatted",
-                                                                    },
-                                                                  },
-                                                                  "v-text-field",
-                                                                  attrs,
-                                                                  false
-                                                                ),
-                                                                on
-                                                              )
-                                                            ),
-                                                          ]
-                                                        },
-                                                      },
-                                                    ]),
-                                                    model: {
-                                                      value: _vm.menu1,
-                                                      callback: function ($$v) {
-                                                        _vm.menu1 = $$v
-                                                      },
-                                                      expression: "menu1",
-                                                    },
-                                                  },
-                                                  [
-                                                    _vm._v(" "),
-                                                    _c("v-date-picker", {
-                                                      attrs: { "no-title": "" },
-                                                      on: {
-                                                        input: function (
-                                                          $event
-                                                        ) {
-                                                          _vm.menu1 = false
-                                                        },
-                                                      },
-                                                      model: {
-                                                        value: _vm.date,
-                                                        callback: function (
-                                                          $$v
-                                                        ) {
-                                                          _vm.date = $$v
-                                                        },
-                                                        expression: "date",
-                                                      },
-                                                    }),
-                                                  ],
-                                                  1
-                                                ),
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "experience m-4" },
-                                              [
-                                                _c("h3", [
-                                                  _vm._v("Experience"),
-                                                ]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "v-radio-group",
-                                                  {
-                                                    attrs: {
-                                                      rules: [
-                                                        function (v) {
-                                                          return (
-                                                            !!v ||
-                                                            "Please select experience"
-                                                          )
-                                                        },
-                                                      ],
-                                                      row: "",
-                                                      required: "",
-                                                    },
-                                                    model: {
-                                                      value: _vm.experience,
-                                                      callback: function ($$v) {
-                                                        _vm.experience = $$v
-                                                      },
-                                                      expression: "experience",
-                                                    },
-                                                  },
-                                                  [
-                                                    _c("v-radio", {
-                                                      attrs: {
-                                                        label: "Entry",
-                                                        value: "Entry",
-                                                      },
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("v-radio", {
-                                                      attrs: {
-                                                        label: "Intermediate",
-                                                        value: "Intermediate",
-                                                      },
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("v-radio", {
-                                                      attrs: {
-                                                        label: "Expert",
-                                                        value: "Expert",
-                                                      },
-                                                    }),
-                                                  ],
-                                                  1
-                                                ),
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-btn",
-                                              {
-                                                staticClass: "mr-4",
-                                                attrs: {
-                                                  disabled: !_vm.valid,
-                                                  color: "success",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.validate(
-                                                      "scopes"
-                                                    )
-                                                  },
-                                                },
-                                                nativeOn: {
-                                                  click: function ($event) {
-                                                    return _vm.steps(_vm.step)
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                        Choose Skill\n                      "
-                                                ),
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-btn",
-                                              {
-                                                attrs: { text: "" },
-                                                nativeOn: {
-                                                  click: function ($event) {
-                                                    return _vm.stepBack(
-                                                      _vm.step
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Previous")]
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-stepper-content",
-                              { attrs: { step: "3" } },
-                              [
-                                _c(
-                                  "v-row",
-                                  [
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [_c("Images")],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [
-                                        _c(
-                                          "v-form",
-                                          {
-                                            ref: "form3",
-                                            attrs: { "lazy-validation": "" },
-                                            on: {
-                                              submit: function ($event) {
-                                                $event.preventDefault()
-                                              },
-                                            },
-                                            model: {
-                                              value: _vm.valid,
-                                              callback: function ($$v) {
-                                                _vm.valid = $$v
-                                              },
-                                              expression: "valid",
-                                            },
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "skills" },
-                                              [
-                                                _c("v-autocomplete", {
-                                                  attrs: {
-                                                    items: _vm.items,
-                                                    clearable: "",
-                                                    "hide-selected": "",
-                                                    "persistent-hint": "",
-                                                    label: "Skills",
-                                                    rules: [
-                                                      function (v) {
-                                                        return (
-                                                          !!(v && v.length) ||
-                                                          "Please select a category"
-                                                        )
-                                                      },
-                                                    ],
-                                                    dense: "",
-                                                    multiple: "",
-                                                    required: "",
-                                                    "small-chips": "",
-                                                  },
-                                                  model: {
-                                                    value: _vm.skill,
-                                                    callback: function ($$v) {
-                                                      _vm.skill = $$v
-                                                    },
-                                                    expression: "skill",
-                                                  },
-                                                }),
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-btn",
-                                              {
-                                                staticClass: "mr-4",
-                                                attrs: {
-                                                  disabled: !_vm.valid,
-                                                  color: "success",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.validate(
-                                                      "skills"
-                                                    )
-                                                  },
-                                                },
-                                                nativeOn: {
-                                                  click: function ($event) {
-                                                    return _vm.steps(_vm.step)
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                        Choose Budget\n                      "
-                                                ),
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-btn",
-                                              {
-                                                attrs: { text: "" },
-                                                nativeOn: {
-                                                  click: function ($event) {
-                                                    return _vm.stepBack(
-                                                      _vm.step
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Previous")]
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                            _c(
-                              "v-stepper-content",
-                              { attrs: { step: "4" } },
-                              [
-                                _c(
-                                  "v-row",
-                                  [
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [_c("Images")],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", md: "6" } },
-                                      [
-                                        _c(
-                                          "v-form",
-                                          {
-                                            ref: "form4",
-                                            attrs: { "lazy-validation": "" },
-                                            model: {
-                                              value: _vm.valid,
-                                              callback: function ($$v) {
-                                                _vm.valid = $$v
-                                              },
-                                              expression: "valid",
-                                            },
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "rates" },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "payment-inputs m-2",
-                                                  },
-                                                  [
-                                                    _c("v-text-field", {
-                                                      attrs: {
-                                                        clearable: "",
-                                                        label: "Project Rate",
-                                                        placeholder:
-                                                          "Enter Your Rate here",
-                                                        outlined: "",
-                                                        type: "number",
-                                                        rules: [
-                                                          function (v) {
-                                                            return (
-                                                              !!v ||
-                                                              "Please Enter a price"
-                                                            )
-                                                          },
-                                                        ],
-                                                      },
-                                                      model: {
-                                                        value: _vm.projectRate,
-                                                        callback: function (
-                                                          $$v
-                                                        ) {
-                                                          _vm.projectRate = $$v
-                                                        },
-                                                        expression:
-                                                          "projectRate",
-                                                      },
-                                                    }),
-                                                  ],
-                                                  1
-                                                ),
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-btn",
-                                              {
-                                                attrs: { text: "" },
-                                                nativeOn: {
-                                                  click: function ($event) {
-                                                    return _vm.stepBack(
-                                                      _vm.step
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Previous")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-btn",
-                                              {
-                                                staticClass: "mr-4",
-                                                attrs: {
-                                                  disabled: !_vm.valid,
-                                                  color: "success",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.validate(
-                                                      "budget"
-                                                    )
-                                                  },
-                                                },
-                                                nativeOn: {
-                                                  click: function ($event) {
-                                                    return _vm.steps(_vm.step)
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                        Verify\n                      "
-                                                ),
-                                              ]
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                            _c(
-                              "v-stepper-content",
-                              { attrs: { step: "5" } },
-                              [
-                                _c(
-                                  "v-form",
-                                  {
-                                    ref: "form5",
-                                    attrs: { "lazy-validation": "" },
-                                    model: {
-                                      value: _vm.valid,
-                                      callback: function ($$v) {
-                                        _vm.valid = $$v
-                                      },
-                                      expression: "valid",
-                                    },
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "job-info" },
-                                      [
-                                        _c("h3", [
-                                          _vm._v(
-                                            "Give Some Info to your Project"
-                                          ),
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            counter: 100,
-                                            rules: _vm.titleRules,
-                                            label: "Name",
-                                            required: "",
-                                          },
-                                          model: {
-                                            value: _vm.title,
-                                            callback: function ($$v) {
-                                              _vm.title = $$v
-                                            },
-                                            expression: "title",
-                                          },
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-textarea", {
-                                          attrs: {
-                                            name: "description",
-                                            filled: "",
-                                            label: "Description",
-                                            rules: _vm.descriptionRule,
-                                            counter: 1000,
-                                            "auto-grow": "",
-                                            required: "",
-                                            value:
-                                              "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
-                                          },
-                                          model: {
-                                            value: _vm.description,
-                                            callback: function ($$v) {
-                                              _vm.description = $$v
-                                            },
-                                            expression: "description",
-                                          },
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-autocomplete", {
-                                          attrs: {
-                                            items: _vm.categories,
-                                            clearable: "",
-                                            "hide-selected": "",
-                                            "persistent-hint": "",
-                                            label: "Job Category",
-                                            rules: [
-                                              function (v) {
-                                                return (
-                                                  !!(v && v.length) ||
-                                                  "Please select a category"
-                                                )
-                                              },
-                                            ],
-                                            dense: "",
-                                          },
-                                          model: {
-                                            value: _vm.category,
-                                            callback: function ($$v) {
-                                              _vm.category = $$v
-                                            },
-                                            expression: "category",
-                                          },
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-btn",
-                                          {
-                                            staticClass: "mr-4",
-                                            attrs: {
-                                              disabled: !_vm.valid,
-                                              color: "success",
-                                            },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.validate("info")
-                                              },
-                                            },
-                                            nativeOn: {
-                                              click: function ($event) {
-                                                return _vm.steps(_vm.step)
-                                              },
-                                            },
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                      Choose Skill\n                    "
-                                            ),
-                                          ]
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "scope m-4" },
-                                      [
-                                        _c("h3", [_vm._v("Scope of Work")]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-radio-group",
-                                          {
-                                            attrs: {
-                                              rules: [
-                                                function (v) {
-                                                  return (
-                                                    !!v || "Item is required"
-                                                  )
-                                                },
-                                              ],
-                                              row: "",
-                                              required: "",
-                                            },
-                                            model: {
-                                              value: _vm.scope,
-                                              callback: function ($$v) {
-                                                _vm.scope = $$v
-                                              },
-                                              expression: "scope",
-                                            },
-                                          },
-                                          [
-                                            _c("v-radio", {
-                                              attrs: {
-                                                label: "Large",
-                                                value: "Large",
-                                              },
-                                            }),
-                                            _vm._v(" "),
-                                            _c("v-radio", {
-                                              attrs: {
-                                                label: "Medium",
-                                                value: "Medium",
-                                              },
-                                            }),
-                                            _vm._v(" "),
-                                            _c("v-radio", {
-                                              attrs: {
-                                                label: "Small",
-                                                value: "Small",
-                                              },
-                                            }),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "time m-4" },
-                                      [
-                                        _c("h3", [_vm._v("Time Estimation")]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-menu",
-                                          {
-                                            ref: "menu1",
-                                            attrs: {
-                                              "close-on-content-click": false,
-                                              transition: "scale-transition",
-                                              "offset-y": "",
-                                              "max-width": "290px",
-                                              "min-width": "auto",
-                                            },
-                                            scopedSlots: _vm._u([
-                                              {
-                                                key: "activator",
-                                                fn: function (ref) {
-                                                  var on = ref.on
-                                                  var attrs = ref.attrs
-                                                  return [
-                                                    _c(
-                                                      "v-text-field",
-                                                      _vm._g(
-                                                        _vm._b(
-                                                          {
-                                                            attrs: {
-                                                              label: "Date",
-                                                              hint: "MM/DD/YYYY format",
-                                                              "persistent-hint":
-                                                                "",
-                                                              "prepend-icon":
-                                                                "mdi-calendar",
-                                                              rules: [
-                                                                function (v) {
-                                                                  return (
-                                                                    !!v ||
-                                                                    "Date is required"
-                                                                  )
-                                                                },
-                                                              ],
-                                                            },
-                                                            on: {
-                                                              blur: function (
-                                                                $event
-                                                              ) {
-                                                                _vm.date =
-                                                                  _vm.parseDate(
-                                                                    _vm.dateFormatted
-                                                                  )
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.dateFormatted,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.dateFormatted =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "dateFormatted",
-                                                            },
-                                                          },
-                                                          "v-text-field",
-                                                          attrs,
-                                                          false
-                                                        ),
-                                                        on
-                                                      )
-                                                    ),
-                                                  ]
-                                                },
-                                              },
-                                            ]),
-                                            model: {
-                                              value: _vm.menu2,
-                                              callback: function ($$v) {
-                                                _vm.menu2 = $$v
-                                              },
-                                              expression: "menu2",
-                                            },
-                                          },
-                                          [
-                                            _vm._v(" "),
-                                            _c("v-date-picker", {
-                                              attrs: { "no-title": "" },
-                                              on: {
-                                                input: function ($event) {
-                                                  _vm.menu2 = false
-                                                },
-                                              },
-                                              model: {
-                                                value: _vm.date,
-                                                callback: function ($$v) {
-                                                  _vm.date = $$v
-                                                },
-                                                expression: "date",
-                                              },
-                                            }),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "experience m-4" },
-                                      [
-                                        _c("h3", [_vm._v("Experience")]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-radio-group",
-                                          {
-                                            attrs: {
-                                              rules: [
-                                                function (v) {
-                                                  return (
-                                                    !!v ||
-                                                    "Please select experience"
-                                                  )
-                                                },
-                                              ],
-                                              row: "",
-                                              required: "",
-                                            },
-                                            model: {
-                                              value: _vm.experience,
-                                              callback: function ($$v) {
-                                                _vm.experience = $$v
-                                              },
-                                              expression: "experience",
-                                            },
-                                          },
-                                          [
-                                            _c("v-radio", {
-                                              attrs: {
-                                                label: "Entry",
-                                                value: "Entry",
-                                              },
-                                            }),
-                                            _vm._v(" "),
-                                            _c("v-radio", {
-                                              attrs: {
-                                                label: "Intermediate",
-                                                value: "Intermediate",
-                                              },
-                                            }),
-                                            _vm._v(" "),
-                                            _c("v-radio", {
-                                              attrs: {
-                                                label: "Expert",
-                                                value: "Expert",
-                                              },
-                                            }),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "skills" },
-                                      [
-                                        _c("v-autocomplete", {
-                                          attrs: {
-                                            items: _vm.items,
-                                            clearable: "",
-                                            "hide-selected": "",
-                                            "persistent-hint": "",
-                                            label: "Skills",
-                                            rules: [_vm.required],
-                                            dense: "",
-                                            multiple: "",
-                                            required: "",
-                                            "small-chips": "",
-                                          },
-                                          model: {
-                                            value: _vm.skill,
-                                            callback: function ($$v) {
-                                              _vm.skill = $$v
-                                            },
-                                            expression: "skill",
-                                          },
-                                        }),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "rates" }, [
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
+                  ),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar,
+            callback: function ($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { attrs: { id: "app" } },
+        [
+          _c(
+            "v-app",
+            [
+              _c(
+                "v-main",
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-stepper",
+                        {
+                          model: {
+                            value: _vm.step,
+                            callback: function ($$v) {
+                              _vm.step = $$v
+                            },
+                            expression: "step",
+                          },
+                        },
+                        [
+                          _c(
+                            "v-stepper-header",
+                            [
+                              _c(
+                                "v-stepper-step",
+                                {
+                                  attrs: { step: "1", complete: _vm.step > 1 },
+                                },
+                                [_vm._v("Job Info")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-stepper-step",
+                                {
+                                  attrs: { step: "2", complete: _vm.step > 2 },
+                                },
+                                [_vm._v("Skill")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-stepper-step",
+                                {
+                                  attrs: { step: "3", complete: _vm.step > 3 },
+                                },
+                                [_vm._v("Scope of Work")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-stepper-step",
+                                {
+                                  attrs: { step: "4", complete: _vm.step > 4 },
+                                },
+                                [_vm._v("Budget")]
+                              ),
+                              _vm._v(" "),
+                              _c("v-stepper-step", { attrs: { step: "5" } }, [
+                                _vm._v("Final"),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-stepper-items",
+                            [
+                              _c(
+                                "v-stepper-content",
+                                { attrs: { step: "1" } },
+                                [
+                                  _c(
+                                    "v-row",
+                                    [
                                       _c(
-                                        "div",
-                                        { staticClass: "payment-inputs m-2" },
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
-                                          _c("v-text-field", {
+                                          _c("Images", {
                                             attrs: {
-                                              clearable: "",
-                                              label: "Project Rate",
-                                              placeholder:
-                                                "Enter Your Rate here",
-                                              outlined: "",
-                                              type: "number",
-                                              rules: [
-                                                function (v) {
-                                                  return (
-                                                    !!v ||
-                                                    "Please Enter a price"
-                                                  )
-                                                },
-                                              ],
-                                            },
-                                            model: {
-                                              value: _vm.projectRate,
-                                              callback: function ($$v) {
-                                                _vm.projectRate = $$v
-                                              },
-                                              expression: "projectRate",
+                                              image:
+                                                "/logos/133-1337353_work-with-us-work-with-us-illustration-hd.png",
                                             },
                                           }),
                                         ],
                                         1
                                       ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: { color: "primary" },
-                                        on: {
-                                          click: function ($event) {
-                                            $event.preventDefault()
-                                            return _vm.submit.apply(
-                                              null,
-                                              arguments
-                                            )
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "job-info" },
+                                            [
+                                              _c("h3", [
+                                                _vm._v(
+                                                  "Give Some Info to your Project"
+                                                ),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-form",
+                                                {
+                                                  ref: "form1",
+                                                  attrs: {
+                                                    "lazy-validation": "",
+                                                  },
+                                                  model: {
+                                                    value: _vm.valid,
+                                                    callback: function ($$v) {
+                                                      _vm.valid = $$v
+                                                    },
+                                                    expression: "valid",
+                                                  },
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      counter: 100,
+                                                      rules: _vm.titleRules,
+                                                      label: "Name",
+                                                      required: "",
+                                                    },
+                                                    model: {
+                                                      value: _vm.title,
+                                                      callback: function ($$v) {
+                                                        _vm.title = $$v
+                                                      },
+                                                      expression: "title",
+                                                    },
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("v-textarea", {
+                                                    attrs: {
+                                                      name: "description",
+                                                      filled: "",
+                                                      label: "Description",
+                                                      rules:
+                                                        _vm.descriptionRule,
+                                                      counter: 1000,
+                                                      "auto-grow": "",
+                                                      required: "",
+                                                      value:
+                                                        "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
+                                                    },
+                                                    model: {
+                                                      value: _vm.description,
+                                                      callback: function ($$v) {
+                                                        _vm.description = $$v
+                                                      },
+                                                      expression: "description",
+                                                    },
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("v-autocomplete", {
+                                                    attrs: {
+                                                      items: _vm.categories,
+                                                      clearable: "",
+                                                      "hide-selected": "",
+                                                      "persistent-hint": "",
+                                                      label: "Job Category",
+                                                      rules: _vm.categoryRule,
+                                                      dense: "",
+                                                    },
+                                                    model: {
+                                                      value: _vm.category,
+                                                      callback: function ($$v) {
+                                                        _vm.category = $$v
+                                                      },
+                                                      expression: "category",
+                                                    },
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-btn",
+                                                    {
+                                                      staticClass: "mr-4",
+                                                      attrs: {
+                                                        disabled: !_vm.valid,
+                                                        color: "success",
+                                                      },
+                                                      on: {
+                                                        click: function (
+                                                          $event
+                                                        ) {
+                                                          return _vm.validate(
+                                                            "info"
+                                                          )
+                                                        },
+                                                      },
+                                                      nativeOn: {
+                                                        click: function (
+                                                          $event
+                                                        ) {
+                                                          return _vm.steps(
+                                                            _vm.step
+                                                          )
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                          Choose Skill\n                        "
+                                                      ),
+                                                    ]
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-stepper-content",
+                                { attrs: { step: "2" } },
+                                [
+                                  _c(
+                                    "v-row",
+                                    [
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c("Images", {
+                                            attrs: {
+                                              image:
+                                                "/logos/artboard_42-100_4x.png",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c(
+                                            "v-form",
+                                            {
+                                              ref: "form2",
+                                              attrs: { "lazy-validation": "" },
+                                              model: {
+                                                value: _vm.valid,
+                                                callback: function ($$v) {
+                                                  _vm.valid = $$v
+                                                },
+                                                expression: "valid",
+                                              },
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "scope m-4" },
+                                                [
+                                                  _c("h3", [
+                                                    _vm._v("Scope of Work"),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-radio-group",
+                                                    {
+                                                      attrs: {
+                                                        rules: [
+                                                          function (v) {
+                                                            return (
+                                                              !!v ||
+                                                              "Item is required"
+                                                            )
+                                                          },
+                                                        ],
+                                                        row: "",
+                                                        required: "",
+                                                      },
+                                                      model: {
+                                                        value: _vm.scope,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.scope = $$v
+                                                        },
+                                                        expression: "scope",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-radio", {
+                                                        attrs: {
+                                                          label: "Large",
+                                                          value: "Large",
+                                                        },
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("v-radio", {
+                                                        attrs: {
+                                                          label: "Medium",
+                                                          value: "Medium",
+                                                        },
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("v-radio", {
+                                                        attrs: {
+                                                          label: "Small",
+                                                          value: "Small",
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "time m-4" },
+                                                [
+                                                  _c("h3", [
+                                                    _vm._v("Time Estimation"),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-menu",
+                                                    {
+                                                      ref: "menu1",
+                                                      attrs: {
+                                                        "close-on-content-click": false,
+                                                        transition:
+                                                          "scale-transition",
+                                                        "offset-y": "",
+                                                        "max-width": "290px",
+                                                        "min-width": "auto",
+                                                      },
+                                                      scopedSlots: _vm._u([
+                                                        {
+                                                          key: "activator",
+                                                          fn: function (ref) {
+                                                            var on = ref.on
+                                                            var attrs =
+                                                              ref.attrs
+                                                            return [
+                                                              _c(
+                                                                "v-text-field",
+                                                                _vm._g(
+                                                                  _vm._b(
+                                                                    {
+                                                                      attrs: {
+                                                                        label:
+                                                                          "Date",
+                                                                        hint: "MM/DD/YYYY format",
+                                                                        "persistent-hint":
+                                                                          "",
+                                                                        "prepend-icon":
+                                                                          "mdi-calendar",
+                                                                        rules: [
+                                                                          function (
+                                                                            v
+                                                                          ) {
+                                                                            return (
+                                                                              !!v ||
+                                                                              "Date is required"
+                                                                            )
+                                                                          },
+                                                                        ],
+                                                                      },
+                                                                      on: {
+                                                                        blur: function (
+                                                                          $event
+                                                                        ) {
+                                                                          _vm.date =
+                                                                            _vm.parseDate(
+                                                                              _vm.dateFormatted
+                                                                            )
+                                                                        },
+                                                                      },
+                                                                      model: {
+                                                                        value:
+                                                                          _vm.dateFormatted,
+                                                                        callback:
+                                                                          function (
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.dateFormatted =
+                                                                              $$v
+                                                                          },
+                                                                        expression:
+                                                                          "dateFormatted",
+                                                                      },
+                                                                    },
+                                                                    "v-text-field",
+                                                                    attrs,
+                                                                    false
+                                                                  ),
+                                                                  on
+                                                                )
+                                                              ),
+                                                            ]
+                                                          },
+                                                        },
+                                                      ]),
+                                                      model: {
+                                                        value: _vm.menu1,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.menu1 = $$v
+                                                        },
+                                                        expression: "menu1",
+                                                      },
+                                                    },
+                                                    [
+                                                      _vm._v(" "),
+                                                      _c("v-date-picker", {
+                                                        attrs: {
+                                                          "no-title": "",
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            _vm.menu1 = false
+                                                          },
+                                                        },
+                                                        model: {
+                                                          value: _vm.date,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.date = $$v
+                                                          },
+                                                          expression: "date",
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "experience m-4",
+                                                },
+                                                [
+                                                  _c("h3", [
+                                                    _vm._v("Experience"),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-radio-group",
+                                                    {
+                                                      attrs: {
+                                                        rules: [
+                                                          function (v) {
+                                                            return (
+                                                              !!v ||
+                                                              "Please select experience"
+                                                            )
+                                                          },
+                                                        ],
+                                                        row: "",
+                                                        required: "",
+                                                      },
+                                                      model: {
+                                                        value: _vm.experience,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.experience = $$v
+                                                        },
+                                                        expression:
+                                                          "experience",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-radio", {
+                                                        attrs: {
+                                                          label: "Entry",
+                                                          value: "Entry",
+                                                        },
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("v-radio", {
+                                                        attrs: {
+                                                          label: "Intermediate",
+                                                          value: "Intermediate",
+                                                        },
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("v-radio", {
+                                                        attrs: {
+                                                          label: "Expert",
+                                                          value: "Expert",
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  staticClass: "mr-4",
+                                                  attrs: {
+                                                    disabled: !_vm.valid,
+                                                    color: "success",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.validate(
+                                                        "scopes"
+                                                      )
+                                                    },
+                                                  },
+                                                  nativeOn: {
+                                                    click: function ($event) {
+                                                      return _vm.steps(_vm.step)
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Choose Skill\n                      "
+                                                  ),
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  attrs: { text: "" },
+                                                  nativeOn: {
+                                                    click: function ($event) {
+                                                      return _vm.stepBack(
+                                                        _vm.step
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [_vm._v("Previous")]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-stepper-content",
+                                { attrs: { step: "3" } },
+                                [
+                                  _c(
+                                    "v-row",
+                                    [
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c("Images", {
+                                            attrs: {
+                                              image:
+                                                "/logos/istockphoto-1252249414-612x612.png",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c(
+                                            "v-form",
+                                            {
+                                              ref: "form3",
+                                              attrs: { "lazy-validation": "" },
+                                              on: {
+                                                submit: function ($event) {
+                                                  $event.preventDefault()
+                                                },
+                                              },
+                                              model: {
+                                                value: _vm.valid,
+                                                callback: function ($$v) {
+                                                  _vm.valid = $$v
+                                                },
+                                                expression: "valid",
+                                              },
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "skills",
+                                                  staticStyle: {
+                                                    "margin-top": "100px",
+                                                  },
+                                                },
+                                                [
+                                                  _c("h3", [
+                                                    _vm._v(
+                                                      "What are the skills required?"
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("v-autocomplete", {
+                                                    attrs: {
+                                                      items: _vm.items,
+                                                      clearable: "",
+                                                      "hide-selected": "",
+                                                      "persistent-hint": "",
+                                                      label: "Skills",
+                                                      rules: [
+                                                        function (v) {
+                                                          return (
+                                                            !!(v && v.length) ||
+                                                            "Please select a category"
+                                                          )
+                                                        },
+                                                      ],
+                                                      dense: "",
+                                                      multiple: "",
+                                                      required: "",
+                                                      "small-chips": "",
+                                                    },
+                                                    model: {
+                                                      value: _vm.skill,
+                                                      callback: function ($$v) {
+                                                        _vm.skill = $$v
+                                                      },
+                                                      expression: "skill",
+                                                    },
+                                                  }),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  staticClass: "mr-4",
+                                                  attrs: {
+                                                    disabled: !_vm.valid,
+                                                    color: "success",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.validate(
+                                                        "skills"
+                                                      )
+                                                    },
+                                                  },
+                                                  nativeOn: {
+                                                    click: function ($event) {
+                                                      return _vm.steps(_vm.step)
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Choose Budget\n                      "
+                                                  ),
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  attrs: { text: "" },
+                                                  nativeOn: {
+                                                    click: function ($event) {
+                                                      return _vm.stepBack(
+                                                        _vm.step
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [_vm._v("Previous")]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                              _c(
+                                "v-stepper-content",
+                                { attrs: { step: "4" } },
+                                [
+                                  _c(
+                                    "v-row",
+                                    [
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c("Images", {
+                                            attrs: {
+                                              image:
+                                                "/logos/istockphoto-959212324-612x612.png",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "6" } },
+                                        [
+                                          _c(
+                                            "v-form",
+                                            {
+                                              ref: "form4",
+                                              attrs: { "lazy-validation": "" },
+                                              model: {
+                                                value: _vm.valid,
+                                                callback: function ($$v) {
+                                                  _vm.valid = $$v
+                                                },
+                                                expression: "valid",
+                                              },
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "rates" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "payment-inputs m-2",
+                                                    },
+                                                    [
+                                                      _c("h3", [
+                                                        _vm._v(
+                                                          "\n                            How much rate are you offering for this project?\n                          "
+                                                        ),
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("v-text-field", {
+                                                        attrs: {
+                                                          clearable: "",
+                                                          label: "Project Rate",
+                                                          placeholder:
+                                                            "Enter Your Rate here",
+                                                          outlined: "",
+                                                          type: "number",
+                                                          rules: [
+                                                            function (v) {
+                                                              return (
+                                                                !!v ||
+                                                                "Please Enter a price"
+                                                              )
+                                                            },
+                                                          ],
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            _vm.projectRate,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.projectRate =
+                                                              $$v
+                                                          },
+                                                          expression:
+                                                            "projectRate",
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  attrs: { text: "" },
+                                                  nativeOn: {
+                                                    click: function ($event) {
+                                                      return _vm.stepBack(
+                                                        _vm.step
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [_vm._v("Previous")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  staticClass: "mr-4",
+                                                  attrs: {
+                                                    disabled: !_vm.valid,
+                                                    color: "success",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.validate(
+                                                        "budget"
+                                                      )
+                                                    },
+                                                  },
+                                                  nativeOn: {
+                                                    click: function ($event) {
+                                                      return _vm.steps(_vm.step)
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Verify\n                      "
+                                                  ),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                              _c(
+                                "v-stepper-content",
+                                { attrs: { step: "5" } },
+                                [
+                                  _c(
+                                    "v-form",
+                                    {
+                                      ref: "form5",
+                                      attrs: { "lazy-validation": "" },
+                                      model: {
+                                        value: _vm.valid,
+                                        callback: function ($$v) {
+                                          _vm.valid = $$v
+                                        },
+                                        expression: "valid",
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "job-info" },
+                                        [
+                                          _c("h3", [
+                                            _vm._v(
+                                              "Give Some Info to your Project"
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              counter: 100,
+                                              rules: _vm.titleRules,
+                                              label: "Name",
+                                              required: "",
+                                            },
+                                            model: {
+                                              value: _vm.title,
+                                              callback: function ($$v) {
+                                                _vm.title = $$v
+                                              },
+                                              expression: "title",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-textarea", {
+                                            attrs: {
+                                              name: "description",
+                                              filled: "",
+                                              label: "Description",
+                                              rules: _vm.descriptionRule,
+                                              counter: 1000,
+                                              "auto-grow": "",
+                                              required: "",
+                                              value:
+                                                "Write your description here",
+                                            },
+                                            model: {
+                                              value: _vm.description,
+                                              callback: function ($$v) {
+                                                _vm.description = $$v
+                                              },
+                                              expression: "description",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-autocomplete", {
+                                            attrs: {
+                                              items: _vm.categories,
+                                              clearable: "",
+                                              "hide-selected": "",
+                                              "persistent-hint": "",
+                                              label: "Job Category",
+                                              rules: [
+                                                function (v) {
+                                                  return (
+                                                    !!(v && v.length) ||
+                                                    "Please select a category"
+                                                  )
+                                                },
+                                              ],
+                                              dense: "",
+                                            },
+                                            model: {
+                                              value: _vm.category,
+                                              callback: function ($$v) {
+                                                _vm.category = $$v
+                                              },
+                                              expression: "category",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "scope m-4" },
+                                        [
+                                          _c("h3", [_vm._v("Scope of Work")]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-radio-group",
+                                            {
+                                              attrs: {
+                                                rules: [
+                                                  function (v) {
+                                                    return (
+                                                      !!v || "Item is required"
+                                                    )
+                                                  },
+                                                ],
+                                                row: "",
+                                                required: "",
+                                              },
+                                              model: {
+                                                value: _vm.scope,
+                                                callback: function ($$v) {
+                                                  _vm.scope = $$v
+                                                },
+                                                expression: "scope",
+                                              },
+                                            },
+                                            [
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Large",
+                                                  value: "Large",
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Medium",
+                                                  value: "Medium",
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Small",
+                                                  value: "Small",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "time m-4" },
+                                        [
+                                          _c("h3", [_vm._v("Time Estimation")]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-menu",
+                                            {
+                                              ref: "menu1",
+                                              attrs: {
+                                                "close-on-content-click": false,
+                                                transition: "scale-transition",
+                                                "offset-y": "",
+                                                "max-width": "290px",
+                                                "min-width": "auto",
+                                              },
+                                              scopedSlots: _vm._u([
+                                                {
+                                                  key: "activator",
+                                                  fn: function (ref) {
+                                                    var on = ref.on
+                                                    var attrs = ref.attrs
+                                                    return [
+                                                      _c(
+                                                        "v-text-field",
+                                                        _vm._g(
+                                                          _vm._b(
+                                                            {
+                                                              attrs: {
+                                                                label: "Date",
+                                                                hint: "MM/DD/YYYY format",
+                                                                "persistent-hint":
+                                                                  "",
+                                                                "prepend-icon":
+                                                                  "mdi-calendar",
+                                                                rules: [
+                                                                  function (v) {
+                                                                    return (
+                                                                      !!v ||
+                                                                      "Date is required"
+                                                                    )
+                                                                  },
+                                                                ],
+                                                              },
+                                                              on: {
+                                                                blur: function (
+                                                                  $event
+                                                                ) {
+                                                                  _vm.date =
+                                                                    _vm.parseDate(
+                                                                      _vm.dateFormatted
+                                                                    )
+                                                                },
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm.dateFormatted,
+                                                                callback:
+                                                                  function (
+                                                                    $$v
+                                                                  ) {
+                                                                    _vm.dateFormatted =
+                                                                      $$v
+                                                                  },
+                                                                expression:
+                                                                  "dateFormatted",
+                                                              },
+                                                            },
+                                                            "v-text-field",
+                                                            attrs,
+                                                            false
+                                                          ),
+                                                          on
+                                                        )
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ]),
+                                              model: {
+                                                value: _vm.menu2,
+                                                callback: function ($$v) {
+                                                  _vm.menu2 = $$v
+                                                },
+                                                expression: "menu2",
+                                              },
+                                            },
+                                            [
+                                              _vm._v(" "),
+                                              _c("v-date-picker", {
+                                                attrs: { "no-title": "" },
+                                                on: {
+                                                  input: function ($event) {
+                                                    _vm.menu2 = false
+                                                  },
+                                                },
+                                                model: {
+                                                  value: _vm.date,
+                                                  callback: function ($$v) {
+                                                    _vm.date = $$v
+                                                  },
+                                                  expression: "date",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "experience m-4" },
+                                        [
+                                          _c("h3", [_vm._v("Experience")]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-radio-group",
+                                            {
+                                              attrs: {
+                                                rules: [
+                                                  function (v) {
+                                                    return (
+                                                      !!v ||
+                                                      "Please select experience"
+                                                    )
+                                                  },
+                                                ],
+                                                row: "",
+                                                required: "",
+                                              },
+                                              model: {
+                                                value: _vm.experience,
+                                                callback: function ($$v) {
+                                                  _vm.experience = $$v
+                                                },
+                                                expression: "experience",
+                                              },
+                                            },
+                                            [
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Entry",
+                                                  value: "Entry",
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Intermediate",
+                                                  value: "Intermediate",
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Expert",
+                                                  value: "Expert",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "skills" },
+                                        [
+                                          _c("v-autocomplete", {
+                                            attrs: {
+                                              items: _vm.items,
+                                              clearable: "",
+                                              "hide-selected": "",
+                                              "persistent-hint": "",
+                                              label: "Skills",
+                                              rules: [_vm.required],
+                                              dense: "",
+                                              multiple: "",
+                                              required: "",
+                                              "small-chips": "",
+                                            },
+                                            model: {
+                                              value: _vm.skill,
+                                              callback: function ($$v) {
+                                                _vm.skill = $$v
+                                              },
+                                              expression: "skill",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "rates" }, [
+                                        _c(
+                                          "div",
+                                          { staticClass: "payment-inputs m-2" },
+                                          [
+                                            _c("v-text-field", {
+                                              attrs: {
+                                                clearable: "",
+                                                label: "Project Rate",
+                                                placeholder:
+                                                  "Enter Your Rate here",
+                                                outlined: "",
+                                                type: "number",
+                                                rules: [
+                                                  function (v) {
+                                                    return (
+                                                      !!v ||
+                                                      "Please Enter a price"
+                                                    )
+                                                  },
+                                                ],
+                                              },
+                                              model: {
+                                                value: _vm.projectRate,
+                                                callback: function ($$v) {
+                                                  _vm.projectRate = $$v
+                                                },
+                                                expression: "projectRate",
+                                              },
+                                            }),
+                                          ],
+                                          1
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { color: "primary" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.submit.apply(
+                                                null,
+                                                arguments
+                                              )
+                                            },
                                           },
                                         },
-                                      },
-                                      [_vm._v("Save")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "vue-khalti",
-                                      _vm._b(
-                                        {
-                                          key: _vm.componentKey,
-                                          ref: "khaltiCheckout",
-                                        },
-                                        "vue-khalti",
-                                        _vm.khaltiConfig,
-                                        false
+                                        [_vm._v("Post Job")]
                                       ),
-                                      [
-                                        _c(
-                                          "v-btn",
-                                          { on: { click: _vm.onKhaltiClick } },
-                                          [_vm._v(" Pay with Khalti ")]
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        ),
-      ],
-      1
-    ),
-  ])
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12010,7 +11991,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
 /* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
 
 
 
@@ -12038,7 +12020,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_9__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_10__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_9__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_10__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_11__["default"]})
 
 
 /* hot reload */
@@ -12138,12 +12121,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js");
 /* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
-/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/VStepper.js");
-/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/VStepperContent.js");
-/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/index.js");
-/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/VStepperStep.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/VStepper.js");
+/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/VStepperContent.js");
+/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/index.js");
+/* harmony import */ var vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vuetify/lib/components/VStepper */ "./node_modules/vuetify/lib/components/VStepper/VStepperStep.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
 
 
 
@@ -12183,7 +12167,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["default"],VAutocomplete: vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VDatePicker: vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_9__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_10__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_11__["default"],VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_12__["default"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_13__["default"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_14__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_15__["default"],VStepper: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_16__["default"],VStepperContent: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_17__["default"],VStepperHeader: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_18__.VStepperHeader,VStepperItems: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_18__.VStepperItems,VStepperStep: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_19__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_20__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_21__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["default"],VAutocomplete: vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VDatePicker: vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_9__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_10__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_11__["default"],VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_12__["default"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_13__["default"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_14__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_15__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_16__["default"],VStepper: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_17__["default"],VStepperContent: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_18__["default"],VStepperHeader: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_19__.VStepperHeader,VStepperItems: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_19__.VStepperItems,VStepperStep: vuetify_lib_components_VStepper__WEBPACK_IMPORTED_MODULE_20__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_21__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_22__["default"]})
 
 
 /* hot reload */
