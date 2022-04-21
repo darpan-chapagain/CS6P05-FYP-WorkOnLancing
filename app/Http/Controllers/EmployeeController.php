@@ -135,21 +135,17 @@ class EmployeeController extends Controller
         return response()->json($response);
     }
 
-    public function requestJob($id)
+    public function requestJob(Request $request, $id)
     {
         $authEmployee = auth()->user();
         $job = Job::find($id);
         $authUserId = $authEmployee->id;
         $jobPostUserId = $job->user->id;
         $employee = Employee::all()->where('user_id', $authUserId)->first();
-        // dd($job->id);
-        // dd($employee->employee_id);
-        // dd($authUserId, $jobPostUserId);
 
         $empID = $employee->employee_id;
         $employeeJob = JobRequest::all()->where('employee_id', $employee->employee_id)
             ->where('job_id', $job->id)->first();
-        // dd($employeeJob);
 
         if ($authUserId != $jobPostUserId) {
             if ($employeeJob) {
@@ -160,6 +156,7 @@ class EmployeeController extends Controller
                 $jobRequest = new JobRequest([
                     'employee_id' => $empID,
                     'job_id' => $job->id,
+                    'application_letter' => $request->application,
                 ]);
                 $jobRequest->save();
                 $response = [
@@ -250,11 +247,6 @@ class EmployeeController extends Controller
             foreach ($skills as $sk) {
                 $sk->allSkill;
             }
-            // $badges = $employee->badgeRatings;
-
-            // foreach ($badges as $bg) {
-            //     $bg->workBadges;
-            // }
         }
 
         return response()->json($employees);
@@ -370,7 +362,6 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        // dd($employee->employee_id);
         $jobRequest = JobRequest::all()
             ->where('employee_id', $employee->employee_id)
             ->where('job_id', $jobId)
@@ -392,11 +383,8 @@ class EmployeeController extends Controller
             ->where('id', $id)
             ->first();
         $req = $job->requestJob[0];
-        // $user = User::all()->where('id', $userID)->first();
-        // dd($req->status);
         if ($req->status == 5) {
             $req->status = 6;
-            // $user->points += 100;
         }
         $job->save();
         $req->save();

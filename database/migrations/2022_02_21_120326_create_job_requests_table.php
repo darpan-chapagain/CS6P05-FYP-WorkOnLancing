@@ -15,6 +15,7 @@ class CreateJobRequestsTable extends Migration
     {
         Schema::create('job_requests', function (Blueprint $table) {
             $table->id('job_employement_id');
+            $table->longText('application_letter');
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('job_id');
             $table->integer('status')->default(1);

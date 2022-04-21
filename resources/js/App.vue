@@ -27,10 +27,6 @@
 
           <v-spacer></v-spacer>
 
-          <!-- <v-btn icon>
-            <v-icon>mdi-heart</v-icon>
-          </v-btn> -->
-
           <div v-if="this.authenticated">
             <div v-if="this.role != 1" class="d-flex d-sm-none d-md-flex">
               <div class="navbar-nav m-3">
@@ -65,7 +61,8 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="m-3">
                 <v-avatar>
-                  <img v-if="user.profile_path"
+                  <img
+                    v-if="user.profile_path"
                     :src="'/' + user.profile_path"
                     :alt="user.first_name"
                     style="

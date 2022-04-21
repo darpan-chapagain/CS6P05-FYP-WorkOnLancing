@@ -339,24 +339,5 @@ router.beforeEach((to, from, next) => {
     });
 });
 
-// router.beforeEach((to, from, next) => {
-//     document.title = `${to.meta.title} - ${process.env.MIX_APP_NAME}`
-//     if(to.meta.middleware=="guest"){
-//         if(store.state.auth.authenticated){
-//             console.log(store.state.auth.authenticated)
-//             next({path:"/login"})
-//         }
-//         else{
-//             next({path:"/login"})
-//         }
-//         next()
-//     }else{
-//         if(store.state.auth.authenticated){
-//             next()
-//         }else{
-//             next({path:"/login"})
-//         }
-//     }
-// })
 
 export default router;

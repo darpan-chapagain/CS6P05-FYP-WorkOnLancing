@@ -59,7 +59,6 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->user()->id);
         $userID = auth()->user()->id;
         $categories = JobCategory::all()->where('category_name', $request->category)->first();
         $job = Job::create([
@@ -70,18 +69,12 @@ class JobController extends Controller
             'time' =>  Carbon::parse($request->time)->toDateTimeString(),
             'experience' =>  $request->experience,
             'project_rate' => $request->project_rate,
-            // 'salary_offered' =>  $request->salary_offered,
             'job_category_id' => $categories->job_category_id,
 
         ]);
-        // dd($request->skill);
-        // dd($job->id);
 
         $job->save();
-        // dd($request->skill);
-        // dd($job->id);
         foreach ($request->skill as $sk) {
-            // dd($sk);
             $skills = Skill::all()->where('skill', $sk)->first();
             $jobSkill = PostSkill::create([
                 'skill' => $skills->id,
@@ -198,7 +191,6 @@ class JobController extends Controller
         $job = Job::where('user_id', $userID)->get();
         foreach ($job as $j) {
             $j->user;
-            // dd($j);
             $j->jobCategory;
             foreach ($j->jobSkill as $skill) {
                 $skill->allSkill;
@@ -209,10 +201,6 @@ class JobController extends Controller
                 $r->reqEmployee->user;
             }
         }
-        // dd($job);
-        // $response = [
-        //     'job' => $job
-        // ];
         return response()->json($job);
     }
 
@@ -249,37 +237,28 @@ class JobController extends Controller
     public function getOtherJobs()
     {
         $userID = auth()->user()->id;
-        // $users = [];
         $totalJob = [];
-        $jobs = Job::all()->where('status', '=', 1)->reverse()->except($userID);
+        $jobs = Job::all()->where('status', '=', 1)->where('user_id', '!=', $userID);
         foreach ($jobs as $job) {
             $job->user;
             $job->requestJob;
             $job->jobCategory;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
-            // $job->requestJob;
-            // array_push($totalJob, $job);
-            // array_push($users, $user);
             foreach ($job->requestJob as $req) {
-                // array_push($offer, $req->job_id);
                 $stat = $req->status;
             }
         }
         $response = [
             'other_post' => $totalJob,
-            // 'users' => $user,
         ];
         return response()->json($jobs);
     }
 
     public function getInProgressJobs()
     {
-        // dd('test');
         $authUser = auth()->user();
-        // $job = Job::all()->where('user_id', $userID);
         $jobs = Job::all()->where('user_id', $authUser->id);
         // dd($job->requestJob);
         // $request = $job->jobRequest;

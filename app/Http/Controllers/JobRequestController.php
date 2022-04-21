@@ -89,9 +89,6 @@ class JobRequestController extends Controller
     public function jobRequests(){
         $authUser = auth()->user();
         $jobs = Job::all()->where('user_id', $authUser->id);
-        // dd($job->requestJob);
-        // $request = $job->jobRequest;
-        // $job->user;
         $offer = [];
         foreach($jobs as $job){
             foreach($job->requestJob as $req){
@@ -112,14 +109,9 @@ class JobRequestController extends Controller
                         ];
                         array_push($offer, $message); 
                     }
-                // array_push($offer, $employees);
                 }
             }
         }
-        // $response = [
-        //     'employees' => $req->reqEmployee,
-
-        // ];
         if($offer == null){
             return response()->json(['message' => 'No job requests']);
         }
