@@ -191,7 +191,6 @@ class EmployeeController extends Controller
         $empID = $employee->employee_id;
         $employeeJob = JobRequest::all()->where('employee_id', $employee->employee_id)
             ->where('job_id', $job->id)->first();
-        // dd($authUserId != $jobPostUserId);
         if ($authUserId != $jobPostUserId) {
             if ($employeeJob) {
                 $response = [
@@ -206,7 +205,6 @@ class EmployeeController extends Controller
             $response = [
                 'message' => 'Unauthorized',
             ];
-            // dd($response);
         }
         return response()->json($response);
     }
@@ -214,7 +212,6 @@ class EmployeeController extends Controller
     public function jobOfferStatus(Request $request, $jobId)
     {
         $authEmployee = auth()->user();
-        // dd($authEmployee->first_name);
         $employee = Employee::all()->where('user_id', $authEmployee->id)->first();
         $currentWork = $employee->total_job;
         $currentWork += 1;
@@ -267,7 +264,6 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        // dd($employee->employee_id);
         $jobRequest = JobRequest::where('employee_id', $employee->employee_id)
             ->where('status', 1)
             ->orWhere('status', 3)->get();
@@ -277,7 +273,6 @@ class EmployeeController extends Controller
             $job->jobCategory;
             $job->requestJob;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
             $job->user;
@@ -291,7 +286,6 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        // dd($employee->employee_id);
         $jobRequest = JobRequest::where('employee_id', $employee->employee_id)
             ->where('status', 5)->get();
         $jobs = [];
@@ -300,7 +294,6 @@ class EmployeeController extends Controller
             $job->jobCategory;
             $job->requestJob;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
             $job->user;
@@ -314,7 +307,6 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        // dd($employee->employee_id);
         $jobRequest = JobRequest::where('employee_id', $employee->employee_id)
             ->where('status', 4)->get();
         $jobs = [];
@@ -323,7 +315,6 @@ class EmployeeController extends Controller
             $job->jobCategory;
             $job->requestJob;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
             $job->user;

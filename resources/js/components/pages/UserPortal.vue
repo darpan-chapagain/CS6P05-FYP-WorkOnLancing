@@ -1,5 +1,20 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="timeout"
+      top
+      color="success"
+      right
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar2 = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <div style="margin-top: 150px">
       <template>
         <v-row>
@@ -267,6 +282,9 @@ export default {
   },
   data() {
     return {
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       pendingJobs: [],
       myJobs: [],
       jobInProgress: [],
@@ -303,7 +321,11 @@ export default {
         data: this.getData(),
         headers: {
           "Content-Type": "multipart/form-data",
-          "Header-Authorization": "Bearer " + localStorage.getItem("token"),
+          "Header-Authorization": "Bearer " + localStorage.getItem("token").then(() => {
+            this.snackbar2 = true;
+            this.text2 = "Blog posted successfully";
+            setTimeout(() => this.$router.push({ name: "dashboard" }), 2000);
+          }),
         },
       });
     },

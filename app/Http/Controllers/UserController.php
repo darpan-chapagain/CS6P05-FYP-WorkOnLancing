@@ -502,7 +502,6 @@ class UserController extends Controller
     public function getPendingJob(Request $request)
     {
         $userID = auth()->user()->id;
-        // dd($userID);
         $jobs = Job::all()->where('user_id', $userID);
         $pending_jobs = [];
         foreach ($jobs as $job) {
@@ -510,7 +509,6 @@ class UserController extends Controller
             $job->jobCategory;
             $req = $job->requestJob;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
             foreach ($req as $ob) {
@@ -526,7 +524,6 @@ class UserController extends Controller
     public function startedWork(Request $request)
     {
         $userID = auth()->user()->id;
-        // dd($userID);
         $jobs = Job::all()->where('user_id', $userID);
         $pending_jobs = [];
         foreach ($jobs as $job) {
@@ -534,7 +531,6 @@ class UserController extends Controller
             $job->jobCategory;
             $req = $job->requestJob;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
             foreach ($req as $ob) {
@@ -614,7 +610,6 @@ class UserController extends Controller
     {
 
         $authUser = auth()->user();
-        // dd($request->job_id);
         $job = Job::find($request->job_id);
         if ($job->status == 4) {
             if ($authUser != $request->user) {
@@ -636,7 +631,6 @@ class UserController extends Controller
                 $user = User::find($request->user);
                 $userRating->save();
                 $userRatings = UserRating::where('user_id', $request->user)->get();
-                // dd($userRating);
                 $totalRate = 0;
                 $count = 0;
                 foreach ($userRatings as $rating) {

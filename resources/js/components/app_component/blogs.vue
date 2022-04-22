@@ -16,12 +16,10 @@
             </v-flex>
           </v-layout>
         </v-container>
-        <v-card-text>
-          {{ blog.detail.substring(0, 200) }}...
-        </v-card-text>
+        <v-card-text> {{ blog.detail.substring(0, 200) }}... </v-card-text>
         <v-card-actions>
           <v-chip big color="secondary" class="white--text">
-            {{ this.time }}
+            {{ this.getTime(blog.created_at) }}
           </v-chip>
           <v-spacer></v-spacer>
           <!-- <v-btn icon class="red--text">
@@ -42,7 +40,13 @@
                   <v-spacer></v-spacer> -->
 
           <div v-if="this.blog.type == 'Blog'">
-            <v-btn small replace color="info" target="_blank" class="p-4" @click.prevent="read"
+            <v-btn
+              small
+              replace
+              color="info"
+              target="_blank"
+              class="p-4"
+              @click.prevent="read"
               >Read More</v-btn
             >
           </div>
@@ -119,9 +123,11 @@ export default {
         },
       });
     },
+    getTime(time) {
+      return moment(time).format("MMMM Do YYYY, h:mm:ss a");
+    },
   },
   created() {
-    this.time = moment().format("MMMM Do YYYY, h:mm:ss a");
     this.articles = this.blog;
   },
 };

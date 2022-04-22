@@ -43,8 +43,6 @@ class BlogController extends Controller
         $blog = new Blog([
             'user_id' => $userID,
             'title' => $request->title,
-            // 'thumb' => $reThumbImage,
-            // 'full_img' => $reThumbImage,
             'detail' => $request->description, 
             'img' =>  $profile_name,
             'img_path' => $profile_path,
