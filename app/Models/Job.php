@@ -11,7 +11,8 @@ class Job extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['user_id','title', 'description', 'size', 'time', 'experience', 'salary_offered', 'job_category_id', 'status'];
+    protected $fillable = ['user_id','title', 'description', 'size', 'time', 'experience', 'project_rate', 'job_category_id', 'status'];
+
 
 
 

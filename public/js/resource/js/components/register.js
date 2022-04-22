@@ -484,6 +484,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -496,6 +528,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      snackbar1: false,
+      text1: "Error!",
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       dialog: false,
       value: null
     };
@@ -530,11 +567,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     status: "accept"
                   }
                 }).then(function (res) {
+                  _this.snackbar2 = true;
+                  _this.text2 = "Offer Accepted";
+
                   _this.updateRequests();
 
-                  _this.$router.push({
-                    name: "dashboard"
-                  })["catch"](function () {});
+                  setTimeout(function () {
+                    return _this.$router.push({
+                      name: "dashboard.employee"
+                    })["catch"](function () {});
+                  }, 2000);
                 });
 
               case 2:
@@ -557,7 +599,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                res = awaitaxios({
+                _context2.next = 2;
+                return axios({
                   method: "post",
                   url: "employee/accept/job/".concat(_this2.proposals.id, "/"),
                   data: {
@@ -565,16 +608,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   }
                 }).then(function (res) {
                   console.log(res);
-                  alert("Rejected!");
+                  _this2.snackbar1 = true;
+                  _this2.text1 = "Offer Rejected";
 
                   _this2.updateRequests();
 
-                  _this2.$router.push({
-                    name: "dashboard"
-                  })["catch"](function () {});
+                  setTimeout(function () {
+                    return _this2.$router.push({
+                      name: "dashboard.employee"
+                    })["catch"](function () {});
+                  }, 2000);
                 });
 
-              case 1:
+              case 2:
+                res = _context2.sent;
+
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -668,8 +717,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 
@@ -692,7 +739,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       application: "",
       snackbar: false,
       text: "Error!",
-      valid: true
+      valid: true,
+      timeout: 2000
     };
   },
   methods: {
@@ -2956,9 +3004,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3557,83 +3602,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
  // importing the axios (a HTTP library) to connects the app with the News API
 
 
@@ -3650,6 +3618,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref;
 
     return _ref = {
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       tags: [],
       badge: [],
       rating: [],
@@ -3658,14 +3629,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       count: 0,
       id: null,
       job_num: 0,
-      // the number of jobs the user has
       first_name: null,
       last_name: null,
       user: null,
       show: false,
       dialog: false,
       drawer: false,
-      // false = Vuetify automatically "do the right thing" to show/hide the drawer
       articles: [],
       errors: [],
       valid: true,
@@ -3683,8 +3652,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return !!v || "Description required";
     }, function (v) {
       return v && v.length <= 1000 || "Description must be less than 1000 characters";
-    } // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ]), _defineProperty(_ref, "categoryRule", [function (v) {
+    }]), _defineProperty(_ref, "categoryRule", [function (v) {
       return !!v || "Please select category";
     }]), _defineProperty(_ref, "scopeRule", [[function (v) {
       return !!v || "Scope is required";
@@ -3857,7 +3825,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context5.prev = _context5.next) {
               case 0:
                 if (!_this6.validate()) {
-                  _context5.next = 5;
+                  _context5.next = 7;
                   break;
                 }
 
@@ -3873,10 +3841,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
                 res = _context5.sent;
-                // alert(res.data);
                 _this6.dialog = false;
+                _this6.snackbar2 = true;
+                _this6.text2 = "Job Offered";
 
-              case 5:
+              case 7:
               case "end":
                 return _context5.stop();
             }
@@ -3950,7 +3919,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 skill_data = [];
 
                 for (i = 0; i < res.data.length; i++) {
-                  // console.log(res.data[i].skill);
                   _this7.items.push(res.data[i].skill);
                 }
 
@@ -3979,7 +3947,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 skill_data = [];
 
                 for (i = 0; i < res.data.length; i++) {
-                  // console.log(res.data[i].skill);
                   _this8.categories.push(res.data[i].category_name);
                 }
 
@@ -4028,25 +3995,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return jobForm;
     },
     getNum: function getNum() {
-      // let res = await axios({
-      //   method: "get",
-      //   url: `employee/get/job/user/${this.user.employee.employee_id}`,
-      //   data: {
-      //     num: this.select,
-      //   },
-      //   headers: {
-      //     Authorization: "Bearer " + this.token,
-      //   },
-      // });
-      // let data = await res.data;
       if (this.user.employee.status == "1") {
         if (this.user.employee.assignment_no > this.user.employee.total_job) {
           return true;
         }
       } else {
         return false;
-      } // return data.num;
-
+      }
     },
     contact: function contact() {
       var _this9 = this;
@@ -4120,45 +4075,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee10);
     }))();
   },
-  // created () {
-  //   axios.get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey='+this.api_key)
-  //     .then(response => {
-  //       //this.articles = response.data.articles
-  //       this.articles = response.data.articles
-  //       console.log('data:')
-  //       console.log(response.data.articles) // This will give you access to the full object
-  //     })
-  //     .catch(e => {
-  //       this.errors.push(e)
-  //     })
-  // },
   mounted: function mounted() {
     window.scrollTo(0, 0);
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[3]!./node_modules/vuetify/src/components/VSnackbar/VSnackbar.sass":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[3]!./node_modules/vuetify/src/components/VSnackbar/VSnackbar.sass ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".theme--light.v-snack__wrapper {\n  color: rgba(0, 0, 0, 0.87);\n}\n\n.theme--dark.v-snack__wrapper {\n  color: #FFFFFF;\n}\n\n.v-sheet.v-snack__wrapper {\n  border-radius: 4px;\n}\n.v-sheet.v-snack__wrapper:not(.v-sheet--outlined) {\n  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);\n}\n.v-sheet.v-snack__wrapper.v-sheet--shaped {\n  border-radius: 24px 4px;\n}\n\n.v-snack {\n  bottom: 0;\n  display: flex;\n  font-size: 0.875rem;\n  justify-content: center;\n  left: 0;\n  pointer-events: none;\n  right: 0;\n  top: 0;\n  width: 100%;\n}\n.v-snack:not(.v-snack--absolute) {\n  height: 100vh;\n  position: fixed;\n  z-index: 1000;\n}\n.v-snack:not(.v-snack--centered):not(.v-snack--top) {\n  align-items: flex-end;\n}\n.v-snack__wrapper {\n  align-items: center;\n  border-color: currentColor !important;\n  display: flex;\n  margin: 8px;\n  max-width: 672px;\n  min-height: 48px;\n  min-width: 344px;\n  padding: 0;\n  pointer-events: auto;\n  position: relative;\n  transition-duration: 0.15s;\n  transition-property: opacity, transform;\n  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);\n  z-index: 1;\n}\n.v-snack__wrapper.theme--dark {\n  background-color: #333333;\n  color: rgba(255, 255, 255, 0.87);\n}\n.v-snack__content {\n  flex-grow: 1;\n  font-size: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0.0178571429em;\n  line-height: 1.25rem;\n  margin-right: auto;\n  padding: 14px 16px;\n  text-align: initial;\n}\n.v-snack__action {\n  align-items: center;\n  align-self: center;\n  display: flex;\n}\n.v-snack__action .v-ripple__container {\n  display: none;\n}\n.v-application--is-ltr .v-snack__action {\n  margin-right: 8px;\n}\n.v-application--is-rtl .v-snack__action {\n  margin-left: 8px;\n}\n.v-snack__action > .v-snack__btn.v-btn {\n  padding: 0 8px;\n}\n.v-snack__btn {\n  margin-left: 0;\n  margin-right: 0;\n  margin: 0;\n  min-width: auto;\n}\n.v-snack--absolute {\n  height: 100%;\n  position: absolute;\n  z-index: 1;\n}\n.v-snack--centered {\n  align-items: center;\n}\n.v-snack--left {\n  justify-content: flex-start;\n  right: auto;\n}\n.v-snack--multi-line .v-snack__wrapper {\n  min-height: 68px;\n}\n.v-snack--right {\n  justify-content: flex-end;\n  left: auto;\n}\n.v-snack:not(.v-snack--has-background) .v-snack__wrapper {\n  box-shadow: none;\n}\n.v-snack--bottom {\n  top: auto;\n}\n.v-snack--text .v-snack__wrapper:before {\n  background-color: currentColor;\n  border-radius: inherit;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  opacity: 0.12;\n  pointer-events: none;\n  position: absolute;\n  right: 0;\n  top: 0;\n  z-index: -1;\n}\n.v-snack--top {\n  align-items: flex-start;\n  bottom: auto;\n}\n.v-snack--vertical .v-snack__wrapper {\n  flex-direction: column;\n}\n.v-snack--vertical .v-snack__wrapper .v-snack__action {\n  align-self: flex-end;\n  margin-bottom: 8px;\n}\n\n.v-snack-transition-enter.v-snack__wrapper {\n  transform: scale(0.8);\n}\n.v-snack-transition-enter.v-snack__wrapper, .v-snack-transition-leave-to.v-snack__wrapper {\n  opacity: 0;\n}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -4275,35 +4195,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (min-width: 7
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-
-/***/ }),
-
-/***/ "./node_modules/vuetify/src/components/VSnackbar/VSnackbar.sass":
-/*!**********************************************************************!*\
-  !*** ./node_modules/vuetify/src/components/VSnackbar/VSnackbar.sass ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_3_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../css-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[1]!../../../../postcss-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[2]!../../../../sass-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[3]!./VSnackbar.sass */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15[0].rules[0].use[3]!./node_modules/vuetify/src/components/VSnackbar/VSnackbar.sass");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_3_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_15_0_rules_0_use_3_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -5211,328 +5102,430 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "proposals p-2" }, [
-    _vm.proposals
-      ? _c("div", [
-          _c(
-            "div",
-            { staticClass: "dialog" },
-            [
-              _c(
-                "v-dialog",
-                {
-                  attrs: {
-                    fullscreen: "",
-                    "hide-overlay": "",
-                    transition: "dialog-bottom-transition",
-                  },
-                  scopedSlots: _vm._u(
-                    [
+  return _c(
+    "div",
+    { staticClass: "proposals p-2" },
+    [
+      _c(
+        "v-snackbar",
+        {
+          attrs: {
+            timeout: _vm.timeout,
+            top: "",
+            color: "red accent-2",
+            right: "",
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
                       {
-                        key: "activator",
-                        fn: function (ref) {
-                          var on = ref.on
-                          var attrs = ref.attrs
-                          return [
-                            _c("v-card-actions", [
-                              _c(
-                                "a",
-                                _vm._g(
-                                  _vm._b(
-                                    {
-                                      staticStyle: { width: "100%" },
-                                      attrs: { text: "" },
-                                    },
-                                    "a",
-                                    attrs,
-                                    false
-                                  ),
-                                  on
-                                ),
-                                [
-                                  _c(
-                                    "v-alert",
-                                    {
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        border: "left",
-                                        "colored-border": "",
-                                        color: "deep-purple accent-4",
-                                        elevation: "2",
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        { staticClass: "d-flex" },
-                                        [
-                                          _c(
-                                            "v-avatar",
-                                            {
-                                              staticClass: "mr-3",
-                                              attrs: { size: "40" },
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-fluid",
-                                                attrs: {
-                                                  src: "/images/202203281818DSC00425.jpg",
-                                                  alt: "image",
-                                                },
-                                              }),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              _vm._s(_vm.proposals.title) +
-                                                " Job"
-                                            ),
-                                          ]),
-                                        ],
-                                        1
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-divider"),
-                                ],
-                                1
-                              ),
-                            ]),
-                          ]
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar = false
+                          },
                         },
                       },
-                    ],
-                    null,
-                    false,
-                    1292608140
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
                   ),
-                  model: {
-                    value: _vm.dialog,
-                    callback: function ($$v) {
-                      _vm.dialog = $$v
-                    },
-                    expression: "dialog",
-                  },
-                },
-                [
-                  _vm._v(" "),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar1,
+            callback: function ($$v) {
+              _vm.snackbar1 = $$v
+            },
+            expression: "snackbar1",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text1) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.timeout, top: "", color: "success", right: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
                   _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-toolbar",
-                        { attrs: { dark: "", color: "primary" } },
-                        [
-                          _c("v-toolbar-title", [_vm._v("Proposals Detail")]),
-                          _vm._v(" "),
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-toolbar-items",
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { icon: "", dark: "" },
-                                  on: {
-                                    click: function ($event) {
-                                      _vm.dialog = false
-                                    },
-                                  },
-                                },
-                                [_c("v-icon", [_vm._v("mdi-close")])],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticStyle: { "min-height": "100vh" } },
-                        [
-                          _c("JobDetail", {
-                            attrs: { a_job_detail: _vm.proposals },
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "btns",
-                              staticStyle: {
-                                display: "flex",
-                                "flex-direction": "column",
-                                "align-items": "center",
-                                "justify-content": "center",
-                                "margin-top": "50px",
-                              },
-                            },
-                            [
-                              _c("div", { staticClass: "m-4" }, [
+                    "v-btn",
+                    _vm._b(
+                      {
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar2 = false
+                          },
+                        },
+                      },
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
+                  ),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar2,
+            callback: function ($$v) {
+              _vm.snackbar2 = $$v
+            },
+            expression: "snackbar2",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text2) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      _vm.proposals
+        ? _c("div", [
+            _c(
+              "div",
+              { staticClass: "dialog" },
+              [
+                _c(
+                  "v-dialog",
+                  {
+                    attrs: {
+                      fullscreen: "",
+                      "hide-overlay": "",
+                      transition: "dialog-bottom-transition",
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function (ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c("v-card-actions", [
                                 _c(
-                                  "div",
-                                  { staticClass: "message" },
-                                  [
-                                    _c("h5", { staticClass: "my-0" }, [
-                                      _vm._v("Do not like the client?"),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
+                                  "a",
+                                  _vm._g(
+                                    _vm._b(
                                       {
-                                        staticClass: "m-2 mt-4",
+                                        staticStyle: { width: "100%" },
+                                        attrs: { text: "" },
+                                      },
+                                      "a",
+                                      attrs,
+                                      false
+                                    ),
+                                    on
+                                  ),
+                                  [
+                                    _c(
+                                      "v-alert",
+                                      {
+                                        staticStyle: { width: "100%" },
                                         attrs: {
-                                          rounded: "",
-                                          color: "Green",
-                                          dark: "",
-                                          width: "100%",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.action("accept")
-                                          },
+                                          border: "left",
+                                          "colored-border": "",
+                                          color: "deep-purple accent-4",
+                                          elevation: "2",
                                         },
                                       },
-                                      [_vm._v("Accept!")]
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "d-flex" },
+                                          [
+                                            _c(
+                                              "v-avatar",
+                                              {
+                                                staticClass: "mr-3",
+                                                attrs: { size: "40" },
+                                              },
+                                              [
+                                                _c("img", {
+                                                  staticClass: "img-fluid",
+                                                  staticStyle: {
+                                                    "object-fit": "cover",
+                                                    "object-position": "center",
+                                                    width: "100%",
+                                                  },
+                                                  attrs: {
+                                                    src:
+                                                      "/" +
+                                                      _vm.proposals.user
+                                                        .profile_path,
+                                                    alt: "image",
+                                                  },
+                                                }),
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("p", [
+                                              _vm._v(
+                                                _vm._s(_vm.proposals.title) +
+                                                  " Job"
+                                              ),
+                                            ]),
+                                          ],
+                                          1
+                                        ),
+                                      ]
                                     ),
-                                  ],
-                                  1
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "m-4" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "message" },
-                                  [
-                                    _c("h5", { staticClass: "my-0" }, [
-                                      _vm._v("Do you have questions?"),
-                                    ]),
                                     _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        staticClass: "m-2 mt-4",
-                                        attrs: {
-                                          rounded: "",
-                                          color: "primary",
-                                          dark: "",
-                                          width: "100%",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.action("message")
-                                          },
-                                        },
-                                      },
-                                      [_vm._v("Contact!")]
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "m-4" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "message" },
-                                  [
-                                    _c("h5", { staticClass: "my-0" }, [
-                                      _vm._v("Do not like the client?"),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        staticClass: "m-2 mt-4",
-                                        attrs: {
-                                          rounded: "",
-                                          color: "red",
-                                          dark: "",
-                                          width: "100%",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.action("reject")
-                                          },
-                                        },
-                                      },
-                                      [_vm._v("Reject!")]
-                                    ),
+                                    _c("v-divider"),
                                   ],
                                   1
                                 ),
                               ]),
                             ]
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-bottom-navigation",
-                        {
-                          attrs: {
-                            value: _vm.value,
-                            "background-color": "blue",
-                            grow: "",
                           },
                         },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "" },
-                              on: {
-                                click: function ($event) {
-                                  _vm.dialog = false
+                      ],
+                      null,
+                      false,
+                      859947047
+                    ),
+                    model: {
+                      value: _vm.dialog,
+                      callback: function ($$v) {
+                        _vm.dialog = $$v
+                      },
+                      expression: "dialog",
+                    },
+                  },
+                  [
+                    _vm._v(" "),
+                    _c(
+                      "v-card",
+                      [
+                        _c(
+                          "v-toolbar",
+                          { attrs: { dark: "", color: "primary" } },
+                          [
+                            _c("v-toolbar-title", [_vm._v("Proposals Detail")]),
+                            _vm._v(" "),
+                            _c("v-spacer"),
+                            _vm._v(" "),
+                            _c(
+                              "v-toolbar-items",
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: { icon: "", dark: "" },
+                                    on: {
+                                      click: function ($event) {
+                                        _vm.dialog = false
+                                      },
+                                    },
+                                  },
+                                  [_c("v-icon", [_vm._v("mdi-close")])],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticStyle: { "min-height": "100vh" } },
+                          [
+                            _c("JobDetail", {
+                              attrs: { a_job_detail: _vm.proposals },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "btns",
+                                staticStyle: {
+                                  display: "flex",
+                                  "flex-direction": "column",
+                                  "align-items": "center",
+                                  "justify-content": "center",
+                                  "margin-top": "50px",
                                 },
                               },
+                              [
+                                _c("div", { staticClass: "m-4" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "message" },
+                                    [
+                                      _c("h5", { staticClass: "my-0" }, [
+                                        _vm._v("Do you accept this Offer?"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2 mt-4",
+                                          attrs: {
+                                            rounded: "",
+                                            color: "Green",
+                                            dark: "",
+                                            width: "100%",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.action("accept")
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Accept!")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "m-4" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "message" },
+                                    [
+                                      _c("h5", { staticClass: "my-0" }, [
+                                        _vm._v("Do you have questions?"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2 mt-4",
+                                          attrs: {
+                                            rounded: "",
+                                            color: "primary",
+                                            dark: "",
+                                            width: "100%",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.action("message")
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Contact!")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "m-4" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "message" },
+                                    [
+                                      _c("h5", { staticClass: "my-0" }, [
+                                        _vm._v("Do not like the Offer?"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2 mt-4",
+                                          attrs: {
+                                            rounded: "",
+                                            color: "red",
+                                            dark: "",
+                                            width: "100%",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.action("reject")
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Reject!")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                              ]
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-bottom-navigation",
+                          {
+                            attrs: {
+                              value: _vm.value,
+                              "background-color": "blue",
+                              grow: "",
                             },
-                            [
-                              _c("v-icon", { attrs: { color: "white" } }, [
-                                _vm._v("mdi-close"),
-                              ]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { icon: "" },
+                                on: {
+                                  click: function ($event) {
+                                    _vm.dialog = false
+                                  },
+                                },
+                              },
+                              [
+                                _c("v-icon", { attrs: { color: "white" } }, [
+                                  _vm._v("mdi-close"),
+                                ]),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ])
+        : _c(
+            "div",
+            [
+              _c(
+                "v-alert",
+                {
+                  attrs: {
+                    outlined: "",
+                    type: "warning",
+                    prominent: "",
+                    border: "left",
+                  },
+                },
+                [_vm._v("\n      You do not have any job proposals yet\n    ")]
               ),
             ],
             1
           ),
-        ])
-      : _c(
-          "div",
-          [
-            _c(
-              "v-alert",
-              {
-                attrs: {
-                  outlined: "",
-                  type: "warning",
-                  prominent: "",
-                  border: "left",
-                },
-              },
-              [_vm._v("\n      You do not have any job proposals yet\n    ")]
-            ),
-          ],
-          1
-        ),
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -5650,7 +5643,7 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("b-card-sub-title", [
-                                _vm._v("Apply or talk to the client!"),
+                                _vm._v("Send a application letter!"),
                               ]),
                               _vm._v(" "),
                               _c("v-divider"),
@@ -6240,7 +6233,7 @@ var render = function () {
                                                       "auto-grow": "",
                                                       required: "",
                                                       value:
-                                                        "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
+                                                        "Write description for your Job.",
                                                     },
                                                     model: {
                                                       value: _vm.description,
@@ -7062,7 +7055,8 @@ var render = function () {
                                                 rules: [
                                                   function (v) {
                                                     return (
-                                                      !!v || "Item is required"
+                                                      !!v ||
+                                                      "Scope of work is required"
                                                     )
                                                   },
                                                 ],
@@ -9957,127 +9951,1396 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { "margin-top": "100px" } }, [
-    this.user
-      ? _c(
-          "div",
-          { staticClass: "user-found" },
-          [
-            _c(
-              "v-row",
-              [
-                _c(
-                  "v-col",
-                  { attrs: { cols: "12", lg: "12" } },
-                  [
-                    _c(
-                      "v-sheet",
-                      { attrs: { "min-height": "268" } },
-                      [
-                        _c(
-                          "v-sheet",
-                          {
-                            staticClass: "p-1 m-4 profile-card",
-                            attrs: { elevation: "3", "min-height": "650" },
+  return _c(
+    "div",
+    { staticStyle: { "margin-top": "100px" } },
+    [
+      _c(
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.timeout, top: "", color: "success", right: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
+                      {
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar2 = false
                           },
-                          [
-                            _c(
-                              "v-card",
-                              {
-                                staticClass: "mx-auto",
-                                staticStyle: { "margin-top": "20px" },
-                                attrs: { width: "100%", tile: "" },
-                              },
-                              [
-                                _c("v-img", {
-                                  attrs: {
-                                    height: "200",
-                                    src: "https://cdn.vuetifyjs.com/images/cards/server-room.jpg",
-                                  },
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "v-row",
-                                  {
-                                    staticStyle: {
-                                      margin: "1.5%",
-                                      position: "absolute",
-                                      top: "130px",
+                        },
+                      },
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
+                  ),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar2,
+            callback: function ($$v) {
+              _vm.snackbar2 = $$v
+            },
+            expression: "snackbar2",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text2) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      this.user
+        ? _c(
+            "div",
+            { staticClass: "user-found" },
+            [
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12", lg: "12" } },
+                    [
+                      _c(
+                        "v-sheet",
+                        { attrs: { "min-height": "268" } },
+                        [
+                          _c(
+                            "v-sheet",
+                            {
+                              staticClass: "p-1 m-4 profile-card",
+                              attrs: { elevation: "3", "min-height": "650" },
+                            },
+                            [
+                              _c(
+                                "v-card",
+                                {
+                                  staticClass: "mx-auto",
+                                  staticStyle: { "margin-top": "20px" },
+                                  attrs: { width: "100%", tile: "" },
+                                },
+                                [
+                                  _c("v-img", {
+                                    attrs: {
+                                      height: "200",
+                                      src: "https://cdn.vuetifyjs.com/images/cards/server-room.jpg",
                                     },
-                                  },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-row",
+                                    {
+                                      staticStyle: {
+                                        margin: "1.5%",
+                                        position: "absolute",
+                                        top: "130px",
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", lg: "12" } },
+                                        [
+                                          _c(
+                                            "v-list-item",
+                                            {
+                                              staticClass: "profile-detail",
+                                              staticStyle: {
+                                                display: "flex",
+                                                "flex-direction": "column",
+                                              },
+                                            },
+                                            [
+                                              _c(
+                                                "v-list-item-avatar",
+                                                { attrs: { size: "150" } },
+                                                [
+                                                  _c("img", {
+                                                    staticStyle: {
+                                                      "object-fit": "cover",
+                                                      "object-position":
+                                                        "center",
+                                                      width: "100%",
+                                                    },
+                                                    attrs: {
+                                                      src:
+                                                        "/" +
+                                                        this.user.profile_path,
+                                                      alt: "John",
+                                                    },
+                                                  }),
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-item-content",
+                                                [
+                                                  _c(
+                                                    "v-list-item-title",
+                                                    {
+                                                      staticClass: "title",
+                                                      staticStyle: {
+                                                        "margin-top": "20px",
+                                                      },
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          this.user.first_name
+                                                        ) +
+                                                          "\n                        " +
+                                                          _vm._s(
+                                                            this.user.last_name
+                                                          )
+                                                      ),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  this.user.employee
+                                                    ? _c(
+                                                        "v-list-item-subtitle",
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              this.user.employee
+                                                                .job_categories
+                                                                .category_name
+                                                            ) +
+                                                              "\n                      "
+                                                          ),
+                                                        ]
+                                                      )
+                                                    : _c(
+                                                        "v-list-item-subtitle",
+                                                        [_vm._v("Client")]
+                                                      ),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", lg: "12" } },
+                                        [
+                                          this.auth
+                                            ? _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "profile-btn mx-auto",
+                                                  staticStyle: {
+                                                    "max-width": "150px",
+                                                    display: "flex",
+                                                    "flex-direction": "column",
+                                                  },
+                                                },
+                                                [
+                                                  _c(
+                                                    "v-btn",
+                                                    {
+                                                      staticClass: "m-2 mt-4",
+                                                      attrs: {
+                                                        rounded: "",
+                                                        color: "primary",
+                                                        dark: "",
+                                                      },
+                                                      on: {
+                                                        click: _vm.contact,
+                                                      },
+                                                    },
+                                                    [_vm._v("Contact!")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  this.user.roles.role_id == 3
+                                                    ? _c("div", [
+                                                        this.getNum()
+                                                          ? _c(
+                                                              "div",
+                                                              [
+                                                                _c(
+                                                                  "v-dialog",
+                                                                  {
+                                                                    attrs: {
+                                                                      width:
+                                                                        "600px",
+                                                                    },
+                                                                    scopedSlots:
+                                                                      _vm._u(
+                                                                        [
+                                                                          {
+                                                                            key: "activator",
+                                                                            fn: function (
+                                                                              ref
+                                                                            ) {
+                                                                              var on =
+                                                                                ref.on
+                                                                              var attrs =
+                                                                                ref.attrs
+                                                                              return [
+                                                                                _c(
+                                                                                  "v-btn",
+                                                                                  _vm._g(
+                                                                                    _vm._b(
+                                                                                      {
+                                                                                        staticClass:
+                                                                                          "m-2 mt-4",
+                                                                                        attrs:
+                                                                                          {
+                                                                                            rounded:
+                                                                                              "",
+                                                                                            color:
+                                                                                              "primary",
+                                                                                            dark: "",
+                                                                                          },
+                                                                                      },
+                                                                                      "v-btn",
+                                                                                      attrs,
+                                                                                      false
+                                                                                    ),
+                                                                                    on
+                                                                                  ),
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      "Propose Job!"
+                                                                                    ),
+                                                                                  ]
+                                                                                ),
+                                                                              ]
+                                                                            },
+                                                                          },
+                                                                        ],
+                                                                        null,
+                                                                        false,
+                                                                        3364564135
+                                                                      ),
+                                                                    model: {
+                                                                      value:
+                                                                        _vm.dialog,
+                                                                      callback:
+                                                                        function (
+                                                                          $$v
+                                                                        ) {
+                                                                          _vm.dialog =
+                                                                            $$v
+                                                                        },
+                                                                      expression:
+                                                                        "dialog",
+                                                                    },
+                                                                  },
+                                                                  [
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "v-card",
+                                                                      [
+                                                                        _c(
+                                                                          "v-toolbar",
+                                                                          {
+                                                                            attrs:
+                                                                              {
+                                                                                dark: "",
+                                                                                color:
+                                                                                  "primary",
+                                                                              },
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "v-toolbar-title",
+                                                                              [
+                                                                                _vm._v(
+                                                                                  "Job Detail"
+                                                                                ),
+                                                                              ]
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "v-spacer"
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "v-toolbar-items",
+                                                                              [
+                                                                                _c(
+                                                                                  "v-btn",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        icon: "",
+                                                                                        dark: "",
+                                                                                      },
+                                                                                    on: {
+                                                                                      click:
+                                                                                        function (
+                                                                                          $event
+                                                                                        ) {
+                                                                                          _vm.dialog = false
+                                                                                        },
+                                                                                    },
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-icon",
+                                                                                      [
+                                                                                        _vm._v(
+                                                                                          "mdi-close"
+                                                                                        ),
+                                                                                      ]
+                                                                                    ),
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                              ],
+                                                                              1
+                                                                            ),
+                                                                          ],
+                                                                          1
+                                                                        ),
+                                                                        _vm._v(
+                                                                          " "
+                                                                        ),
+                                                                        _c(
+                                                                          "v-form",
+                                                                          {
+                                                                            ref: "form1",
+                                                                            staticStyle:
+                                                                              {
+                                                                                padding:
+                                                                                  "50px",
+                                                                              },
+                                                                            attrs:
+                                                                              {
+                                                                                "lazy-validation":
+                                                                                  "",
+                                                                              },
+                                                                            model:
+                                                                              {
+                                                                                value:
+                                                                                  _vm.valid,
+                                                                                callback:
+                                                                                  function (
+                                                                                    $$v
+                                                                                  ) {
+                                                                                    _vm.valid =
+                                                                                      $$v
+                                                                                  },
+                                                                                expression:
+                                                                                  "valid",
+                                                                              },
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "div",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "job-info",
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "h3",
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      "Give Some Info to your Project"
+                                                                                    ),
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "v-text-field",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        counter: 100,
+                                                                                        rules:
+                                                                                          _vm.titleRules,
+                                                                                        label:
+                                                                                          "Name",
+                                                                                        required:
+                                                                                          "",
+                                                                                      },
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.title,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.title =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "title",
+                                                                                      },
+                                                                                  }
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "v-textarea",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        name: "description",
+                                                                                        filled:
+                                                                                          "",
+                                                                                        label:
+                                                                                          "Description",
+                                                                                        rules:
+                                                                                          _vm.descriptionRule,
+                                                                                        counter: 1000,
+                                                                                        "auto-grow":
+                                                                                          "",
+                                                                                        required:
+                                                                                          "",
+                                                                                        value:
+                                                                                          "Write a description for your Job.",
+                                                                                      },
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.description,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.description =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "description",
+                                                                                      },
+                                                                                  }
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "v-autocomplete",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        items:
+                                                                                          _vm.categories,
+                                                                                        clearable:
+                                                                                          "",
+                                                                                        "hide-selected":
+                                                                                          "",
+                                                                                        "persistent-hint":
+                                                                                          "",
+                                                                                        label:
+                                                                                          "Job Category",
+                                                                                        rules:
+                                                                                          [
+                                                                                            _vm.required,
+                                                                                          ],
+                                                                                        required:
+                                                                                          "",
+                                                                                        dense:
+                                                                                          "",
+                                                                                      },
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.category,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.category =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "category",
+                                                                                      },
+                                                                                  }
+                                                                                ),
+                                                                              ],
+                                                                              1
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "div",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "scope m-4",
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "h3",
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      "Scope of Work"
+                                                                                    ),
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "v-radio-group",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        rules:
+                                                                                          [
+                                                                                            function (
+                                                                                              v
+                                                                                            ) {
+                                                                                              return (
+                                                                                                !!v ||
+                                                                                                "Item is required"
+                                                                                              )
+                                                                                            },
+                                                                                          ],
+                                                                                        row: "",
+                                                                                        required:
+                                                                                          "",
+                                                                                      },
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.scope,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.scope =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "scope",
+                                                                                      },
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-radio",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            label:
+                                                                                              "Large",
+                                                                                            value:
+                                                                                              "Large",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                    _vm._v(
+                                                                                      " "
+                                                                                    ),
+                                                                                    _c(
+                                                                                      "v-radio",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            label:
+                                                                                              "Medium",
+                                                                                            value:
+                                                                                              "Medium",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                    _vm._v(
+                                                                                      " "
+                                                                                    ),
+                                                                                    _c(
+                                                                                      "v-radio",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            label:
+                                                                                              "Small",
+                                                                                            value:
+                                                                                              "Small",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                              ],
+                                                                              1
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "div",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "time m-4",
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "h3",
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      "Time Estimation"
+                                                                                    ),
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "v-menu",
+                                                                                  {
+                                                                                    ref: "menu1",
+                                                                                    attrs:
+                                                                                      {
+                                                                                        "close-on-content-click": false,
+                                                                                        transition:
+                                                                                          "scale-transition",
+                                                                                        "offset-y":
+                                                                                          "",
+                                                                                        "max-width":
+                                                                                          "290px",
+                                                                                        "min-width":
+                                                                                          "auto",
+                                                                                      },
+                                                                                    scopedSlots:
+                                                                                      _vm._u(
+                                                                                        [
+                                                                                          {
+                                                                                            key: "activator",
+                                                                                            fn: function (
+                                                                                              ref
+                                                                                            ) {
+                                                                                              var on =
+                                                                                                ref.on
+                                                                                              var attrs =
+                                                                                                ref.attrs
+                                                                                              return [
+                                                                                                _c(
+                                                                                                  "v-text-field",
+                                                                                                  _vm._g(
+                                                                                                    _vm._b(
+                                                                                                      {
+                                                                                                        attrs:
+                                                                                                          {
+                                                                                                            label:
+                                                                                                              "Date",
+                                                                                                            hint: "MM/DD/YYYY format",
+                                                                                                            "persistent-hint":
+                                                                                                              "",
+                                                                                                            "prepend-icon":
+                                                                                                              "mdi-calendar",
+                                                                                                            rules:
+                                                                                                              [
+                                                                                                                function (
+                                                                                                                  v
+                                                                                                                ) {
+                                                                                                                  return (
+                                                                                                                    !!v ||
+                                                                                                                    "Date is required"
+                                                                                                                  )
+                                                                                                                },
+                                                                                                              ],
+                                                                                                          },
+                                                                                                        on: {
+                                                                                                          blur: function (
+                                                                                                            $event
+                                                                                                          ) {
+                                                                                                            _vm.date =
+                                                                                                              _vm.parseDate(
+                                                                                                                _vm.dateFormatted
+                                                                                                              )
+                                                                                                          },
+                                                                                                        },
+                                                                                                        model:
+                                                                                                          {
+                                                                                                            value:
+                                                                                                              _vm.dateFormatted,
+                                                                                                            callback:
+                                                                                                              function (
+                                                                                                                $$v
+                                                                                                              ) {
+                                                                                                                _vm.dateFormatted =
+                                                                                                                  $$v
+                                                                                                              },
+                                                                                                            expression:
+                                                                                                              "dateFormatted",
+                                                                                                          },
+                                                                                                      },
+                                                                                                      "v-text-field",
+                                                                                                      attrs,
+                                                                                                      false
+                                                                                                    ),
+                                                                                                    on
+                                                                                                  )
+                                                                                                ),
+                                                                                              ]
+                                                                                            },
+                                                                                          },
+                                                                                        ],
+                                                                                        null,
+                                                                                        false,
+                                                                                        2535360539
+                                                                                      ),
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.menu2,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.menu2 =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "menu2",
+                                                                                      },
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      " "
+                                                                                    ),
+                                                                                    _c(
+                                                                                      "v-date-picker",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            "no-title":
+                                                                                              "",
+                                                                                          },
+                                                                                        on: {
+                                                                                          input:
+                                                                                            function (
+                                                                                              $event
+                                                                                            ) {
+                                                                                              _vm.menu2 = false
+                                                                                            },
+                                                                                        },
+                                                                                        model:
+                                                                                          {
+                                                                                            value:
+                                                                                              _vm.date,
+                                                                                            callback:
+                                                                                              function (
+                                                                                                $$v
+                                                                                              ) {
+                                                                                                _vm.date =
+                                                                                                  $$v
+                                                                                              },
+                                                                                            expression:
+                                                                                              "date",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                              ],
+                                                                              1
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "div",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "experience m-4",
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "h3",
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      "Experience"
+                                                                                    ),
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "v-radio-group",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        rules:
+                                                                                          [
+                                                                                            function (
+                                                                                              v
+                                                                                            ) {
+                                                                                              return (
+                                                                                                !!v ||
+                                                                                                "Please select experience"
+                                                                                              )
+                                                                                            },
+                                                                                          ],
+                                                                                        row: "",
+                                                                                        required:
+                                                                                          "",
+                                                                                      },
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.experience,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.experience =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "experience",
+                                                                                      },
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-radio",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            label:
+                                                                                              "Entry",
+                                                                                            value:
+                                                                                              "Entry",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                    _vm._v(
+                                                                                      " "
+                                                                                    ),
+                                                                                    _c(
+                                                                                      "v-radio",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            label:
+                                                                                              "Intermediate",
+                                                                                            value:
+                                                                                              "Intermediate",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                    _vm._v(
+                                                                                      " "
+                                                                                    ),
+                                                                                    _c(
+                                                                                      "v-radio",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            label:
+                                                                                              "Expert",
+                                                                                            value:
+                                                                                              "Expert",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                              ],
+                                                                              1
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "div",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "skills",
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "v-autocomplete",
+                                                                                  {
+                                                                                    attrs:
+                                                                                      {
+                                                                                        items:
+                                                                                          _vm.items,
+                                                                                        clearable:
+                                                                                          "",
+                                                                                        "hide-selected":
+                                                                                          "",
+                                                                                        "persistent-hint":
+                                                                                          "",
+                                                                                        label:
+                                                                                          "Skills",
+                                                                                        rules:
+                                                                                          [
+                                                                                            _vm.required,
+                                                                                          ],
+                                                                                        dense:
+                                                                                          "",
+                                                                                        multiple:
+                                                                                          "",
+                                                                                        required:
+                                                                                          "",
+                                                                                        "small-chips":
+                                                                                          "",
+                                                                                      },
+                                                                                    model:
+                                                                                      {
+                                                                                        value:
+                                                                                          _vm.skill,
+                                                                                        callback:
+                                                                                          function (
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.skill =
+                                                                                              $$v
+                                                                                          },
+                                                                                        expression:
+                                                                                          "skill",
+                                                                                      },
+                                                                                  }
+                                                                                ),
+                                                                              ],
+                                                                              1
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "div",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "rates",
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "div",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "payment-inputs m-2",
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-text-field",
+                                                                                      {
+                                                                                        attrs:
+                                                                                          {
+                                                                                            clearable:
+                                                                                              "",
+                                                                                            label:
+                                                                                              "Project Rate",
+                                                                                            placeholder:
+                                                                                              "Enter Your Rate here",
+                                                                                            outlined:
+                                                                                              "",
+                                                                                            type: "number",
+                                                                                            rules:
+                                                                                              [
+                                                                                                function (
+                                                                                                  v
+                                                                                                ) {
+                                                                                                  return (
+                                                                                                    !!v ||
+                                                                                                    "Please Enter a price"
+                                                                                                  )
+                                                                                                },
+                                                                                              ],
+                                                                                          },
+                                                                                        model:
+                                                                                          {
+                                                                                            value:
+                                                                                              _vm.projectRate,
+                                                                                            callback:
+                                                                                              function (
+                                                                                                $$v
+                                                                                              ) {
+                                                                                                _vm.projectRate =
+                                                                                                  $$v
+                                                                                              },
+                                                                                            expression:
+                                                                                              "projectRate",
+                                                                                          },
+                                                                                      }
+                                                                                    ),
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                              ]
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "v-btn",
+                                                                              {
+                                                                                attrs:
+                                                                                  {
+                                                                                    color:
+                                                                                      "primary",
+                                                                                    width:
+                                                                                      "100%",
+                                                                                    height:
+                                                                                      "50px",
+                                                                                  },
+                                                                                on: {
+                                                                                  click:
+                                                                                    _vm.submit,
+                                                                                },
+                                                                              },
+                                                                              [
+                                                                                _vm._v(
+                                                                                  "Offer Job"
+                                                                                ),
+                                                                              ]
+                                                                            ),
+                                                                          ],
+                                                                          1
+                                                                        ),
+                                                                      ],
+                                                                      1
+                                                                    ),
+                                                                  ],
+                                                                  1
+                                                                ),
+                                                              ],
+                                                              1
+                                                            )
+                                                          : _c(
+                                                              "div",
+                                                              [
+                                                                _c(
+                                                                  "v-btn",
+                                                                  {
+                                                                    staticClass:
+                                                                      "m-2 mt-4",
+                                                                    attrs: {
+                                                                      rounded:
+                                                                        "",
+                                                                      color:
+                                                                        "primary",
+                                                                      disabled:
+                                                                        "",
+                                                                    },
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "\n                          User busy!\n                        "
+                                                                    ),
+                                                                  ]
+                                                                ),
+                                                              ],
+                                                              1
+                                                            ),
+                                                      ])
+                                                    : _vm._e(),
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e(),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12", lg: "4" } },
+                    [
+                      _c(
+                        "v-sheet",
+                        { attrs: { "min-height": "268" } },
+                        [
+                          _c(
+                            "v-sheet",
+                            {
+                              staticClass: "p-1 m-4",
+                              attrs: { elevation: "3", "min-height": "700" },
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "job-title m-4 centre" },
+                                [
+                                  _c("h3", [_vm._v("Client's Details")]),
+                                  _vm._v(" "),
+                                  _c("b-card-sub-title", [
+                                    _vm._v(
+                                      _vm._s(this.user.first_name) +
+                                        "\n                " +
+                                        _vm._s(this.user.last_name)
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "m-4" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "additional-user-detail" },
                                   [
+                                    _c("h5", { staticClass: "my-0 p-3" }, [
+                                      _vm._v("Additional Details"),
+                                    ]),
+                                    _vm._v(" "),
                                     _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", lg: "12" } },
+                                      "div",
+                                      { staticClass: "attributes" },
                                       [
                                         _c(
                                           "v-list-item",
-                                          {
-                                            staticClass: "profile-detail",
-                                            staticStyle: {
-                                              display: "flex",
-                                              "flex-direction": "column",
-                                            },
-                                          },
+                                          { attrs: { "two-line": "" } },
                                           [
-                                            _c(
-                                              "v-list-item-avatar",
-                                              { attrs: { size: "150" } },
-                                              [
-                                                _c("img", {
-                                                  staticStyle: {
-                                                    "object-fit": "cover",
-                                                    "object-position": "center",
-                                                    width: "100%",
-                                                  },
-                                                  attrs: {
-                                                    src:
-                                                      "/" +
-                                                      this.user.profile_path,
-                                                    alt: "John",
-                                                  },
-                                                }),
-                                              ]
-                                            ),
-                                            _vm._v(" "),
                                             _c(
                                               "v-list-item-content",
                                               [
+                                                _c("v-list-item-title", [
+                                                  _vm._v("Email"),
+                                                ]),
+                                                _vm._v(" "),
                                                 _c(
-                                                  "v-list-item-title",
-                                                  {
-                                                    staticClass: "title",
-                                                    staticStyle: {
-                                                      "margin-top": "20px",
-                                                    },
-                                                  },
+                                                  "v-list-item-subtitle",
+                                                  { staticClass: "pb-2" },
                                                   [
                                                     _vm._v(
-                                                      _vm._s(
-                                                        this.user.first_name
-                                                      ) +
-                                                        "\n                        " +
-                                                        _vm._s(
-                                                          this.user.last_name
-                                                        )
+                                                      _vm._s(this.user.email)
                                                     ),
                                                   ]
                                                 ),
                                                 _vm._v(" "),
-                                                this.user.employee
-                                                  ? _c("v-list-item-subtitle", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          this.user.employee
-                                                            .job_categories
-                                                            .category_name
-                                                        ) +
-                                                          "\n                      "
-                                                      ),
-                                                    ])
-                                                  : _c("v-list-item-subtitle", [
-                                                      _vm._v("Client"),
-                                                    ]),
+                                                _c("v-list-item-title", [
+                                                  _vm._v("Phone No"),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-list-item-subtitle",
+                                                  { staticClass: "pb-2" },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(this.user.phone_no)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("v-list-item-title", [
+                                                  _vm._v("Province"),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-list-item-subtitle",
+                                                  { staticClass: "pb-2" },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(this.user.Province)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("v-list-item-title", [
+                                                  _vm._v("City"),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-list-item-subtitle",
+                                                  { staticClass: "pb-2" },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(this.user.City)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("v-list-item-title", [
+                                                  _vm._v("Address"),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-list-item-subtitle",
+                                                  { staticClass: "pb-2" },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(this.user.Address)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("v-list-item-title", [
+                                                  _vm._v("Gender"),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-list-item-subtitle",
+                                                  { staticClass: "pb-2" },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(this.user.gender)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                this.user.roles.role_id == 3
+                                                  ? _c(
+                                                      "div",
+                                                      [
+                                                        _c(
+                                                          "v-list-item-title",
+                                                          [
+                                                            _vm._v(
+                                                              "Total Job Slots"
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-list-item-subtitle",
+                                                          {
+                                                            staticClass: "pb-2",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                this.user
+                                                                  .employee
+                                                                  .assignment_no
+                                                              )
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-list-item-title",
+                                                          [
+                                                            _vm._v(
+                                                              "Total Jobs Working"
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-list-item-subtitle",
+                                                          {
+                                                            staticClass: "pb-2",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                this.user
+                                                                  .employee
+                                                                  .total_job
+                                                              )
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-list-item-title",
+                                                          [
+                                                            _vm._v(
+                                                              "Total Work Badges"
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-list-item-subtitle",
+                                                          {
+                                                            staticClass: "pb-2",
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "v-chip-group",
+                                                              {
+                                                                attrs: {
+                                                                  column: "",
+                                                                  multiple: "",
+                                                                },
+                                                                model: {
+                                                                  value:
+                                                                    _vm.badge,
+                                                                  callback:
+                                                                    function (
+                                                                      $$v
+                                                                    ) {
+                                                                      _vm.badge =
+                                                                        $$v
+                                                                    },
+                                                                  expression:
+                                                                    "badge",
+                                                                },
+                                                              },
+                                                              _vm._l(
+                                                                _vm.tags.badges,
+                                                                function (tag) {
+                                                                  return _c(
+                                                                    "v-chip",
+                                                                    {
+                                                                      key: tag.id,
+                                                                    },
+                                                                    [
+                                                                      _c(
+                                                                        "v-icon",
+                                                                        [
+                                                                          _vm._v(
+                                                                            _vm._s(
+                                                                              tag.badge_image
+                                                                            )
+                                                                          ),
+                                                                        ]
+                                                                      ),
+                                                                      _vm._v(
+                                                                        "\n                              " +
+                                                                          _vm._s(
+                                                                            tag.Badge_Name
+                                                                          ) +
+                                                                          " (" +
+                                                                          _vm._s(
+                                                                            tag.count
+                                                                          ) +
+                                                                          ")\n                            "
+                                                                      ),
+                                                                    ],
+                                                                    1
+                                                                  )
+                                                                }
+                                                              ),
+                                                              1
+                                                            ),
+                                                          ],
+                                                          1
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  : _vm._e(),
                                               ],
                                               1
                                             ),
@@ -10087,1651 +11350,465 @@ var render = function () {
                                       ],
                                       1
                                     ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      { attrs: { cols: "12", lg: "12" } },
-                                      [
-                                        this.auth
-                                          ? _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "profile-btn mx-auto",
-                                                staticStyle: {
-                                                  "max-width": "150px",
-                                                  display: "flex",
-                                                  "flex-direction": "column",
-                                                },
-                                              },
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12", lg: "8" } },
+                    [
+                      _c(
+                        "v-sheet",
+                        { attrs: { "min-height": "668" } },
+                        [
+                          _c(
+                            "v-sheet",
+                            {
+                              staticClass: "p-1 m-4",
+                              attrs: { elevation: "3", "min-height": "700" },
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "job-title m-4 centre" },
+                                [
+                                  _c("h3", [_vm._v("About!")]),
+                                  _vm._v(" "),
+                                  this.user.employee
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "d-flex" },
+                                        _vm._l(
+                                          this.user.employee.employee_skill,
+                                          function (aSkill) {
+                                            return _c(
+                                              "b-card-sub-title",
+                                              { key: aSkill.id },
                                               [
-                                                _c(
-                                                  "v-btn",
-                                                  {
-                                                    staticClass: "m-2 mt-4",
-                                                    attrs: {
-                                                      rounded: "",
-                                                      color: "primary",
-                                                      dark: "",
-                                                    },
-                                                    on: { click: _vm.contact },
-                                                  },
-                                                  [_vm._v("Contact!")]
+                                                _vm._v(
+                                                  "| " +
+                                                    _vm._s(
+                                                      aSkill.all_skill.skill
+                                                    ) +
+                                                    " | \n                "
                                                 ),
-                                                _vm._v(" "),
-                                                this.user.roles.role_id == 3
-                                                  ? _c("div", [
-                                                      this.getNum()
-                                                        ? _c(
-                                                            "div",
-                                                            [
-                                                              _c(
-                                                                "v-dialog",
-                                                                {
-                                                                  attrs: {
-                                                                    width:
-                                                                      "600px",
-                                                                  },
-                                                                  scopedSlots:
-                                                                    _vm._u(
-                                                                      [
-                                                                        {
-                                                                          key: "activator",
-                                                                          fn: function (
-                                                                            ref
-                                                                          ) {
-                                                                            var on =
-                                                                              ref.on
-                                                                            var attrs =
-                                                                              ref.attrs
-                                                                            return [
-                                                                              _c(
-                                                                                "v-btn",
-                                                                                _vm._g(
-                                                                                  _vm._b(
-                                                                                    {
-                                                                                      staticClass:
-                                                                                        "m-2 mt-4",
-                                                                                      attrs:
-                                                                                        {
-                                                                                          rounded:
-                                                                                            "",
-                                                                                          color:
-                                                                                            "primary",
-                                                                                          dark: "",
-                                                                                        },
-                                                                                    },
-                                                                                    "v-btn",
-                                                                                    attrs,
-                                                                                    false
-                                                                                  ),
-                                                                                  on
-                                                                                ),
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    "Propose Job!"
-                                                                                  ),
-                                                                                ]
-                                                                              ),
-                                                                            ]
-                                                                          },
-                                                                        },
-                                                                      ],
-                                                                      null,
-                                                                      false,
-                                                                      3364564135
-                                                                    ),
-                                                                  model: {
-                                                                    value:
-                                                                      _vm.dialog,
-                                                                    callback:
-                                                                      function (
-                                                                        $$v
-                                                                      ) {
-                                                                        _vm.dialog =
-                                                                          $$v
-                                                                      },
-                                                                    expression:
-                                                                      "dialog",
-                                                                  },
-                                                                },
-                                                                [
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "v-card",
-                                                                    [
-                                                                      _c(
-                                                                        "v-toolbar",
-                                                                        {
-                                                                          attrs:
-                                                                            {
-                                                                              dark: "",
-                                                                              color:
-                                                                                "primary",
-                                                                            },
-                                                                        },
-                                                                        [
-                                                                          _c(
-                                                                            "v-toolbar-title",
-                                                                            [
-                                                                              _vm._v(
-                                                                                "Job Detail"
-                                                                              ),
-                                                                            ]
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "v-spacer"
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "v-toolbar-items",
-                                                                            [
-                                                                              _c(
-                                                                                "v-btn",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      icon: "",
-                                                                                      dark: "",
-                                                                                    },
-                                                                                  on: {
-                                                                                    click:
-                                                                                      function (
-                                                                                        $event
-                                                                                      ) {
-                                                                                        _vm.dialog = false
-                                                                                      },
-                                                                                  },
-                                                                                },
-                                                                                [
-                                                                                  _c(
-                                                                                    "v-icon",
-                                                                                    [
-                                                                                      _vm._v(
-                                                                                        "mdi-close"
-                                                                                      ),
-                                                                                    ]
-                                                                                  ),
-                                                                                ],
-                                                                                1
-                                                                              ),
-                                                                            ],
-                                                                            1
-                                                                          ),
-                                                                        ],
-                                                                        1
-                                                                      ),
-                                                                      _vm._v(
-                                                                        " "
-                                                                      ),
-                                                                      _c(
-                                                                        "v-form",
-                                                                        {
-                                                                          ref: "form1",
-                                                                          staticStyle:
-                                                                            {
-                                                                              padding:
-                                                                                "50px",
-                                                                            },
-                                                                          attrs:
-                                                                            {
-                                                                              "lazy-validation":
-                                                                                "",
-                                                                            },
-                                                                          model:
-                                                                            {
-                                                                              value:
-                                                                                _vm.valid,
-                                                                              callback:
-                                                                                function (
-                                                                                  $$v
-                                                                                ) {
-                                                                                  _vm.valid =
-                                                                                    $$v
-                                                                                },
-                                                                              expression:
-                                                                                "valid",
-                                                                            },
-                                                                        },
-                                                                        [
-                                                                          _c(
-                                                                            "div",
-                                                                            {
-                                                                              staticClass:
-                                                                                "job-info",
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "h3",
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    "Give Some Info to your Project"
-                                                                                  ),
-                                                                                ]
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "v-text-field",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      counter: 100,
-                                                                                      rules:
-                                                                                        _vm.titleRules,
-                                                                                      label:
-                                                                                        "Name",
-                                                                                      required:
-                                                                                        "",
-                                                                                    },
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.title,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.title =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "title",
-                                                                                    },
-                                                                                }
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "v-textarea",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      name: "description",
-                                                                                      filled:
-                                                                                        "",
-                                                                                      label:
-                                                                                        "Description",
-                                                                                      rules:
-                                                                                        _vm.descriptionRule,
-                                                                                      counter: 1000,
-                                                                                      "auto-grow":
-                                                                                        "",
-                                                                                      required:
-                                                                                        "",
-                                                                                      value:
-                                                                                        "Write a description for your Job.",
-                                                                                    },
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.description,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.description =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "description",
-                                                                                    },
-                                                                                }
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "v-autocomplete",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      items:
-                                                                                        _vm.categories,
-                                                                                      clearable:
-                                                                                        "",
-                                                                                      "hide-selected":
-                                                                                        "",
-                                                                                      "persistent-hint":
-                                                                                        "",
-                                                                                      label:
-                                                                                        "Job Category",
-                                                                                      rules:
-                                                                                        [
-                                                                                          _vm.required,
-                                                                                        ],
-                                                                                      required:
-                                                                                        "",
-                                                                                      dense:
-                                                                                        "",
-                                                                                    },
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.category,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.category =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "category",
-                                                                                    },
-                                                                                }
-                                                                              ),
-                                                                            ],
-                                                                            1
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "div",
-                                                                            {
-                                                                              staticClass:
-                                                                                "scope m-4",
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "h3",
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    "Scope of Work"
-                                                                                  ),
-                                                                                ]
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "v-radio-group",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      rules:
-                                                                                        [
-                                                                                          function (
-                                                                                            v
-                                                                                          ) {
-                                                                                            return (
-                                                                                              !!v ||
-                                                                                              "Item is required"
-                                                                                            )
-                                                                                          },
-                                                                                        ],
-                                                                                      row: "",
-                                                                                      required:
-                                                                                        "",
-                                                                                    },
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.scope,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.scope =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "scope",
-                                                                                    },
-                                                                                },
-                                                                                [
-                                                                                  _c(
-                                                                                    "v-radio",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          label:
-                                                                                            "Large",
-                                                                                          value:
-                                                                                            "Large",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                  _vm._v(
-                                                                                    " "
-                                                                                  ),
-                                                                                  _c(
-                                                                                    "v-radio",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          label:
-                                                                                            "Medium",
-                                                                                          value:
-                                                                                            "Medium",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                  _vm._v(
-                                                                                    " "
-                                                                                  ),
-                                                                                  _c(
-                                                                                    "v-radio",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          label:
-                                                                                            "Small",
-                                                                                          value:
-                                                                                            "Small",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                ],
-                                                                                1
-                                                                              ),
-                                                                            ],
-                                                                            1
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "div",
-                                                                            {
-                                                                              staticClass:
-                                                                                "time m-4",
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "h3",
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    "Time Estimation"
-                                                                                  ),
-                                                                                ]
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "v-menu",
-                                                                                {
-                                                                                  ref: "menu1",
-                                                                                  attrs:
-                                                                                    {
-                                                                                      "close-on-content-click": false,
-                                                                                      transition:
-                                                                                        "scale-transition",
-                                                                                      "offset-y":
-                                                                                        "",
-                                                                                      "max-width":
-                                                                                        "290px",
-                                                                                      "min-width":
-                                                                                        "auto",
-                                                                                    },
-                                                                                  scopedSlots:
-                                                                                    _vm._u(
-                                                                                      [
-                                                                                        {
-                                                                                          key: "activator",
-                                                                                          fn: function (
-                                                                                            ref
-                                                                                          ) {
-                                                                                            var on =
-                                                                                              ref.on
-                                                                                            var attrs =
-                                                                                              ref.attrs
-                                                                                            return [
-                                                                                              _c(
-                                                                                                "v-text-field",
-                                                                                                _vm._g(
-                                                                                                  _vm._b(
-                                                                                                    {
-                                                                                                      attrs:
-                                                                                                        {
-                                                                                                          label:
-                                                                                                            "Date",
-                                                                                                          hint: "MM/DD/YYYY format",
-                                                                                                          "persistent-hint":
-                                                                                                            "",
-                                                                                                          "prepend-icon":
-                                                                                                            "mdi-calendar",
-                                                                                                          rules:
-                                                                                                            [
-                                                                                                              function (
-                                                                                                                v
-                                                                                                              ) {
-                                                                                                                return (
-                                                                                                                  !!v ||
-                                                                                                                  "Date is required"
-                                                                                                                )
-                                                                                                              },
-                                                                                                            ],
-                                                                                                        },
-                                                                                                      on: {
-                                                                                                        blur: function (
-                                                                                                          $event
-                                                                                                        ) {
-                                                                                                          _vm.date =
-                                                                                                            _vm.parseDate(
-                                                                                                              _vm.dateFormatted
-                                                                                                            )
-                                                                                                        },
-                                                                                                      },
-                                                                                                      model:
-                                                                                                        {
-                                                                                                          value:
-                                                                                                            _vm.dateFormatted,
-                                                                                                          callback:
-                                                                                                            function (
-                                                                                                              $$v
-                                                                                                            ) {
-                                                                                                              _vm.dateFormatted =
-                                                                                                                $$v
-                                                                                                            },
-                                                                                                          expression:
-                                                                                                            "dateFormatted",
-                                                                                                        },
-                                                                                                    },
-                                                                                                    "v-text-field",
-                                                                                                    attrs,
-                                                                                                    false
-                                                                                                  ),
-                                                                                                  on
-                                                                                                )
-                                                                                              ),
-                                                                                            ]
-                                                                                          },
-                                                                                        },
-                                                                                      ],
-                                                                                      null,
-                                                                                      false,
-                                                                                      2535360539
-                                                                                    ),
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.menu2,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.menu2 =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "menu2",
-                                                                                    },
-                                                                                },
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    " "
-                                                                                  ),
-                                                                                  _c(
-                                                                                    "v-date-picker",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          "no-title":
-                                                                                            "",
-                                                                                        },
-                                                                                      on: {
-                                                                                        input:
-                                                                                          function (
-                                                                                            $event
-                                                                                          ) {
-                                                                                            _vm.menu2 = false
-                                                                                          },
-                                                                                      },
-                                                                                      model:
-                                                                                        {
-                                                                                          value:
-                                                                                            _vm.date,
-                                                                                          callback:
-                                                                                            function (
-                                                                                              $$v
-                                                                                            ) {
-                                                                                              _vm.date =
-                                                                                                $$v
-                                                                                            },
-                                                                                          expression:
-                                                                                            "date",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                ],
-                                                                                1
-                                                                              ),
-                                                                            ],
-                                                                            1
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "div",
-                                                                            {
-                                                                              staticClass:
-                                                                                "experience m-4",
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "h3",
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    "Experience"
-                                                                                  ),
-                                                                                ]
-                                                                              ),
-                                                                              _vm._v(
-                                                                                " "
-                                                                              ),
-                                                                              _c(
-                                                                                "v-radio-group",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      rules:
-                                                                                        [
-                                                                                          function (
-                                                                                            v
-                                                                                          ) {
-                                                                                            return (
-                                                                                              !!v ||
-                                                                                              "Please select experience"
-                                                                                            )
-                                                                                          },
-                                                                                        ],
-                                                                                      row: "",
-                                                                                      required:
-                                                                                        "",
-                                                                                    },
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.experience,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.experience =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "experience",
-                                                                                    },
-                                                                                },
-                                                                                [
-                                                                                  _c(
-                                                                                    "v-radio",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          label:
-                                                                                            "Entry",
-                                                                                          value:
-                                                                                            "Entry",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                  _vm._v(
-                                                                                    " "
-                                                                                  ),
-                                                                                  _c(
-                                                                                    "v-radio",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          label:
-                                                                                            "Intermediate",
-                                                                                          value:
-                                                                                            "Intermediate",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                  _vm._v(
-                                                                                    " "
-                                                                                  ),
-                                                                                  _c(
-                                                                                    "v-radio",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          label:
-                                                                                            "Expert",
-                                                                                          value:
-                                                                                            "Expert",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                ],
-                                                                                1
-                                                                              ),
-                                                                            ],
-                                                                            1
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "div",
-                                                                            {
-                                                                              staticClass:
-                                                                                "skills",
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "v-autocomplete",
-                                                                                {
-                                                                                  attrs:
-                                                                                    {
-                                                                                      items:
-                                                                                        _vm.items,
-                                                                                      clearable:
-                                                                                        "",
-                                                                                      "hide-selected":
-                                                                                        "",
-                                                                                      "persistent-hint":
-                                                                                        "",
-                                                                                      label:
-                                                                                        "Skills",
-                                                                                      rules:
-                                                                                        [
-                                                                                          _vm.required,
-                                                                                        ],
-                                                                                      dense:
-                                                                                        "",
-                                                                                      multiple:
-                                                                                        "",
-                                                                                      required:
-                                                                                        "",
-                                                                                      "small-chips":
-                                                                                        "",
-                                                                                    },
-                                                                                  model:
-                                                                                    {
-                                                                                      value:
-                                                                                        _vm.skill,
-                                                                                      callback:
-                                                                                        function (
-                                                                                          $$v
-                                                                                        ) {
-                                                                                          _vm.skill =
-                                                                                            $$v
-                                                                                        },
-                                                                                      expression:
-                                                                                        "skill",
-                                                                                    },
-                                                                                }
-                                                                              ),
-                                                                            ],
-                                                                            1
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "div",
-                                                                            {
-                                                                              staticClass:
-                                                                                "rates",
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "div",
-                                                                                {
-                                                                                  staticClass:
-                                                                                    "payment-inputs m-2",
-                                                                                },
-                                                                                [
-                                                                                  _c(
-                                                                                    "v-text-field",
-                                                                                    {
-                                                                                      attrs:
-                                                                                        {
-                                                                                          clearable:
-                                                                                            "",
-                                                                                          label:
-                                                                                            "Project Rate",
-                                                                                          placeholder:
-                                                                                            "Enter Your Rate here",
-                                                                                          outlined:
-                                                                                            "",
-                                                                                          type: "number",
-                                                                                          rules:
-                                                                                            [
-                                                                                              function (
-                                                                                                v
-                                                                                              ) {
-                                                                                                return (
-                                                                                                  !!v ||
-                                                                                                  "Please Enter a price"
-                                                                                                )
-                                                                                              },
-                                                                                            ],
-                                                                                        },
-                                                                                      model:
-                                                                                        {
-                                                                                          value:
-                                                                                            _vm.projectRate,
-                                                                                          callback:
-                                                                                            function (
-                                                                                              $$v
-                                                                                            ) {
-                                                                                              _vm.projectRate =
-                                                                                                $$v
-                                                                                            },
-                                                                                          expression:
-                                                                                            "projectRate",
-                                                                                        },
-                                                                                    }
-                                                                                  ),
-                                                                                ],
-                                                                                1
-                                                                              ),
-                                                                            ]
-                                                                          ),
-                                                                          _vm._v(
-                                                                            " "
-                                                                          ),
-                                                                          _c(
-                                                                            "v-btn",
-                                                                            {
-                                                                              attrs:
-                                                                                {
-                                                                                  color:
-                                                                                    "primary",
-                                                                                  width:
-                                                                                    "100%",
-                                                                                  height:
-                                                                                    "50px",
-                                                                                },
-                                                                              on: {
-                                                                                click:
-                                                                                  _vm.submit,
-                                                                              },
-                                                                            },
-                                                                            [
-                                                                              _vm._v(
-                                                                                "Save"
-                                                                              ),
-                                                                            ]
-                                                                          ),
-                                                                        ],
-                                                                        1
-                                                                      ),
-                                                                    ],
-                                                                    1
-                                                                  ),
-                                                                ],
-                                                                1
-                                                              ),
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _c(
-                                                            "div",
-                                                            [
-                                                              _c(
-                                                                "v-btn",
-                                                                {
-                                                                  staticClass:
-                                                                    "m-2 mt-4",
-                                                                  attrs: {
-                                                                    rounded: "",
-                                                                    color:
-                                                                      "primary",
-                                                                    disabled:
-                                                                      "",
-                                                                  },
-                                                                },
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                          User busy!\n                        "
-                                                                  ),
-                                                                ]
-                                                              ),
-                                                            ],
-                                                            1
-                                                          ),
-                                                    ])
-                                                  : _vm._e(),
-                                              ],
-                                              1
+                                              ]
                                             )
-                                          : _vm._e(),
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "m-4" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "additional-user-detail" },
+                                  [
+                                    _c(
+                                      "pre",
+                                      {
+                                        staticStyle: {
+                                          "white-space": "pre-line",
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "                  " +
+                                            _vm._s(this.user.about) +
+                                            "\n                "
+                                        ),
                                       ]
                                     ),
-                                  ],
-                                  1
+                                  ]
                                 ),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-col",
-                  { attrs: { cols: "12", lg: "4" } },
-                  [
-                    _c(
-                      "v-sheet",
-                      { attrs: { "min-height": "268" } },
-                      [
-                        _c(
-                          "v-sheet",
-                          {
-                            staticClass: "p-1 m-4",
-                            attrs: { elevation: "3", "min-height": "700" },
-                          },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "job-title m-4 centre" },
-                              [
-                                _c("h3", [_vm._v("Client's Details")]),
-                                _vm._v(" "),
-                                _c("b-card-sub-title", [
-                                  _vm._v(
-                                    _vm._s(this.user.first_name) +
-                                      "\n                " +
-                                      _vm._s(this.user.last_name)
-                                  ),
-                                ]),
-                                _vm._v(" "),
-                                _c("v-divider"),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "m-4" }, [
+                              ]),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  this.user.roles.role_id == 3
+                    ? _c(
+                        "v-col",
+                        { attrs: { cols: "12", lg: "6" } },
+                        [
+                          _c(
+                            "v-sheet",
+                            { attrs: { "min-height": "268" } },
+                            [
                               _c(
-                                "div",
-                                { staticClass: "additional-user-detail" },
-                                [
-                                  _c("h5", { staticClass: "my-0 p-3" }, [
-                                    _vm._v("Additional Details"),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "attributes" },
-                                    [
-                                      _c(
-                                        "v-list-item",
-                                        { attrs: { "two-line": "" } },
-                                        [
-                                          _c(
-                                            "v-list-item-content",
-                                            [
-                                              _c("v-list-item-title", [
-                                                _vm._v("Email"),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-subtitle",
-                                                { staticClass: "pb-2" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(this.user.email)
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("v-list-item-title", [
-                                                _vm._v("Phone No"),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-subtitle",
-                                                { staticClass: "pb-2" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(this.user.phone_no)
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("v-list-item-title", [
-                                                _vm._v("Province"),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-subtitle",
-                                                { staticClass: "pb-2" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(this.user.Province)
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("v-list-item-title", [
-                                                _vm._v("City"),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-subtitle",
-                                                { staticClass: "pb-2" },
-                                                [_vm._v(_vm._s(this.user.City))]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("v-list-item-title", [
-                                                _vm._v("Address"),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-subtitle",
-                                                { staticClass: "pb-2" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(this.user.Address)
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("v-list-item-title", [
-                                                _vm._v("Gender"),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-subtitle",
-                                                { staticClass: "pb-2" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(this.user.gender)
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              this.user.roles.role_id == 3
-                                                ? _c(
-                                                    "div",
-                                                    [
-                                                      _c("v-list-item-title", [
-                                                        _vm._v(
-                                                          "Total Job Slots"
-                                                        ),
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-item-subtitle",
-                                                        { staticClass: "pb-2" },
-                                                        [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              this.user.employee
-                                                                .assignment_no
-                                                            )
-                                                          ),
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c("v-list-item-title", [
-                                                        _vm._v(
-                                                          "Total Jobs Working"
-                                                        ),
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-item-subtitle",
-                                                        { staticClass: "pb-2" },
-                                                        [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              this.user.employee
-                                                                .total_job
-                                                            )
-                                                          ),
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c("v-list-item-title", [
-                                                        _vm._v(
-                                                          "Total Work Badges"
-                                                        ),
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-item-subtitle",
-                                                        { staticClass: "pb-2" },
-                                                        [
-                                                          _c(
-                                                            "v-chip-group",
-                                                            {
-                                                              attrs: {
-                                                                column: "",
-                                                                multiple: "",
-                                                              },
-                                                              model: {
-                                                                value:
-                                                                  _vm.badge,
-                                                                callback:
-                                                                  function (
-                                                                    $$v
-                                                                  ) {
-                                                                    _vm.badge =
-                                                                      $$v
-                                                                  },
-                                                                expression:
-                                                                  "badge",
-                                                              },
-                                                            },
-                                                            _vm._l(
-                                                              _vm.tags.badges,
-                                                              function (tag) {
-                                                                return _c(
-                                                                  "v-chip",
-                                                                  {
-                                                                    key: tag.id,
-                                                                  },
-                                                                  [
-                                                                    _c(
-                                                                      "v-icon",
-                                                                      [
-                                                                        _vm._v(
-                                                                          _vm._s(
-                                                                            tag.badge_image
-                                                                          )
-                                                                        ),
-                                                                      ]
-                                                                    ),
-                                                                    _vm._v(
-                                                                      "\n                            " +
-                                                                        _vm._s(
-                                                                          tag.Badge_Name
-                                                                        ) +
-                                                                        " (" +
-                                                                        _vm._s(
-                                                                          tag.count
-                                                                        ) +
-                                                                        ")\n                          "
-                                                                    ),
-                                                                  ],
-                                                                  1
-                                                                )
-                                                              }
-                                                            ),
-                                                            1
-                                                          ),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  )
-                                                : _vm._e(),
-                                            ],
-                                            1
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                ]
-                              ),
-                            ]),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-col",
-                  { attrs: { cols: "12", lg: "8" } },
-                  [
-                    _c(
-                      "v-sheet",
-                      { attrs: { "min-height": "668" } },
-                      [
-                        _c(
-                          "v-sheet",
-                          {
-                            staticClass: "p-1 m-4",
-                            attrs: { elevation: "3", "min-height": "700" },
-                          },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "job-title m-4 centre" },
-                              [
-                                _c("h3", [_vm._v("About!")]),
-                                _vm._v(" "),
-                                this.user.employee
-                                  ? _c(
-                                      "div",
-                                      { staticClass: "d-flex" },
-                                      _vm._l(
-                                        this.user.employee.employee_skill,
-                                        function (aSkill) {
-                                          return _c(
-                                            "b-card-sub-title",
-                                            { key: aSkill.id },
-                                            [
-                                              _vm._v(
-                                                "| " +
-                                                  _vm._s(
-                                                    aSkill.all_skill.skill
-                                                  ) +
-                                                  " | \n                "
-                                              ),
-                                            ]
-                                          )
-                                        }
-                                      ),
-                                      1
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("v-divider"),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "m-4" }, [
-                              _c(
-                                "div",
-                                { staticClass: "additional-user-detail" },
+                                "v-sheet",
+                                {
+                                  staticClass: "p-1 m-4",
+                                  attrs: {
+                                    elevation: "3",
+                                    "min-height": "400",
+                                  },
+                                },
                                 [
                                   _c(
-                                    "pre",
-                                    {
-                                      staticStyle: {
-                                        "white-space": "pre-line",
-                                      },
-                                    },
-                                    [
-                                      _vm._v(
-                                        "                  " +
-                                          _vm._s(this.user.about) +
-                                          "\n                "
-                                      ),
-                                    ]
-                                  ),
-                                ]
-                              ),
-                            ]),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                this.user.roles.role_id == 3
-                  ? _c(
-                      "v-col",
-                      { attrs: { cols: "12", lg: "6" } },
-                      [
-                        _c(
-                          "v-sheet",
-                          { attrs: { "min-height": "268" } },
-                          [
-                            _c(
-                              "v-sheet",
-                              {
-                                staticClass: "p-1 m-4",
-                                attrs: { elevation: "3", "min-height": "400" },
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "job-title m-4 centre" },
-                                  [
-                                    _c("h3", [_vm._v("User's Experience!")]),
-                                    _vm._v(" "),
-                                    _c("b-card-sub-title", [
-                                      _vm._v(
-                                        "\n                Lean about this user's experience!\n              "
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("v-divider"),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "m-4" }, [
-                                  _c(
                                     "div",
-                                    { staticClass: "additional-user-detail" },
+                                    { staticClass: "job-title m-4 centre" },
                                     [
-                                      _c(
-                                        "pre",
-                                        {
-                                          staticStyle: {
-                                            "white-space": "pre-line",
-                                          },
-                                        },
-                                        [
-                                          _vm._v(
-                                            "                  " +
-                                              _vm._s(
-                                                this.user.employee.experience
-                                              ) +
-                                              "\n                "
-                                          ),
-                                        ]
-                                      ),
-                                    ]
-                                  ),
-                                ]),
-                              ]
-                            ),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                this.user.roles.role_id == 3
-                  ? _c(
-                      "v-col",
-                      { attrs: { cols: "12", lg: "6" } },
-                      [
-                        _c(
-                          "v-sheet",
-                          { attrs: { "min-height": "268" } },
-                          [
-                            _c(
-                              "v-sheet",
-                              {
-                                staticClass: "p-1 m-4",
-                                attrs: { elevation: "3", "min-height": "400" },
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "job-title m-4 centre" },
-                                  [
-                                    _c("h3", [_vm._v("User's Education!")]),
-                                    _vm._v(" "),
-                                    _c("b-card-sub-title", [
-                                      _vm._v(
-                                        "\n                Lean about this user's education!\n              "
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("v-divider"),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "m-4" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "additional-user-detail" },
-                                    [
-                                      _c(
-                                        "pre",
-                                        {
-                                          staticStyle: {
-                                            "white-space": "pre-line",
-                                          },
-                                        },
-                                        [
-                                          _vm._v(
-                                            "                  " +
-                                              _vm._s(
-                                                this.user.employee.education
-                                              ) +
-                                              "\n                "
-                                          ),
-                                        ]
-                                      ),
-                                    ]
-                                  ),
-                                ]),
-                              ]
-                            ),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "v-col",
-                  { attrs: { cols: "12" } },
-                  [
-                    _c(
-                      "v-sheet",
-                      { attrs: { "min-height": "268" } },
-                      [
-                        _c(
-                          "v-sheet",
-                          {
-                            staticClass: "p-1 m-4",
-                            attrs: { elevation: "3", "min-height": "600" },
-                          },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "job-title m-4 centre" },
-                              [
-                                _c("h3", [_vm._v("User's Rating!")]),
-                                _vm._v(" "),
-                                _c("b-card-sub-title", [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "d-flex flex-row align-items-center",
-                                    },
-                                    [
-                                      _c("div", [_vm._v("Average Rating:")]),
+                                      _c("h3", [_vm._v("User's Experience!")]),
                                       _vm._v(" "),
-                                      _c("v-rating", {
-                                        staticClass: "p-3",
-                                        attrs: {
-                                          value: this.avgRate,
-                                          color: "amber",
-                                          dense: "",
-                                          readonly: "",
-                                          size: "14",
-                                        },
-                                      }),
-                                      _vm._v(" "),
-                                      _c("div", { staticClass: "p-1" }, [
+                                      _c("b-card-sub-title", [
                                         _vm._v(
-                                          "\n                    " +
-                                            _vm._s(this.user.rating) +
-                                            "(" +
-                                            _vm._s(this.rating.length) +
-                                            ")\n                  "
+                                          "\n                Lean about this user's experience!\n              "
                                         ),
                                       ]),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
                                     ],
                                     1
                                   ),
-                                ]),
-                                _vm._v(" "),
-                                _c("v-divider"),
-                                _vm._v(" "),
-                                _c("v-virtual-scroll", {
-                                  attrs: {
-                                    items: this.rating,
-                                    height: "500",
-                                    "item-height": "200",
-                                  },
-                                  scopedSlots: _vm._u(
-                                    [
-                                      {
-                                        key: "default",
-                                        fn: function (ref) {
-                                          var item = ref.item
-                                          return [
-                                            _c(
-                                              "v-list-item",
-                                              {
-                                                key: item.id,
-                                                staticClass: "p-2 mb-5",
-                                              },
-                                              [
-                                                _c(
-                                                  "v-list-item-content",
-                                                  { staticClass: "mb-5" },
-                                                  [
-                                                    _c("div", [
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "d-flex flex-column",
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "h5",
-                                                            {
-                                                              staticClass:
-                                                                "mx-1",
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "\n                            " +
-                                                                  _vm._s(
-                                                                    item
-                                                                      .rated_by
-                                                                      .first_name
-                                                                  ) +
-                                                                  "\n                            " +
-                                                                  _vm._s(
-                                                                    item
-                                                                      .rated_by
-                                                                      .last_name
-                                                                  ) +
-                                                                  "\n                          "
-                                                              ),
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c("v-rating", {
-                                                            attrs: {
-                                                              value:
-                                                                item.rating,
-                                                              color: "amber",
-                                                              dense: "",
-                                                              readonly: "",
-                                                              size: "24",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticStyle: {
-                                                            "font-size": "15px",
-                                                            "margin-top":
-                                                              "20px",
-                                                          },
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "pre",
-                                                            {
-                                                              staticStyle: {
-                                                                "white-space":
-                                                                  "pre-line",
-                                                              },
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  item.description
-                                                                ) +
-                                                                  "                    "
-                                                              ),
-                                                            ]
-                                                          ),
-                                                        ]
-                                                      ),
-                                                    ]),
-                                                  ]
-                                                ),
-                                              ],
-                                              1
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "m-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "additional-user-detail" },
+                                      [
+                                        _c(
+                                          "pre",
+                                          {
+                                            staticStyle: {
+                                              "white-space": "pre-line",
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              "                  " +
+                                                _vm._s(
+                                                  this.user.employee.experience
+                                                ) +
+                                                "\n                "
                                             ),
-                                            _vm._v(" "),
-                                            _c("v-divider"),
                                           ]
-                                        },
-                                      },
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  this.user.roles.role_id == 3
+                    ? _c(
+                        "v-col",
+                        { attrs: { cols: "12", lg: "6" } },
+                        [
+                          _c(
+                            "v-sheet",
+                            { attrs: { "min-height": "268" } },
+                            [
+                              _c(
+                                "v-sheet",
+                                {
+                                  staticClass: "p-1 m-4",
+                                  attrs: {
+                                    elevation: "3",
+                                    "min-height": "400",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "job-title m-4 centre" },
+                                    [
+                                      _c("h3", [_vm._v("User's Education!")]),
+                                      _vm._v(" "),
+                                      _c("b-card-sub-title", [
+                                        _vm._v(
+                                          "\n                Lean about this user's education!\n              "
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
                                     ],
-                                    null,
-                                    false,
-                                    3109998525
+                                    1
                                   ),
-                                }),
-                              ],
-                              1
-                            ),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-col",
-                  { attrs: { cols: "12" } },
-                  [
-                    _c(
-                      "v-row",
-                      _vm._l(this.blogs.blog, function (blog) {
-                        return _c(
-                          "v-col",
-                          { key: blog.id, attrs: { cols: "12" } },
-                          [
-                            _c("Blogs", { attrs: { blog: blog } }),
-                            _vm._v(" "),
-                            _c("br"),
-                          ],
-                          1
-                        )
-                      }),
-                      1
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        )
-      : _vm._e(),
-  ])
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "m-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "additional-user-detail" },
+                                      [
+                                        _c(
+                                          "pre",
+                                          {
+                                            staticStyle: {
+                                              "white-space": "pre-line",
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              "                  " +
+                                                _vm._s(
+                                                  this.user.employee.education
+                                                ) +
+                                                "\n                "
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c(
+                        "v-sheet",
+                        { attrs: { "min-height": "268" } },
+                        [
+                          _c(
+                            "v-sheet",
+                            {
+                              staticClass: "p-1 m-4",
+                              attrs: { elevation: "3", "min-height": "600" },
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "job-title m-4 centre" },
+                                [
+                                  _c("h3", [_vm._v("User's Rating!")]),
+                                  _vm._v(" "),
+                                  _c("b-card-sub-title", [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "d-flex flex-row align-items-center",
+                                      },
+                                      [
+                                        _c("div", [_vm._v("Average Rating:")]),
+                                        _vm._v(" "),
+                                        _c("v-rating", {
+                                          staticClass: "p-3",
+                                          attrs: {
+                                            value: this.avgRate,
+                                            color: "amber",
+                                            dense: "",
+                                            readonly: "",
+                                            size: "14",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "p-1" }, [
+                                          _vm._v(
+                                            "\n                    " +
+                                              _vm._s(this.user.rating) +
+                                              "(" +
+                                              _vm._s(this.rating.length) +
+                                              ")\n                  "
+                                          ),
+                                        ]),
+                                      ],
+                                      1
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c("v-virtual-scroll", {
+                                    attrs: {
+                                      items: this.rating,
+                                      height: "500",
+                                      "item-height": "200",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var item = ref.item
+                                            return [
+                                              _c(
+                                                "v-list-item",
+                                                {
+                                                  key: item.id,
+                                                  staticClass: "p-2 mb-5",
+                                                },
+                                                [
+                                                  _c(
+                                                    "v-list-item-content",
+                                                    { staticClass: "mb-5" },
+                                                    [
+                                                      _c("div", [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "d-flex flex-column",
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "h5",
+                                                              {
+                                                                staticClass:
+                                                                  "mx-1",
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "\n                            " +
+                                                                    _vm._s(
+                                                                      item
+                                                                        .rated_by
+                                                                        .first_name
+                                                                    ) +
+                                                                    "\n                            " +
+                                                                    _vm._s(
+                                                                      item
+                                                                        .rated_by
+                                                                        .last_name
+                                                                    ) +
+                                                                    "\n                          "
+                                                                ),
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c("v-rating", {
+                                                              attrs: {
+                                                                value:
+                                                                  item.rating,
+                                                                color: "amber",
+                                                                dense: "",
+                                                                readonly: "",
+                                                                size: "24",
+                                                              },
+                                                            }),
+                                                          ],
+                                                          1
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticStyle: {
+                                                              "font-size":
+                                                                "15px",
+                                                              "margin-top":
+                                                                "20px",
+                                                            },
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "pre",
+                                                              {
+                                                                staticStyle: {
+                                                                  "white-space":
+                                                                    "pre-line",
+                                                                },
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    item.description
+                                                                  ) +
+                                                                    "                    "
+                                                                ),
+                                                              ]
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c("v-divider"),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      false,
+                                      3109998525
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c(
+                        "v-row",
+                        _vm._l(this.blogs.blog, function (blog) {
+                          return _c(
+                            "v-col",
+                            { key: blog.id, attrs: { cols: "12" } },
+                            [
+                              _c("Blogs", { attrs: { blog: blog } }),
+                              _vm._v(" "),
+                              _c("br"),
+                            ],
+                            1
+                          )
+                        }),
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          )
+        : _vm._e(),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11924,9 +12001,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/VDialog.js");
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -11960,7 +12038,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__["default"],VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBottomNavigation: vuetify_lib_components_VBottomNavigation__WEBPACK_IMPORTED_MODULE_6__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_9__.VCardActions,VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_13__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__.VToolbarTitle})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__["default"],VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBottomNavigation: vuetify_lib_components_VBottomNavigation__WEBPACK_IMPORTED_MODULE_6__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_9__.VCardActions,VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_14__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_16__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_16__.VToolbarTitle})
 
 
 /* hot reload */
@@ -12470,12 +12549,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! vuetify/lib/components/VRating */ "./node_modules/vuetify/lib/components/VRating/VRating.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
 /* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
-/* harmony import */ var vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! vuetify/lib/components/VVirtualScroll */ "./node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScroll.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/VTextarea.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! vuetify/lib/components/VVirtualScroll */ "./node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScroll.js");
 
 
 
@@ -12527,223 +12607,14 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAutocomplete: vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["default"],VChipGroup: vuetify_lib_components_VChipGroup__WEBPACK_IMPORTED_MODULE_9__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__["default"],VDatePicker: vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_11__["default"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_12__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_13__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_14__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_15__["default"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_16__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__["default"],VListItemAvatar: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_18__["default"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemContent,VListItemSubtitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemSubtitle,VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemTitle,VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_20__["default"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_21__["default"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_22__["default"],VRating: vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_23__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_25__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_26__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_27__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_28__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_29__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__.VToolbarTitle,VVirtualScroll: vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_31__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAutocomplete: vuetify_lib_components_VAutocomplete__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["default"],VChipGroup: vuetify_lib_components_VChipGroup__WEBPACK_IMPORTED_MODULE_9__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__["default"],VDatePicker: vuetify_lib_components_VDatePicker__WEBPACK_IMPORTED_MODULE_11__["default"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_12__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_13__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_14__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_15__["default"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_16__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_17__["default"],VListItemAvatar: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_18__["default"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemContent,VListItemSubtitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemSubtitle,VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_19__.VListItemTitle,VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_20__["default"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_21__["default"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_22__["default"],VRating: vuetify_lib_components_VRating__WEBPACK_IMPORTED_MODULE_23__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_24__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_25__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_26__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_27__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_28__["default"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_29__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_30__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_31__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_31__.VToolbarTitle,VVirtualScroll: vuetify_lib_components_VVirtualScroll__WEBPACK_IMPORTED_MODULE_32__["default"]})
 
 
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/pages/UserProfile.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../src/components/VSnackbar/VSnackbar.sass */ "./node_modules/vuetify/src/components/VSnackbar/VSnackbar.sass");
-/* harmony import */ var _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../VSheet/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
-/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/colorable */ "./node_modules/vuetify/lib/mixins/colorable/index.js");
-/* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../mixins/themeable */ "./node_modules/vuetify/lib/mixins/themeable/index.js");
-/* harmony import */ var _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/toggleable */ "./node_modules/vuetify/lib/mixins/toggleable/index.js");
-/* harmony import */ var _mixins_positionable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/positionable */ "./node_modules/vuetify/lib/mixins/positionable/index.js");
-/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/mixins */ "./node_modules/vuetify/lib/util/mixins.js");
-/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../util/helpers */ "./node_modules/vuetify/lib/util/helpers.js");
-/* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/console */ "./node_modules/vuetify/lib/util/console.js");
-// Styles
- // Components
-
- // Mixins
-
-
-
-
- // Utilities
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_util_mixins__WEBPACK_IMPORTED_MODULE_1__["default"])(_VSheet_VSheet__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_mixins_positionable__WEBPACK_IMPORTED_MODULE_5__.factory)(['absolute', 'bottom', 'left', 'right', 'top'])
-/* @vue/component */
-).extend({
-  name: 'v-snackbar',
-  props: {
-    app: Boolean,
-    centered: Boolean,
-    contentClass: {
-      type: String,
-      default: ''
-    },
-    multiLine: Boolean,
-    text: Boolean,
-    timeout: {
-      type: [Number, String],
-      default: 5000
-    },
-    transition: {
-      type: [Boolean, String],
-      default: 'v-snack-transition',
-      validator: v => typeof v === 'string' || v === false
-    },
-    vertical: Boolean
-  },
-  data: () => ({
-    activeTimeout: -1
-  }),
-  computed: {
-    classes() {
-      return {
-        'v-snack--absolute': this.absolute,
-        'v-snack--active': this.isActive,
-        'v-snack--bottom': this.bottom || !this.top,
-        'v-snack--centered': this.centered,
-        'v-snack--has-background': this.hasBackground,
-        'v-snack--left': this.left,
-        'v-snack--multi-line': this.multiLine && !this.vertical,
-        'v-snack--right': this.right,
-        'v-snack--text': this.text,
-        'v-snack--top': this.top,
-        'v-snack--vertical': this.vertical
-      };
-    },
-
-    // Text and outlined styles both
-    // use transparent backgrounds
-    hasBackground() {
-      return !this.text && !this.outlined;
-    },
-
-    // Snackbar is dark by default
-    // override themeable logic.
-    isDark() {
-      return this.hasBackground ? !this.light : _mixins_themeable__WEBPACK_IMPORTED_MODULE_6__["default"].options.computed.isDark.call(this);
-    },
-
-    styles() {
-      if (this.absolute || !this.app) return {};
-      const {
-        bar,
-        bottom,
-        footer,
-        insetFooter,
-        left,
-        right,
-        top
-      } = this.$vuetify.application;
-      return {
-        paddingBottom: (0,_util_helpers__WEBPACK_IMPORTED_MODULE_7__.convertToUnit)(bottom + footer + insetFooter),
-        paddingLeft: (0,_util_helpers__WEBPACK_IMPORTED_MODULE_7__.convertToUnit)(left),
-        paddingRight: (0,_util_helpers__WEBPACK_IMPORTED_MODULE_7__.convertToUnit)(right),
-        paddingTop: (0,_util_helpers__WEBPACK_IMPORTED_MODULE_7__.convertToUnit)(bar + top)
-      };
-    }
-
-  },
-  watch: {
-    isActive: 'setTimeout',
-    timeout: 'setTimeout'
-  },
-
-  mounted() {
-    if (this.isActive) this.setTimeout();
-  },
-
-  created() {
-    /* istanbul ignore next */
-    if (this.$attrs.hasOwnProperty('auto-height')) {
-      (0,_util_console__WEBPACK_IMPORTED_MODULE_8__.removed)('auto-height', this);
-    }
-    /* istanbul ignore next */
-    // eslint-disable-next-line eqeqeq
-
-
-    if (this.timeout == 0) {
-      (0,_util_console__WEBPACK_IMPORTED_MODULE_8__.deprecate)('timeout="0"', '-1', this);
-    }
-  },
-
-  methods: {
-    genActions() {
-      return this.$createElement('div', {
-        staticClass: 'v-snack__action '
-      }, [(0,_util_helpers__WEBPACK_IMPORTED_MODULE_7__.getSlot)(this, 'action', {
-        attrs: {
-          class: 'v-snack__btn'
-        }
-      })]);
-    },
-
-    genContent() {
-      return this.$createElement('div', {
-        staticClass: 'v-snack__content',
-        class: {
-          [this.contentClass]: true
-        },
-        attrs: {
-          role: 'status',
-          'aria-live': 'polite'
-        }
-      }, [(0,_util_helpers__WEBPACK_IMPORTED_MODULE_7__.getSlot)(this)]);
-    },
-
-    genWrapper() {
-      const setColor = this.hasBackground ? this.setBackgroundColor : this.setTextColor;
-      const data = setColor(this.color, {
-        staticClass: 'v-snack__wrapper',
-        class: _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_2__["default"].options.computed.classes.call(this),
-        style: _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_2__["default"].options.computed.styles.call(this),
-        directives: [{
-          name: 'show',
-          value: this.isActive
-        }],
-        on: {
-          pointerenter: () => window.clearTimeout(this.activeTimeout),
-          pointerleave: this.setTimeout
-        }
-      });
-      return this.$createElement('div', data, [this.genContent(), this.genActions()]);
-    },
-
-    genTransition() {
-      return this.$createElement('transition', {
-        props: {
-          name: this.transition
-        }
-      }, [this.genWrapper()]);
-    },
-
-    setTimeout() {
-      window.clearTimeout(this.activeTimeout);
-      const timeout = Number(this.timeout);
-
-      if (!this.isActive || // TODO: remove 0 in v3
-      [0, -1].includes(timeout)) {
-        return;
-      }
-
-      this.activeTimeout = window.setTimeout(() => {
-        this.isActive = false;
-      }, timeout);
-    }
-
-  },
-
-  render(h) {
-    return h('div', {
-      staticClass: 'v-snack',
-      class: this.classes,
-      style: this.styles
-    }, [this.transition !== false ? this.genTransition() : this.genWrapper()]);
-  }
-
-}));
-//# sourceMappingURL=VSnackbar.js.map
 
 /***/ }),
 

@@ -238,7 +238,7 @@ class JobController extends Controller
     {
         $userID = auth()->user()->id;
         $totalJob = [];
-        $jobs = Job::all()->where('status', '=', 1)->where('user_id', '!=', $userID);
+        $jobs = Job::where('status', '=', 1)->where('user_id', '!=', $userID)->orderBy('id', 'desc')->get();
         foreach ($jobs as $job) {
             $job->user;
             $job->requestJob;

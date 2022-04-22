@@ -46,7 +46,7 @@
       >
         <v-sheet rounded="lg" min-height="268">
           <v-card elevation="6" class="p-3">
-            <h3>Filter</h3>
+            <h3>Filter Jobs</h3>
             <v-divider></v-divider>
 
             <FilterBy

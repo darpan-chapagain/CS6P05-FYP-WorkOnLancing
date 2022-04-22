@@ -91,11 +91,14 @@ class JobRequestController extends Controller
         $jobs = Job::all()->where('user_id', $authUser->id);
         $offer = [];
         foreach($jobs as $job){
+
             foreach($job->requestJob as $req){
-                // array_push($offer, $req->job_id);
                 $emp = $req->reqEmployee;
                 $employees = $emp->user;
                 $emp->jobCategories;
+                foreach ($emp->employeeSkill as $skill) {
+                    $skill->allSkill;
+                }
                 if($job->status == 1){
                     if ($req->status == 1){
                         $message = [
@@ -106,6 +109,7 @@ class JobRequestController extends Controller
                             'employee_id' => $emp->employee_id,
                             'employee' => $emp,
                             'application' => $req->status,
+                            'letter' => $req->application_letter
                         ];
                         array_push($offer, $message); 
                     }
@@ -121,28 +125,23 @@ class JobRequestController extends Controller
     public function jobOffer(){
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        // $jobOffers = JobRequest::all()->where('employee_id',  $employee->employee_id);
         $jobOffers = $employee->jobRequests;
-        $offer = [];
         $responseJob = [];
         foreach ($jobOffers as $jobOffer){
-            // $user = $jobOffer->user;
-            // dd($jobOffer->detailJob);
             $jobDetail = $jobOffer->detailJob;
             $jobDetail->jobCategory;
+            foreach ($jobDetail->jobSkill as $skill) {
+                $skill->allSkill;
+            }
             if($jobOffer->status == 2){
-                // array_push($offer, $jobDetail->user);
                 $jobDetail->user;
                 array_push($responseJob, $jobDetail); 
             }
-            // array_push($offer, $jobDetail->user);
         }
-        // dd($jobOffer->reqEmployee);
         if($responseJob == null){
             return response()->json(['message' => 'No job offers']);
         }
         $response = [
-            // 'offer' => $offer,
             'job' => $responseJob
         ];
         return response($response);

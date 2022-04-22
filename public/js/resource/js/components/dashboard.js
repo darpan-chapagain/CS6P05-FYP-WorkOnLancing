@@ -1063,6 +1063,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1075,6 +1107,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      snackbar1: false,
+      text1: "Error!",
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       dialog: false,
       value: null
     };
@@ -1109,11 +1146,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     status: "accept"
                   }
                 }).then(function (res) {
+                  _this.snackbar2 = true;
+                  _this.text2 = "Offer Accepted";
+
                   _this.updateRequests();
 
-                  _this.$router.push({
-                    name: "dashboard"
-                  })["catch"](function () {});
+                  setTimeout(function () {
+                    return _this.$router.push({
+                      name: "dashboard.employee"
+                    })["catch"](function () {});
+                  }, 2000);
                 });
 
               case 2:
@@ -1136,7 +1178,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                res = awaitaxios({
+                _context2.next = 2;
+                return axios({
                   method: "post",
                   url: "employee/accept/job/".concat(_this2.proposals.id, "/"),
                   data: {
@@ -1144,16 +1187,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   }
                 }).then(function (res) {
                   console.log(res);
-                  alert("Rejected!");
+                  _this2.snackbar1 = true;
+                  _this2.text1 = "Offer Rejected";
 
                   _this2.updateRequests();
 
-                  _this2.$router.push({
-                    name: "dashboard"
-                  })["catch"](function () {});
+                  setTimeout(function () {
+                    return _this2.$router.push({
+                      name: "dashboard.employee"
+                    })["catch"](function () {});
+                  }, 2000);
                 });
 
-              case 1:
+              case 2:
+                res = _context2.sent;
+
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -2621,328 +2670,430 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "proposals p-2" }, [
-    _vm.proposals
-      ? _c("div", [
-          _c(
-            "div",
-            { staticClass: "dialog" },
-            [
-              _c(
-                "v-dialog",
-                {
-                  attrs: {
-                    fullscreen: "",
-                    "hide-overlay": "",
-                    transition: "dialog-bottom-transition",
-                  },
-                  scopedSlots: _vm._u(
-                    [
+  return _c(
+    "div",
+    { staticClass: "proposals p-2" },
+    [
+      _c(
+        "v-snackbar",
+        {
+          attrs: {
+            timeout: _vm.timeout,
+            top: "",
+            color: "red accent-2",
+            right: "",
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
                       {
-                        key: "activator",
-                        fn: function (ref) {
-                          var on = ref.on
-                          var attrs = ref.attrs
-                          return [
-                            _c("v-card-actions", [
-                              _c(
-                                "a",
-                                _vm._g(
-                                  _vm._b(
-                                    {
-                                      staticStyle: { width: "100%" },
-                                      attrs: { text: "" },
-                                    },
-                                    "a",
-                                    attrs,
-                                    false
-                                  ),
-                                  on
-                                ),
-                                [
-                                  _c(
-                                    "v-alert",
-                                    {
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        border: "left",
-                                        "colored-border": "",
-                                        color: "deep-purple accent-4",
-                                        elevation: "2",
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        { staticClass: "d-flex" },
-                                        [
-                                          _c(
-                                            "v-avatar",
-                                            {
-                                              staticClass: "mr-3",
-                                              attrs: { size: "40" },
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-fluid",
-                                                attrs: {
-                                                  src: "/images/202203281818DSC00425.jpg",
-                                                  alt: "image",
-                                                },
-                                              }),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              _vm._s(_vm.proposals.title) +
-                                                " Job"
-                                            ),
-                                          ]),
-                                        ],
-                                        1
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-divider"),
-                                ],
-                                1
-                              ),
-                            ]),
-                          ]
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar = false
+                          },
                         },
                       },
-                    ],
-                    null,
-                    false,
-                    1292608140
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
                   ),
-                  model: {
-                    value: _vm.dialog,
-                    callback: function ($$v) {
-                      _vm.dialog = $$v
-                    },
-                    expression: "dialog",
-                  },
-                },
-                [
-                  _vm._v(" "),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar1,
+            callback: function ($$v) {
+              _vm.snackbar1 = $$v
+            },
+            expression: "snackbar1",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text1) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: { timeout: _vm.timeout, top: "", color: "success", right: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function (ref) {
+                var attrs = ref.attrs
+                return [
                   _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-toolbar",
-                        { attrs: { dark: "", color: "primary" } },
-                        [
-                          _c("v-toolbar-title", [_vm._v("Proposals Detail")]),
-                          _vm._v(" "),
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-toolbar-items",
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { icon: "", dark: "" },
-                                  on: {
-                                    click: function ($event) {
-                                      _vm.dialog = false
-                                    },
-                                  },
-                                },
-                                [_c("v-icon", [_vm._v("mdi-close")])],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticStyle: { "min-height": "100vh" } },
-                        [
-                          _c("JobDetail", {
-                            attrs: { a_job_detail: _vm.proposals },
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "btns",
-                              staticStyle: {
-                                display: "flex",
-                                "flex-direction": "column",
-                                "align-items": "center",
-                                "justify-content": "center",
-                                "margin-top": "50px",
-                              },
-                            },
-                            [
-                              _c("div", { staticClass: "m-4" }, [
+                    "v-btn",
+                    _vm._b(
+                      {
+                        attrs: { color: "white", text: "" },
+                        on: {
+                          click: function ($event) {
+                            _vm.snackbar2 = false
+                          },
+                        },
+                      },
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\n        Close\n      ")]
+                  ),
+                ]
+              },
+            },
+          ]),
+          model: {
+            value: _vm.snackbar2,
+            callback: function ($$v) {
+              _vm.snackbar2 = $$v
+            },
+            expression: "snackbar2",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.text2) + "\n\n    ")]
+      ),
+      _vm._v(" "),
+      _vm.proposals
+        ? _c("div", [
+            _c(
+              "div",
+              { staticClass: "dialog" },
+              [
+                _c(
+                  "v-dialog",
+                  {
+                    attrs: {
+                      fullscreen: "",
+                      "hide-overlay": "",
+                      transition: "dialog-bottom-transition",
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "activator",
+                          fn: function (ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c("v-card-actions", [
                                 _c(
-                                  "div",
-                                  { staticClass: "message" },
-                                  [
-                                    _c("h5", { staticClass: "my-0" }, [
-                                      _vm._v("Do not like the client?"),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
+                                  "a",
+                                  _vm._g(
+                                    _vm._b(
                                       {
-                                        staticClass: "m-2 mt-4",
+                                        staticStyle: { width: "100%" },
+                                        attrs: { text: "" },
+                                      },
+                                      "a",
+                                      attrs,
+                                      false
+                                    ),
+                                    on
+                                  ),
+                                  [
+                                    _c(
+                                      "v-alert",
+                                      {
+                                        staticStyle: { width: "100%" },
                                         attrs: {
-                                          rounded: "",
-                                          color: "Green",
-                                          dark: "",
-                                          width: "100%",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.action("accept")
-                                          },
+                                          border: "left",
+                                          "colored-border": "",
+                                          color: "deep-purple accent-4",
+                                          elevation: "2",
                                         },
                                       },
-                                      [_vm._v("Accept!")]
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "d-flex" },
+                                          [
+                                            _c(
+                                              "v-avatar",
+                                              {
+                                                staticClass: "mr-3",
+                                                attrs: { size: "40" },
+                                              },
+                                              [
+                                                _c("img", {
+                                                  staticClass: "img-fluid",
+                                                  staticStyle: {
+                                                    "object-fit": "cover",
+                                                    "object-position": "center",
+                                                    width: "100%",
+                                                  },
+                                                  attrs: {
+                                                    src:
+                                                      "/" +
+                                                      _vm.proposals.user
+                                                        .profile_path,
+                                                    alt: "image",
+                                                  },
+                                                }),
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("p", [
+                                              _vm._v(
+                                                _vm._s(_vm.proposals.title) +
+                                                  " Job"
+                                              ),
+                                            ]),
+                                          ],
+                                          1
+                                        ),
+                                      ]
                                     ),
-                                  ],
-                                  1
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "m-4" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "message" },
-                                  [
-                                    _c("h5", { staticClass: "my-0" }, [
-                                      _vm._v("Do you have questions?"),
-                                    ]),
                                     _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        staticClass: "m-2 mt-4",
-                                        attrs: {
-                                          rounded: "",
-                                          color: "primary",
-                                          dark: "",
-                                          width: "100%",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.action("message")
-                                          },
-                                        },
-                                      },
-                                      [_vm._v("Contact!")]
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "m-4" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "message" },
-                                  [
-                                    _c("h5", { staticClass: "my-0" }, [
-                                      _vm._v("Do not like the client?"),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        staticClass: "m-2 mt-4",
-                                        attrs: {
-                                          rounded: "",
-                                          color: "red",
-                                          dark: "",
-                                          width: "100%",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.action("reject")
-                                          },
-                                        },
-                                      },
-                                      [_vm._v("Reject!")]
-                                    ),
+                                    _c("v-divider"),
                                   ],
                                   1
                                 ),
                               ]),
                             ]
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-bottom-navigation",
-                        {
-                          attrs: {
-                            value: _vm.value,
-                            "background-color": "blue",
-                            grow: "",
                           },
                         },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "" },
-                              on: {
-                                click: function ($event) {
-                                  _vm.dialog = false
+                      ],
+                      null,
+                      false,
+                      859947047
+                    ),
+                    model: {
+                      value: _vm.dialog,
+                      callback: function ($$v) {
+                        _vm.dialog = $$v
+                      },
+                      expression: "dialog",
+                    },
+                  },
+                  [
+                    _vm._v(" "),
+                    _c(
+                      "v-card",
+                      [
+                        _c(
+                          "v-toolbar",
+                          { attrs: { dark: "", color: "primary" } },
+                          [
+                            _c("v-toolbar-title", [_vm._v("Proposals Detail")]),
+                            _vm._v(" "),
+                            _c("v-spacer"),
+                            _vm._v(" "),
+                            _c(
+                              "v-toolbar-items",
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: { icon: "", dark: "" },
+                                    on: {
+                                      click: function ($event) {
+                                        _vm.dialog = false
+                                      },
+                                    },
+                                  },
+                                  [_c("v-icon", [_vm._v("mdi-close")])],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticStyle: { "min-height": "100vh" } },
+                          [
+                            _c("JobDetail", {
+                              attrs: { a_job_detail: _vm.proposals },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "btns",
+                                staticStyle: {
+                                  display: "flex",
+                                  "flex-direction": "column",
+                                  "align-items": "center",
+                                  "justify-content": "center",
+                                  "margin-top": "50px",
                                 },
                               },
+                              [
+                                _c("div", { staticClass: "m-4" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "message" },
+                                    [
+                                      _c("h5", { staticClass: "my-0" }, [
+                                        _vm._v("Do you accept this Offer?"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2 mt-4",
+                                          attrs: {
+                                            rounded: "",
+                                            color: "Green",
+                                            dark: "",
+                                            width: "100%",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.action("accept")
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Accept!")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "m-4" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "message" },
+                                    [
+                                      _c("h5", { staticClass: "my-0" }, [
+                                        _vm._v("Do you have questions?"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2 mt-4",
+                                          attrs: {
+                                            rounded: "",
+                                            color: "primary",
+                                            dark: "",
+                                            width: "100%",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.action("message")
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Contact!")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "m-4" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "message" },
+                                    [
+                                      _c("h5", { staticClass: "my-0" }, [
+                                        _vm._v("Do not like the Offer?"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2 mt-4",
+                                          attrs: {
+                                            rounded: "",
+                                            color: "red",
+                                            dark: "",
+                                            width: "100%",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.action("reject")
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Reject!")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                              ]
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-bottom-navigation",
+                          {
+                            attrs: {
+                              value: _vm.value,
+                              "background-color": "blue",
+                              grow: "",
                             },
-                            [
-                              _c("v-icon", { attrs: { color: "white" } }, [
-                                _vm._v("mdi-close"),
-                              ]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { icon: "" },
+                                on: {
+                                  click: function ($event) {
+                                    _vm.dialog = false
+                                  },
+                                },
+                              },
+                              [
+                                _c("v-icon", { attrs: { color: "white" } }, [
+                                  _vm._v("mdi-close"),
+                                ]),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ])
+        : _c(
+            "div",
+            [
+              _c(
+                "v-alert",
+                {
+                  attrs: {
+                    outlined: "",
+                    type: "warning",
+                    prominent: "",
+                    border: "left",
+                  },
+                },
+                [_vm._v("\n      You do not have any job proposals yet\n    ")]
               ),
             ],
             1
           ),
-        ])
-      : _c(
-          "div",
-          [
-            _c(
-              "v-alert",
-              {
-                attrs: {
-                  outlined: "",
-                  type: "warning",
-                  prominent: "",
-                  border: "left",
-                },
-              },
-              [_vm._v("\n      You do not have any job proposals yet\n    ")]
-            ),
-          ],
-          1
-        ),
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3070,7 +3221,7 @@ var render = function () {
                     "v-card",
                     { staticClass: "p-3", attrs: { elevation: "6" } },
                     [
-                      _c("h3", [_vm._v("Filter")]),
+                      _c("h3", [_vm._v("Filter Jobs")]),
                       _vm._v(" "),
                       _c("v-divider"),
                       _vm._v(" "),
@@ -3750,9 +3901,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/VDialog.js");
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VSpacer.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/VToolbar.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -3786,7 +3938,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__["default"],VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBottomNavigation: vuetify_lib_components_VBottomNavigation__WEBPACK_IMPORTED_MODULE_6__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_9__.VCardActions,VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_13__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__.VToolbarTitle})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__["default"],VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBottomNavigation: vuetify_lib_components_VBottomNavigation__WEBPACK_IMPORTED_MODULE_6__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_9__.VCardActions,VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_11__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__["default"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_14__["default"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__["default"],VToolbarItems: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_16__.VToolbarItems,VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_16__.VToolbarTitle})
 
 
 /* hot reload */

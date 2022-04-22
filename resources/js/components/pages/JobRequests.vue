@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="6" class="p-3" style="margin-top: 150px">
     <div class="proposal-title">
-      <h3 class="text-center">Job Requests</h3>
+      <h2 class="text-center">These are your Job Requests</h2>
     </div>
     <v-divider></v-divider>
     <div v-if="allRequests">

@@ -60,7 +60,7 @@
                             auto-grow
                             v-model="description"
                             required
-                            value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                            value="Write description for your Job."
                           ></v-textarea>
                           <v-autocomplete
                             v-model="category"
@@ -298,7 +298,7 @@
                       <h3>Scope of Work</h3>
                       <v-radio-group
                         v-model="scope"
-                        :rules="[(v) => !!v || 'Item is required']"
+                        :rules="[(v) => !!v || 'Scope of work is required']"
                         row
                         required
                       >

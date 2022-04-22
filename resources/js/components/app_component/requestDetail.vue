@@ -1,5 +1,35 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="snackbar1"
+      :timeout="timeout"
+      top
+      color="red accent-2"
+      right
+    >
+      {{ text1 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="timeout"
+      top
+      color="success"
+      right
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar2 = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-container>
       <v-row class="dashboard-container">
         <v-col cols="12" sm="12" md="12" lg="8">
@@ -17,11 +47,7 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, aliquid?
-
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, doloribus quos. Facilis obcaecati quos repellendus corporis dolorem, quo vitae harum!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis ex porro, cupiditate obcaecati esse saepe provident consequatur voluptate inventore? Alias atque aliquam id reiciendis voluptates ipsam ipsum odit tempora nihil eius dolore corporis modi, voluptatum animi, sint hic ducimus omnis, porro molestiae vero quod labore exercitationem delectus temporibus! Tenetur, amet!
-                    <!-- {{ request_detail.employee }} -->
+                    {{ request_detail.letter }}
                   </pre>
                 </div>
               </div>
@@ -30,8 +56,6 @@
         </v-col>
         <v-col cols="12" sm="12" xs="12" md="4">
           <User :a_user="request_detail.employee" />
-
-          k ho sala
         </v-col>
         <v-col cols="12" sm="12" xs="12" md="12">
           <div
@@ -45,7 +69,7 @@
           >
             <div class="m-4">
               <div class="message">
-                <h5 class="my-0">Do not like the client?</h5>
+                <h5 class="my-0">Do you like the client?</h5>
                 <v-dialog v-model="dialog" width="700">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -103,16 +127,6 @@
                             </v-btn>
                           </vue-khalti>
                         </v-card-actions>
-
-                        <!-- <v-btn
-                          class="m-2 mt-4"
-                          rounded
-                          color="Green"
-                          dark
-                          width="100%"
-                          @click="action('accept')"
-                          >Accept!</v-btn
-                        > -->
                       </form>
                     </v-container>
 
@@ -139,7 +153,7 @@
                   color="primary"
                   dark
                   width="100%"
-                  @click="action('message')"
+                  @click="action('contact')"
                   >Contact!</v-btn
                 >
               </div>
@@ -181,6 +195,11 @@ export default {
   data() {
     var self = this;
     return {
+      snackbar1: false,
+      text1: "Error!",
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       a_user: [],
       loading: false,
       dialog: false,
@@ -212,10 +231,10 @@ export default {
                   Authorization: "Bearer " + localStorage.getItem("token"),
                 },
               });
-              if(res.status == 200){
-              self.accept(payload);
-              }else{
-                console.log('fail');
+              if (res.status == 200) {
+                self.accept(payload);
+              } else {
+                console.log("fail");
               }
             };
             sendData();
@@ -251,8 +270,32 @@ export default {
         this.accept();
       } else if (ac == "reject") {
         this.reject();
-      } else if (ac == "message") {
+      } else if (ac == "contact") {
+        console.log("contact");
+        this.contact();
       }
+    },
+    contact() {
+      axios({
+        method: "post",
+        url: `/chat/start/`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: {
+          user_id: this.request_detail.employee.user.id,
+        },
+      }).then((res) => {
+        let data = res.data;
+        let room = data;
+        console.log(room);
+        this.$router.push({
+          name: "ChatRoom",
+          params: {
+            currentRoom: room[0],
+          },
+        });
+      });
     },
     async accept(payload) {
       console.log("bhayo", payload);
@@ -270,16 +313,18 @@ export default {
           jobId: this.request_detail.job_id,
         },
       }).then((res) => {
-        console.log(res);
-        alert("Accepted!");
+        this.snackbar2 = true;
+        this.text2 = "User Accepted";
         this.updateRequests();
-        this.$router.push({ name: "dashboard.user" }).catch(() => {});
+        setTimeout(
+          () => this.$router.push({ name: "dashboard.user" }).catch(() => {}),
+          2000
+        );
       });
     },
     async onKhaltiClick() {
       const khaltiCheckout = await this.$refs.khaltiCheckout;
       let res = khaltiCheckout.onClick();
-      console.log(res, "bhayo!");
     },
     async reject() {
       const res = await axios
@@ -287,10 +332,13 @@ export default {
           `user/reject/${this.request_detail.employee_user.id}/${this.request_detail.job_id}`
         )
         .then((res) => {
-          console.log(res);
-          alert("Rejected!");
+          this.snackbar1 = true;
+          this.text1 = "User Rejected";
           this.updateRequests();
-          this.$router.push({ name: "dashboard.user" }).catch(() => {});
+          etTimeout(
+            () => this.$router.push({ name: "dashboard.user" }).catch(() => {}),
+            2000
+          );
         });
     },
     async getJob() {

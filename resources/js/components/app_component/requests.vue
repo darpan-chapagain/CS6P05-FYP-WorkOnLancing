@@ -21,7 +21,7 @@
                   <div class="d-flex">
                     <v-avatar size="40" class="mr-3">
                       <img
-                        :src="'/images/202203281818DSC00425.jpg'"
+                        :src="'/' + request.employee_user.profile_path"
                         alt="image"
                         class="img-fluid"
                       />

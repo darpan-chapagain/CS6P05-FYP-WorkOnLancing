@@ -1,5 +1,20 @@
 <template>
   <div style="margin-top: 100px">
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="timeout"
+      top
+      color="success"
+      right
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar2 = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <div class="user-found" v-if="this.user">
       <v-row>
         <v-col cols="12" lg="12">
@@ -228,10 +243,7 @@
                                   ></v-autocomplete>
                                 </div>
                                 <div class="rates">
-                                  
-
                                   <div class="payment-inputs m-2">
-                                    
                                     <v-text-field
                                       v-model="projectRate"
                                       clearable
@@ -250,7 +262,7 @@
                                   @click="submit"
                                   width="100%"
                                   height="50px"
-                                  >Save</v-btn
+                                  >Offer Job</v-btn
                                 >
                               </v-form>
                             </v-card>
@@ -336,28 +348,18 @@
                           <v-list-item-subtitle class="pb-2">{{
                             this.user.employee.total_job
                           }}</v-list-item-subtitle>
-                           <v-list-item-title
+                          <v-list-item-title
                             >Total Work Badges</v-list-item-title
                           >
                           <v-list-item-subtitle class="pb-2">
-                            <v-chip-group
-                            v-model="badge"
-                            column
-                            multiple
-                          >
-                            <v-chip
-                              v-for="tag in tags.badges"
-                              :key="tag.id"
-                            >
-                              <v-icon>{{ tag.badge_image }}</v-icon>
-                              {{ tag.Badge_Name }} ({{tag.count}})
-                            </v-chip>
-                          </v-chip-group>
+                            <v-chip-group v-model="badge" column multiple>
+                              <v-chip v-for="tag in tags.badges" :key="tag.id">
+                                <v-icon>{{ tag.badge_image }}</v-icon>
+                                {{ tag.Badge_Name }} ({{ tag.count }})
+                              </v-chip>
+                            </v-chip-group>
                           </v-list-item-subtitle>
-                          
                         </div>
-
-                        <!-- this.user.employee.total_job -->
                       </v-list-item-content>
                     </v-list-item>
                   </div>
@@ -386,21 +388,6 @@
 
               <div class="m-4">
                 <div class="additional-user-detail">
-                  <!-- <h5 class="my-0 p-3">Skills</h5>
-                <div class="attributes">
-                  <v-list-item two-line>
-                    <v-list-item-content>
-                      <v-list-item-title class="pb-2">Skill</v-list-item-title>
-
-                      <v-list-item-title class="pb-2">Skill</v-list-item-title>
-
-                      <v-list-item-title class="pb-2">Skill</v-list-item-title>
-
-                      <v-list-item-title class="pb-2">Skill</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </div> -->
-
                   <pre style="white-space: pre-line">
                     {{ this.user.about }}
                   </pre>
@@ -521,70 +508,6 @@
         </v-col>
 
         <v-col cols="12">
-          <!-- <v-sheet :rounded="3" min-height="268">
-          <v-sheet elevation="3" class="p-1 m-4" min-height="200">
-            <div class="job-title m-4 centre">
-              <h3>Recent Updates!</h3>
-              <b-card-sub-title>Posts and certifications</b-card-sub-title>
-              <v-divider></v-divider>
-            </div>
-
-            <div class="m-4">
-              <div class="posts p-5">
-        
-                  <v-row>
-                    <v-col v-for="n in 9" :key="n" cols="12">
-                      <Blogs />
-                      <br>
-                      <v-divider/>
-                    </v-col>
-                  </v-row>
-                
-              </div>
-              <v-container fluid>
-                <v-row dense>
-                  <v-col
-                    v-for="card in cards"
-                    :key="card.title"
-                    :subtitle="card.subtitle"
-                    :cols="card.flex"
-                  >
-                    <v-card class="min-">
-                      <v-img
-                        :src="card.src"
-                        class="white--text align-end"
-                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                        height="200px"
-                      >
-                        <v-card-title v-text="card.title"></v-card-title>
-                      </v-img>
-
-                      <v-card-subtitle v-text="card.subtitle">
-                        1,000 miles of wonder
-                      </v-card-subtitle>
-
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-
-                        <v-btn icon>
-                          <v-icon>mdi-heart</v-icon>
-                        </v-btn>
-
-                        <v-btn icon>
-                          <v-icon>mdi-bookmark</v-icon>
-                        </v-btn>
-
-                        <v-btn icon>
-                          <v-icon>mdi-share-variant</v-icon>
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
-          </v-sheet>
-        </v-sheet> -->
           <v-row>
             <v-col v-for="blog in this.blogs.blog" :key="blog.id" cols="12">
               <Blogs :blog="blog" />
@@ -609,6 +532,9 @@ export default {
     a_user: Object,
   },
   data: () => ({
+    snackbar2: false,
+    text2: "Error!",
+    timeout: 2000,
     tags: [],
     badge: [],
     rating: [],
@@ -616,13 +542,13 @@ export default {
     avgRate: 0,
     count: 0,
     id: null,
-    job_num: 0, // the number of jobs the user has
+    job_num: 0,
     first_name: null,
     last_name: null,
     user: null,
     show: false,
     dialog: false,
-    drawer: false, // false = Vuetify automatically "do the right thing" to show/hide the drawer
+    drawer: false,
     articles: [],
     errors: [],
     valid: true,
@@ -645,9 +571,8 @@ export default {
     descriptionRule: [
       (v) => !!v || "Description required",
       (v) =>
-        (v && v.length <= 1000) || "Description must be less than 1000 characters",
-
-      // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        (v && v.length <= 1000) ||
+        "Description must be less than 1000 characters",
     ],
     categoryRule: [(v) => !!v || "Please select category"],
     scopeRule: [[(v) => !!v || "Scope is required"]],
@@ -656,11 +581,6 @@ export default {
     date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
-    //   dateFormatted: vm.formatDate(
-    //     new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-    //       .toISOString()
-    //       .substr(0, 10)
-    //   ),
     dateFormatted: null,
     menu1: false,
     menu2: false,
@@ -732,16 +652,17 @@ export default {
       return !!value || "Required.";
     },
     async submit() {
-      // console.log(this.token);
       if (this.validate()) {
+        
         let res = await axios({
           method: "post",
           url: `user/offer/${this.id}`,
           headers: { Authorization: `Bearer ${this.token}` },
           data: this.formData(),
         });
-        // alert(res.data);
         this.dialog = false;
+        this.snackbar2 = true;
+        this.text2 = "Job Offered";
       }
     },
     validate() {
@@ -773,7 +694,6 @@ export default {
       const res = await axios.get("/skill");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.items.push(res.data[i].skill);
       }
     },
@@ -781,7 +701,6 @@ export default {
       const res = await axios.get("jobs/category");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.categories.push(res.data[i].category_name);
       }
     },
@@ -807,17 +726,6 @@ export default {
       return jobForm;
     },
     getNum() {
-      // let res = await axios({
-      //   method: "get",
-      //   url: `employee/get/job/user/${this.user.employee.employee_id}`,
-      //   data: {
-      //     num: this.select,
-      //   },
-      //   headers: {
-      //     Authorization: "Bearer " + this.token,
-      //   },
-      // });
-      // let data = await res.data;
       if (this.user.employee.status == "1") {
         if (this.user.employee.assignment_no > this.user.employee.total_job) {
           return true;
@@ -825,7 +733,6 @@ export default {
       } else {
         return false;
       }
-      // return data.num;
     },
     contact() {
       axios({
@@ -860,18 +767,6 @@ export default {
     let badges = await this.getBadges();
     this.tags = await badges;
   },
-  // created () {
-  //   axios.get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey='+this.api_key)
-  //     .then(response => {
-  //       //this.articles = response.data.articles
-  //       this.articles = response.data.articles
-  //       console.log('data:')
-  //       console.log(response.data.articles) // This will give you access to the full object
-  //     })
-  //     .catch(e => {
-  //       this.errors.push(e)
-  //     })
-  // },
   mounted() {
     window.scrollTo(0, 0);
   },
