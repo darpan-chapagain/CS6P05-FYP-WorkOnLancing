@@ -1,5 +1,35 @@
 <template>
   <div class="proposals p-2">
+    <v-snackbar
+      v-model="snackbar1"
+      :timeout="timeout"
+      top
+      color="red accent-2"
+      right
+    >
+      {{ text1 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="timeout"
+      top
+      color="success"
+      right
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar2 = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <div v-if="proposals">
       <div class="dialog">
         <v-dialog
@@ -21,9 +51,14 @@
                   <div class="d-flex">
                     <v-avatar size="40" class="mr-3">
                       <img
-                        :src="'/images/202203281818DSC00425.jpg'"
+                        :src="'/' + proposals.user.profile_path"
                         alt="image"
                         class="img-fluid"
+                        style="
+                          object-fit: cover;
+                          object-position: center;
+                          width: 100%;
+                        "
                       />
                     </v-avatar>
                     <p>{{ proposals.title }} Job</p>
@@ -44,9 +79,6 @@
               </v-toolbar-items>
             </v-toolbar>
             <div style="min-height: 100vh">
-              <!-- <RequestDetail 
-                :request_detail="request"
-              /> -->
               <JobDetail :a_job_detail="proposals" />
               <div
                 class="btns"
@@ -60,7 +92,7 @@
               >
                 <div class="m-4">
                   <div class="message">
-                    <h5 class="my-0">Do not like the client?</h5>
+                    <h5 class="my-0">Do you accept this Offer?</h5>
                     <v-btn
                       class="m-2 mt-4"
                       rounded
@@ -88,7 +120,7 @@
                 </div>
                 <div class="m-4">
                   <div class="message">
-                    <h5 class="my-0">Do not like the client?</h5>
+                    <h5 class="my-0">Do not like the Offer?</h5>
                     <v-btn
                       class="m-2 mt-4"
                       rounded
@@ -121,7 +153,7 @@
 
 <script>
 import JobDetail from "../app_component/cardJobDetails.vue";
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "Proposals",
@@ -131,6 +163,11 @@ export default {
   },
   data() {
     return {
+      snackbar1: false,
+      text1: "Error!",
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       dialog: false,
       value: null,
     };
@@ -158,12 +195,18 @@ export default {
           status: "accept",
         },
       }).then((res) => {
+        this.snackbar2 = true;
+        this.text2 = "Offer Accepted";
         this.updateRequests();
-        this.$router.push({ name: "dashboard" }).catch(() => {});
+        setTimeout(
+          () =>
+            this.$router.push({ name: "dashboard.employee" }).catch(() => {}),
+          2000
+        );
       });
     },
     async reject() {
-      const res = awaitaxios({
+      const res = await axios({
         method: "post",
         url: `employee/accept/job/${this.proposals.id}/`,
         data: {
@@ -171,9 +214,14 @@ export default {
         },
       }).then((res) => {
         console.log(res);
-        alert("Rejected!");
+        this.snackbar1 = true;
+        this.text1 = "Offer Rejected";
         this.updateRequests();
-        this.$router.push({ name: "dashboard" }).catch(() => {});
+        setTimeout(
+          () =>
+            this.$router.push({ name: "dashboard.employee" }).catch(() => {}),
+          2000
+        );
       });
     },
   },

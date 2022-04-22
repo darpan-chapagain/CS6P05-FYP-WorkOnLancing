@@ -373,7 +373,6 @@ class UserController extends Controller
 
     public function getActiveUser()
     {
-        // $user = User::where('status', '=', 1)->get();
         $user = User::all()->where('status', '=', 1)->first();
         $response = [
             'active_user' => $user,
@@ -384,17 +383,11 @@ class UserController extends Controller
     public function offerJob(Request $request, $id)
     {
         $authUser = auth()->user();
-        // $employee = User::find($id);
 
         $authUserId = $authUser->id;
-        // $employeeUserId = $employee->user->id;
         $employee = Employee::all()->where('user_id', $id)->first();
-        // dd($job->id);
-        // dd($employee->employee_id);
-        // dd($authUserId, $employeeUserId);
         $categories = JobCategory::all()->where('category_name', $request->category)->first();
 
-        // dd($employee);
         if ($authUserId != $id) {
             $job = Job::create([
                 'user_id' => $authUserId,
@@ -403,14 +396,13 @@ class UserController extends Controller
                 'size' =>  $request->size,
                 'time' =>  Carbon::parse($request->time)->toDateTimeString(),
                 'experience' =>  $request->experience,
-                // 'salary_offered' =>  $request->salary_offered,
+                'project_rate' =>  $request->project_rate,
                 'job_category_id' => $categories->job_category_id,
                 'status' => 2,
 
             ]);
             $job->save();
             foreach ($request->skill as $sk) {
-                // dd($sk);
                 $skills = Skill::all()->where('skill', $sk)->first();
                 $jobSkill = PostSkill::create([
                     'skill' => $skills->id,

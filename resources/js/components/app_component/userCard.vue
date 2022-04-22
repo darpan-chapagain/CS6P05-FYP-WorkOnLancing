@@ -50,8 +50,7 @@
       </div>
 
       <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam,
-        minima!.
+        {{ a_user.user.about }}
       </div>
     </v-card-text>
 

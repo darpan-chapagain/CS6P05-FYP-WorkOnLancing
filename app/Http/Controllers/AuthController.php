@@ -29,8 +29,8 @@ class AuthController extends Controller
             'role_id' =>  'required'
         ]);
 
-        $profile_name = '202203281818DSC00425.JPG';
-        $profile_path = 'images/202203281818DSC00425.jpg';
+        $profile_name = '202204201136admin.png';
+        $profile_path = 'images/202204201136admin.png';
 
         if ($request->file('profile')) {
             $file = $request->file('profile');

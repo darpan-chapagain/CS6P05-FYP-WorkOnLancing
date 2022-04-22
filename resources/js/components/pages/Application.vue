@@ -23,9 +23,7 @@
             <v-sheet elevation="6" class="p-1 m-4" min-height="400">
               <div class="job-title m-4 centre">
                 <h3>Think you have what it takes?</h3>
-                <b-card-sub-title
-                  >Apply or talk to the client!</b-card-sub-title
-                >
+                <b-card-sub-title>Send a application letter!</b-card-sub-title>
                 <v-divider></v-divider>
               </div>
 
@@ -78,6 +76,7 @@ export default {
     snackbar: false,
     text: "Error!",
     valid: true,
+    timeout: 2000,
   }),
   methods: {
     async apply() {

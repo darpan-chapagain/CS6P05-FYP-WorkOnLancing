@@ -222,7 +222,6 @@ class EmployeeController extends Controller
             ->where('employee_id', $employee->employee_id)
             ->where('job_id', $jobId)
             ->first();
-        // dd($jobRequest);
         if ($request->status == "accept") {
             $jobRequest->status = 4;
             $employee->total_job = $currentWork;
@@ -338,7 +337,6 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        // dd($employee->employee_id);
         $jobRequest = JobRequest::where('employee_id', $employee->employee_id)
             ->where('status', 6)
             ->orWhere('status', 7)->get();
@@ -348,7 +346,6 @@ class EmployeeController extends Controller
             $job->jobCategory;
             $job->requestJob;
             foreach ($job->jobSkill as $skill) {
-                // dd($skill->skillJob);
                 $skill->allSkill;
             }
             $job->user;
@@ -386,6 +383,7 @@ class EmployeeController extends Controller
         if ($req->status == 5) {
             $req->status = 6;
         }
+        
         $job->save();
         $req->save();
         $response = [
@@ -421,14 +419,7 @@ class EmployeeController extends Controller
 
         $emp = Employee::find($user->employee->employee_id);
         $status = $emp->status;
-        // if ($status == 1) {
-        //     $update = 2;
-        // } else {
-        //     $update = 1;
-        // }
-        // $user->update([
-        //     'status' => $update
-        // ]);
+        
         $response = [
             'status' => $emp->status,
         ];

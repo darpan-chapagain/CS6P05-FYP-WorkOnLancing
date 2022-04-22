@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
+
 
 class UserFactory extends Factory
 {
@@ -21,6 +23,8 @@ class UserFactory extends Factory
 
     public function definition()
     {
+        $gender = ['Male', 'Female', 'Other'];
+        $picture = ['fake1.jpg', 'fake2.jpg', 'fake3.jpg', '202204201136admin.png'];
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
@@ -29,12 +33,12 @@ class UserFactory extends Factory
             'City' => $this->faker->city(),
             'Province' => $this->faker->state(),
             'about' => $this->faker->text(),
-            'Gender' => 'Male',
+            'Gender' => Arr::random($gender),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('pass'),
-            'profile' => '202203281818DSC00425.JPG',
-            'profile_path' => 'images/202203281818DSC00425.jpg',
+            'profile' => Arr::random($picture),
+            'profile_path' => 'images/' . Arr::random($picture),
             'rating' => $this->rand_float(1, 5),
         ];
     }
