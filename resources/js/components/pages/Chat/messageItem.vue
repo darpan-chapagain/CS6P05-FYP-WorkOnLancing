@@ -11,7 +11,6 @@
               </div>
               <v-list-item-subtitle
                 >{{ this.getTime(message.created_at) }}
-                <!-- <span class="ml-16">Seen 1:03PM</span> -->
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>

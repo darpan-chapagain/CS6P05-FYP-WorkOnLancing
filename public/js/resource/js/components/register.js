@@ -305,6 +305,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Blogs",
@@ -327,10 +331,12 @@ __webpack_require__.r(__webpack_exports__);
           id: this.blog.id
         }
       });
+    },
+    getTime: function getTime(time) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(time).format("MMMM Do YYYY, h:mm:ss a");
     }
   },
   created: function created() {
-    this.time = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("MMMM Do YYYY, h:mm:ss a");
     this.articles = this.blog;
   }
 });
@@ -3003,7 +3009,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -4876,9 +4881,7 @@ var render = function () {
               _vm._v(" "),
               _c("v-card-text", [
                 _vm._v(
-                  "\n        " +
-                    _vm._s(_vm.blog.detail.substring(0, 200)) +
-                    "...\n      "
+                  " " + _vm._s(_vm.blog.detail.substring(0, 200)) + "... "
                 ),
               ]),
               _vm._v(" "),
@@ -4891,7 +4894,13 @@ var render = function () {
                       staticClass: "white--text",
                       attrs: { big: "", color: "secondary" },
                     },
-                    [_vm._v("\n          " + _vm._s(this.time) + "\n        ")]
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(this.getTime(_vm.blog.created_at)) +
+                          "\n        "
+                      ),
+                    ]
                   ),
                   _vm._v(" "),
                   _c("v-spacer"),

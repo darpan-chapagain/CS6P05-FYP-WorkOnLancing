@@ -73,9 +73,11 @@
                     </v-btn>
                   </v-alert>
                 </div>
+
                 <div v-if="a_job.status == 2">
                   <div v-if="a_job.request_job">
                     <div v-for="req in a_job.request_job" :key="req.id">
+                      
                       <div v-if="req.status == 2">
                         <v-alert
                           border="top"
@@ -89,15 +91,30 @@
                           {{ req.req_employee.user.last_name }}
                         </v-alert>
                       </div>
+                      <div v-if="req.status == 3">
+                        <v-alert
+                          border="top"
+                          colored-border
+                          type="info"
+                          elevation="2"
+                          class="p-3 mx-5 my-4"
+                        >
+                          Job offer was rejected by
+                          {{ req.req_employee.user.first_name }}
+                          {{ req.req_employee.user.last_name }}
+                        </v-alert>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                
               </div>
 
               <div v-if="a_job.request_job">
                 <div v-for="req in a_job.request_job" :key="req.id">
                   <div v-if="req.status == 4">
-                    {{ req.status }}
+
                     <v-alert
                       border="top"
                       colored-border

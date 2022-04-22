@@ -107,7 +107,6 @@
 
           <div class="payment-inputs m-2">
             <v-text-field
-              v-if="!payment"
               v-model="projectRate"
               clearable
               label="Project Rate"

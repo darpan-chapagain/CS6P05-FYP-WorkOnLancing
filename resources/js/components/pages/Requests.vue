@@ -1,7 +1,6 @@
 <template>
   <div style="margin: 150px">
     <v-sheet rounded="lg" min-height="500">
-      <!--  -->
       <v-card elevation="6" class="p-3 mt-5" min-width="320px">
         <div class="proposal-title">
           <h3 class="text-center">Job Requests</h3>
@@ -38,7 +37,6 @@ export default {
   },
     async created() {
     await this.fetchRequests();
-    // this.fetchRequests(localStorage.getItem('token'));
   },
   computed: {
     ...mapGetters({

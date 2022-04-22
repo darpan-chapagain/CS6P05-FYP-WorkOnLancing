@@ -10,6 +10,7 @@ use App\Models\JobCategory;
 use App\Models\Payment;
 use App\Models\Skill;
 use App\Models\PostSkill;
+use App\Models\User;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -300,12 +301,11 @@ class JobController extends Controller
             ->first();
         $job->jobCategory;
         $req = $job->requestJob[0];
-        // $user = User::all()->where('id', $userID)->first();
-        // dd($req->status);
+        $user = User::all()->where('id', $userID)->first();
         if ($req->status == 5 or $req->status == 6) {
             $req->status = 7;
             $job->status = 4;
-            // $user->points += 100;
+            $user->points += 10;
         }
         $employee = $req->reqEmployee;
         $details = [
@@ -318,8 +318,6 @@ class JobController extends Controller
 
         $paymentStatus = Payment::all()->where('job_id', $job->id)
             ->first();
-        // dd($paymentStatus->status);
-        // $paymentStatus->status = 1;
         $paymentStatus->update([
             'status' => 1,
         ]);
@@ -327,7 +325,7 @@ class JobController extends Controller
         Employee::where('user_id', $employee->user_id)->update([
             'total_job' => $currentWork,
         ]);
-
+        $user->save();
         $job->save();
         $req->save();
         $response = [

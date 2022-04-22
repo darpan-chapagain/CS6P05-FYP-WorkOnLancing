@@ -27,8 +27,6 @@
                         <h3>You have completed this job</h3>
                         <b-card-sub-title>Review the client!</b-card-sub-title>
                         <v-divider></v-divider>
-                        <h5 class="my-0">Review the client!</h5>
-                        <b-card-sub-title>Review!</b-card-sub-title>
                       </div>
                       <div v-if="this.apply">
                         <v-btn
@@ -37,7 +35,7 @@
                           color="primary"
                           disabled
                         >
-                          Already Already Reviewed!
+                          Job Completed!
                         </v-btn>
                       </div>
                       <div v-else>
@@ -154,7 +152,7 @@
                           @click.prevent="finish"
                           >Finish the job!</v-btn
                         >
-                        >Finish the job
+                        
                       </div>
                     </div>
                   </div>

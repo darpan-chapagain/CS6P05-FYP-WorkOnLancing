@@ -1,5 +1,20 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="timeout"
+      top
+      color="success"
+      right
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar2 = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <div style="margin-top: 150px">
       <template>
         <v-row>
@@ -178,7 +193,6 @@
                         <v-icon class="p-1">mdi-cash</v-icon>
                         ${{ employee.project_rate }}/pr</v-chip
                       >
-                      
                     </div>
                   </v-col>
                 </v-row>
@@ -292,6 +306,9 @@ export default {
   },
   data() {
     return {
+      snackbar2: false,
+      text2: "Error!",
+      timeout: 2000,
       title: null,
       loading: false,
       selection: null,
@@ -339,6 +356,10 @@ export default {
           "Content-Type": "multipart/form-data",
           "Header-Authorization": "Bearer " + localStorage.getItem("token"),
         },
+      }).then(() => {
+        this.snackbar2 = true;
+        this.text2 = "Posted successfully";
+        setTimeout(() => this.$router.push({ name: "dashboard" }), 2000);
       });
     },
     goProfile() {
@@ -350,7 +371,6 @@ export default {
         name: "profile",
         params: {
           id: this.user.id,
-          //   a_user: this.a_user,
         },
       });
     },

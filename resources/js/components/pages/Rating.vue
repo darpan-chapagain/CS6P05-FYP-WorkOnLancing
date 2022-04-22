@@ -19,7 +19,7 @@
               </template>
 
               <img
-                :src="'/images/202203291242DSC00425.JPG'"
+                :src="'/' + this.returnJob().user.profile_path"
                 alt="image"
                 class="img-fluid"
                 style="object-fit: cover; object-position: center; width: 100%"
@@ -163,7 +163,7 @@ export default {
         url: `user/rating/${this.returnUser().user.id}/${this.returnJob().id}`,
         data: rateForm,
         headers: {
-          Authorization: "Bearer " + this.token,
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",
         },
       })

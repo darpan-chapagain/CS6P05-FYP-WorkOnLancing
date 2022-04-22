@@ -57,7 +57,6 @@
           </v-card>
         </v-sheet>
         <v-sheet rounded="lg" min-height="268">
-          <!--  -->
           <v-card elevation="6" class="p-3 mt-5">
             <div class="proposal-title">
               <h3 class="text-center">Proposals</h3>
@@ -99,7 +98,6 @@
         order-lg="2"
       >
         <v-sheet min-height="70vh" rounded="lg">
-          <!--  -->
           <v-card elevation="6">
             <div class="title px-4 pt-5">
               <h1>Find Work</h1>
