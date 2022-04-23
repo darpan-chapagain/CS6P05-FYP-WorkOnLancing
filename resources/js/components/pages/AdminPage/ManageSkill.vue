@@ -85,7 +85,7 @@ export default {
       {
         text: "id",
         align: "start",
-        sortable: false,
+        sortable: true,
         value: "id",
       },
       {

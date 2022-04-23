@@ -8,6 +8,7 @@
         single-line
         style="max-width: 600px"
         v-model="name"
+        @keyup.enter="search"
       ></v-text-field>
     </div>
     <v-row class="dashboard-container">
@@ -149,15 +150,18 @@ export default {
       allRequests: "requests/job_Request",
     }),
     filterUsers: function () {
-      // return this.filterByRange(
-      //   this.filterByName(this.filterByCategory(this.allUsers))
-      // );
-      return this.filterByRange(this.filterByCategory(this.filterByName(this.allUsers)));
+      return this.filterByRange(
+        this.filterByCategory(this.filterByName(this.allUsers))
+      );
     },
   },
   methods: {
+    search() {
+      console.log(this.name);
+    },
     getCategory(value) {
       if (value) {
+        console.log(value);
         this.category = value;
       } else {
         this.category = [];
@@ -165,6 +169,8 @@ export default {
     },
     getRange(value) {
       if (value) {
+        console.log(value[0], value[1]);
+
         this.min = value[0];
         this.max = value[1];
       } else {
@@ -208,7 +214,13 @@ export default {
 
     filterByName: function (allUsers) {
       return allUsers.filter(
-        (allUsers) => !allUsers.user.first_name.toLowerCase().indexOf(this.name.toLowerCase()) || !allUsers.user.last_name.toLowerCase().indexOf(this.name.toLowerCase())
+        (allUsers) =>
+          !allUsers.user.first_name
+            .toLowerCase()
+            .indexOf(this.name.toLowerCase()) ||
+          !allUsers.user.last_name
+            .toLowerCase()
+            .indexOf(this.name.toLowerCase())
       );
     },
 

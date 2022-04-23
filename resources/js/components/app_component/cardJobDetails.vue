@@ -10,7 +10,7 @@
       <div class="d-flex flex-row align-items-center">
         <h5 class="text-center my-0 p-3">Description</h5>
         <v-chip class="ma-2" color="blue" text-color="white">
-          category: {{ a_job_detail.job_category.category_name }}
+          <span class="d-none d-sm-flex">category:</span>{{ a_job_detail.job_category.category_name }}
           <v-icon right> mdi-star </v-icon>
         </v-chip>
       </div>

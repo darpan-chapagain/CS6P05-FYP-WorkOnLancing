@@ -35,7 +35,7 @@
                 style="max-width: 400px; margin: 20px auto; display: flex"
               >
                 <form ref="form" style="width: 100%; margin: 0 auto">
-                  <h4 class="pb-5 pt-5">Job Category</h4>
+                  <h4 class="pb-5 pt-5">Job Badge</h4>
 
                   <v-autocomplete
                     v-model="category"

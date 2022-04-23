@@ -164,12 +164,12 @@ class EmployeeController extends Controller
                     'message' => 'success',
                 ];
                 $details = [
-                    'fname' => $authEmployee->first_name,
-                    'lname' => $authEmployee->last_name,
+                    'fname' => $job->user->first_name,
+                    'lname' => $job->user->last_name,
                     'job' => $job->title,
                 ];
 
-                Mail::to($employee->user->email)->send(new \App\Mail\JobRequestMail($details));
+                Mail::to($job->user->email)->send(new \App\Mail\JobRequestMail($details));
             }
         } else {
             $response = [

@@ -1854,6 +1854,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6141,6 +6152,7 @@ var render = function () {
                         [
                           _c(
                             "v-stepper-header",
+                            { staticClass: "d-none d-sm-flex" },
                             [
                               _c(
                                 "v-stepper-step",
@@ -7583,36 +7595,57 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticStyle: { margin: "150px" } },
+    "v-card",
+    {
+      staticClass: "p-3",
+      staticStyle: { "margin-top": "150px" },
+      attrs: { elevation: "6" },
+    },
     [
-      _c(
-        "v-sheet",
-        { attrs: { rounded: "lg", "min-height": "500" } },
-        [
-          _c("v-card", { staticClass: "p-3 mt-5", attrs: { elevation: "6" } }, [
-            _c("div", { staticClass: "proposal-title" }, [
-              _c("h3", { staticClass: "text-center" }, [_vm._v("Proposals")]),
-            ]),
-            _vm._v(" "),
-            _vm.allProposals
-              ? _c(
-                  "div",
-                  _vm._l(_vm.allProposals.job, function (a_proposal) {
-                    return _c(
-                      "div",
-                      { key: a_proposal.id },
-                      [_c("Proposals", { attrs: { proposals: a_proposal } })],
-                      1
-                    )
-                  }),
-                  0
-                )
-              : _vm._e(),
-          ]),
-        ],
-        1
-      ),
+      _c("div", { staticClass: "proposal-title" }, [
+        _c("h2", { staticClass: "text-center" }, [
+          _vm._v("These are no Job offers"),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("v-divider"),
+      _vm._v(" "),
+      _vm.allProposals
+        ? _c(
+            "div",
+            _vm._l(_vm.allProposals.job, function (a_proposal) {
+              return _c(
+                "div",
+                { key: a_proposal.id },
+                [_c("Proposals", { attrs: { proposals: a_proposal } })],
+                1
+              )
+            }),
+            0
+          )
+        : _c(
+            "div",
+            [
+              _c(
+                "v-alert",
+                {
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    border: "left",
+                    "colored-border": "",
+                    color: "red accent-4",
+                    elevation: "2",
+                  },
+                },
+                [
+                  _c("div", { staticClass: "d-flex ml-5" }, [
+                    _c("p", [_vm._v('No requests yet!"')]),
+                  ]),
+                ]
+              ),
+            ],
+            1
+          ),
     ],
     1
   )
@@ -12392,8 +12425,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/VCard.js");
-/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
+/* harmony import */ var vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VAlert */ "./node_modules/vuetify/lib/components/VAlert/VAlert.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/VCard.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
 
 
 
@@ -12416,7 +12450,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 ;
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_5__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_6__["default"]})
 
 
 /* hot reload */
