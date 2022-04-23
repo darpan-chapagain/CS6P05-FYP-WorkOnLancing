@@ -161,7 +161,7 @@
                         <v-icon class="p-1"
                           >mdi-star-four-points-outline</v-icon
                         >
-                        1234 points</v-chip
+                        {{ user.points }} points</v-chip
                       >
                       <v-btn
                         color="deep-purple lighten-2"

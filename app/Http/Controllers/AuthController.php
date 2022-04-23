@@ -169,6 +169,7 @@ class AuthController extends Controller
     public function me()
     {
         $data = auth()->user();
+        $data->roles;
         $emp = $data->employee;
         if ($emp) {
             $emp->jobCategories;

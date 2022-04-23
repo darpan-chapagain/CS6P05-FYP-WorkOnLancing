@@ -439,9 +439,8 @@ class UserController extends Controller
     public function chooseEmployee(Request $request, $id, $jobId)
     {
         $authUser = auth()->user();
-        // dd($request->idx);
         $employee = Employee::all()->where('user_id', $id)->first();
-        // dd($employee->employee_id);
+        $currentWork = $employee->total_job;
         $jobRequest = JobRequest::all()
             ->where('employee_id', $employee->employee_id)
             ->where('job_id', $jobId)
@@ -449,10 +448,8 @@ class UserController extends Controller
         $jobRequest->status = 4;
         $otherRequests = JobRequest::where('job_id', $jobId)
             ->where('job_employement_id', '!=', $jobRequest->job_employement_id)->get();
-        // $otherRequests->update(['status' => 3]);
         $job = Job::find($jobId);
         $job->status = 4;
-        // dd($request->project_rate);
         $payment = new Payment([
             'user_id' => $jobId,
             'employee_id' => $employee->employee_id,
@@ -466,8 +463,9 @@ class UserController extends Controller
             'status' => 0,
 
         ]);
+        $employee->total_job = $currentWork;
+        $employee->save();
         $payment->save();
-        // dd($payment);
         $jobRequest->save();
         $job->save();
         $details = [
@@ -688,6 +686,4 @@ class UserController extends Controller
 
         return response()->json($response);
     }
-
-    
 }

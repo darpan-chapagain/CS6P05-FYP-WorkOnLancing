@@ -167,7 +167,7 @@
 
                                                             <h1 class="v-font-size"
                                                                 style="margin: 0px; color: #27187e; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 36px;">
-                                                                <strong>Congratulations you've completed the job!</strong>
+                                                                <strong>Wow! You got a new Job request</strong>
                                                             </h1>
 
                                                         </td>

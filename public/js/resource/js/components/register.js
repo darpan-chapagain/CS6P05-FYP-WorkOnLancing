@@ -1393,6 +1393,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1923,6 +1928,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -3607,6 +3616,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // importing the axios (a HTTP library) to connects the app with the News API
 
 
@@ -3669,7 +3688,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)({
     token: "auth/getToken",
-    auth: "auth/authenticated"
+    auth: "auth/authenticated",
+    authUser: "auth/user"
   })),
   watch: {
     date: function date(val) {
@@ -4172,7 +4192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* *{\r\n    margin: 0px;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n} */\n.main-div[data-v-62ff28b9] {\r\n  padding-top: 55px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100%;\r\n  min-height: 96vh;\n}\n.login-card[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-width: 320px;\r\n  align-items: center;\n}\n.image-holder[data-v-62ff28b9] {\r\n  padding-top: 25px;\r\n  width: 50%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\r\n  -o-object-position: center;\r\n     object-position: center;\n}\n.form-holder[data-v-62ff28b9] {\r\n  margin-left: 5%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  /* justify-content: center; */\r\n  align-items: center;\n}\n.form-container[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\n}\n.form-group .form-input[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 200px;\r\n  width: 100%;\n}\n.form-input-2[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 300px;\r\n  width: 100%;\n}\n.form-group[data-v-62ff28b9] {\r\n  margin-bottom: 10px;\n}\n.work_type[data-v-62ff28b9] {\r\n  display: flex;\r\n  align-items: center;\n}\n.freelance[data-v-62ff28b9] {\r\n  margin-bottom: 0;\r\n  margin-right: 15px;\n}\n.btn[data-v-62ff28b9] {\r\n  max-width: 380px;\r\n  min-width: 240px;\r\n  width: 100%;\r\n  font-size: 18px;\n}\n.sign-in-btn[data-v-62ff28b9] {\r\n  background-color: #0c0b0b !important;\r\n  color: #ffffff !important;\n}\n@media only screen and (min-width: 769px) {\n.login-card[data-v-62ff28b9] {\r\n    flex-direction: row;\r\n    max-width: 1022px;\r\n    min-width: 768px;\r\n    width: 100%;\r\n    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;\n}\n.form-holder[data-v-62ff28b9] {\r\n    padding: 25px;\r\n    width: 40%;\n}\n.image-holder[data-v-62ff28b9] {\r\n    height: 100%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n    height: 100%;\n}\n}\n@media only screen and (min-width: 1025px) {\n.login-card[data-v-62ff28b9] {\r\n    max-width: 1400px;\r\n    min-width: 1024px;\n}\n.name-group[data-v-62ff28b9] {\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 420px;\r\n    justify-content: space-between;\n}\n.first-name-container[data-v-62ff28b9],\r\n  .last-name-container[data-v-62ff28b9] {\r\n    width: 200px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* *{\r\n    margin: 0px;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n} */\n.main-div[data-v-62ff28b9] {\r\n  padding-top: 55px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100%;\r\n  min-height: 96vh;\n}\n.login-card[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-width: 320px;\r\n  align-items: center;\n}\n.image-holder[data-v-62ff28b9] {\r\n  padding-top: 25px;\r\n  width: 50%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\r\n  -o-object-position: center;\r\n     object-position: center;\n}\n.form-holder[data-v-62ff28b9] {\r\n  margin-left: 5%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  /* justify-content: center; */\r\n  align-items: center;\n}\n.form-container[data-v-62ff28b9] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\n}\n.form-group .form-input[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 200px;\r\n  width: 100%;\n}\n.form-input-2[data-v-62ff28b9] {\r\n  max-width: 400px;\r\n  min-width: 300px;\r\n  width: 100%;\n}\n.form-group[data-v-62ff28b9] {\r\n  margin-bottom: 10px;\n}\n.work_type[data-v-62ff28b9] {\r\n  display: flex;\r\n  align-items: center;\n}\n.freelance[data-v-62ff28b9] {\r\n  margin-bottom: 0;\r\n  margin-right: 15px;\n}\n.btn[data-v-62ff28b9] {\r\n  max-width: 380px;\r\n  min-width: 240px;\r\n  width: 100%;\r\n  font-size: 18px;\n}\n.sign-in-btn[data-v-62ff28b9] {\r\n  background-color: #0c0b0b !important;\r\n  color: #ffffff !important;\n}\n@media only screen and (min-width: 769px) {\n.login-card[data-v-62ff28b9] {\r\n    flex-direction: row;\r\n    max-width: 1022px;\r\n    min-width: 768px;\r\n    width: 100%;\r\n    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;\n}\n.form-holder[data-v-62ff28b9] {\r\n    padding: 25px;\r\n    width: 40%;\n}\n.image-holder[data-v-62ff28b9] {\r\n    height: 100%;\n}\n.image-holder img[data-v-62ff28b9] {\r\n    height: 100%;\n}\n}\n@media only screen and (min-width: 1025px) {\n.login-card[data-v-62ff28b9] {\r\n    max-width: 1400px;\r\n    min-width: 1024px;\n}\n.name-group[data-v-62ff28b9] {\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 420px;\r\n    justify-content: space-between;\n}\n.first-name-container[data-v-62ff28b9],\r\n  .last-name-container[data-v-62ff28b9] {\r\n    width: 200px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6260,7 +6280,14 @@ var render = function () {
                                                       "hide-selected": "",
                                                       "persistent-hint": "",
                                                       label: "Job Category",
-                                                      rules: _vm.categoryRule,
+                                                      rules: [
+                                                        function (v) {
+                                                          return (
+                                                            !!(v && v.length) ||
+                                                            "Please select a category"
+                                                          )
+                                                        },
+                                                      ],
                                                       dense: "",
                                                     },
                                                     model: {
@@ -8274,6 +8301,17 @@ var render = function () {
                                                               "",
                                                             label:
                                                               "Job Category",
+                                                            rules: [
+                                                              function (v) {
+                                                                return (
+                                                                  !!(
+                                                                    v &&
+                                                                    v.length
+                                                                  ) ||
+                                                                  "Please select a category"
+                                                                )
+                                                              },
+                                                            ],
                                                             dense: "",
                                                           },
                                                           model: {
@@ -10146,919 +10184,932 @@ var render = function () {
                                         { attrs: { cols: "12", lg: "12" } },
                                         [
                                           this.auth
-                                            ? _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "profile-btn mx-auto",
-                                                  staticStyle: {
-                                                    "max-width": "150px",
-                                                    display: "flex",
-                                                    "flex-direction": "column",
-                                                  },
-                                                },
-                                                [
-                                                  _c(
-                                                    "v-btn",
-                                                    {
-                                                      staticClass: "m-2 mt-4",
-                                                      attrs: {
-                                                        rounded: "",
-                                                        color: "primary",
-                                                        dark: "",
+                                            ? _c("div", [
+                                                this.user.id != this.authUser.id
+                                                  ? _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "profile-btn mx-auto",
+                                                        staticStyle: {
+                                                          "max-width": "150px",
+                                                          display: "flex",
+                                                          "flex-direction":
+                                                            "column",
+                                                        },
                                                       },
-                                                      on: {
-                                                        click: _vm.contact,
-                                                      },
-                                                    },
-                                                    [_vm._v("Contact!")]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  this.user.roles.role_id == 3
-                                                    ? _c("div", [
-                                                        this.getNum()
-                                                          ? _c(
-                                                              "div",
-                                                              [
-                                                                _c(
-                                                                  "v-dialog",
-                                                                  {
-                                                                    attrs: {
-                                                                      width:
-                                                                        "600px",
-                                                                    },
-                                                                    scopedSlots:
-                                                                      _vm._u(
-                                                                        [
-                                                                          {
-                                                                            key: "activator",
-                                                                            fn: function (
-                                                                              ref
-                                                                            ) {
-                                                                              var on =
-                                                                                ref.on
-                                                                              var attrs =
-                                                                                ref.attrs
-                                                                              return [
-                                                                                _c(
-                                                                                  "v-btn",
-                                                                                  _vm._g(
-                                                                                    _vm._b(
-                                                                                      {
-                                                                                        staticClass:
-                                                                                          "m-2 mt-4",
-                                                                                        attrs:
-                                                                                          {
-                                                                                            rounded:
-                                                                                              "",
-                                                                                            color:
-                                                                                              "primary",
-                                                                                            dark: "",
-                                                                                          },
-                                                                                      },
-                                                                                      "v-btn",
-                                                                                      attrs,
-                                                                                      false
-                                                                                    ),
-                                                                                    on
-                                                                                  ),
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      "Propose Job!"
-                                                                                    ),
-                                                                                  ]
-                                                                                ),
-                                                                              ]
+                                                      [
+                                                        _c(
+                                                          "v-btn",
+                                                          {
+                                                            staticClass:
+                                                              "m-2 mt-4",
+                                                            attrs: {
+                                                              rounded: "",
+                                                              color: "primary",
+                                                              dark: "",
+                                                            },
+                                                            on: {
+                                                              click:
+                                                                _vm.contact,
+                                                            },
+                                                          },
+                                                          [_vm._v("Contact!")]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        this.user.roles
+                                                          .role_id == 3
+                                                          ? _c("div", [
+                                                              this.getNum()
+                                                                ? _c(
+                                                                    "div",
+                                                                    [
+                                                                      _c(
+                                                                        "v-dialog",
+                                                                        {
+                                                                          attrs:
+                                                                            {
+                                                                              width:
+                                                                                "600px",
                                                                             },
-                                                                          },
-                                                                        ],
-                                                                        null,
-                                                                        false,
-                                                                        3364564135
-                                                                      ),
-                                                                    model: {
-                                                                      value:
-                                                                        _vm.dialog,
-                                                                      callback:
-                                                                        function (
-                                                                          $$v
-                                                                        ) {
-                                                                          _vm.dialog =
-                                                                            $$v
-                                                                        },
-                                                                      expression:
-                                                                        "dialog",
-                                                                    },
-                                                                  },
-                                                                  [
-                                                                    _vm._v(" "),
-                                                                    _c(
-                                                                      "v-card",
-                                                                      [
-                                                                        _c(
-                                                                          "v-toolbar",
-                                                                          {
-                                                                            attrs:
-                                                                              {
-                                                                                dark: "",
-                                                                                color:
-                                                                                  "primary",
-                                                                              },
-                                                                          },
-                                                                          [
-                                                                            _c(
-                                                                              "v-toolbar-title",
+                                                                          scopedSlots:
+                                                                            _vm._u(
                                                                               [
-                                                                                _vm._v(
-                                                                                  "Job Detail"
-                                                                                ),
-                                                                              ]
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "v-spacer"
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "v-toolbar-items",
-                                                                              [
-                                                                                _c(
-                                                                                  "v-btn",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        icon: "",
-                                                                                        dark: "",
-                                                                                      },
-                                                                                    on: {
-                                                                                      click:
-                                                                                        function (
-                                                                                          $event
-                                                                                        ) {
-                                                                                          _vm.dialog = false
-                                                                                        },
-                                                                                    },
-                                                                                  },
-                                                                                  [
-                                                                                    _c(
-                                                                                      "v-icon",
-                                                                                      [
-                                                                                        _vm._v(
-                                                                                          "mdi-close"
-                                                                                        ),
-                                                                                      ]
-                                                                                    ),
-                                                                                  ],
-                                                                                  1
-                                                                                ),
-                                                                              ],
-                                                                              1
-                                                                            ),
-                                                                          ],
-                                                                          1
-                                                                        ),
-                                                                        _vm._v(
-                                                                          " "
-                                                                        ),
-                                                                        _c(
-                                                                          "v-form",
-                                                                          {
-                                                                            ref: "form1",
-                                                                            staticStyle:
-                                                                              {
-                                                                                padding:
-                                                                                  "50px",
-                                                                              },
-                                                                            attrs:
-                                                                              {
-                                                                                "lazy-validation":
-                                                                                  "",
-                                                                              },
-                                                                            model:
-                                                                              {
-                                                                                value:
-                                                                                  _vm.valid,
-                                                                                callback:
-                                                                                  function (
-                                                                                    $$v
+                                                                                {
+                                                                                  key: "activator",
+                                                                                  fn: function (
+                                                                                    ref
                                                                                   ) {
-                                                                                    _vm.valid =
-                                                                                      $$v
-                                                                                  },
-                                                                                expression:
-                                                                                  "valid",
-                                                                              },
-                                                                          },
-                                                                          [
-                                                                            _c(
-                                                                              "div",
-                                                                              {
-                                                                                staticClass:
-                                                                                  "job-info",
-                                                                              },
-                                                                              [
-                                                                                _c(
-                                                                                  "h3",
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      "Give Some Info to your Project"
-                                                                                    ),
-                                                                                  ]
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "v-text-field",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        counter: 100,
-                                                                                        rules:
-                                                                                          _vm.titleRules,
-                                                                                        label:
-                                                                                          "Name",
-                                                                                        required:
-                                                                                          "",
-                                                                                      },
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.title,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.title =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "title",
-                                                                                      },
-                                                                                  }
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "v-textarea",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        name: "description",
-                                                                                        filled:
-                                                                                          "",
-                                                                                        label:
-                                                                                          "Description",
-                                                                                        rules:
-                                                                                          _vm.descriptionRule,
-                                                                                        counter: 1000,
-                                                                                        "auto-grow":
-                                                                                          "",
-                                                                                        required:
-                                                                                          "",
-                                                                                        value:
-                                                                                          "Write a description for your Job.",
-                                                                                      },
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.description,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.description =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "description",
-                                                                                      },
-                                                                                  }
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "v-autocomplete",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        items:
-                                                                                          _vm.categories,
-                                                                                        clearable:
-                                                                                          "",
-                                                                                        "hide-selected":
-                                                                                          "",
-                                                                                        "persistent-hint":
-                                                                                          "",
-                                                                                        label:
-                                                                                          "Job Category",
-                                                                                        rules:
-                                                                                          [
-                                                                                            _vm.required,
-                                                                                          ],
-                                                                                        required:
-                                                                                          "",
-                                                                                        dense:
-                                                                                          "",
-                                                                                      },
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.category,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.category =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "category",
-                                                                                      },
-                                                                                  }
-                                                                                ),
-                                                                              ],
-                                                                              1
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "div",
-                                                                              {
-                                                                                staticClass:
-                                                                                  "scope m-4",
-                                                                              },
-                                                                              [
-                                                                                _c(
-                                                                                  "h3",
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      "Scope of Work"
-                                                                                    ),
-                                                                                  ]
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "v-radio-group",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        rules:
-                                                                                          [
-                                                                                            function (
-                                                                                              v
-                                                                                            ) {
-                                                                                              return (
-                                                                                                !!v ||
-                                                                                                "Item is required"
-                                                                                              )
+                                                                                    var on =
+                                                                                      ref.on
+                                                                                    var attrs =
+                                                                                      ref.attrs
+                                                                                    return [
+                                                                                      _c(
+                                                                                        "v-btn",
+                                                                                        _vm._g(
+                                                                                          _vm._b(
+                                                                                            {
+                                                                                              staticClass:
+                                                                                                "m-2 mt-4",
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  rounded:
+                                                                                                    "",
+                                                                                                  color:
+                                                                                                    "primary",
+                                                                                                  dark: "",
+                                                                                                },
                                                                                             },
-                                                                                          ],
-                                                                                        row: "",
-                                                                                        required:
-                                                                                          "",
-                                                                                      },
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.scope,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.scope =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "scope",
-                                                                                      },
-                                                                                  },
-                                                                                  [
-                                                                                    _c(
-                                                                                      "v-radio",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            label:
-                                                                                              "Large",
-                                                                                            value:
-                                                                                              "Large",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                    _vm._v(
-                                                                                      " "
-                                                                                    ),
-                                                                                    _c(
-                                                                                      "v-radio",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            label:
-                                                                                              "Medium",
-                                                                                            value:
-                                                                                              "Medium",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                    _vm._v(
-                                                                                      " "
-                                                                                    ),
-                                                                                    _c(
-                                                                                      "v-radio",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            label:
-                                                                                              "Small",
-                                                                                            value:
-                                                                                              "Small",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                  ],
-                                                                                  1
-                                                                                ),
-                                                                              ],
-                                                                              1
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "div",
-                                                                              {
-                                                                                staticClass:
-                                                                                  "time m-4",
-                                                                              },
-                                                                              [
-                                                                                _c(
-                                                                                  "h3",
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      "Time Estimation"
-                                                                                    ),
-                                                                                  ]
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "v-menu",
-                                                                                  {
-                                                                                    ref: "menu1",
-                                                                                    attrs:
-                                                                                      {
-                                                                                        "close-on-content-click": false,
-                                                                                        transition:
-                                                                                          "scale-transition",
-                                                                                        "offset-y":
-                                                                                          "",
-                                                                                        "max-width":
-                                                                                          "290px",
-                                                                                        "min-width":
-                                                                                          "auto",
-                                                                                      },
-                                                                                    scopedSlots:
-                                                                                      _vm._u(
+                                                                                            "v-btn",
+                                                                                            attrs,
+                                                                                            false
+                                                                                          ),
+                                                                                          on
+                                                                                        ),
                                                                                         [
-                                                                                          {
-                                                                                            key: "activator",
-                                                                                            fn: function (
-                                                                                              ref
-                                                                                            ) {
-                                                                                              var on =
-                                                                                                ref.on
-                                                                                              var attrs =
-                                                                                                ref.attrs
-                                                                                              return [
-                                                                                                _c(
-                                                                                                  "v-text-field",
-                                                                                                  _vm._g(
-                                                                                                    _vm._b(
-                                                                                                      {
-                                                                                                        attrs:
-                                                                                                          {
-                                                                                                            label:
-                                                                                                              "Date",
-                                                                                                            hint: "MM/DD/YYYY format",
-                                                                                                            "persistent-hint":
-                                                                                                              "",
-                                                                                                            "prepend-icon":
-                                                                                                              "mdi-calendar",
-                                                                                                            rules:
-                                                                                                              [
-                                                                                                                function (
-                                                                                                                  v
-                                                                                                                ) {
-                                                                                                                  return (
-                                                                                                                    !!v ||
-                                                                                                                    "Date is required"
-                                                                                                                  )
-                                                                                                                },
-                                                                                                              ],
-                                                                                                          },
-                                                                                                        on: {
-                                                                                                          blur: function (
-                                                                                                            $event
-                                                                                                          ) {
-                                                                                                            _vm.date =
-                                                                                                              _vm.parseDate(
-                                                                                                                _vm.dateFormatted
-                                                                                                              )
-                                                                                                          },
-                                                                                                        },
-                                                                                                        model:
-                                                                                                          {
-                                                                                                            value:
-                                                                                                              _vm.dateFormatted,
-                                                                                                            callback:
-                                                                                                              function (
-                                                                                                                $$v
-                                                                                                              ) {
-                                                                                                                _vm.dateFormatted =
-                                                                                                                  $$v
-                                                                                                              },
-                                                                                                            expression:
-                                                                                                              "dateFormatted",
-                                                                                                          },
-                                                                                                      },
-                                                                                                      "v-text-field",
-                                                                                                      attrs,
-                                                                                                      false
-                                                                                                    ),
-                                                                                                    on
-                                                                                                  )
-                                                                                                ),
-                                                                                              ]
-                                                                                            },
-                                                                                          },
-                                                                                        ],
-                                                                                        null,
-                                                                                        false,
-                                                                                        2535360539
+                                                                                          _vm._v(
+                                                                                            "Propose Job!"
+                                                                                          ),
+                                                                                        ]
                                                                                       ),
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.menu2,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.menu2 =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "menu2",
-                                                                                      },
+                                                                                    ]
                                                                                   },
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      " "
-                                                                                    ),
-                                                                                    _c(
-                                                                                      "v-date-picker",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            "no-title":
-                                                                                              "",
+                                                                                },
+                                                                              ],
+                                                                              null,
+                                                                              false,
+                                                                              3364564135
+                                                                            ),
+                                                                          model:
+                                                                            {
+                                                                              value:
+                                                                                _vm.dialog,
+                                                                              callback:
+                                                                                function (
+                                                                                  $$v
+                                                                                ) {
+                                                                                  _vm.dialog =
+                                                                                    $$v
+                                                                                },
+                                                                              expression:
+                                                                                "dialog",
+                                                                            },
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            " "
+                                                                          ),
+                                                                          _c(
+                                                                            "v-card",
+                                                                            [
+                                                                              _c(
+                                                                                "v-toolbar",
+                                                                                {
+                                                                                  attrs:
+                                                                                    {
+                                                                                      dark: "",
+                                                                                      color:
+                                                                                        "primary",
+                                                                                    },
+                                                                                },
+                                                                                [
+                                                                                  _c(
+                                                                                    "v-toolbar-title",
+                                                                                    [
+                                                                                      _vm._v(
+                                                                                        "Job Detail"
+                                                                                      ),
+                                                                                    ]
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "v-spacer"
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "v-toolbar-items",
+                                                                                    [
+                                                                                      _c(
+                                                                                        "v-btn",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              icon: "",
+                                                                                              dark: "",
+                                                                                            },
+                                                                                          on: {
+                                                                                            click:
+                                                                                              function (
+                                                                                                $event
+                                                                                              ) {
+                                                                                                _vm.dialog = false
+                                                                                              },
                                                                                           },
-                                                                                        on: {
-                                                                                          input:
-                                                                                            function (
-                                                                                              $event
-                                                                                            ) {
-                                                                                              _vm.menu2 = false
+                                                                                        },
+                                                                                        [
+                                                                                          _c(
+                                                                                            "v-icon",
+                                                                                            [
+                                                                                              _vm._v(
+                                                                                                "mdi-close"
+                                                                                              ),
+                                                                                            ]
+                                                                                          ),
+                                                                                        ],
+                                                                                        1
+                                                                                      ),
+                                                                                    ],
+                                                                                    1
+                                                                                  ),
+                                                                                ],
+                                                                                1
+                                                                              ),
+                                                                              _vm._v(
+                                                                                " "
+                                                                              ),
+                                                                              _c(
+                                                                                "v-form",
+                                                                                {
+                                                                                  ref: "form1",
+                                                                                  staticStyle:
+                                                                                    {
+                                                                                      padding:
+                                                                                        "50px",
+                                                                                    },
+                                                                                  attrs:
+                                                                                    {
+                                                                                      "lazy-validation":
+                                                                                        "",
+                                                                                    },
+                                                                                  model:
+                                                                                    {
+                                                                                      value:
+                                                                                        _vm.valid,
+                                                                                      callback:
+                                                                                        function (
+                                                                                          $$v
+                                                                                        ) {
+                                                                                          _vm.valid =
+                                                                                            $$v
+                                                                                        },
+                                                                                      expression:
+                                                                                        "valid",
+                                                                                    },
+                                                                                },
+                                                                                [
+                                                                                  _c(
+                                                                                    "div",
+                                                                                    {
+                                                                                      staticClass:
+                                                                                        "job-info",
+                                                                                    },
+                                                                                    [
+                                                                                      _c(
+                                                                                        "h3",
+                                                                                        [
+                                                                                          _vm._v(
+                                                                                            "Give Some Info to your Project"
+                                                                                          ),
+                                                                                        ]
+                                                                                      ),
+                                                                                      _vm._v(
+                                                                                        " "
+                                                                                      ),
+                                                                                      _c(
+                                                                                        "v-text-field",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              counter: 100,
+                                                                                              rules:
+                                                                                                _vm.titleRules,
+                                                                                              label:
+                                                                                                "Name",
+                                                                                              required:
+                                                                                                "",
+                                                                                            },
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.title,
+                                                                                              callback:
+                                                                                                function (
+                                                                                                  $$v
+                                                                                                ) {
+                                                                                                  _vm.title =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "title",
+                                                                                            },
+                                                                                        }
+                                                                                      ),
+                                                                                      _vm._v(
+                                                                                        " "
+                                                                                      ),
+                                                                                      _c(
+                                                                                        "v-textarea",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              name: "description",
+                                                                                              filled:
+                                                                                                "",
+                                                                                              label:
+                                                                                                "Description",
+                                                                                              rules:
+                                                                                                _vm.descriptionRule,
+                                                                                              counter: 1000,
+                                                                                              "auto-grow":
+                                                                                                "",
+                                                                                              required:
+                                                                                                "",
+                                                                                              value:
+                                                                                                "Write a description for your Job.",
+                                                                                            },
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.description,
+                                                                                              callback:
+                                                                                                function (
+                                                                                                  $$v
+                                                                                                ) {
+                                                                                                  _vm.description =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "description",
+                                                                                            },
+                                                                                        }
+                                                                                      ),
+                                                                                      _vm._v(
+                                                                                        " "
+                                                                                      ),
+                                                                                      _c(
+                                                                                        "v-autocomplete",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              items:
+                                                                                                _vm.categories,
+                                                                                              clearable:
+                                                                                                "",
+                                                                                              "hide-selected":
+                                                                                                "",
+                                                                                              "persistent-hint":
+                                                                                                "",
+                                                                                              label:
+                                                                                                "Job Category",
+                                                                                              rules:
+                                                                                                [
+                                                                                                  _vm.required,
+                                                                                                ],
+                                                                                              required:
+                                                                                                "",
+                                                                                              dense:
+                                                                                                "",
+                                                                                            },
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.category,
+                                                                                              callback:
+                                                                                                function (
+                                                                                                  $$v
+                                                                                                ) {
+                                                                                                  _vm.category =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "category",
+                                                                                            },
+                                                                                        }
+                                                                                      ),
+                                                                                    ],
+                                                                                    1
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "div",
+                                                                                    {
+                                                                                      staticClass:
+                                                                                        "scope m-4",
+                                                                                    },
+                                                                                    [
+                                                                                      _c(
+                                                                                        "h3",
+                                                                                        [
+                                                                                          _vm._v(
+                                                                                            "Scope of Work"
+                                                                                          ),
+                                                                                        ]
+                                                                                      ),
+                                                                                      _vm._v(
+                                                                                        " "
+                                                                                      ),
+                                                                                      _c(
+                                                                                        "v-radio-group",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              rules:
+                                                                                                [
+                                                                                                  function (
+                                                                                                    v
+                                                                                                  ) {
+                                                                                                    return (
+                                                                                                      !!v ||
+                                                                                                      "Item is required"
+                                                                                                    )
+                                                                                                  },
+                                                                                                ],
+                                                                                              row: "",
+                                                                                              required:
+                                                                                                "",
+                                                                                            },
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.scope,
+                                                                                              callback:
+                                                                                                function (
+                                                                                                  $$v
+                                                                                                ) {
+                                                                                                  _vm.scope =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "scope",
                                                                                             },
                                                                                         },
-                                                                                        model:
-                                                                                          {
-                                                                                            value:
-                                                                                              _vm.date,
-                                                                                            callback:
-                                                                                              function (
-                                                                                                $$v
-                                                                                              ) {
-                                                                                                _vm.date =
-                                                                                                  $$v
-                                                                                              },
-                                                                                            expression:
-                                                                                              "date",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                  ],
-                                                                                  1
-                                                                                ),
-                                                                              ],
-                                                                              1
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "div",
-                                                                              {
-                                                                                staticClass:
-                                                                                  "experience m-4",
-                                                                              },
-                                                                              [
-                                                                                _c(
-                                                                                  "h3",
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      "Experience"
-                                                                                    ),
-                                                                                  ]
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "v-radio-group",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        rules:
-                                                                                          [
-                                                                                            function (
-                                                                                              v
-                                                                                            ) {
-                                                                                              return (
-                                                                                                !!v ||
-                                                                                                "Please select experience"
-                                                                                              )
+                                                                                        [
+                                                                                          _c(
+                                                                                            "v-radio",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  label:
+                                                                                                    "Large",
+                                                                                                  value:
+                                                                                                    "Large",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                          _vm._v(
+                                                                                            " "
+                                                                                          ),
+                                                                                          _c(
+                                                                                            "v-radio",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  label:
+                                                                                                    "Medium",
+                                                                                                  value:
+                                                                                                    "Medium",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                          _vm._v(
+                                                                                            " "
+                                                                                          ),
+                                                                                          _c(
+                                                                                            "v-radio",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  label:
+                                                                                                    "Small",
+                                                                                                  value:
+                                                                                                    "Small",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                        ],
+                                                                                        1
+                                                                                      ),
+                                                                                    ],
+                                                                                    1
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "div",
+                                                                                    {
+                                                                                      staticClass:
+                                                                                        "time m-4",
+                                                                                    },
+                                                                                    [
+                                                                                      _c(
+                                                                                        "h3",
+                                                                                        [
+                                                                                          _vm._v(
+                                                                                            "Time Estimation"
+                                                                                          ),
+                                                                                        ]
+                                                                                      ),
+                                                                                      _vm._v(
+                                                                                        " "
+                                                                                      ),
+                                                                                      _c(
+                                                                                        "v-menu",
+                                                                                        {
+                                                                                          ref: "menu1",
+                                                                                          attrs:
+                                                                                            {
+                                                                                              "close-on-content-click": false,
+                                                                                              transition:
+                                                                                                "scale-transition",
+                                                                                              "offset-y":
+                                                                                                "",
+                                                                                              "max-width":
+                                                                                                "290px",
+                                                                                              "min-width":
+                                                                                                "auto",
                                                                                             },
-                                                                                          ],
-                                                                                        row: "",
-                                                                                        required:
-                                                                                          "",
-                                                                                      },
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.experience,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.experience =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "experience",
-                                                                                      },
-                                                                                  },
-                                                                                  [
-                                                                                    _c(
-                                                                                      "v-radio",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            label:
-                                                                                              "Entry",
-                                                                                            value:
-                                                                                              "Entry",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                    _vm._v(
-                                                                                      " "
-                                                                                    ),
-                                                                                    _c(
-                                                                                      "v-radio",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            label:
-                                                                                              "Intermediate",
-                                                                                            value:
-                                                                                              "Intermediate",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                    _vm._v(
-                                                                                      " "
-                                                                                    ),
-                                                                                    _c(
-                                                                                      "v-radio",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            label:
-                                                                                              "Expert",
-                                                                                            value:
-                                                                                              "Expert",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                  ],
-                                                                                  1
-                                                                                ),
-                                                                              ],
-                                                                              1
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "div",
-                                                                              {
-                                                                                staticClass:
-                                                                                  "skills",
-                                                                              },
-                                                                              [
-                                                                                _c(
-                                                                                  "v-autocomplete",
-                                                                                  {
-                                                                                    attrs:
-                                                                                      {
-                                                                                        items:
-                                                                                          _vm.items,
-                                                                                        clearable:
-                                                                                          "",
-                                                                                        "hide-selected":
-                                                                                          "",
-                                                                                        "persistent-hint":
-                                                                                          "",
-                                                                                        label:
-                                                                                          "Skills",
-                                                                                        rules:
-                                                                                          [
-                                                                                            _vm.required,
-                                                                                          ],
-                                                                                        dense:
-                                                                                          "",
-                                                                                        multiple:
-                                                                                          "",
-                                                                                        required:
-                                                                                          "",
-                                                                                        "small-chips":
-                                                                                          "",
-                                                                                      },
-                                                                                    model:
-                                                                                      {
-                                                                                        value:
-                                                                                          _vm.skill,
-                                                                                        callback:
-                                                                                          function (
-                                                                                            $$v
-                                                                                          ) {
-                                                                                            _vm.skill =
-                                                                                              $$v
-                                                                                          },
-                                                                                        expression:
-                                                                                          "skill",
-                                                                                      },
-                                                                                  }
-                                                                                ),
-                                                                              ],
-                                                                              1
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "div",
-                                                                              {
-                                                                                staticClass:
-                                                                                  "rates",
-                                                                              },
-                                                                              [
-                                                                                _c(
-                                                                                  "div",
-                                                                                  {
-                                                                                    staticClass:
-                                                                                      "payment-inputs m-2",
-                                                                                  },
-                                                                                  [
-                                                                                    _c(
-                                                                                      "v-text-field",
-                                                                                      {
-                                                                                        attrs:
-                                                                                          {
-                                                                                            clearable:
-                                                                                              "",
-                                                                                            label:
-                                                                                              "Project Rate",
-                                                                                            placeholder:
-                                                                                              "Enter Your Rate here",
-                                                                                            outlined:
-                                                                                              "",
-                                                                                            type: "number",
-                                                                                            rules:
+                                                                                          scopedSlots:
+                                                                                            _vm._u(
                                                                                               [
-                                                                                                function (
-                                                                                                  v
-                                                                                                ) {
-                                                                                                  return (
-                                                                                                    !!v ||
-                                                                                                    "Please Enter a price"
-                                                                                                  )
+                                                                                                {
+                                                                                                  key: "activator",
+                                                                                                  fn: function (
+                                                                                                    ref
+                                                                                                  ) {
+                                                                                                    var on =
+                                                                                                      ref.on
+                                                                                                    var attrs =
+                                                                                                      ref.attrs
+                                                                                                    return [
+                                                                                                      _c(
+                                                                                                        "v-text-field",
+                                                                                                        _vm._g(
+                                                                                                          _vm._b(
+                                                                                                            {
+                                                                                                              attrs:
+                                                                                                                {
+                                                                                                                  label:
+                                                                                                                    "Date",
+                                                                                                                  hint: "MM/DD/YYYY format",
+                                                                                                                  "persistent-hint":
+                                                                                                                    "",
+                                                                                                                  "prepend-icon":
+                                                                                                                    "mdi-calendar",
+                                                                                                                  rules:
+                                                                                                                    [
+                                                                                                                      function (
+                                                                                                                        v
+                                                                                                                      ) {
+                                                                                                                        return (
+                                                                                                                          !!v ||
+                                                                                                                          "Date is required"
+                                                                                                                        )
+                                                                                                                      },
+                                                                                                                    ],
+                                                                                                                },
+                                                                                                              on: {
+                                                                                                                blur: function (
+                                                                                                                  $event
+                                                                                                                ) {
+                                                                                                                  _vm.date =
+                                                                                                                    _vm.parseDate(
+                                                                                                                      _vm.dateFormatted
+                                                                                                                    )
+                                                                                                                },
+                                                                                                              },
+                                                                                                              model:
+                                                                                                                {
+                                                                                                                  value:
+                                                                                                                    _vm.dateFormatted,
+                                                                                                                  callback:
+                                                                                                                    function (
+                                                                                                                      $$v
+                                                                                                                    ) {
+                                                                                                                      _vm.dateFormatted =
+                                                                                                                        $$v
+                                                                                                                    },
+                                                                                                                  expression:
+                                                                                                                    "dateFormatted",
+                                                                                                                },
+                                                                                                            },
+                                                                                                            "v-text-field",
+                                                                                                            attrs,
+                                                                                                            false
+                                                                                                          ),
+                                                                                                          on
+                                                                                                        )
+                                                                                                      ),
+                                                                                                    ]
+                                                                                                  },
                                                                                                 },
                                                                                               ],
-                                                                                          },
-                                                                                        model:
-                                                                                          {
-                                                                                            value:
-                                                                                              _vm.projectRate,
-                                                                                            callback:
-                                                                                              function (
-                                                                                                $$v
-                                                                                              ) {
-                                                                                                _vm.projectRate =
+                                                                                              null,
+                                                                                              false,
+                                                                                              3459730715
+                                                                                            ),
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.menu2,
+                                                                                              callback:
+                                                                                                function (
                                                                                                   $$v
+                                                                                                ) {
+                                                                                                  _vm.menu2 =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "menu2",
+                                                                                            },
+                                                                                        },
+                                                                                        [
+                                                                                          _vm._v(
+                                                                                            " "
+                                                                                          ),
+                                                                                          _c(
+                                                                                            "v-date-picker",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  "no-title":
+                                                                                                    "",
+                                                                                                },
+                                                                                              on: {
+                                                                                                input:
+                                                                                                  function (
+                                                                                                    $event
+                                                                                                  ) {
+                                                                                                    _vm.menu2 = false
+                                                                                                  },
                                                                                               },
-                                                                                            expression:
-                                                                                              "projectRate",
-                                                                                          },
-                                                                                      }
-                                                                                    ),
-                                                                                  ],
-                                                                                  1
-                                                                                ),
-                                                                              ]
-                                                                            ),
-                                                                            _vm._v(
-                                                                              " "
-                                                                            ),
-                                                                            _c(
-                                                                              "v-btn",
-                                                                              {
-                                                                                attrs:
-                                                                                  {
-                                                                                    color:
-                                                                                      "primary",
-                                                                                    width:
-                                                                                      "100%",
-                                                                                    height:
-                                                                                      "50px",
-                                                                                  },
-                                                                                on: {
-                                                                                  click:
-                                                                                    _vm.submit,
-                                                                                },
-                                                                              },
-                                                                              [
-                                                                                _vm._v(
-                                                                                  "Offer Job"
-                                                                                ),
-                                                                              ]
-                                                                            ),
-                                                                          ],
-                                                                          1
-                                                                        ),
-                                                                      ],
-                                                                      1
-                                                                    ),
-                                                                  ],
-                                                                  1
-                                                                ),
-                                                              ],
-                                                              1
-                                                            )
-                                                          : _c(
-                                                              "div",
-                                                              [
-                                                                _c(
-                                                                  "v-btn",
-                                                                  {
-                                                                    staticClass:
-                                                                      "m-2 mt-4",
-                                                                    attrs: {
-                                                                      rounded:
-                                                                        "",
-                                                                      color:
-                                                                        "primary",
-                                                                      disabled:
-                                                                        "",
-                                                                    },
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      "\n                          User busy!\n                        "
-                                                                    ),
-                                                                  ]
-                                                                ),
-                                                              ],
-                                                              1
-                                                            ),
-                                                      ])
-                                                    : _vm._e(),
-                                                ],
-                                                1
-                                              )
+                                                                                              model:
+                                                                                                {
+                                                                                                  value:
+                                                                                                    _vm.date,
+                                                                                                  callback:
+                                                                                                    function (
+                                                                                                      $$v
+                                                                                                    ) {
+                                                                                                      _vm.date =
+                                                                                                        $$v
+                                                                                                    },
+                                                                                                  expression:
+                                                                                                    "date",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                        ],
+                                                                                        1
+                                                                                      ),
+                                                                                    ],
+                                                                                    1
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "div",
+                                                                                    {
+                                                                                      staticClass:
+                                                                                        "experience m-4",
+                                                                                    },
+                                                                                    [
+                                                                                      _c(
+                                                                                        "h3",
+                                                                                        [
+                                                                                          _vm._v(
+                                                                                            "Experience"
+                                                                                          ),
+                                                                                        ]
+                                                                                      ),
+                                                                                      _vm._v(
+                                                                                        " "
+                                                                                      ),
+                                                                                      _c(
+                                                                                        "v-radio-group",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              rules:
+                                                                                                [
+                                                                                                  function (
+                                                                                                    v
+                                                                                                  ) {
+                                                                                                    return (
+                                                                                                      !!v ||
+                                                                                                      "Please select experience"
+                                                                                                    )
+                                                                                                  },
+                                                                                                ],
+                                                                                              row: "",
+                                                                                              required:
+                                                                                                "",
+                                                                                            },
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.experience,
+                                                                                              callback:
+                                                                                                function (
+                                                                                                  $$v
+                                                                                                ) {
+                                                                                                  _vm.experience =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "experience",
+                                                                                            },
+                                                                                        },
+                                                                                        [
+                                                                                          _c(
+                                                                                            "v-radio",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  label:
+                                                                                                    "Entry",
+                                                                                                  value:
+                                                                                                    "Entry",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                          _vm._v(
+                                                                                            " "
+                                                                                          ),
+                                                                                          _c(
+                                                                                            "v-radio",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  label:
+                                                                                                    "Intermediate",
+                                                                                                  value:
+                                                                                                    "Intermediate",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                          _vm._v(
+                                                                                            " "
+                                                                                          ),
+                                                                                          _c(
+                                                                                            "v-radio",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  label:
+                                                                                                    "Expert",
+                                                                                                  value:
+                                                                                                    "Expert",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                        ],
+                                                                                        1
+                                                                                      ),
+                                                                                    ],
+                                                                                    1
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "div",
+                                                                                    {
+                                                                                      staticClass:
+                                                                                        "skills",
+                                                                                    },
+                                                                                    [
+                                                                                      _c(
+                                                                                        "v-autocomplete",
+                                                                                        {
+                                                                                          attrs:
+                                                                                            {
+                                                                                              items:
+                                                                                                _vm.items,
+                                                                                              clearable:
+                                                                                                "",
+                                                                                              "hide-selected":
+                                                                                                "",
+                                                                                              "persistent-hint":
+                                                                                                "",
+                                                                                              label:
+                                                                                                "Skills",
+                                                                                              rules:
+                                                                                                [
+                                                                                                  _vm.required,
+                                                                                                ],
+                                                                                              dense:
+                                                                                                "",
+                                                                                              multiple:
+                                                                                                "",
+                                                                                              required:
+                                                                                                "",
+                                                                                              "small-chips":
+                                                                                                "",
+                                                                                            },
+                                                                                          model:
+                                                                                            {
+                                                                                              value:
+                                                                                                _vm.skill,
+                                                                                              callback:
+                                                                                                function (
+                                                                                                  $$v
+                                                                                                ) {
+                                                                                                  _vm.skill =
+                                                                                                    $$v
+                                                                                                },
+                                                                                              expression:
+                                                                                                "skill",
+                                                                                            },
+                                                                                        }
+                                                                                      ),
+                                                                                    ],
+                                                                                    1
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "div",
+                                                                                    {
+                                                                                      staticClass:
+                                                                                        "rates",
+                                                                                    },
+                                                                                    [
+                                                                                      _c(
+                                                                                        "div",
+                                                                                        {
+                                                                                          staticClass:
+                                                                                            "payment-inputs m-2",
+                                                                                        },
+                                                                                        [
+                                                                                          _c(
+                                                                                            "v-text-field",
+                                                                                            {
+                                                                                              attrs:
+                                                                                                {
+                                                                                                  clearable:
+                                                                                                    "",
+                                                                                                  label:
+                                                                                                    "Project Rate",
+                                                                                                  placeholder:
+                                                                                                    "Enter Your Rate here",
+                                                                                                  outlined:
+                                                                                                    "",
+                                                                                                  type: "number",
+                                                                                                  rules:
+                                                                                                    [
+                                                                                                      function (
+                                                                                                        v
+                                                                                                      ) {
+                                                                                                        return (
+                                                                                                          !!v ||
+                                                                                                          "Please Enter a price"
+                                                                                                        )
+                                                                                                      },
+                                                                                                    ],
+                                                                                                },
+                                                                                              model:
+                                                                                                {
+                                                                                                  value:
+                                                                                                    _vm.projectRate,
+                                                                                                  callback:
+                                                                                                    function (
+                                                                                                      $$v
+                                                                                                    ) {
+                                                                                                      _vm.projectRate =
+                                                                                                        $$v
+                                                                                                    },
+                                                                                                  expression:
+                                                                                                    "projectRate",
+                                                                                                },
+                                                                                            }
+                                                                                          ),
+                                                                                        ],
+                                                                                        1
+                                                                                      ),
+                                                                                    ]
+                                                                                  ),
+                                                                                  _vm._v(
+                                                                                    " "
+                                                                                  ),
+                                                                                  _c(
+                                                                                    "v-btn",
+                                                                                    {
+                                                                                      attrs:
+                                                                                        {
+                                                                                          color:
+                                                                                            "primary",
+                                                                                          width:
+                                                                                            "100%",
+                                                                                          height:
+                                                                                            "50px",
+                                                                                        },
+                                                                                      on: {
+                                                                                        click:
+                                                                                          _vm.submit,
+                                                                                      },
+                                                                                    },
+                                                                                    [
+                                                                                      _vm._v(
+                                                                                        "Offer Job"
+                                                                                      ),
+                                                                                    ]
+                                                                                  ),
+                                                                                ],
+                                                                                1
+                                                                              ),
+                                                                            ],
+                                                                            1
+                                                                          ),
+                                                                        ],
+                                                                        1
+                                                                      ),
+                                                                    ],
+                                                                    1
+                                                                  )
+                                                                : _c(
+                                                                    "div",
+                                                                    [
+                                                                      _c(
+                                                                        "v-btn",
+                                                                        {
+                                                                          staticClass:
+                                                                            "m-2 mt-4",
+                                                                          attrs:
+                                                                            {
+                                                                              rounded:
+                                                                                "",
+                                                                              color:
+                                                                                "primary",
+                                                                              disabled:
+                                                                                "",
+                                                                            },
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "\n                            User busy!\n                          "
+                                                                          ),
+                                                                        ]
+                                                                      ),
+                                                                    ],
+                                                                    1
+                                                                  ),
+                                                            ])
+                                                          : _vm._e(),
+                                                      ],
+                                                      1
+                                                    )
+                                                  : _vm._e(),
+                                              ])
                                             : _vm._e(),
                                         ]
                                       ),
@@ -11635,6 +11686,7 @@ var render = function () {
                                             color: "amber",
                                             dense: "",
                                             readonly: "",
+                                            "half-increments": "",
                                             size: "14",
                                           },
                                         }),

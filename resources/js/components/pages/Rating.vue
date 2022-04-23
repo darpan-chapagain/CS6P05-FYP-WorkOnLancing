@@ -1,5 +1,4 @@
 <template>
-  <!-- <UserCard /> -->
   <div>
     <div style="margin-top: 100px">
       <template>
@@ -137,9 +136,6 @@ export default {
         name: "dashboard",
       });
     },
-    test(){
-      console.log(this.returnUser().employee_id);
-    },
     async getBadges() {
       let res = await axios.get(
         `category/badges/${this.returnUser().Job_Category_ID}`
@@ -175,13 +171,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-
-      console.log(
-        this.rating,
-        this.description,
-        this.returnJob().id,
-        this.returnUser().user.id
-      );
     },
     returnJob() {
       if (this.a_job_detail) {

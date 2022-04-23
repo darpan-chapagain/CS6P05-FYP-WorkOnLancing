@@ -17,9 +17,6 @@ class ChatController extends Controller
     }
 
     public function messages(Request $request, $roomId){
-        // $room = ChatRoom::find($request->room_id);
-        // $messages = $room->messages()->orderBy('created_at', 'desc')->get();
-        // return $messages;
         $message = ChatMessage::where('chat_room_id', $roomId)->orderBy('created_at')->get();
         foreach($message as $msg){
             $msg->user;
@@ -45,12 +42,10 @@ class ChatController extends Controller
             $roomID = $room->chat_room_id;
             $anotherUSer = UserRoom::where('user_id', $request->user_id)->where('chat_room_id', $roomID)->first();
             if($anotherUSer){
-                // dd($anotherUSer->chat_room_id);
                 array_push($roomArray, [
                     'id' => $anotherUSer->chat_room_id,
                     'user' => $anotherUSer->users
                 ]);
-                // dd($anotherUSer);
 
                 return $roomArray;
             }
@@ -72,13 +67,10 @@ class ChatController extends Controller
         foreach($aRoom as $a){
             $aUser = $a->users;
             if($aUser->id != $authUser->id){
-                // array_push($roomArray, $a->chat_room_id, $aUser);
                 array_push($roomArray, [
                     'id' => $a->chat_room_id,
                     'user' => $aUser
                 ]);
-                // dd($aUser);
-                // array_push($otherUser, $aUser);
             }
         }
         return $roomArray;
@@ -95,20 +87,15 @@ class ChatController extends Controller
             foreach($aRoom as $a){
                 $aUser = $a->users;
                 if($aUser->id != $authUser->id){
-                    // array_push($roomArray, $a->chat_room_id, $aUser);
                     array_push($roomArray, [
                         'id' => $a->chat_room_id,
                         'user' => $aUser
                     ]);
-                    // array_push($otherUser, $aUser);
                 }
             }
-            // dd($a->chat_room_id);
-            // array_push($roomArray, $aRoom);
         }
         $respone = [
             'room' => $roomArray,
-            // 'otherUser' => $otherUser
         ];
         return $roomArray;
     }

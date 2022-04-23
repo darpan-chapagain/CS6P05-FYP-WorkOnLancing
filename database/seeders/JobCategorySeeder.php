@@ -475,8 +475,8 @@ class JobCategorySeeder extends Seeder
             'Gender' => 'Male',
             'email' => 'client@gmail.com',
             'password' => Hash::make('pass'),
-            'profile' => '202203281818DSC00425.JPG',
-            'profile_path' => 'images/202203281818DSC00425.jpg',
+            'profile' => '202204201136admin.png',
+            'profile_path' => 'images/202204201136admin.png',
         ]);
 
         UserRoles::create([
@@ -492,8 +492,8 @@ class JobCategorySeeder extends Seeder
             'Gender' => 'Male',
             'email' => 'employee@gmail.com',
             'password' => Hash::make('pass'),
-            'profile' => '202203281818DSC00425.JPG',
-            'profile_path' => 'images/202203281818DSC00425.jpg',
+            'profile' => '202204201136admin.png',
+            'profile_path' => 'images/202204201136admin.png',
         ]);
 
         UserRoles::create([

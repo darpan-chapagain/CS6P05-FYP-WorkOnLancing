@@ -23,7 +23,7 @@ class UserFactory extends Factory
 
     public function definition()
     {
-        $gender = ['Male', 'Female', 'Other'];
+        $gender = ['male', 'female', 'other'];
         $picture = ['fake1.jpg', 'fake2.jpg', 'fake3.jpg', '202204201136admin.png'];
         return [
             'first_name' => $this->faker->firstName(),

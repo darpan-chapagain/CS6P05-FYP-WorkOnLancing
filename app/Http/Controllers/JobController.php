@@ -318,9 +318,11 @@ class JobController extends Controller
 
         $paymentStatus = Payment::all()->where('job_id', $job->id)
             ->first();
-        $paymentStatus->update([
-            'status' => 1,
-        ]);
+        if ($paymentStatus) {
+            $paymentStatus->update([
+                'status' => 1,
+            ]);
+        }
         Mail::to($employee->user->email)->send(new \App\Mail\JobCompleteMail($details));
         Employee::where('user_id', $employee->user_id)->update([
             'total_job' => $currentWork,
