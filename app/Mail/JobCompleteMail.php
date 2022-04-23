@@ -21,7 +21,6 @@ class JobCompleteMail extends Mailable
     public function __construct($details)
     {
         $this->details = $details;
-
     }
 
     /**
@@ -31,9 +30,7 @@ class JobCompleteMail extends Mailable
      */
     public function build()
     {
-        // return $this->view('view.name');
         return $this->subject('You just completed a job! Congratulations!')
-                    ->view('emails.complete');
-
+            ->view('emails.complete');
     }
 }

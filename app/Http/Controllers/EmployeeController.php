@@ -264,9 +264,9 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $authUser->id)->first();
-        $jobRequest = JobRequest::where('employee_id', $employee->employee_id)
-            ->where('status', 1)
-            ->orWhere('status', 3)->get();
+        $jobRequest = JobRequest::where('status', 1)
+            ->orWhere('status', 3)
+            ->where('employee_id', $employee->employee_id)->get();
         $jobs = [];
         foreach ($jobRequest as $req) {
             $job = $req->detailJob;

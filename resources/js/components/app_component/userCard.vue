@@ -27,6 +27,7 @@
             color="amber"
             dense
             readonly
+            half-increments
             size="14"
           ></v-rating>
           {{ this.avgRate }} ({{ this.count }})

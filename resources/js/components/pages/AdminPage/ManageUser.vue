@@ -84,7 +84,7 @@ export default {
       {
         text: "Role",
         sortable: false,
-        value: "roles.role+id",
+        value: "roles.role_id",
       },
       { text: "Actions", value: "actions" },
     ],

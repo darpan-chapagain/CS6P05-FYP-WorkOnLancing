@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 100px;">
+  <div style="margin-top: 100px">
     <v-card>
       <v-form v-model="valid" ref="form1" lazy-validation style="padding: 50px">
         <div class="job-info">
@@ -26,7 +26,7 @@
             hide-selected
             persistent-hint
             label="Job Category"
-            :rules="[required]"
+            :rules="[(v) => !!(v && v.length) || 'Please select a category']"
             required
             dense
           ></v-autocomplete>
@@ -35,7 +35,7 @@
           <h3>Scope of Work</h3>
           <v-radio-group
             v-model="scope"
-            :rules="[(v) => !!v || 'Item is required']"
+            :rules="[(v) => !!v || 'Scope is required']"
             row
             required
           >
@@ -104,7 +104,6 @@
           ></v-autocomplete>
         </div>
         <div class="rates">
-
           <div class="payment-inputs m-2">
             <v-text-field
               v-model="projectRate"
@@ -119,7 +118,12 @@
         </div>
         <v-btn color="primary" @click="submit" width="100%" height="50px"
           >Save</v-btn
-        ><v-btn color="error" @click="remove" width="100%" height="50px" class="mt-4"
+        ><v-btn
+          color="error"
+          @click="remove"
+          width="100%"
+          height="50px"
+          class="mt-4"
           >Delete</v-btn
         >
       </v-form>
@@ -155,7 +159,8 @@ export default {
     descriptionRule: [
       (v) => !!v || "Description required",
       (v) =>
-        (v && v.length <= 1000) || "Description must be less than 1000 characters",
+        (v && v.length <= 1000) ||
+        "Description must be less than 1000 characters",
 
       // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
@@ -228,24 +233,22 @@ export default {
           this.$router.push({
             name: "dashboard",
           });
-          
         });
         // alert(res.data);
       }
     },
     async remove() {
       let res = await axios({
-          method: "DELETE",
-          url: `job/${JSON.parse(localStorage.getItem("job")).id}`,
-          headers: { Authorization: `Bearer ${this.token}` },
-          data: this.formData(),
-        }).then(() => {
-          localStorage.removeItem("job");
-          this.$router.push({
-            name: "dashboard",
-          });
-          
+        method: "DELETE",
+        url: `job/${JSON.parse(localStorage.getItem("job")).id}`,
+        headers: { Authorization: `Bearer ${this.token}` },
+        data: this.formData(),
+      }).then(() => {
+        localStorage.removeItem("job");
+        this.$router.push({
+          name: "dashboard",
         });
+      });
     },
     validate() {
       return this.$refs.form1.validate();

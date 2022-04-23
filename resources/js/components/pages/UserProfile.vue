@@ -68,215 +68,224 @@
                     </v-list-item>
                   </v-col>
                   <v-col cols="12" lg="12">
-                    <div
-                      class="profile-btn mx-auto"
-                      style="
-                        max-width: 150px;
-                        display: flex;
-                        flex-direction: column;
-                      "
-                      v-if="this.auth"
-                    >
-                      <v-btn
-                        class="m-2 mt-4"
-                        rounded
-                        color="primary"
-                        dark
-                        @click="contact"
-                        >Contact!</v-btn
+                    <div v-if="this.auth">
+                      <div
+                        class="profile-btn mx-auto"
+                        style="
+                          max-width: 150px;
+                          display: flex;
+                          flex-direction: column;
+                        "
+                        v-if="this.user.id != this.authUser.id"
                       >
-                      <div v-if="this.user.roles.role_id == 3">
-                        <div v-if="this.getNum()">
-                          <v-dialog v-model="dialog" width="600px">
-                            <template v-slot:activator="{ on, attrs }">
-                              <v-btn
-                                class="m-2 mt-4"
-                                rounded
-                                color="primary"
-                                dark
-                                v-bind="attrs"
-                                v-on="on"
-                                >Propose Job!</v-btn
-                              >
-                            </template>
-                            <v-card>
-                              <v-toolbar dark color="primary">
-                                <v-toolbar-title>Job Detail</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-toolbar-items>
-                                  <v-btn icon dark @click="dialog = false">
-                                    <v-icon>mdi-close</v-icon>
-                                  </v-btn>
-                                </v-toolbar-items>
-                              </v-toolbar>
-                              <v-form
-                                v-model="valid"
-                                ref="form1"
-                                lazy-validation
-                                style="padding: 50px"
-                              >
-                                <div class="job-info">
-                                  <h3>Give Some Info to your Project</h3>
-                                  <v-text-field
-                                    v-model="title"
-                                    :counter="100"
-                                    :rules="titleRules"
-                                    label="Name"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-textarea
-                                    name="description"
-                                    filled
-                                    label="Description"
-                                    :rules="descriptionRule"
-                                    :counter="1000"
-                                    auto-grow
-                                    v-model="description"
-                                    required
-                                    value="Write a description for your Job."
-                                  ></v-textarea>
-                                  <v-autocomplete
-                                    v-model="category"
-                                    :items="categories"
-                                    clearable
-                                    hide-selected
-                                    persistent-hint
-                                    label="Job Category"
-                                    :rules="[required]"
-                                    required
-                                    dense
-                                  ></v-autocomplete>
-                                </div>
-                                <div class="scope m-4">
-                                  <h3>Scope of Work</h3>
-                                  <v-radio-group
-                                    v-model="scope"
-                                    :rules="[(v) => !!v || 'Item is required']"
-                                    row
-                                    required
-                                  >
-                                    <v-radio
-                                      label="Large"
-                                      value="Large"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Medium"
-                                      value="Medium"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Small"
-                                      value="Small"
-                                    ></v-radio>
-                                  </v-radio-group>
-                                </div>
-                                <div class="time m-4">
-                                  <h3>Time Estimation</h3>
-                                  <v-menu
-                                    ref="menu1"
-                                    v-model="menu2"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                  >
-                                    <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field
-                                        v-model="dateFormatted"
-                                        label="Date"
-                                        hint="MM/DD/YYYY format"
-                                        persistent-hint
-                                        prepend-icon="mdi-calendar"
-                                        :rules="[
-                                          (v) => !!v || 'Date is required',
-                                        ]"
-                                        v-bind="attrs"
-                                        @blur="date = parseDate(dateFormatted)"
-                                        v-on="on"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="date"
-                                      no-title
-                                      @input="menu2 = false"
-                                    ></v-date-picker>
-                                  </v-menu>
-                                </div>
-                                <div class="experience m-4">
-                                  <h3>Experience</h3>
-                                  <v-radio-group
-                                    v-model="experience"
-                                    :rules="[
-                                      (v) => !!v || 'Please select experience',
-                                    ]"
-                                    row
-                                    required
-                                  >
-                                    <v-radio
-                                      label="Entry"
-                                      value="Entry"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Intermediate"
-                                      value="Intermediate"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Expert"
-                                      value="Expert"
-                                    ></v-radio>
-                                  </v-radio-group>
-                                </div>
-                                <div class="skills">
-                                  <v-autocomplete
-                                    v-model="skill"
-                                    :items="items"
-                                    clearable
-                                    hide-selected
-                                    persistent-hint
-                                    label="Skills"
-                                    :rules="[required]"
-                                    dense
-                                    multiple
-                                    required
-                                    small-chips
-                                  ></v-autocomplete>
-                                </div>
-                                <div class="rates">
-                                  <div class="payment-inputs m-2">
-                                    <v-text-field
-                                      v-model="projectRate"
-                                      clearable
-                                      label="Project Rate"
-                                      placeholder="Enter Your Rate here"
-                                      outlined
-                                      type="number"
-                                      :rules="[
-                                        (v) => !!v || 'Please Enter a price',
-                                      ]"
-                                    ></v-text-field>
-                                  </div>
-                                </div>
+                        <v-btn
+                          class="m-2 mt-4"
+                          rounded
+                          color="primary"
+                          dark
+                          @click="contact"
+                          >Contact!</v-btn
+                        >
+                        <div v-if="this.user.roles.role_id == 3">
+                          <div v-if="this.getNum()">
+                            <v-dialog v-model="dialog" width="600px">
+                              <template v-slot:activator="{ on, attrs }">
                                 <v-btn
+                                  class="m-2 mt-4"
+                                  rounded
                                   color="primary"
-                                  @click="submit"
-                                  width="100%"
-                                  height="50px"
-                                  >Offer Job</v-btn
+                                  dark
+                                  v-bind="attrs"
+                                  v-on="on"
+                                  >Propose Job!</v-btn
                                 >
-                              </v-form>
-                            </v-card>
-                          </v-dialog>
-                        </div>
-                        <div v-else>
-                          <v-btn
-                            class="m-2 mt-4"
-                            rounded
-                            color="primary"
-                            disabled
-                          >
-                            User busy!
-                          </v-btn>
+                              </template>
+                              <v-card>
+                                <v-toolbar dark color="primary">
+                                  <v-toolbar-title>Job Detail</v-toolbar-title>
+                                  <v-spacer></v-spacer>
+                                  <v-toolbar-items>
+                                    <v-btn icon dark @click="dialog = false">
+                                      <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                  </v-toolbar-items>
+                                </v-toolbar>
+                                <v-form
+                                  v-model="valid"
+                                  ref="form1"
+                                  lazy-validation
+                                  style="padding: 50px"
+                                >
+                                  <div class="job-info">
+                                    <h3>Give Some Info to your Project</h3>
+                                    <v-text-field
+                                      v-model="title"
+                                      :counter="100"
+                                      :rules="titleRules"
+                                      label="Name"
+                                      required
+                                    ></v-text-field>
+
+                                    <v-textarea
+                                      name="description"
+                                      filled
+                                      label="Description"
+                                      :rules="descriptionRule"
+                                      :counter="1000"
+                                      auto-grow
+                                      v-model="description"
+                                      required
+                                      value="Write a description for your Job."
+                                    ></v-textarea>
+                                    <v-autocomplete
+                                      v-model="category"
+                                      :items="categories"
+                                      clearable
+                                      hide-selected
+                                      persistent-hint
+                                      label="Job Category"
+                                      :rules="[required]"
+                                      required
+                                      dense
+                                    ></v-autocomplete>
+                                  </div>
+                                  <div class="scope m-4">
+                                    <h3>Scope of Work</h3>
+                                    <v-radio-group
+                                      v-model="scope"
+                                      :rules="[
+                                        (v) => !!v || 'Item is required',
+                                      ]"
+                                      row
+                                      required
+                                    >
+                                      <v-radio
+                                        label="Large"
+                                        value="Large"
+                                      ></v-radio>
+                                      <v-radio
+                                        label="Medium"
+                                        value="Medium"
+                                      ></v-radio>
+                                      <v-radio
+                                        label="Small"
+                                        value="Small"
+                                      ></v-radio>
+                                    </v-radio-group>
+                                  </div>
+                                  <div class="time m-4">
+                                    <h3>Time Estimation</h3>
+                                    <v-menu
+                                      ref="menu1"
+                                      v-model="menu2"
+                                      :close-on-content-click="false"
+                                      transition="scale-transition"
+                                      offset-y
+                                      max-width="290px"
+                                      min-width="auto"
+                                    >
+                                      <template
+                                        v-slot:activator="{ on, attrs }"
+                                      >
+                                        <v-text-field
+                                          v-model="dateFormatted"
+                                          label="Date"
+                                          hint="MM/DD/YYYY format"
+                                          persistent-hint
+                                          prepend-icon="mdi-calendar"
+                                          :rules="[
+                                            (v) => !!v || 'Date is required',
+                                          ]"
+                                          v-bind="attrs"
+                                          @blur="
+                                            date = parseDate(dateFormatted)
+                                          "
+                                          v-on="on"
+                                        ></v-text-field>
+                                      </template>
+                                      <v-date-picker
+                                        v-model="date"
+                                        no-title
+                                        @input="menu2 = false"
+                                      ></v-date-picker>
+                                    </v-menu>
+                                  </div>
+                                  <div class="experience m-4">
+                                    <h3>Experience</h3>
+                                    <v-radio-group
+                                      v-model="experience"
+                                      :rules="[
+                                        (v) =>
+                                          !!v || 'Please select experience',
+                                      ]"
+                                      row
+                                      required
+                                    >
+                                      <v-radio
+                                        label="Entry"
+                                        value="Entry"
+                                      ></v-radio>
+                                      <v-radio
+                                        label="Intermediate"
+                                        value="Intermediate"
+                                      ></v-radio>
+                                      <v-radio
+                                        label="Expert"
+                                        value="Expert"
+                                      ></v-radio>
+                                    </v-radio-group>
+                                  </div>
+                                  <div class="skills">
+                                    <v-autocomplete
+                                      v-model="skill"
+                                      :items="items"
+                                      clearable
+                                      hide-selected
+                                      persistent-hint
+                                      label="Skills"
+                                      :rules="[required]"
+                                      dense
+                                      multiple
+                                      required
+                                      small-chips
+                                    ></v-autocomplete>
+                                  </div>
+                                  <div class="rates">
+                                    <div class="payment-inputs m-2">
+                                      <v-text-field
+                                        v-model="projectRate"
+                                        clearable
+                                        label="Project Rate"
+                                        placeholder="Enter Your Rate here"
+                                        outlined
+                                        type="number"
+                                        :rules="[
+                                          (v) => !!v || 'Please Enter a price',
+                                        ]"
+                                      ></v-text-field>
+                                    </div>
+                                  </div>
+                                  <v-btn
+                                    color="primary"
+                                    @click="submit"
+                                    width="100%"
+                                    height="50px"
+                                    >Offer Job</v-btn
+                                  >
+                                </v-form>
+                              </v-card>
+                            </v-dialog>
+                          </div>
+                          <div v-else>
+                            <v-btn
+                              class="m-2 mt-4"
+                              rounded
+                              color="primary"
+                              disabled
+                            >
+                              User busy!
+                            </v-btn>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -459,6 +468,7 @@
                       color="amber"
                       dense
                       readonly
+                      half-increments
                       size="14"
                       class="p-3"
                     ></v-rating>
@@ -592,6 +602,7 @@ export default {
     ...mapGetters({
       token: "auth/getToken",
       auth: "auth/authenticated",
+      authUser: "auth/user",
     }),
   },
   watch: {
@@ -653,7 +664,6 @@ export default {
     },
     async submit() {
       if (this.validate()) {
-        
         let res = await axios({
           method: "post",
           url: `user/offer/${this.id}`,

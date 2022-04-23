@@ -69,7 +69,10 @@
                             hide-selected
                             persistent-hint
                             label="Job Category"
-                            :rules="categoryRule"
+                            :rules="[
+                              (v) =>
+                                !!(v && v.length) || 'Please select a category',
+                            ]"
                             dense
                           ></v-autocomplete>
                           <v-btn
@@ -382,7 +385,9 @@
                         ></v-text-field>
                       </div>
                     </div>
-                    <v-btn color="primary" @click.prevent="submit">Post Job</v-btn>
+                    <v-btn color="primary" @click.prevent="submit"
+                      >Post Job</v-btn
+                    >
                   </v-form>
                 </v-stepper-content>
               </v-stepper-items>

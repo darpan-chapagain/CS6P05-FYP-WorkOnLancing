@@ -220,7 +220,11 @@
                                 hide-selected
                                 persistent-hint
                                 label="Job Category"
-                                
+                                :rules="[
+                                  (v) =>
+                                    !!(v && v.length) ||
+                                    'Please select a category',
+                                ]"
                                 dense
                               ></v-autocomplete>
                               <h4>Experience Level</h4>

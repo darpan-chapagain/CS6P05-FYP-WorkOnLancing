@@ -104,14 +104,13 @@
                       {{ a_user.last_name }}</v-card-title
                     >
                   </v-col>
-
                   <v-col cols="12" lg="6" xs="4" sm="6" md="6">
                     <div class="grey--text ms-4">
                       <v-chip outlined color="#FFCA28" class="m-1">
                         <v-icon class="p-1"
                           >mdi-star-four-points-outline</v-icon
                         >
-                        1234 points</v-chip
+                        {{ a_user.points }} points</v-chip
                       >
                     </div>
                   </v-col>
@@ -353,11 +352,11 @@ export default {
         .push({
           name: "userEdit",
           params: {
-            a_user: this.user,
+            a_user: this.a_user,
           },
         })
         .then(() => {
-          localStorage.setItem("users", JSON.stringify(this.user));
+          localStorage.setItem("users", JSON.stringify(this.a_user));
         });
     },
     visitProfile() {

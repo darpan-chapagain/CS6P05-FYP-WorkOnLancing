@@ -363,7 +363,7 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       }).then(() => {
-        localStorage.removeItem("job");
+        localStorage.removeItem("users");
         this.$router.push({
           name: "dashboard",
         });

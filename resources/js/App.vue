@@ -367,12 +367,12 @@ export default {
     userPortal() {
       this.$router.push({
         path: "/user/portal",
-      });
+      }).catch(() => {});
     },
     employeePortal() {
       this.$router.push({
         path: "/employee/portal",
-      });
+      }).catch(() => {});
     },
   },
   computed: {

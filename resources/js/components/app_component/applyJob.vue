@@ -22,10 +22,10 @@
                     <h3>You have completed this job</h3>
                     <b-card-sub-title>Review the client!</b-card-sub-title>
                     <v-divider></v-divider>
-                    <div class="m-4">
+                    <div class="">
                       <div class="apply">
-                        <h3>You have completed this job</h3>
-                        <b-card-sub-title>Review the client!</b-card-sub-title>
+                        <h5>You will get paid soon!</h5>
+                        <b-card-sub-title>Reach out to contact@workonlancing.com if you have any questions!</b-card-sub-title>
                         <v-divider></v-divider>
                       </div>
                       <div v-if="this.apply">
@@ -53,18 +53,17 @@
                 </div>
                 <div v-if="message == 'requested'">
                   <div class="m-4">
-                    <h3>You have requested for this job</h3>
+                    <h3>You have/were enquired for this job</h3>
                     <b-card-sub-title
-                      >Complete the given task!</b-card-sub-title
+                      >Do you want to talk to the client?</b-card-sub-title
                     >
                     <v-divider></v-divider>
                   </div>
                   <div class="m-4">
                     <div class="message">
-                      <h5 class="my-0">You've requested this job!</h5>
+                      <h5 class="my-0">Wanna talk to the client?</h5>
                       <b-card-sub-title
-                        >Send a message to client and discuss about the
-                        job!</b-card-sub-title
+                        >Sometimes speaking out really helps!</b-card-sub-title
                       >
                       <v-btn class="m-2 mt-4" rounded color="primary" dark @click="contact"
                         >Send a message!</v-btn
