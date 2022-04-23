@@ -8,6 +8,7 @@
         single-line
         style="max-width: 600px"
         v-model="name"
+        @keyup.enter="search"
       ></v-text-field>
     </div>
     <v-row class="dashboard-container">
@@ -145,8 +146,12 @@ export default {
     };
   },
   methods: {
+    search(){
+      console.log(this.name);
+    },
     getCategory(value) {
       if (value) {
+        console.log(value);
         this.category = value;
       } else {
         this.category = [];
@@ -154,6 +159,7 @@ export default {
     },
     getRange(value) {
       if (value) {
+        console.log(value[0], value[1]);
         this.min = value[0];
         this.max = value[1];
       } else {

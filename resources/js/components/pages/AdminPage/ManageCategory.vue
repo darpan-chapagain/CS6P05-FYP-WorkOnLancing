@@ -36,9 +36,7 @@
               >
                 <form ref="form" style="width: 100%; margin: 0 auto">
                   <v-text-field
-                    label="Your landing page"
-                    hint="www.example.com/page"
-                    persistent-hint
+                    label="Add new category"
                     outlined
                     v-model="newCat"
                   ></v-text-field>
@@ -86,7 +84,7 @@ export default {
       {
         text: "id",
         align: "start",
-        sortable: false,
+        sortable: true,
         value: "job_category_id",
       },
       {

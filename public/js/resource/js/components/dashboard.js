@@ -1364,6 +1364,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1393,8 +1394,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread(_objectSpread({
+    search: function search() {
+      console.log(this.name);
+    },
     getCategory: function getCategory(value) {
       if (value) {
+        console.log(value);
         this.category = value;
       } else {
         this.category = [];
@@ -1402,6 +1407,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     getRange: function getRange(value) {
       if (value) {
+        console.log(value[0], value[1]);
         this.min = value[0];
         this.max = value[1];
       } else {
@@ -1652,6 +1658,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1683,15 +1690,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     allRequests: "requests/job_Request"
   })), {}, {
     filterUsers: function filterUsers() {
-      // return this.filterByRange(
-      //   this.filterByName(this.filterByCategory(this.allUsers))
-      // );
       return this.filterByRange(this.filterByCategory(this.filterByName(this.allUsers)));
     }
   }),
   methods: _objectSpread(_objectSpread({
+    search: function search() {
+      console.log(this.name);
+    },
     getCategory: function getCategory(value) {
       if (value) {
+        console.log(value);
         this.category = value;
       } else {
         this.category = [];
@@ -1699,6 +1707,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     getRange: function getRange(value) {
       if (value) {
+        console.log(value[0], value[1]);
         this.min = value[0];
         this.max = value[1];
       } else {
@@ -3134,6 +3143,17 @@ var render = function () {
               "prepend-icon": "mdi-magnify",
               "single-line": "",
             },
+            on: {
+              keyup: function ($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.search.apply(null, arguments)
+              },
+            },
             model: {
               value: _vm.name,
               callback: function ($$v) {
@@ -3411,6 +3431,17 @@ var render = function () {
               "hide-details": "",
               "prepend-icon": "mdi-magnify",
               "single-line": "",
+            },
+            on: {
+              keyup: function ($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.search.apply(null, arguments)
+              },
             },
             model: {
               value: _vm.name,

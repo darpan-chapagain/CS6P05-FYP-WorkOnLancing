@@ -453,9 +453,9 @@ class UserController extends Controller
         $payment = new Payment([
             'user_id' => $jobId,
             'employee_id' => $employee->employee_id,
-            'total' => $request->project_rate,
+            'total' =>  $request->sub_amount,
             'discount' => $request->discount,
-            'sub_total' => $request->sub_amount,
+            'sub_total' => $request->project_rate,
             'idx' => $request->idx,
             'token' => $request->token,
             'product_name' => $request->product_name,

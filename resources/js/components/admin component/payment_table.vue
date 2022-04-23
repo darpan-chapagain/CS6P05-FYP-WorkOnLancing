@@ -13,15 +13,14 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="updateStatus(item)"
-        v-if="item.status == 1"
-      >
-        mdi-account-check
-      </v-icon>
-      <p v-else class="mr-2">
+      <p @click="updateStatus(item)" v-if="item.status == 1">
+        Complete Payment <v-icon small class="mr-2"> mdi-account-check </v-icon>
+      </p>
+
+      <p v-else-if="item.status == 0" class="mr-2">
+        Job not completed<v-icon small class="mr-2">mdi-account-clock</v-icon>
+      </p>
+      <p v-else-if="item.status == 2" class="mr-2">
         Payment Completed
         <v-icon small> mdi-account-multiple-check </v-icon>
       </p>
@@ -77,7 +76,7 @@ export default {
         },
       ];
     },
-    
+
     async updateStatus(item) {
       axios({
         method: "POST",
@@ -87,14 +86,13 @@ export default {
         },
         data: {
           id: item.id,
-        }
+        },
       }).then(() => {
         this.pay = [];
       });
       this.pay = await this.getPayments();
     },
 
-    
     async getPayments() {
       let res = await axios({
         method: "get",

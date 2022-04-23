@@ -53,8 +53,8 @@ class WorkBadgesController extends Controller
         $categories = JobCategory::all()->where('category_name', $request->category)->first();
         $badges = WorkBadges::create([
             'job_category_id' => $categories->job_category_id,
-            'badge_name' =>  "mdi-".$request->badge_name,
-            'badge_image' => $request->badge_icon,
+            'badge_name' =>  $request->badge_name,
+            'badge_image' => "mdi-".$request->badge_icon,
         ]);
 
         return $badges;

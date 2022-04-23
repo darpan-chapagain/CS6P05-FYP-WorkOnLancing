@@ -9,26 +9,28 @@
           scroll-target="#scrolling-techniques-7"
           height="70px"
         >
-          <v-app-bar-nav-icon
-            v-if="this.role == 1"
-            @click="drawer2 = !drawer2"
-            class="drawer"
-          ></v-app-bar-nav-icon>
+          <div v-if="this.authenticated">
+            <v-app-bar-nav-icon
+              v-if="this.role == 1"
+              @click="drawer2 = !drawer2"
+              class="drawer"
+            ></v-app-bar-nav-icon>
 
-          <v-app-bar-nav-icon
-            v-else
-            @click="drawer = !drawer"
-            class="drawer d-lg-none d-md-none white"
-          ></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon
+              v-else
+              @click="drawer = !drawer"
+              class="drawer d-flex d-sm-none"
+            ></v-app-bar-nav-icon>
+          </div>
 
-          <v-toolbar-title class="white--text text-h5 d-sm-none d-md-flex"
+          <v-toolbar-title class="white--text text-h5 d-none d-sm-flex"
             ><a href="/" class="white--text">WorkOnLancing</a></v-toolbar-title
           >
 
           <v-spacer></v-spacer>
 
-          <div v-if="this.authenticated">
-            <div v-if="this.role != 1" class="d-flex d-sm-none d-md-flex">
+          <div v-if="this.authenticated" class="d-none d-sm-flex">
+            <div v-if="this.role != 1" class="d-flex">
               <div class="navbar-nav m-3">
                 <a href="/dashboard" class="text-white ml-3">Dashboard</a>
               </div>
@@ -42,11 +44,11 @@
               </div>
 
               <div class="navbar-nav m-3">
-                <a href="/requests" class="text-white">View Requests</a>
+                <a href="/job/requests" class="text-white">View Requests</a>
               </div>
 
               <div class="navbar-nav m-3" v-if="this.role == 3">
-                <a href="/proposal" class="text-white">View Proposals</a>
+                <a href="/job/offers" class="text-white">View Proposals</a>
               </div>
             </div>
           </div>
@@ -117,44 +119,89 @@
           </v-menu>
         </v-app-bar>
 
-        <v-navigation-drawer v-model="drawer" fixed temporary>
+        <v-navigation-drawer
+          v-model="drawer"
+          fixed
+          temporary
+          v-if="this.authenticated"
+        >
           <!--  -->
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-h6">
+                WorkOnLancing
+              </v-list-item-title>
+              <v-list-item-subtitle
+                >Where talent finds work</v-list-item-subtitle
+              >
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-divider></v-divider>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>View Home page</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
           <v-list nav dense>
-            <v-list-item-group active-class="deep-purple--text text--accent-4">
-              <v-list-item>
+            <v-list-item-group>
+              <v-list-item @click="home">
                 <v-list-item-icon>
                   <v-icon>mdi-home</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title
-                  ><a href="/" class="white--text">Home</a></v-list-item-title
-                >
+                <v-list-item-title>Home</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+          <v-divider></v-divider>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>Use the application!</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list nav dense>
+            <v-list-item-group>
+              <v-list-item @click.native="dashboard">
+                <v-list-item-icon>
+                  <v-icon>mdi-file-tree</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Dashboard</v-list-item-title>
               </v-list-item>
 
-              <v-list-item v-if="this.role == 3">
+              <v-list-item @click="request">
                 <v-list-item-icon>
-                  <v-icon>mdi-dashboard</v-icon>
+                  <v-icon>mdi-account</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>
-                  <a href="/dashboard" class="text-white ml-3"
-                    >Dashboard</a
-                  ></v-list-item-title
-                >
+                <v-list-item-title>View Requests</v-list-item-title>
               </v-list-item>
 
-              <v-list-item>
+              <v-list-item @click="postJob">
                 <v-list-item-icon>
-                  <v-icon>mdi-work-outline</v-icon>
+                  <v-icon>mdi-shape</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title
-                  ><a href="/post/job" class="text-white"
-                    >Post Jobs</a
-                  ></v-list-item-title
-                >
+                <v-list-item-title>Post Jobs</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item @click="chat">
+                <v-list-item-icon>
+                  <v-icon>mdi-star-shooting</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Chat</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item @click="proposal" v-if="this.role == 3">
+                <v-list-item-icon>
+                  <v-icon>mdi-shield-star</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>View Proposals</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-navigation-drawer>
 
+        <!-- admin nav -->
         <v-navigation-drawer v-model="drawer2" fixed temporary>
           <!--  -->
           <v-list-item class="px-2">
@@ -310,6 +357,71 @@ export default {
     ...mapActions({
       signOutAction: "auth/signOut",
     }),
+    dashboard() {
+      this.$router
+        .push({
+          path: "/dashboard",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
+
+    chat() {
+      this.$router
+        .push({
+          path: "/chat",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
+
+    postJob() {
+      this.$router
+        .push({
+          path: "/post/job",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
+
+    home() {
+      this.$router
+        .push({
+          name: "home",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
+
+    request() {
+      this.$router
+        .push({
+          name: "jobRequest",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
+
+    proposal() {
+      this.$router
+        .push({
+          name: "offer",
+          params: {
+            job: this.allRequests,
+          },
+        })
+        .catch(() => {});
+    },
     payment() {
       this.$router
         .push({
@@ -365,14 +477,18 @@ export default {
       });
     },
     userPortal() {
-      this.$router.push({
-        path: "/user/portal",
-      }).catch(() => {});
+      this.$router
+        .push({
+          path: "/user/portal",
+        })
+        .catch(() => {});
     },
     employeePortal() {
-      this.$router.push({
-        path: "/employee/portal",
-      }).catch(() => {});
+      this.$router
+        .push({
+          path: "/employee/portal",
+        })
+        .catch(() => {});
     },
   },
   computed: {

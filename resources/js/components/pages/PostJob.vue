@@ -14,7 +14,7 @@
         <v-main>
           <v-container>
             <v-stepper v-model="step">
-              <v-stepper-header>
+              <v-stepper-header class="d-none d-sm-flex">
                 <v-stepper-step step="1" :complete="step > 1"
                   >Job Info</v-stepper-step
                 >

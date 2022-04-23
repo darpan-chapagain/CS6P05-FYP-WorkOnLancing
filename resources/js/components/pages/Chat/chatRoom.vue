@@ -128,6 +128,6 @@ export default {
 .scrollable {
   overflow: hidden;
   overflow-y: scroll;
-  height: calc(90vh - 20px);
+  height: calc(90vh - 20vh);
 }
 </style>

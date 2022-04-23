@@ -97,7 +97,7 @@
                         <h3>Pay for the Job to accept the Request</h3>
 
                         <v-card-text>
-                          <div>Total</div>
+                          <div>Sub Total</div>
                           <p class="text-h4 text--primary">
                             {{ this.a_job_detail.project_rate }}
                           </p>
@@ -107,7 +107,7 @@
                           <p class="text-h4 text--primary">
                             {{ this.discount }}%
                           </p>
-                          <div>Sub Total after discount</div>
+                          <div>Total after discount</div>
                           <p class="text-h4 text--primary">{{ this.total }}</p>
                           <p>Note:</p>
                           <div class="text--primary">
@@ -347,7 +347,7 @@ export default {
       return data;
     },
     getPayment(rate) {
-      this.points = 100;
+      this.points = this.user.points;
       if (this.points >= 100) {
         this.discount = 20;
         this.amount = rate;
