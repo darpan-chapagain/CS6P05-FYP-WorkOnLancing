@@ -28,70 +28,19 @@ import AdminSkill from "../components/pages/AdminPage/ManageSkill.vue";
 import UserEdit from "../components/pages/UserEdit.vue"
 import AdminBadge from "../components/pages/AdminPage/Manage Badge.vue";
 import filterTest from '../components/pages/filterTest.vue'
+import Login from "../components/pages/Login.vue" 
+import Register from "../components/pages/Register.vue"
+import PostJob from "../components/pages/PostJob.vue" 
+import Proposal from "../components/pages/Proposal.vue"
+import Proposals from "../components/pages/Proposals.vue";
+import Requests from "../components/pages/Requests.vue";
+import UserProfile from "../components/pages/UserProfile.vue";
+import ARequest from "../components/pages/Arequest.vue";
+import Application from "../components/pages/Application.vue";
+import DashboardLayout from "../components/Layouts/Dashboard.vue";
+import EmployeeDashboard from "../components/pages/EmployeeDashboard.vue";
+import UserDashboard from "../components/pages/UserDashboard.vue";
 
-/* Guest Component */
-const Test2 = () =>
-    import(
-        "../components/pages/AdminDashboard.vue" /* webpackChunkName: "resource/js/components/login" */
-    );
-const Test = () =>
-    import(
-        "../components/pages/filterTest.vue" /* webpackChunkName: "resource/js/components/login" */
-    );
-const Login = () =>
-    import(
-        "../components/pages/Login.vue" /* webpackChunkName: "resource/js/components/login" */
-    );
-const Register = () =>
-    import(
-        "../components/pages/Register.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const PostJob = () =>
-    import(
-        "../components/pages/PostJob.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const Proposal = () =>
-    import(
-        "../components/pages/Proposal.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const Proposals = () =>
-    import(
-        "../components/pages/Proposals.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const Requests = () =>
-    import(
-        "../components/pages/Requests.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const UserProfile = () =>
-    import(
-        "../components/pages/UserProfile.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const ARequest = () =>
-    import(
-        "../components/pages/Arequest.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-const Application = () =>
-    import(
-        "../components/pages/Application.vue" /* webpackChunkName: "resource/js/components/register" */
-    );
-/* Guest Component */
-
-/* Layouts */
-const DashboardLayout = () =>
-    import(
-        "../components/Layouts/Dashboard.vue" /* webpackChunkName: "resource/js/components/layouts/dashboard" */
-    );
-/* Layouts */
-
-/* Authenticated Component */
-const EmployeeDashboard = () =>
-    import(
-        "../components/pages/EmployeeDashboard.vue" /* webpackChunkName: "resource/js/components/dashboard" */
-    );
-const UserDashboard = () =>
-    import(
-        "../components/pages/UserDashboard.vue" /* webpackChunkName: "resource/js/components/dashboard" */
-    );
 /* Authenticated Component */
 function requireAuth(to, from, next) {}
 
@@ -113,16 +62,6 @@ const Routes = [
             }
             next();
         },
-    },
-    {
-        name: "test",
-        path: "/test",
-        component: Test,
-    },
-    {
-        name: "test",
-        path: "/test2",
-        component: Test2,
     },
     {
         name: "register",
