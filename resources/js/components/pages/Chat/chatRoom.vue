@@ -73,7 +73,6 @@ export default {
         .then((response) => {
           this.chatRooms = response.data;
           this.setRoom(response.data[0]);
-          // this.getMessages();
         })
         .catch((error) => {
           console.log(error);

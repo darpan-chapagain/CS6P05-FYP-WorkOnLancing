@@ -480,7 +480,6 @@ class UserController extends Controller
             $otherRequest->status = 3;
             $otherRequest->update();
             $employee = Employee::find($otherRequest->employee_id);
-            // dd($employee->user->email);
             $details = [
                 'fname' => $employee->user->first_name,
                 'lname' => $employee->user->last_name,
@@ -546,7 +545,6 @@ class UserController extends Controller
     {
         $authUser = auth()->user();
         $employee = Employee::all()->where('user_id', $id)->first();
-        // dd($employee->employee_id);
         $jobRequest = JobRequest::all()
             ->where('employee_id', $employee->employee_id)
             ->where('job_id', $jobId)
@@ -554,7 +552,6 @@ class UserController extends Controller
         $jobRequest->status = 3;
         $jobRequest->save();
         $job = Job::find($jobId)->first();
-        // dd($job->title);
         $details = [
             'fname' => $employee->user->first_name,
             'lname' => $employee->user->last_name,

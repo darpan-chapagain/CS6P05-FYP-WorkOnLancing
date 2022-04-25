@@ -98,7 +98,6 @@ export default {
           2000
         );
       });
-      // console.log(res.data);
       this.applied = true;
     },
     returnJob() {

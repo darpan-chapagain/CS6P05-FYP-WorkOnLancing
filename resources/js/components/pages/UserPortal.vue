@@ -193,14 +193,7 @@
 
                         <v-divider></v-divider>
                         <div>
-                          Lorem ipsum, dolor sit amet consectetur adipisicing
-                          elit. Expedita nesciunt, ab, voluptatum culpa numquam
-                          aliquid facilis autem vero, quos praesentium atque!
-                          Nam a quaerat neque unde natus voluptas quas ex
-                          perspiciatis magni ut corporis deleniti, ipsum
-                          molestias explicabo eos, repudiandae itaque
-                          necessitatibus! Id itaque, laudantium consectetur
-                          maxime officiis labore beatae!
+                          {{a_user.about}}
                         </div>
                       </div>
                     </div>

@@ -30,11 +30,8 @@
             half-increments
             size="14"
           ></v-rating>
-          {{ this.avgRate }} ({{ this.count }})
+          {{ this.avgRate.toFixed(1) }} ({{ this.count }})
         </v-col>
-        <!-- <v-col cols="4">
-          <div class="grey--text ms-4">4</div>
-        </v-col> -->
 
         <v-col cols="8">
           <div class="grey--text ms-4">

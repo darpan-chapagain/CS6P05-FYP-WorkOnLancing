@@ -182,7 +182,6 @@ class BlogController extends Controller
     }
 
     public function userBlog($id){
-        // dd('test');
         $blog = Blog::where('user_id', $id)->orderBy('id', 'DESC')->get();
 
         $response = [
@@ -193,7 +192,7 @@ class BlogController extends Controller
 
     public function getBlog($id)
     {
-        //
+        
         $blog = Blog::find($id);
         $user = $blog->user;
         $roles = $user->roles;

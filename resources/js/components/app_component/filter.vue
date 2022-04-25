@@ -68,7 +68,6 @@ export default {
       const res = await axios.get("jobs/category");
       let skill_data = [];
       for (let i = 0; i < res.data.length; i++) {
-        // console.log(res.data[i].skill);
         this.categories.push(res.data[i].category_name);
       }
     },

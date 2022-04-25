@@ -27,7 +27,6 @@ import AdminCategory from "../components/pages/AdminPage/ManageCategory.vue";
 import AdminSkill from "../components/pages/AdminPage/ManageSkill.vue";
 import UserEdit from "../components/pages/UserEdit.vue"
 import AdminBadge from "../components/pages/AdminPage/Manage Badge.vue";
-import filterTest from '../components/pages/filterTest.vue'
 import Login from "../components/pages/Login.vue" 
 import Register from "../components/pages/Register.vue"
 import PostJob from "../components/pages/PostJob.vue" 
@@ -128,7 +127,7 @@ const Routes = [
         path: "/job/offers",
         component: Proposals,
         meta: {
-            middleware: [auth],
+            middleware: [auth, employee],
         },
     },
     {
@@ -167,84 +166,126 @@ const Routes = [
         name: "jobRequest",
         path: "/job/requests",
         component: JobRequest,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "userPortal",
         path: "/user/Portal",
         component: UserPortal,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "employeePortal",
         path: "/employee/Portal",
         component: EmployeePortal,
+        meta: {
+            middleware: [auth, employee],
+        },
         props: true,
     },
     {
         name: "userRating",
         path: "/user/rating",
         component: Rating,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "jobEdit",
         path: "/job/edit",
         component: JobEdit,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "userEdit",
         path: "/user/edit",
         component: UserEdit,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "blog",
         path: "/blog/:id",
         component: Blog,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "chat",
         path: "/chat",
         component: Chat,
+        meta: {
+            middleware: [auth],
+        },
         props: true,
     },
     {
         name: "ChatRoom",
         path: "/chatRoom",
         component: ChatRoom,
+        meta: {
+            middleware: [auth],
+        },
         props: true
     },
     {
         name: "adminJob",
         path: "/admin/job",
         component: AdminJob,
+        meta: {
+            middleware: [auth, admin],
+        },
         props: true
     },
     {
         name: "adminUser",
         path: "/admin/user",
         component: AdminUser,
+        meta: {
+            middleware: [auth, admin],
+        },
         props: true
     },
     {
         name: "adminCategory",
         path: "/admin/category",
         component: AdminCategory,
+        meta: {
+            middleware: [auth, admin],
+        },
         props: true
     },
     {
         name: "adminSkill",
         path: "/admin/skill",
         component: AdminSkill,
+        meta: {
+            middleware: [auth, admin],
+        },
         props: true
     },
     {
         name: "adminBadge",
         path: "/admin/badge",
         component: AdminBadge,
+        meta: {
+            middleware: [auth, admin],
+        },
         props: true
     }
 ];

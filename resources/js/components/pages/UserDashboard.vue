@@ -24,7 +24,6 @@
         order-xs="1"
       >
         <v-sheet rounded="lg" min-height="268">
-          <!--  -->
           <v-card elevation="6" class="p-3">
             <div class="proposal-title">
               <h3 class="text-center">Job Requests</h3>
@@ -37,10 +36,7 @@
                     v-if="allRequests[index - 1]"
                     :request="allRequests[index - 1]"
                   />
-                  <!-- {{ allRequests[1] }} -->
                 </div>
-
-                <!-- {{ allRequests }} -->
               </div>
               <v-btn width="100%" @click="seeAll">See All</v-btn>
             </div>
@@ -71,8 +67,6 @@
         order-xs="2"
       >
         <v-sheet rounded="lg" min-height="268">
-          <!--  -->
-
           <v-card elevation="6" class="p-3">
             <h3>Filter</h3>
             <v-divider></v-divider>
@@ -142,7 +136,6 @@ export default {
       max: "70000",
       allUsers: [],
       filterU: [],
-      // allRequests: [],
     };
   },
   computed: {
@@ -185,13 +178,6 @@ export default {
 
       return data;
     },
-    // async fetchRequests(){
-    //   const res = await axios.get('user/job/requests')
-
-    //   const data = await res.data;
-
-    //   return data;
-    // },
     ...mapActions({
       fetchRequests: "requests/fetchRequest",
     }),
@@ -234,10 +220,8 @@ export default {
   },
   async created() {
     this.allUsers = await this.fetchUsers();
-    // this.filterU = this.allUsers;
     console.log(this.allUsers);
     await this.fetchRequests();
-    // this.fetchRequests(localStorage.getItem('token'));
   },
 };
 </script>

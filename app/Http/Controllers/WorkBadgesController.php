@@ -19,7 +19,6 @@ class WorkBadgesController extends Controller
         $workBadges = WorkBadges::all();
         foreach($workBadges as $workBadge){
             $workBadge->jobCategories;
-            // $workBadge->employeeBadges;
         }
 
         return $workBadges;

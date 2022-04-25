@@ -26,7 +26,6 @@ class UserRatingController extends Controller
     public function getUserRating(Request $request, $id)
     {
         $userRating = UserRating::where('user_id', $id)->get();
-        // dd($userRating);
         $totalRate = 0;
         $count = 0;
         foreach ($userRating as $rating) {

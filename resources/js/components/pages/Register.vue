@@ -630,9 +630,6 @@
                             >Cancel</v-btn
                           >
                         </div>
-                        <!-- <v-btn color="primary" @click.prevent="submit"
-                          >Save</v-btn
-                        > -->
                       </v-form>
                     </v-stepper-content>
                   </v-stepper-items>

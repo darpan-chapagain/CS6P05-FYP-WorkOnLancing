@@ -31,7 +31,6 @@ class HiredMail extends Mailable
      */
     public function build()
     {
-        // return $this->view('view.name');
         return $this->subject('Congratulations! You are hired!')
                     ->view('emails.hired');
 

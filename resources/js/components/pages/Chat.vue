@@ -11,7 +11,6 @@
       :currentRoom="currentRoom"
       v-on:room-changed="setRoom($event)"
     />
-    <!-- <MessageRoom :title="'test'" /> -->
   </div>
 </template>
 
@@ -51,7 +50,6 @@ export default {
         .then((response) => {
           this.chatRooms = response.data;
           this.setRoom(response.data[0]);
-          // this.getMessages();
         })
         .catch((error) => {
           console.log(error);
@@ -59,7 +57,6 @@ export default {
     },
     setRoom(room) {
       this.currentRoom = room;
-      // this.getMessages();
     },
   },
   created() {

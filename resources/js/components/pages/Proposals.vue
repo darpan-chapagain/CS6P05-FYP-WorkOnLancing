@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="6" class="p-3" style="margin-top: 150px">
     <div class="proposal-title">
-      <h2 class="text-center">These are no Job offers</h2>
+      <h2 class="text-center">Proposals</h2>
     </div>
     <v-divider></v-divider>
     <div v-if="allProposals">
@@ -23,7 +23,6 @@
       </v-alert>
     </div>
 
-    <!-- <v-btn width="100%">See All</v-btn> -->
   </v-card>
 </template>
 
@@ -44,7 +43,6 @@ export default {
   },
   async created() {
     await this.fetchProposals();
-    // this.allRequests = await this.fetchRequests()
   },
   computed: {
     ...mapGetters({

@@ -176,9 +176,6 @@ export default {
     ...mapActions({
       updateRequests: "requests/fetchProposals",
     }),
-    test() {
-      alert("yooo");
-    },
     action(ac) {
       if (ac == "accept") {
         this.accept();
