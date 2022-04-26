@@ -35,9 +35,6 @@
               <v-card-text>
                 <pre style="white-space: pre-line">
                 {{ this.blogs.blog.detail }}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga placeat tempora veritatis aperiam itaque officiis quaerat autem, perferendis necessitatibus, at tenetur tempore architecto. Laborum, eveniet mollitia, qui, accusantium ex asperiores rem animi ipsam commodi eligendi architecto recusandae enim illo odio molestias? Est voluptas numquam, neque corrupti eos deserunt nostrum totam possimus. Molestias a nobis quae ipsam unde illo ipsum, cumque, voluptas nesciunt, officiis sint recusandae omnis? A praesentium laudantium delectus quia? Aliquid cum voluptate sapiente saepe obcaecati deserunt hic minus! Ipsam ipsum mollitia voluptatum culpa, modi deleniti. Inventore repellat consequunt
-                
-                ur et nihil cumque. Voluptatem consequuntur exercitationem sunt minus ex ut?
                   </pre
                 >
               </v-card-text>

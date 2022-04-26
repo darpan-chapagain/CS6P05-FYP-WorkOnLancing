@@ -94,6 +94,16 @@
             label="Phone Number"
             required
           ></v-text-field>
+          <v-textarea
+                  name="About"
+                  filled
+                  label="About"
+                  :rules="about"
+                  :counter="500"
+                  auto-grow
+                  v-model="user.about"
+                  value="Let others know about yourself."
+                ></v-textarea>
         </div>
         <div v-if="this.user.role_id == 3">
           <div class="services">
@@ -185,16 +195,7 @@
                   type="number"
                   :rules="[(v) => !!v || 'Please Enter a price']"
                 ></v-text-field>
-                <v-textarea
-                  name="About"
-                  filled
-                  label="About"
-                  :rules="about"
-                  :counter="500"
-                  auto-grow
-                  v-model="user.about"
-                  value="Let others know about yourself."
-                ></v-textarea>
+                
               </div>
             </div>
           </div>
@@ -266,13 +267,13 @@ export default {
       step: 1,
       titleRules: [
         (v) => !!v || "Job Title is required",
-        (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+        (v) => (v && v.length <= 100) || "Name must be less than 20 characters",
       ],
       descriptionRule: [
         (v) => !!v || "Description required",
         (v) =>
-          (v && v.length <= 20) ||
-          "Description must be less than 200 characters",
+          (v && v.length <= 500) ||
+          "About must be less than 200 characters",
 
         // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
@@ -281,8 +282,8 @@ export default {
       about: [
         (v) => !!v || "About is required",
         (v) =>
-          (v && v.length <= 20) ||
-          "Description must be less than 200 characters",
+          (v && v.length <= 500) ||
+          "About must be less than 500 characters",
       ],
       //for date
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)

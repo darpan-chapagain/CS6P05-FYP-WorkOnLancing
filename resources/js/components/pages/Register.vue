@@ -368,7 +368,8 @@
                             lazy-validation
                             @submit.prevent=""
                           >
-                            <h3>Publish your Profile</h3>
+                            <h3 class="text-center">Publish your Profile</h3>
+
                             <div class="image d-flex flex-column">
                               <div class="avatar mx-auto">
                                 <v-avatar color="orange" size="80">
@@ -630,9 +631,6 @@
                             >Cancel</v-btn
                           >
                         </div>
-                        <!-- <v-btn color="primary" @click.prevent="submit"
-                          >Save</v-btn
-                        > -->
                       </v-form>
                     </v-stepper-content>
                   </v-stepper-items>

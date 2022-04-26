@@ -45,9 +45,6 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-        <v-btn color="black" icon class="mb-n10">
-          <v-icon>fas fa-ellipsis-h</v-icon>
-        </v-btn>
       </v-app-bar>
     </div>
   </div>

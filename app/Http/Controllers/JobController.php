@@ -344,16 +344,7 @@ class JobController extends Controller
             ->where('id', $id)
             ->first();
         $job->status = 3;
-        // $req = $job->requestJob[0];
-        // $user = User::all()->where('id', $userID)->first();
-        // dd($req->status);
-        // if ($req->status == 4) {
-        //     $req->status = 6;
-        //     $job->status = 4;
-        //     // $user->points += 100;
-        // }
         $job->save();
-        // $req->save();
         $response = [
             'job' => $job
         ];

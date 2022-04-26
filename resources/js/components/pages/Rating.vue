@@ -18,7 +18,7 @@
               </template>
 
               <img
-                :src="'/' + this.returnJob().user.profile_path"
+                :src="'/' + this.returnUser().user.profile_path"
                 alt="image"
                 class="img-fluid"
                 style="object-fit: cover; object-position: center; width: 100%"

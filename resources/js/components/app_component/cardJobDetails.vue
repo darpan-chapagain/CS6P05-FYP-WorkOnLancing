@@ -10,7 +10,8 @@
       <div class="d-flex flex-row align-items-center">
         <h5 class="text-center my-0 p-3">Description</h5>
         <v-chip class="ma-2" color="blue" text-color="white">
-          <span class="d-none d-sm-flex">category:</span>{{ a_job_detail.job_category.category_name }}
+          <span class="d-none d-sm-flex">category:</span
+          >{{ a_job_detail.job_category.category_name }}
           <v-icon right> mdi-star </v-icon>
         </v-chip>
       </div>
@@ -38,10 +39,10 @@
     <div class="status m-4">
       <div class="status-detail d-flex flex-row align-items-center">
         <h5 class="text-center my-0 p-3">Status:</h5>
-        <v-chip color="green"> Active </v-chip>
-        <!-- <v-chip color="red">
-                    Not Taking Work
-                  </v-chip> -->
+        <v-chip color="green" v-if="a_job_detail.status == 1"> Active </v-chip>
+                <v-chip color="green" v-else-if="a_job_detail.status == 2"> Active </v-chip>
+
+        <v-chip color="red" v-else> Not Taking Work </v-chip>
       </div>
       <div class="m-3" v-if="this.a_job_detail.request_job">
         <b-card-sub-title>Proposals: {{ this.proposals }}</b-card-sub-title>

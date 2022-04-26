@@ -473,7 +473,7 @@
                       class="p-3"
                     ></v-rating>
                     <div class="p-1">
-                      {{ this.user.rating }}({{ this.rating.length }})
+                      {{ this.avgRate.toFixed(1) }}({{ this.rating.length }})
                     </div>
                   </div>
                 </b-card-sub-title>

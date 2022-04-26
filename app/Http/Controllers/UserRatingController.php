@@ -26,7 +26,6 @@ class UserRatingController extends Controller
     public function getUserRating(Request $request, $id)
     {
         $userRating = UserRating::where('user_id', $id)->get();
-        // dd($userRating);
         $totalRate = 0;
         $count = 0;
         foreach ($userRating as $rating) {
@@ -54,7 +53,6 @@ class UserRatingController extends Controller
             ->where('user_id', $user_id)
             ->where('job_id', $job_id)
             ->first();
-        // dd($userRating != null);
         if($userRated == null) {
             $response = [
                 'status' => 'Not rated',

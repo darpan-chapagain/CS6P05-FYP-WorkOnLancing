@@ -34,6 +34,9 @@ export default {
     else if (this.role == 3){
       this.$router.push({name:'dashboard.employee'}).catch(()=>{})
     }
+    else{
+      this.$router.push({name:'home'}).catch(()=>{})
+    }
   }
     
 }

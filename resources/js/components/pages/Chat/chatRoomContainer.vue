@@ -46,7 +46,6 @@
 export default {
   props: {
     rooms: [Object, Array],
-    // currentRoom: [Object, Array],
   },
   data: function () {
     return {
@@ -64,8 +63,6 @@ export default {
     },
   },
   created() {
-    console.log(this.rooms);
-    // this.selected = this.currentRoom;
   },
 };
 </script>
