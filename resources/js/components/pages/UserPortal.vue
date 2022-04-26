@@ -313,13 +313,13 @@ export default {
         data: this.getData(),
         headers: {
           "Content-Type": "multipart/form-data",
-          "Header-Authorization": "Bearer " + localStorage.getItem("token").then(() => {
+          "Header-Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      }).then(() => {
             this.snackbar2 = true;
             this.text2 = "Blog posted successfully";
             setTimeout(() => this.$router.push({ name: "dashboard" }), 2000);
-          }),
-        },
-      });
+          });
     },
     postCertification() {},
     changeCertificate() {
