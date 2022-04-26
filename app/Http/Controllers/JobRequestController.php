@@ -150,14 +150,10 @@ class JobRequestController extends Controller
     public function getMyJobProposals(){
         $authUser = auth()->user();
         $jobs = Job::all()->where('user_id', $authUser->id);
-        // dd($job->requestJob);
-        // $request = $job->jobRequest;
-        // $job->user;
         $offer = [];
         $detailJob = [];
         foreach($jobs as $job){
             foreach($job->requestJob as $req){
-                // array_push($offer, $req->job_id);
                 $emp = $req->reqEmployee;
                 $employees = $emp->user;
                 if($job->status == 2){
@@ -165,12 +161,10 @@ class JobRequestController extends Controller
                         array_push($offer, $employees); 
                         array_push($detailJob, $job); 
                     }
-                // array_push($offer, $employees);
                 }
             }
         }
         $response = [
-            // 'employees' => $req->reqEmployee,
             'employees' => $offer,
             'job' => $detailJob,
         ];

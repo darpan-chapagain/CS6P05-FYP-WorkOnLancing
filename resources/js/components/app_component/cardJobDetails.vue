@@ -40,6 +40,8 @@
       <div class="status-detail d-flex flex-row align-items-center">
         <h5 class="text-center my-0 p-3">Status:</h5>
         <v-chip color="green" v-if="a_job_detail.status == 1"> Active </v-chip>
+                <v-chip color="green" v-else-if="a_job_detail.status == 2"> Active </v-chip>
+
         <v-chip color="red" v-else> Not Taking Work </v-chip>
       </div>
       <div class="m-3" v-if="this.a_job_detail.request_job">

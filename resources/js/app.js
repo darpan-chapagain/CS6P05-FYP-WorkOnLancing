@@ -20,10 +20,6 @@ Vue.use(VueChatScroll)
 Vue.component('apexchart', VueApexCharts)
 
 
-// Vue.forceUpdate();
-
-
-
 window.Vue = require("vue").default;
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
@@ -43,11 +39,3 @@ store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
         
     });
 })
-
-
-
-
-// const app = new Vue({
-//     history: VueRouter.createWebHistory(),
-//     router
-// }).$mount('#app')

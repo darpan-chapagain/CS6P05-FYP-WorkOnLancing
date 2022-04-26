@@ -47,17 +47,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/user/jobs/show', [JobController::class, 'myPost']);
     Route::get('/employee/check/{id}', [EmployeeController::class, 'checkRequest']);
-    Route::post('/employee/request/{id}', [EmployeeController::class, 'requestJob']); //request jobs from posted job
-    Route::post('/user/offer/{id}', [UserController::class, 'offerJob']); //offer job to an employee
-    Route::get('/user/job/requests', [JobRequestController::class, 'jobRequests']); //this is to get job requests by employer
-    Route::get('/user/job/offers', [JobRequestController::class, 'getMyJobProposals']); //this is to get job offer to employer
-    Route::get('/employee/offers', [JobRequestController::class, 'jobOffer']); //this is to get job offer to employee
-    Route::get('/job/progress/', [JobController::class, 'getInProgressJobs']); //this is to get job in progress
-    Route::post('/job/complete/{id}', [JobController::class, 'completeJob']); //this is to complete a job
-    Route::post('/user/choose/{userId}/{jobId}', [UserController::class, 'chooseEmployee']); //this is to choose employee
-    Route::post('/user/reject/{userId}/{jobId}', [UserController::class, 'rejectEmployee']); //this is to reject employee
-    Route::get('/user/job/pending', [UserController::class, 'getPendingJob']); //this is get pending job of status 4
-    Route::get('/user/job/started', [UserController::class, 'startedWork']); //this is to started job of status  employee
+    Route::post('/employee/request/{id}', [EmployeeController::class, 'requestJob']);
+    Route::post('/user/offer/{id}', [UserController::class, 'offerJob']); 
+    Route::get('/user/job/requests', [JobRequestController::class, 'jobRequests']); 
+    Route::get('/user/job/offers', [JobRequestController::class, 'getMyJobProposals']); 
+    Route::get('/employee/offers', [JobRequestController::class, 'jobOffer']); 
+    Route::get('/job/progress/', [JobController::class, 'getInProgressJobs']); 
+    Route::post('/job/complete/{id}', [JobController::class, 'completeJob']);
+    Route::post('/user/choose/{userId}/{jobId}', [UserController::class, 'chooseEmployee']); 
+    Route::post('/user/reject/{userId}/{jobId}', [UserController::class, 'rejectEmployee']); 
+    Route::get('/user/job/pending', [UserController::class, 'getPendingJob']); 
+    Route::get('/user/job/started', [UserController::class, 'startedWork']); 
     Route::get('/employee/job/pending', [EmployeeController::class, 'getPendingJob']);
 
     Route::post('/employee/accept/job/{jobId}', [EmployeeController::class, 'jobOfferStatus']);
