@@ -53,7 +53,6 @@ class UserRatingController extends Controller
             ->where('user_id', $user_id)
             ->where('job_id', $job_id)
             ->first();
-        // dd($userRating != null);
         if($userRated == null) {
             $response = [
                 'status' => 'Not rated',
