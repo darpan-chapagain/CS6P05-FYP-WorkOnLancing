@@ -52,11 +52,6 @@ export default {
         value: "email",
       },
       {
-        text: "Email",
-        sortable: false,
-        value: "email",
-      },
-      {
         text: "Address",
         sortable: false,
         value: "Address",

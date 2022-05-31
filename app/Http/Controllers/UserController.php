@@ -463,6 +463,7 @@ class UserController extends Controller
             'status' => 0,
 
         ]);
+        $currentWork++;
         $employee->total_job = $currentWork;
         $employee->save();
         $payment->save();
