@@ -8,6 +8,7 @@ use App\Models\ChatRoom;
 use App\Models\UserRoom;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Events\SendChatMessageNotification;
 
 class ChatController extends Controller
 {
@@ -30,6 +31,9 @@ class ChatController extends Controller
         $message->chat_room_id =  $roomId;
         $message->user_id = Auth::user()->id;
         $message->save();
+
+        broadcast(new SendChatMessageNotification($message))->toOthers();
+
         return $message;
     }
 
