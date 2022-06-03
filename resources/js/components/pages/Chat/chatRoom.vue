@@ -1,19 +1,16 @@
 <template>
   <v-container fluid style="margin-top: 140px">
     <v-app-bar color="rgba(0,0,0,0)" flat>
-        <v-avatar class="mt-n7" size="50" elevation="10">
-          <img
-                    :src="'/' + this.currentRoom.user.profile_path"
-                    alt="John"
-                    style="
-                      object-fit: cover;
-                      object-position: center;
-                      width: 100%;
-                    "
-                />
-        </v-avatar>
+      <v-avatar class="mt-n7" size="50" elevation="10">
+        <img
+          :src="'/' + this.currentRoom.user.profile_path"
+          alt="John"
+          style="object-fit: cover; object-position: center; width: 100%"
+        />
+      </v-avatar>
       <v-toolbar-title class="title pl-0 ml-2 mt-n4">
-        {{ this.currentRoom.user.first_name }} {{ this.currentRoom.user.last_name }}
+        {{ this.currentRoom.user.first_name }}
+        {{ this.currentRoom.user.last_name }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-divider vertical inset class="mt-n1"></v-divider>
@@ -30,7 +27,6 @@
 </template>
 
 <script>
-
 import MessageContainer from "./messageContainer.vue";
 import InputMessage from "./inputMessage.vue";
 import MessageItem from "./messageItem.vue";
@@ -46,27 +42,27 @@ export default {
   },
   props: {
     title: String,
-    currentRoom: [Object,Array],
+    currentRoom: [Object, Array],
     a_user: String,
   },
   data() {
     return {
       chatRooms: [],
-    //   currentRoom: [],
+      //   currentRoom: [],
       messages: [],
       count: 5,
     };
   },
   methods: {
-    connect(){
-      if(this.currentRoom.id){
-        let vm = this;
-        this.getMessages();
-        Echo.private("chat." + this.currentRoom.id)
-          .listen(".chat.message", e => {
-            vm.getMessages();
-          });
-      }
+    connect() {
+      let vm = this;
+      this.getMessages();
+      Echo.private("chat." + this.currentRoom.id).listen(
+        ".chat.message",
+        e => {
+          vm.getMessages();
+        }
+      );
     },
     getRooms() {
       axios({
@@ -113,7 +109,7 @@ export default {
     // console.log(this.$route.currentRoom);
   },
   watch: {
-    messages(){
+    messages() {
       this.connect();
     },
     count: function () {
