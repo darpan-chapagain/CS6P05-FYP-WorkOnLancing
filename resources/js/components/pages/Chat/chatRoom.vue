@@ -58,8 +58,15 @@ export default {
     };
   },
   methods: {
-    test() {
-      console.log("test");
+    connect(){
+      if(this.currentRoom.id){
+        let vm = this;
+        this.getMessages();
+        Echo.private("chat." + this.currentRoom.id)
+          .listen(".chat.message", e => {
+            vm.getMessages();
+          });
+      }
     },
     getRooms() {
       axios({
@@ -106,6 +113,9 @@ export default {
     // console.log(this.$route.currentRoom);
   },
   watch: {
+    messages(){
+      this.connect();
+    },
     count: function () {
       this.$nextTick(function () {
         var container = this.$refs.msgContainer;
