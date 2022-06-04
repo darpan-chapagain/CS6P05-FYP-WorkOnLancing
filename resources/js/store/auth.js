@@ -103,5 +103,8 @@ export default {
                 localStorage.removeItem("token");
             });
         },
+        async update({commit}, usersData){
+            commit("SET_USER", usersData);
+        }
     },
 };

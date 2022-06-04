@@ -95,15 +95,15 @@
             required
           ></v-text-field>
           <v-textarea
-                  name="About"
-                  filled
-                  label="About"
-                  :rules="about"
-                  :counter="500"
-                  auto-grow
-                  v-model="user.about"
-                  value="Let others know about yourself."
-                ></v-textarea>
+            name="About"
+            filled
+            label="About"
+            :rules="about"
+            :counter="500"
+            auto-grow
+            v-model="user.about"
+            value="Let others know about yourself."
+          ></v-textarea>
         </div>
         <div v-if="this.user.role_id == 3">
           <div class="services">
@@ -182,10 +182,7 @@
             </div>
 
             <div class="rates">
-              
-
               <div class="payment-inputs m-2">
-
                 <v-text-field
                   v-model="user.project_rate"
                   clearable
@@ -195,7 +192,6 @@
                   type="number"
                   :rules="[(v) => !!v || 'Please Enter a price']"
                 ></v-text-field>
-                
               </div>
             </div>
           </div>
@@ -213,6 +209,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     a_user: [Array, Object],
@@ -272,8 +269,7 @@ export default {
       descriptionRule: [
         (v) => !!v || "Description required",
         (v) =>
-          (v && v.length <= 500) ||
-          "About must be less than 200 characters",
+          (v && v.length <= 500) || "About must be less than 200 characters",
 
         // (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
@@ -282,8 +278,7 @@ export default {
       about: [
         (v) => !!v || "About is required",
         (v) =>
-          (v && v.length <= 500) ||
-          "About must be less than 500 characters",
+          (v && v.length <= 500) || "About must be less than 500 characters",
       ],
       //for date
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -300,6 +295,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      updateUser: "auth/update",
+    }),
     async getUser() {
       console.log(this.job);
       let res = await axios.get(`/job/${this.a_user.id}/edit`);
@@ -363,14 +361,16 @@ export default {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
         },
-      }).then(() => {
+      }).then((res) => {
+        console.log(res, "res");
         localStorage.removeItem("users");
+        if ((this.authUser.id = res.data.updated_user.id)) {
+          this.updateUser(res.data.updated_user);
+        }
         this.$router.push({
           name: "dashboard",
         });
       });
-      // console.log(res.data);
-      // console.log(this.formData());
     },
     async getSkill() {
       const res = await axios.get("skill");
@@ -458,6 +458,9 @@ export default {
       if (!this.user.profile) return;
       return URL.createObjectURL(this.user.profile);
     },
+    ...mapGetters({
+      authUser: "auth/user",
+    }),
   },
 };
 </script>
