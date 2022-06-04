@@ -422,7 +422,7 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    {{ this.user.employee.experience }}
+                    {{ this.user.employee.education }}
                   </pre>
                 </div>
               </div>
