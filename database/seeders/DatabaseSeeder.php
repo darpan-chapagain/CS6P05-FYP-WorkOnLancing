@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(JobCategorySeeder::class);
         $this->call(TestUserSeeder::class);
         // $this->call(ChatRoomSeeder::class);
+        $this->call(EmployeeSeeder::class);
 
     }
 }

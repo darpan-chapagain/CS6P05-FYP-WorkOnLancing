@@ -236,12 +236,12 @@
                                 row
                                 required
                               >
-                                <v-radio label="Entry" value="0"></v-radio>
+                                <v-radio label="Entry" value="Entry"></v-radio>
                                 <v-radio
                                   label="Intermediate"
-                                  value="1"
+                                  value="Intermediate"
                                 ></v-radio>
-                                <v-radio label="Expert" value="2"></v-radio>
+                                <v-radio label="Expert" value="Expert"></v-radio>
                               </v-radio-group>
                               <h4>Are you a team or an individual?</h4>
                               <v-radio-group
@@ -251,8 +251,8 @@
                                   (v) => !!v || 'Please select your type',
                                 ]"
                               >
-                                <v-radio label="Individual" value="0"></v-radio>
-                                <v-radio label="Team" value="1"></v-radio>
+                                <v-radio label="Individual" value="Individual"></v-radio>
+                                <v-radio label="Team" value="Team"></v-radio>
                               </v-radio-group>
                               <h4>Do you have some qualification?</h4>
                               <v-textarea
@@ -480,9 +480,9 @@
                               row
                               required
                             >
-                              <v-radio label="Entry" value="0"></v-radio>
-                              <v-radio label="Intermediate" value="1"></v-radio>
-                              <v-radio label="Expert" value="2"></v-radio>
+                              <v-radio label="Entry" value="Entry"></v-radio>
+                              <v-radio label="Intermediate" value="Intermediate"></v-radio>
+                              <v-radio label="Expert" value="Expert"></v-radio>
                             </v-radio-group>
                             <h4>Are you a team or an individual?</h4>
                             <v-radio-group
@@ -490,8 +490,8 @@
                               row
                               :rules="[(v) => !!v || 'Please select your type']"
                             >
-                              <v-radio label="Individual" value="0"></v-radio>
-                              <v-radio label="Team" value="1"></v-radio>
+                              <v-radio label="Individual" value="Individual"></v-radio>
+                              <v-radio label="Team" value="Team"></v-radio>
                             </v-radio-group>
                             <h4>Do you have some qualification?</h4>
                             <v-textarea

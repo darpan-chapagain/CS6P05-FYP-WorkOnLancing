@@ -26,7 +26,7 @@ class TestUserSeeder extends Seeder
             'last_name' => 'Chapagain',
             'phone_no' => '9843590522',
             'Address' => 'Sinamangle',
-            'Gender' => 'Male',
+            'Gender' => 'male',
             'email' => 'darpan@gmail.com',
             'password' => Hash::make('pass'),
         ]);
@@ -48,7 +48,7 @@ class TestUserSeeder extends Seeder
             'last_name' => 'Darpan',
             'phone_no' => '9843590522',
             'Address' => 'Sinamangle',
-            'Gender' => 'Male',
+            'Gender' => 'male',
             'email' => 'client@gmail.com',
             'password' => Hash::make('pass'),
             'profile' => '202204201136admin.png',
@@ -115,5 +115,7 @@ class TestUserSeeder extends Seeder
             'employee_id' => 1,
             'skill_id' => 7,
         ]);
+
+        
     }
 }

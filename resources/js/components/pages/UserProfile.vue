@@ -454,7 +454,7 @@
           </v-sheet>
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12" v-if="this.user.roles.role_id == 3">
           <v-sheet min-height="268">
             <v-sheet elevation="3" class="p-1 m-4" min-height="600">
               <div class="job-title m-4 centre">
