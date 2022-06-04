@@ -402,14 +402,14 @@
                             ></v-text-field>
                             <v-text-field
                               v-model="user.city"
-                              :counter="10"
+                              :counter="20"
                               :rules="[(v) => !!v || 'Please Enter a city']"
                               label="City"
                               required
                             ></v-text-field>
                             <v-text-field
                               v-model="user.province"
-                              :counter="10"
+                              :counter="20"
                               :rules="[(v) => !!v || 'Please Enter a province']"
                               label="Province"
                               required
@@ -593,14 +593,14 @@
                           ></v-text-field>
                           <v-text-field
                             v-model="user.city"
-                            :counter="10"
+                            :counter="20"
                             :rules="[(v) => !!v || 'Please Enter a city']"
                             label="City"
                             required
                           ></v-text-field>
                           <v-text-field
                             v-model="user.province"
-                            :counter="10"
+                            :counter="20"
                             :rules="[
                               (v) => !!v || 'Please Enter a province number',
                             ]"
@@ -622,7 +622,7 @@
                             class="btn btn-lg sign-in-btn mb-2"
                             @click.prevent="action('register_employee')"
                           >
-                            Register as Employer
+                            Register as Employee
                           </v-btn>
                           <v-btn
                             class="btn btn-lg mb-2"

@@ -347,7 +347,6 @@ export default {
       return blogData;
     },
     async postBlog() {
-      alert(this.blog);
       let res = await axios({
         method: "POST",
         url: "/blog",
