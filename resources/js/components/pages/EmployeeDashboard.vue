@@ -107,7 +107,20 @@
             <div class="px-3 pt-4">
               View and apply to Jobs posted by recruiters
             </div>
-            <Jobs :allJobs="filterJobs" />
+            <div v-if="filterJobs.length > 0">
+              <Jobs :allJobs="filterJobs" />
+            </div>
+            <div v-else>
+              <v-divider></v-divider>
+
+              <div class="p-5">
+                <h4 class="p-2">No Jobs Yet</h4>
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type="article, actions"
+                ></v-skeleton-loader>
+              </div>
+            </div>
           </v-card>
         </v-sheet>
       </v-col>
@@ -146,7 +159,7 @@ export default {
     };
   },
   methods: {
-    search(){
+    search() {
       console.log(this.name);
     },
     getCategory(value) {
