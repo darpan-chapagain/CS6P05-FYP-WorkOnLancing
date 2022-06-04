@@ -314,7 +314,7 @@ class JobController extends Controller
             'job' => $job->title,
         ];
         $currentWork = $employee->total_job;
-        $currentWork -= 1;
+        $currentWork--;
 
         $paymentStatus = Payment::all()->where('job_id', $job->id)
             ->first();

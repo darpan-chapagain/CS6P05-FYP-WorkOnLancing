@@ -45,7 +45,7 @@ export default {
       lol: null,
       test2: "ypyp",
       khaltiConfig: {
-        publicKey: "test_public_key_8593e663ee2d43a0a89efcbfedb8fdaa",
+        publicKey: "test_public_key_8eb595f6a93e4956952dd9f29cb4842d",
         productIdentity: `${this.type}-${Math.floor(
           Math.random() * 10
         )}-${moment(this.date).format("YYYY-MM-DD")}-${this.id2}`,
