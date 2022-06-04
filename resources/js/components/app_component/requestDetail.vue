@@ -210,11 +210,13 @@ export default {
       amount: 0,
       points: 0,
       khaltiConfig: {
-        publicKey: "test_public_key_28ffbaeeb514468ca0a736669ca9d4b1",
+        publicKey: "test_public_key_8eb595f6a93e4956952dd9f29cb4842d",
         productIdentity: `${Math.floor(Math.random() * 10)}-${moment(
           this.date
         ).format("YYYY-MM-DD")}`,
-        productName: "YOUR_PRODUCT_NAME",
+        productName: `${Math.floor(Math.random() * 10)}-${moment(
+          this.date
+        ).format("YYYY-MM-DD")} Product`,
         amount: 1000,
         eventHandler: {
           onSuccess(payload) {
