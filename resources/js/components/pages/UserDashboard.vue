@@ -94,14 +94,29 @@
           <v-container>
             <v-row>
               <h2 style="text-align: center">Find Employees!</h2>
-              <v-col
-                v-for="a_user in filterUsers"
-                :key="a_user.employee_id"
-                cols="12"
-                md="12"
-              >
-                <Users :a_user="a_user" />
-              </v-col>
+              <div v-if="filterUsers.length > 0">
+                <v-col
+                  v-for="a_user in filterUsers"
+                  :key="a_user.employee_id"
+                  cols="12"
+                  md="12"
+                >
+                  <Users :a_user="a_user" />
+                </v-col>
+              </div>
+              <div v-else>
+                <v-col cols="12" md="12">
+                  <v-skeleton-loader
+                    v-bind="attrs"
+                    type="card-avatar, article, actions"
+                  ></v-skeleton-loader>
+                  <div class="mt-2">
+                    <v-alert dense type="info">
+                      No users
+                    </v-alert>
+                  </div>
+                </v-col>
+              </div>
             </v-row>
           </v-container>
         </v-main>
