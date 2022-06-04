@@ -234,7 +234,7 @@ class UserController extends Controller
                 $bg->workBadges;
             }
         }
-
+        
         $response = [
             'updated_user' => $user,
             'message' => 'sucess',
@@ -324,7 +324,7 @@ class UserController extends Controller
                 $bg->workBadges;
             }
         }
-
+        $user->roles;
         $response = [
             'updated_user' => $user,
             'message' => 'sucess',

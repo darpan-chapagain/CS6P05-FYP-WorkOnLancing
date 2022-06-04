@@ -430,102 +430,102 @@ class JobCategorySeeder extends Seeder
         
         
 
-        Job::factory()->times(25)->create();
-        for ($i = 1; $i <= 25; $i++) {
-            PostSkill::create([
-                'job' => $i,
-                'skill' => rand(1, 2),
-            ]);
-            PostSkill::create([
-                'job' => $i,
-                'skill' => rand(3, 4),
-            ]);
-            PostSkill::create([
-                'job' => $i,
-                'skill' => rand(5, 6),
-            ]);
-        }
-        Employee::factory()->times(20)->create();
-        for ($i = 51; $i <= 72; $i++) {
-            UserRoles::create([
-                'user_id' => $i,
-                'role_id' => 3,
-            ]);
-        }
-        for ($i = 1; $i <= 20; $i++) {
-            Employee_Skill::create([
-                'employee_id' => $i,
-                'skill_id' => rand(1, 2),
-            ]);
-            Employee_Skill::create([
-                'employee_id' => $i,
-                'skill_id' => rand(3, 4),
-            ]);
-            Employee_Skill::create([
-                'employee_id' => $i,
-                'skill_id' => rand(5, 6),
-            ]);
-        }
+        // Job::factory()->times(25)->create();
+        // for ($i = 1; $i <= 25; $i++) {
+        //     PostSkill::create([
+        //         'job' => $i,
+        //         'skill' => rand(1, 2),
+        //     ]);
+        //     PostSkill::create([
+        //         'job' => $i,
+        //         'skill' => rand(3, 4),
+        //     ]);
+        //     PostSkill::create([
+        //         'job' => $i,
+        //         'skill' => rand(5, 6),
+        //     ]);
+        // }
+        // Employee::factory()->times(20)->create();
+        // for ($i = 51; $i <= 72; $i++) {
+        //     UserRoles::create([
+        //         'user_id' => $i,
+        //         'role_id' => 3,
+        //     ]);
+        // }
+        // for ($i = 1; $i <= 20; $i++) {
+        //     Employee_Skill::create([
+        //         'employee_id' => $i,
+        //         'skill_id' => rand(1, 2),
+        //     ]);
+        //     Employee_Skill::create([
+        //         'employee_id' => $i,
+        //         'skill_id' => rand(3, 4),
+        //     ]);
+        //     Employee_Skill::create([
+        //         'employee_id' => $i,
+        //         'skill_id' => rand(5, 6),
+        //     ]);
+        // }
 
-        User::create([
-            'first_name' => 'client',
-            'last_name' => 'darpan',
-            'phone_no' => '12345',
-            'Address' => 'Sinamangle',
-            'Gender' => 'Male',
-            'email' => 'client@gmail.com',
-            'password' => Hash::make('pass'),
-            'profile' => '202204201136admin.png',
-            'profile_path' => 'images/202204201136admin.png',
-            'about' => " I’m a master coach, best-selling author and a passionate speaker. I’m the founder of the first women-only hedge fund, special counsellor in many corporations across the globe. I’ve found balance between work and life, now I’m a totally happy person, loving mother, inspiring speaker and writer, and firm investor, but it didn’t come easily. I've gone though hundreds of failures and complicated situations. You can use my previous experience in order not to fall into the same trap.",
+        // User::create([
+        //     'first_name' => 'client',
+        //     'last_name' => 'Darpan',
+        //     'phone_no' => '9843590522',
+        //     'Address' => 'Sinamangle',
+        //     'Gender' => 'Male',
+        //     'email' => 'client@gmail.com',
+        //     'password' => Hash::make('pass'),
+        //     'profile' => '202204201136admin.png',
+        //     'profile_path' => 'images/202204201136admin.png',
+        //     'about' => " I’m a master coach, best-selling author and a passionate speaker. I’m the founder of the first women-only hedge fund, special counsellor in many corporations across the globe. I’ve found balance between work and life, now I’m a totally happy person, loving mother, inspiring speaker and writer, and firm investor, but it didn’t come easily. I've gone though hundreds of failures and complicated situations. You can use my previous experience in order not to fall into the same trap.",
 
-        ]);
+        // ]);
 
-        UserRoles::create([
-            'user_id' => 73,
-            'role_id' => 2,
-        ]);
+        // UserRoles::create([
+        //     'user_id' => 73,
+        //     'role_id' => 2,
+        // ]);
 
-        User::create([
-            'first_name' => 'employee',
-            'last_name' => 'darpan',
-            'phone_no' => '12345',
-            'Address' => 'Sinamangle',
-            'Gender' => 'Male',
-            'email' => 'employee@gmail.com',
-            'password' => Hash::make('pass'),
-            'profile' => '202204201136admin.png',
-            'profile_path' => 'images/202204201136admin.png',
-            'about' => " I’m a master coach, best-selling author and a passionate speaker. I’m the founder of the first women-only hedge fund, special counsellor in many corporations across the globe. I’ve found balance between work and life, now I’m a totally happy person, loving mother, inspiring speaker and writer, and firm investor, but it didn’t come easily. I've gone though hundreds of failures and complicated situations. You can use my previous experience in order not to fall into the same trap.",
+        // User::create([
+        //     'first_name' => 'Employee',
+        //     'last_name' => 'Darpan',
+        //     'phone_no' => '9843590522',
+        //     'Address' => 'Sinamangle',
+        //     'Gender' => 'Male',
+        //     'email' => 'employee@gmail.com',
+        //     'password' => Hash::make('pass'),
+        //     'profile' => '202204201136admin.png',
+        //     'profile_path' => 'images/202204201136admin.png',
+        //     'about' => " I’m a master coach, best-selling author and a passionate speaker. I’m the founder of the first women-only hedge fund, special counsellor in many corporations across the globe. I’ve found balance between work and life, now I’m a totally happy person, loving mother, inspiring speaker and writer, and firm investor, but it didn’t come easily. I've gone though hundreds of failures and complicated situations. You can use my previous experience in order not to fall into the same trap.",
 
-        ]);
+        // ]);
 
-        UserRoles::create([
-            'user_id' => 74,
-            'role_id' => 3,
-        ]);
+        // UserRoles::create([
+        //     'user_id' => 74,
+        //     'role_id' => 3,
+        // ]);
         // $faker = Faker\Factory::create();
 
-        Employee::create([
-            'title' => 'Programmer',
-            'user_id' => 74,
-            'qualification' => 'Expert',
-            'project_rate' => 100,
-            'experience' => 'I am qualified',
-            'employee_type' => 'Individual',
-            'Job_Category_ID' =>  rand(1, 3),
-        ]);
-        Employee_Skill::create([
-            'employee_id' => 21,
-            'skill_id' => rand(1, 2),
-        ]);
-        Employee_Skill::create([
-            'employee_id' => 21,
-            'skill_id' => rand(3, 4),
-        ]);
-        Employee_Skill::create([
-            'employee_id' => 21,
-            'skill_id' => rand(5, 6),
-        ]);
+        // Employee::create([
+        //     'title' => 'Programmer',
+        //     'user_id' => 74,
+        //     'qualification' => 'Expert',
+        //     'project_rate' => 100,
+        //     'experience' => 'I am qualified',
+        //     'employee_type' => 'Individual',
+        //     'Job_Category_ID' =>  rand(1, 3),
+        // ]);
+        // Employee_Skill::create([
+        //     'employee_id' => 21,
+        //     'skill_id' => rand(1, 2),
+        // ]);
+        // Employee_Skill::create([
+        //     'employee_id' => 21,
+        //     'skill_id' => rand(3, 4),
+        // ]);
+        // Employee_Skill::create([
+        //     'employee_id' => 21,
+        //     'skill_id' => rand(5, 6),
+        // ]);
     }
 }
