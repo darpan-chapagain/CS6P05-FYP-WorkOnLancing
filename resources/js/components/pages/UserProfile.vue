@@ -422,7 +422,7 @@
               <div class="m-4">
                 <div class="additional-user-detail">
                   <pre style="white-space: pre-line">
-                    {{ this.user.employee.education }}
+                    {{ this.user.employee.qualification }}
                   </pre>
                 </div>
               </div>
@@ -479,6 +479,9 @@
                 </b-card-sub-title>
 
                 <v-divider></v-divider>
+                <div v-if="this.rating.length == 0">
+                  <v-alert dense type="info"> No ratings yet </v-alert>
+                </div>
                 <v-virtual-scroll
                   :items="this.rating"
                   height="500"

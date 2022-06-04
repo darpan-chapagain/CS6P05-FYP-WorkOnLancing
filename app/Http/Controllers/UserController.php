@@ -672,7 +672,7 @@ class UserController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        $headers = ['Authorization: Key test_secret_key_2546ca1de93841e8b7efae2ca5e2c6f6'];
+        $headers = ['Authorization: Key test_secret_key_8315bff73a4341aab65180d0a324a27e'];
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         // Response

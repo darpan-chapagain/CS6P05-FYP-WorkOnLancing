@@ -49,7 +49,7 @@
                 style="width: 100%"
               >
                 <div class="d-flex ml-5">
-                  <p>No requests yet!"</p>
+                  <p>No requests yet!</p>
                 </div>
               </v-alert>
             </div>

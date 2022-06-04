@@ -59,8 +59,8 @@ export default {
       categories: [],
       category: null,
       min: 100,
-      max: 90000,
-      range: [50, 70000],
+      max: 1500000,
+      range: [50, 1000000],
     };
   },
   methods: {
